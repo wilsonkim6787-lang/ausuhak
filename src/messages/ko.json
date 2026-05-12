@@ -1,0 +1,42 @@
+{
+  "Meta": {
+    "title": "ausuhak.com (호주유학) | Wilson 19년 + 호주 학교 교직원 경력",
+    "description": "호주 유학 19년 Wilson Kim (QEAC E240) + 호주 학교 교직원 경력. 950명+ 누적 학생. 검정고시·워홀러·대졸 모두 호주 명문대 진학 가능."
+  },
+  "Hero": {
+    "phaseTag": "PHASE 1 BUILD · STEP 1.2",
+    "titleLine1": "호주 유학 19년",
+    "titleLine2": "+ 호주 학교 교직원 경력",
+    "subtitle1": "검정고시도 / 워홀러도 / 대졸도 호주 명문대 진학.",
+    "subtitle2": "Wilson Kim (QEAC E240) · 950명+ 누적 학생.",
+    "ctaKakao": "💬 카톡 채널로 1:1 상담 (30분 무료)",
+    "ctaDiagnose": "🎯 30초 진단 시작 (Step 1.6 오픈 예정)",
+    "trust1": "✓ 950명+ 누적 학생",
+    "trust2": "✓ QEAC E240 자격",
+    "trust3": "✓ 19년 컨설팅 + 학교 교직원 경력",
+    "businessHours": "⏰ 평일 10:00 ~ 18:00 (KST) · 주말·공휴일 휴무"
+  },
+  "Progress": {
+    "title": "📍 Phase 1 빌드 진행",
+    "description": "Step 1.2 i18n 라우팅 완료. 다음 = Step 1.3 디자인 시스템 + 기본 컴포넌트.",
+    "step1_1": "✅ Step 1.1 환경 설정 (Next.js 16 + Tailwind v4 + TypeScript)",
+    "step1_2": "✅ Step 1.2 i18n 라우팅 (next-intl / ko 기본 / en 1페이지)",
+    "step1_3": "⏳ Step 1.3 디자인 시스템 + 기본 컴포넌트",
+    "step1_4": "⏳ Step 1.4 DB 마이그레이션 (Supabase + master_v2_clean 109교·1,235전공)",
+    "step1_5": "⏳ Step 1.5 메인 페이지 (Hero + Wilson 스토리 + 합격 사례)",
+    "step1_6": "⏳ Step 1.6 진단 시스템 (6변수 → 시나리오 매칭 → 카드 7장)",
+    "step1_7": "⏳ Step 1.7 카드 7장 컴포넌트",
+    "step1_8": "⏳ Step 1.8 관리자 페이지 + 견적서",
+    "step1_9": "⏳ Step 1.9 영문 사이트 /en (1페이지)",
+    "step1_10": "⏳ Step 1.10 배포 + Wilson 시각 검토"
+  },
+  "Footer": {
+    "brand": "ausuhak.com (호주유학)",
+    "tagline": "Wilson Kim · QEAC E240 · 19년 호주 유학 컨설팅 + 호주 학교 교직원 경력",
+    "kakaoLabel": "💬 카카오 채널:",
+    "hoursLabel": "⏰ 영업 시간:",
+    "hoursValue": "평일 10:00 ~ 18:00 (KST) · 주말·공휴일 휴무",
+    "languageToggle": "English / For Partners",
+    "copyright": "© 2026 ausuhak.com"
+  }
+}
