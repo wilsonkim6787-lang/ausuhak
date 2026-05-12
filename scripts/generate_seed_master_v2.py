@@ -60,7 +60,9 @@ def sql_jsonb(obj):
 
 
 def slugify_school_id(name: str) -> str:
-    """school_name → ASCII slug (school_id 없을 때 fallback)"""
+    """school_name → ASCII slug (unique master_id 보장용)
+    Note: master_v2_clean의 school_id는 카테고리 그룹 ID (MED/NURSE-B 등)라서 unique X.
+    master_id는 school_name 기반 slug로 생성해 109교 unique 보장."""
     s = re.sub(r"[^a-zA-Z0-9_-]+", "_", name).strip("_").lower()
     return s[:50] or "unknown"
 
@@ -176,8 +178,8 @@ def main():
         programs = schools_majors[school_name]
         meta = all_schools_meta.get(school_name, {})
 
-        # master_id (school_id 우선 / 없으면 slugify)
-        sid = school_ids.get(school_name) or slugify_school_id(school_name)
+        # master_id = school_name slug (109교 unique 보장 / school_id는 그룹 ID라 unique X)
+        sid = slugify_school_id(school_name)
 
         # alternate_names
         alts = build_alternate_names(school_name)

@@ -3,40 +3,64 @@
     "title": "ausuhak.com — Korean Student Recruitment Partner for Australian Schools",
     "description": "Wilson Kim (QEAC E240) — 19 years of Australia study consulting + Australian school staff experience. 950+ Korean students placed. Partnership opportunities for Australian institutions."
   },
+  "Header": {
+    "subBrand": "(For Partners)",
+    "menuDiagnose": "Brochure",
+    "menuStory": "About Wilson",
+    "menuMedical": "Market",
+    "menuFaq": "Contact",
+    "ctaKakao": "📧 Contact"
+  },
   "Hero": {
-    "phaseTag": "PHASE 1 BUILD · STEP 1.2",
+    "badge": "PHASE 1 BUILD · STEP 1.4",
     "titleLine1": "Connecting Korean Students with",
     "titleLine2": "Australian Education Excellence",
     "subtitle1": "19 years of consulting + Australian school staff experience.",
-    "subtitle2": "Wilson Kim (QEAC E240) · 950+ students placed.",
+    "subtitle2": "Wilson Kim (QEAC E240) · 950+ Korean students placed.",
     "ctaKakao": "📧 Contact Wilson (Partnership Inquiry)",
-    "ctaDiagnose": "📄 Download Partnership Brochure (Coming in Step 1.9)",
-    "trust1": "✓ 950+ students placed",
-    "trust2": "✓ QEAC E240 certified",
-    "trust3": "✓ Australian school staff experience",
+    "ctaDiagnose": "📄 Download Partnership Brochure (Step 1.7)",
+    "trust1Suffix": "students placed",
+    "trust2Suffix": "certified",
+    "trust3Suffix": "consulting + Australian school staff experience",
     "businessHours": "⏰ Mon-Fri 10:00 ~ 18:00 (Korea Standard Time)"
+  },
+  "WilsonStory": {
+    "eyebrow": "19 years + Australian school staff experience",
+    "title": "Inside-school perspective that typical Korean agencies cannot offer",
+    "intro": "Unlike typical Korean agencies that view schools from the outside (catalog-based), Wilson has worked inside Australian schools — meeting admissions officers, faculty, and students directly. This gives unique insight into how students are cared for after enrollment.",
+    "quote": "We stay in touch through graduation. Help out whenever they ask. That's how students keep sending wedding invitations years later.",
+    "staffEyebrow": "Key differentiator",
+    "staffDescription": "Korean agencies see schools from \"outside\" (catalog / partner basis). Wilson saw them from \"inside\" (staff experience). For students and parents, knowing the inside of a school is the starting point of trust.",
+    "timelineEyebrow": "Wilson's 19 years",
+    "milestone1": "Started Australia study consulting (first Korean student case)",
+    "milestone2": "QEAC E240 — Australian Government certified consultant",
+    "milestone3": "Australian school staff experience (institutional knowledge)",
+    "milestone4": "Through COVID / 950+ students placed / lifelong relationships",
+    "milestone5": "ausuhak.com integrated platform live (now)"
+  ,
+    "careEyebrow": "Through graduation, not just enrollment",
+    "careMessage": "Typical agencies cover up to enrollment. ausuhak.com follows students through graduation and beyond. Enrollment is the starting point — graduation is the real goal."
+  },
+  "Footer": {
+    "tagline": "Wilson Kim · 19 years Australia study consulting + Australian school staff experience · 950+ students placed",
+    "contactEyebrow": "Get in touch",
+    "hoursLabel": "Working hours",
+    "hoursValue": "Mon-Fri 10:00 ~ 18:00 (Korea Standard Time)",
+    "sisterEyebrow": "Wilson's sister services",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "languageToggle": "한국어 / Korean Site"
   },
   "Progress": {
     "title": "📍 Phase 1 Build Progress",
-    "description": "Step 1.2 i18n routing complete. Next = Step 1.3 design system + base components.",
-    "step1_1": "✅ Step 1.1 Environment setup (Next.js 16 + Tailwind v4 + TypeScript)",
+    "description": "Step 1.4 Main page (Hero + Wilson story + Header + Footer) complete. Next = Step 1.5 Diagnose system + 7-card matching.",
+    "step1_1": "✅ Step 1.1 Environment (Next.js 16 + Tailwind v4 + TypeScript)",
     "step1_2": "✅ Step 1.2 i18n routing (next-intl / ko default / en single page)",
-    "step1_3": "⏳ Step 1.3 Design system + base components",
-    "step1_4": "⏳ Step 1.4 DB migration (Supabase + master_v2_clean 109 schools · 1,235 majors)",
-    "step1_5": "⏳ Step 1.5 Korean main page (Hero + Wilson story + success cases)",
-    "step1_6": "⏳ Step 1.6 Diagnose system (6 vars → scenario matching → 7 cards)",
-    "step1_7": "⏳ Step 1.7 7-card components",
-    "step1_8": "⏳ Step 1.8 Admin page + quote generator",
-    "step1_9": "⏳ Step 1.9 English partner site /en (single page)",
-    "step1_10": "⏳ Step 1.10 Deploy + Wilson visual review"
-  },
-  "Footer": {
-    "brand": "ausuhak.com",
-    "tagline": "Wilson Kim · QEAC E240 · 19 years Australia study consulting + Australian school staff experience",
-    "kakaoLabel": "📧 Email:",
-    "hoursLabel": "⏰ Working hours:",
-    "hoursValue": "Mon-Fri 10:00 ~ 18:00 (Korea Standard Time)",
-    "languageToggle": "한국어 / Korean Site",
-    "copyright": "© 2026 ausuhak.com"
+    "step1_3": "✅ Step 1.3 DB schema + master_v2_clean (107 schools + 36 rules + 24 alerts + 83 FAQs)",
+    "step1_4": "✅ Step 1.4 Main page (Hero + Wilson story + Header + Footer + Sticky kakao)",
+    "step1_5": "⏳ Step 1.5 Diagnose system (6 vars → scenario → 7 cards)",
+    "step1_6": "⏳ Step 1.6 Admin page + quote generator",
+    "step1_7": "⏳ Step 1.7 English partner site /en + images (Nano Banana)",
+    "step1_8": "⏳ Step 1.8 Deploy + Wilson visual review + Phase 1 live"
   }
 }
