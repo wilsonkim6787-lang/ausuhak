@@ -159,42 +159,40 @@ export function stage3_blocking(input: DiagnoseInput, candidates: School[]): {
   const filtered: School[] = [];
   const ielts = englishToIelts(input.english_level);
 
+  // ── 인풋 레벨 룰 (학교 loop 밖) ───────────────────────────────
+  // AHPRA IELTS 7.0: 간호 + IELTS < 7.0 → soft 1회만
+  if (input.major === "간호" && ielts < 7.0) {
+    const matched = blockingRules.find((r) => r.id === "MAJ-NUR-01");
+    blocks_soft.push({
+      rule_id: matched?.id ?? "AHPRA-IELTS",
+      severity: "soft",
+      title: "AHPRA 등록 기준 IELTS 7.0 필요",
+      message: `간호 코스 진학을 위해서는 AHPRA 기준 IELTS 7.0 (각 영역 7.0) 필요합니다. 현재 ${input.english_level}.`,
+      alternative: matched?.alternative ?? "ELICOS + 모의 IELTS 트랙으로 7.0 확보 후 간호 진학 권장",
+    });
+  }
+
+  // ── 학교 레벨 룰 (loop 안) ────────────────────────────────────
   for (const sch of candidates) {
     let excluded = false;
-
-    // (A) AHPRA: 간호 + IELTS < 7.0 → soft (영어 확보 가능)
-    if (input.major === "간호" && ielts < 7.0) {
-      const matched = blockingRules.find((r) => r.id === "MAJ-NUR-01");
-      if (!blocks_soft.some((b) => b.rule_id === "AHPRA-IELTS")) {
-        blocks_soft.push({
-          rule_id: matched?.id ?? "AHPRA-IELTS",
-          severity: "soft",
-          title: "AHPRA 등록 기준 IELTS 7.0 필요",
-          message: `간호 코스 진학을 위해서는 AHPRA 기준 IELTS 7.0 (각 영역 7.0) 필요합니다. 현재 ${input.english_level}.`,
-          alternative: matched?.alternative ?? "ELICOS + 모의 IELTS 트랙으로 7.0 확보 후 간호 진학 권장",
-        });
-      }
-    }
 
     // (B) UNSW + 간호 → hard (PART H-0 UNSW 간호 미운영)
     if (input.major === "간호" && /UNSW/i.test(sch.name)) {
       const matched = blockingRules.find((r) => /UNSW.*간호|UNSW.*Nursing/i.test(r.title));
-      blocks_hard.push({
-        rule_id: matched?.id ?? "BLOCK-UNSW-NUR",
-        severity: "hard",
-        title: matched?.title ?? "UNSW 간호 미운영",
-        message: "UNSW는 학부/대학원 간호 코스를 운영하지 않습니다 (Wilson 학교 내부 검수).",
-        alternative: matched?.alternative ?? "Sydney USyd / UTS / WSU / ACU 등 ANMAC 인증 학교 우선",
-      });
+      if (!blocks_hard.some((b) => b.rule_id === (matched?.id ?? "BLOCK-UNSW-NUR"))) {
+        blocks_hard.push({
+          rule_id: matched?.id ?? "BLOCK-UNSW-NUR",
+          severity: "hard",
+          title: matched?.title ?? "UNSW 간호 미운영",
+          message: "UNSW는 학부/대학원 간호 코스를 운영하지 않습니다 (Wilson 학교 내부 검수).",
+          alternative: matched?.alternative ?? "Sydney USyd / UTS / WSU / ACU 등 ANMAC 인증 학교 우선",
+        });
+      }
       excluded = true;
     }
 
-    // (C) 학교 status closed → exclude
-    // (마스터에 status=active만 있어도 안전)
-
-    // (D) 간호 + ANMAC 미인증 학교 → exclude
+    // (D) 간호 + ANMAC 미인증 + 대학 아님 → 조용히 제외
     if (input.major === "간호" && sch.anmac === null && /university/i.test(sch.type) === false) {
-      // 대학이 아니면서 ANMAC 인증도 없으면 간호 추천 X
       excluded = true;
     }
 
@@ -226,7 +224,9 @@ export function stage4_alerts(input: DiagnoseInput): AppliedAlert[] {
 
     out.push({ alert_id: a.id, title: a.title ?? a.id, truth: a.truth ?? "" });
   }
-  return out;
+  // Dedupe by alert_id (안전 차원 / 정본에 동일 id 중복 시)
+  const seen = new Set<string>();
+  return out.filter((a) => (seen.has(a.alert_id) ? false : (seen.add(a.alert_id), true)));
 }
 
 // ─── 시나리오 매칭 (FAQ scenarios → required modules) ─────────────
@@ -248,7 +248,7 @@ function pickScenario(input: DiagnoseInput): FaqEntry | null {
 
 // ─── 학교 추천 (지역 + 전공 + 예산 + 차단 후) ────────────────────
 
-// Foundation 8 + Diploma 22 (고졸/검정고시 Pathway 경유 트랙)
+// Foundation 8 + Diploma 22 (고졸/검정고시 Pathway 경유 트랙 — 비-간호 전공용)
 function pathwaySchoolsFor(input: DiagnoseInput): School[] {
   // 지역 strict 필터. 전공 필터는 Foundation/Diploma 단계라 적용 X (Foundation = generalist).
   return schools
@@ -260,6 +260,77 @@ function pathwaySchoolsFor(input: DiagnoseInput): School[] {
       return (a.qs ?? 999) - (b.qs ?? 999);
     })
     .slice(0, 4);
+}
+
+// ── 간호 전용 Pathway (Wilson 19년 정본) ─────────────────────────
+// master_v2_clean의 간호 Pathway 데이터가 messy해서 (TAFE가 type='university'로 잘못 들어가는 등)
+// Wilson 검수 기준 직접 큐레이션. Foundation은 간호 매칭에서 완전 제외.
+type NursingPathwaySchool = {
+  id: string;
+  name: string;
+  kind: "diploma_pathway" | "tafe_diploma_nursing";
+  region: string[];   // DiagnoseInput.preferred_region 값
+  state: string;
+  programName: string;
+  ielts: string;
+  prInfo?: string;
+};
+
+const NURSING_PATHWAY: NursingPathwaySchool[] = [
+  // (1) Diploma → 학사 2학년 편입 (IELTS 6.5)
+  { id: "griffith-college-nur", name: "Griffith College",
+    kind: "diploma_pathway", region: ["브리즈번", "골드코스트"], state: "QLD",
+    programName: "Diploma of Health Care → 학사 2학년 편입", ielts: "IELTS 6.5" },
+  { id: "deakin-college-nur", name: "Deakin College",
+    kind: "diploma_pathway", region: ["멜번"], state: "VIC",
+    programName: "Diploma of Health Sciences → 학사 2학년 편입", ielts: "IELTS 6.5" },
+  { id: "qut-intl-college-nur", name: "QUT International College",
+    kind: "diploma_pathway", region: ["브리즈번"], state: "QLD",
+    programName: "Diploma of Health Sciences → 학사 2학년 편입", ielts: "IELTS 6.5" },
+
+  // (2) TAFE Diploma of Nursing (EN = Enrolled Nurse, IELTS 7.0 각 영역)
+  { id: "tafe-nsw-nur", name: "TAFE NSW",
+    kind: "tafe_diploma_nursing", region: ["시드니"], state: "NSW",
+    programName: "Diploma of Nursing (Enrolled Nurse)", ielts: "IELTS 7.0 (각 영역)",
+    prInfo: "EN → 485 → RN Bachelor 2학년 편입" },
+  { id: "tafe-vic-nur", name: "TAFE Victoria",
+    kind: "tafe_diploma_nursing", region: ["멜번"], state: "VIC",
+    programName: "Diploma of Nursing (Enrolled Nurse)", ielts: "IELTS 7.0 (각 영역)",
+    prInfo: "EN → 485 → RN Bachelor 2학년 편입" },
+  { id: "tafe-qld-nur", name: "TAFE Queensland",
+    kind: "tafe_diploma_nursing", region: ["브리즈번", "골드코스트"], state: "QLD",
+    programName: "Diploma of Nursing (Enrolled Nurse)", ielts: "IELTS 7.0 (각 영역)",
+    prInfo: "EN → 485 → RN Bachelor 2학년 편입" },
+  { id: "tafe-sa-nur", name: "TAFE SA",
+    kind: "tafe_diploma_nursing", region: ["애들레이드"], state: "SA",
+    programName: "Diploma of Nursing (Enrolled Nurse)", ielts: "IELTS 7.0 (각 영역)",
+    prInfo: "EN → 485 → RN Bachelor 2학년 편입" },
+  { id: "tafe-wa-nur", name: "TAFE WA",
+    kind: "tafe_diploma_nursing", region: ["퍼스"], state: "WA",
+    programName: "Diploma of Nursing (Enrolled Nurse)", ielts: "IELTS 7.0 (각 영역)",
+    prInfo: "EN → 485 → RN Bachelor 2학년 편입" },
+  { id: "tastafe-nur", name: "TasTAFE",
+    kind: "tafe_diploma_nursing", region: ["호바트"], state: "TAS",
+    programName: "Diploma of Nursing (Enrolled Nurse)", ielts: "IELTS 7.0 (각 영역)",
+    prInfo: "EN → 485 → RN Bachelor 2학년 편입" },
+];
+
+function nursingPathwayPicks(input: DiagnoseInput): SchoolPick[] {
+  const region = input.preferred_region;
+  return NURSING_PATHWAY
+    .filter((s) => region === "추천받기" ? true : s.region.includes(region))
+    .map((s) => ({
+      id: s.id,
+      name: s.name,
+      city: null,
+      state: s.state,
+      type: s.kind === "diploma_pathway" ? "diploma_verified" : "tafe",
+      qs: null,
+      reason: s.kind === "diploma_pathway"
+        ? "Diploma → 학사 2학년 편입 · IELTS 6.5"
+        : `TAFE Diploma (Enrolled Nurse) · ${s.prInfo}`,
+      programs: [{ name: s.programName, ielts: s.ielts }],
+    }));
 }
 
 function topSchoolsFor(input: DiagnoseInput): School[] {
@@ -337,15 +408,21 @@ export function stage5_cards(
 
   // 고졸/검정고시 = 2경로 (학사 직접 + Pathway 경유)
   const showDualPath = input.education === "고졸" || input.education === "검정고시";
-  const pathwayPicks: SchoolPick[] = showDualPath
-    ? pathwaySchoolsFor(input).map((s) => ({
+  let pathwayPicks: SchoolPick[] = [];
+  if (showDualPath) {
+    if (input.major === "간호") {
+      // Wilson 19년 정본: Foundation 제외, Diploma 3교(Griffith/Deakin/QUT) + TAFE 지역별
+      pathwayPicks = nursingPathwayPicks(input);
+    } else {
+      pathwayPicks = pathwaySchoolsFor(input).map((s) => ({
         id: s.id, name: s.name, city: s.city, state: s.state, type: s.type, qs: s.qs,
         reason: s.type === "foundation"
           ? `Foundation → ${s.operator ?? "학사 연결"} 1학년 진입`
           : `Diploma → 학사 2학년 편입`,
         programs: s.programs.map((p) => ({ name: p.name, ielts: p.ielts, tuition: p.tuition })),
-      }))
-    : [];
+      }));
+    }
+  }
 
   // 카드 1 empty 메시지 (지역 strict 매칭 결과 0건일 때)
   const directEmpty = schoolsPicks.length === 0;
@@ -355,7 +432,9 @@ export function stage5_cards(
     : undefined;
 
   const pathwayNote = showDualPath
-    ? "내신 상위 + 영어 충족 → 학사 직접 입학. 내신 부족하면 Foundation (1년) 또는 Diploma → 학사 2학년 편입. 두 트랙 다 최종 학위는 동일합니다."
+    ? (input.major === "간호"
+        ? "내신 상위 + IELTS 6.5 → 학사 직접 진학. 그 외 = Diploma of Health Sciences → 학사 2학년 편입 (IELTS 6.5) 또는 TAFE Diploma of Nursing (Enrolled Nurse, IELTS 7.0 각 영역) → 485 → RN Bachelor 편입. Foundation은 간호 진학 경로로 비추천."
+        : "내신 상위 + 영어 충족 → 학사 직접 입학. 내신 부족하면 Foundation (1년) 또는 Diploma → 학사 2학년 편입. 두 트랙 다 최종 학위는 동일합니다.")
     : undefined;
   const consultNote = showDualPath
     ? "정확한 경로는 내신/영어 평가 후 1:1 카톡 상담에서 확정합니다."
