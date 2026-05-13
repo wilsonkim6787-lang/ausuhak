@@ -1,0 +1,782 @@
+[
+{
+"id": "ABS-01",
+"severity": "hard",
+"category": "category_1_absolute_block",
+"title": "CRICOS 미등록 학교 차단",
+"condition": "추천 학교가 CRICOS 등록 안 된 경우",
+"action": "❌ 추천 제외 (학생비자 발급 불가)",
+"alternative": "✅ CRICOS 등록 학교만 추천",
+"wilson_reason": "CRICOS = 호주 정부 등록 외국학생 교육기관 코드. 미등록 = 학생비자 자체 불가",
+"raw": {
+"id": "ABS-01",
+"rule_name": "CRICOS 미등록 학교 차단",
+"condition": "추천 학교가 CRICOS 등록 안 된 경우",
+"action": "❌ 추천 제외 (학생비자 발급 불가)",
+"alternative": "✅ CRICOS 등록 학교만 추천",
+"wilson_reason": "CRICOS = 호주 정부 등록 외국학생 교육기관 코드. 미등록 = 학생비자 자체 불가",
+"origin": "ChatGPT 신규",
+"priority": "절대"
+}
+},
+{
+"id": "ABS-02",
+"severity": "hard",
+"category": "category_1_absolute_block",
+"title": "온라인-only 과정 차단",
+"condition": "100% 온라인 과정 추천 시도",
+"action": "❌ 학생비자 목적 불가",
+"alternative": "✅ Face-to-face 또는 Hybrid (대면 33%+ 필수)",
+"wilson_reason": "DHA 학생비자 = 대면 교육 33% 이상 필수. 온라인-only = 비자 발급 X",
+"raw": {
+"id": "ABS-02",
+"rule_name": "온라인-only 과정 차단",
+"condition": "100% 온라인 과정 추천 시도",
+"action": "❌ 학생비자 목적 불가",
+"alternative": "✅ Face-to-face 또는 Hybrid (대면 33%+ 필수)",
+"wilson_reason": "DHA 학생비자 = 대면 교육 33% 이상 필수. 온라인-only = 비자 발급 X",
+"origin": "ChatGPT 신규",
+"priority": "절대"
+}
+},
+{
+"id": "ABS-03",
+"severity": "hard",
+"category": "category_1_absolute_block",
+"title": "초기 학비 납입 불가 차단",
+"condition": "초기 학비 (보통 1학기) 납입 능력 없음",
+"action": "❌ COE 발급 불가 = 비자 신청 불가",
+"alternative": "✅ 가성비 코스 (Cat 3 / TAFE) + 분할 납부 학교 추천",
+"wilson_reason": "COE (Confirmation of Enrolment) = 학비 선납 후 발급. 납입 불가 = 비자 신청 자체 불가능",
+"raw": {
+"id": "ABS-03",
+"rule_name": "초기 학비 납입 불가 차단",
+"condition": "초기 학비 (보통 1학기) 납입 능력 없음",
+"action": "❌ COE 발급 불가 = 비자 신청 불가",
+"alternative": "✅ 가성비 코스 (Cat 3 / TAFE) + 분할 납부 학교 추천",
+"wilson_reason": "COE (Confirmation of Enrolment) = 학비 선납 후 발급. 납입 불가 = 비자 신청 자체 불가능",
+"origin": "ChatGPT 신규",
+"priority": "절대"
+}
+},
+{
+"id": "ABS-04",
+"severity": "hard",
+"category": "category_1_absolute_block",
+"title": "비자 거절 이력 + 사유 불명 차단",
+"condition": "이전 호주 비자 거절 이력 + 거절 사유 정확히 모름",
+"action": "❌ 즉시 추천 차단 → 이민 변호사 상담 필수",
+"alternative": "✅ 거절 사유 파악 → 사유서 보강 → 재신청 전략",
+"wilson_reason": "비자 거절 이력 = 재신청 매우 어려움. 사유 모르고 진행 = 또 거절 + 시간/돈 손실",
+"raw": {
+"id": "ABS-04",
+"rule_name": "비자 거절 이력 + 사유 불명 차단",
+"condition": "이전 호주 비자 거절 이력 + 거절 사유 정확히 모름",
+"action": "❌ 즉시 추천 차단 → 이민 변호사 상담 필수",
+"alternative": "✅ 거절 사유 파악 → 사유서 보강 → 재신청 전략",
+"wilson_reason": "비자 거절 이력 = 재신청 매우 어려움. 사유 모르고 진행 = 또 거절 + 시간/돈 손실",
+"origin": "ChatGPT 신규 + 윌슨 페르소나 차단룰 통합",
+"priority": "절대"
+}
+},
+{
+"id": "ABS-05",
+"severity": "hard",
+"category": "category_1_absolute_block",
+"title": "EC English / Embassy / IH Sydney / 폐교 18곳 차단",
+"condition": "어학원 추천 시 18개 폐교 학교 포함",
+"action": "❌ 절대 추천 X",
+"alternative": "✅ 운영 중인 어학원 47개 풀 중 추천",
+"wilson_reason": "EC English (2021 호주 폐교) / Embassy (EC 자매 폐교) / IH Sydney (2024.12.09 영구 폐교) 외 SELC, Lonsdale, ITHEA, UPC, Einstein, Astley, RGIT, Business Institute, Cocoon, Perth ICE, Language Academy, Leeds, Lloyds 등 18곳. 다른 유학원 아직도 SELC 추천 中 ⚠️",
+"raw": {
+"id": "ABS-05",
+"rule_name": "EC English / Embassy / IH Sydney / 폐교 18곳 차단",
+"condition": "어학원 추천 시 18개 폐교 학교 포함",
+"action": "❌ 절대 추천 X",
+"alternative": "✅ 운영 중인 어학원 47개 풀 중 추천",
+"wilson_reason": "EC English (2021 호주 폐교) / Embassy (EC 자매 폐교) / IH Sydney (2024.12.09 영구 폐교) 외 SELC, Lonsdale, ITHEA, UPC, Einstein, Astley, RGIT, Business Institute, Cocoon, Perth ICE, Language Academy, Leeds, Lloyds 등 18곳. 다른 유학원 아직도 SELC 추천 中 ⚠️",
+"origin": "윌슨 BLOCK-013 + 19년 직접 검증",
+"priority": "절대"
+}
+},
+{
+"id": "GS-01",
+"severity": "hard",
+"category": "category_2_gs_core",
+"title": "전공 변경 + 이유 없음",
+"condition": "이전 학력/직업 ≠ 새 전공 + 변경 이유 설명 없음",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 전공 변경 사유서 작성 + 커리어 연결성 명확화",
+"wilson_reason": "DHA = 전공 변경 시 학업 목적/커리어 연결 평가. 이유 없으면 = 학업 목적 불명확 = GS 거절",
+"raw": {
+"id": "GS-01",
+"rule_name": "전공 변경 + 이유 없음",
+"condition": "이전 학력/직업 ≠ 새 전공 + 변경 이유 설명 없음",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 전공 변경 사유서 작성 + 커리어 연결성 명확화",
+"wilson_reason": "DHA = 전공 변경 시 학업 목적/커리어 연결 평가. 이유 없으면 = 학업 목적 불명확 = GS 거절",
+"origin": "ChatGPT 신규 2026 핵심",
+"priority": "🔴 매우 높음"
+}
+},
+{
+"id": "GS-02",
+"severity": "hard",
+"category": "category_2_gs_core",
+"title": "학업 공백 3년+ 설명 없음",
+"condition": "최종 학력 또는 마지막 학업 종료 후 3년+ 공백 + 설명 없음",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 공백 기간 활동 (직장/사업/육아 등) + 다시 공부하는 이유 명확화",
+"wilson_reason": "DHA = 학업 공백 = 학업 동기 약함으로 판단. 3년+ = 강한 설명 필요. 한국 고졸 후 30대 = 위험",
+"raw": {
+"id": "GS-02",
+"rule_name": "학업 공백 3년+ 설명 없음",
+"condition": "최종 학력 또는 마지막 학업 종료 후 3년+ 공백 + 설명 없음",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 공백 기간 활동 (직장/사업/육아 등) + 다시 공부하는 이유 명확화",
+"wilson_reason": "DHA = 학업 공백 = 학업 동기 약함으로 판단. 3년+ = 강한 설명 필요. 한국 고졸 후 30대 = 위험",
+"origin": "ChatGPT 신규 2026 핵심",
+"priority": "🔴 매우 높음"
+}
+},
+{
+"id": "GS-03",
+"severity": "hard",
+"category": "category_2_gs_core",
+"title": "고학력 → 낮은 과정 (다운그레이드)",
+"condition": "이미 학사 보유 + 호주에서 Diploma/Cert 지원 (다운그레이드)",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 같은 또는 높은 레벨 (Master) 또는 명확한 PR 목적/직업 전환 사유",
+"wilson_reason": "DHA = 다운그레이드 = '비자 목적 의심' 신호. PR 목적이라면 PR 경로 명확히 설명 필수 (TAFE 트레이드 PR 95% 등)",
+"raw": {
+"id": "GS-03",
+"rule_name": "고학력 → 낮은 과정 (다운그레이드)",
+"condition": "이미 학사 보유 + 호주에서 Diploma/Cert 지원 (다운그레이드)",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 같은 또는 높은 레벨 (Master) 또는 명확한 PR 목적/직업 전환 사유",
+"wilson_reason": "DHA = 다운그레이드 = '비자 목적 의심' 신호. PR 목적이라면 PR 경로 명확히 설명 필수 (TAFE 트레이드 PR 95% 등)",
+"origin": "ChatGPT 신규 2026 핵심",
+"priority": "🔴 매우 높음"
+}
+},
+{
+"id": "GS-04",
+"severity": "hard",
+"category": "category_2_gs_core",
+"title": "GS 거절 위험 워홀러",
+"condition": "워홀 1년+ + 영어 낮음 + 학력/경력 X + 학생비자 전환 시도",
+"action": "🔴 GS 거절 가능성 매우 높음",
+"alternative": "✅ 워홀 직종 = PR 경력 카운트 가능한 직종 매칭 + 학업 연결 명확화 + 사유서 보강",
+"wilson_reason": "윌슨 19년 = 워홀 후 학업 연결 없으면 GS 거절 多. : 워홀 직종 → PR 경력 카운트 → 학업 연결 = 강한 GS",
+"raw": {
+"id": "GS-04",
+"rule_name": "GS 거절 위험 워홀러",
+"condition": "워홀 1년+ + 영어 낮음 + 학력/경력 X + 학생비자 전환 시도",
+"action": "🔴 GS 거절 가능성 매우 높음",
+"alternative": "✅ 워홀 직종 = PR 경력 카운트 가능한 직종 매칭 + 학업 연결 명확화 + 사유서 보강",
+"wilson_reason": "윌슨 19년 = 워홀 후 학업 연결 없으면 GS 거절 多. : 워홀 직종 → PR 경력 카운트 → 학업 연결 = 강한 GS",
+"origin": "윌슨 BLOCK-023 + ChatGPT GS-04 통합",
+"priority": "🔴 매우 높음"
+}
+},
+{
+"id": "GS-05",
+"severity": "hard",
+"category": "category_2_gs_core",
+"title": "관광비자 → 학생비자 전환",
+"condition": "관광비자 (600/651) 입국 후 학생비자 전환 시도",
+"action": "🔴 GS 평가 매우 엄격",
+"alternative": "✅ 한국 귀국 후 학생비자 신청 + 사유서 보강",
+"wilson_reason": "DHA = 관광 → 학생비자 전환 = '비자 쇼핑' 의심. GS 평가 매우 까다로움. 한국 귀국 후 신청이 안전",
+"raw": {
+"id": "GS-05",
+"rule_name": "관광비자 → 학생비자 전환",
+"condition": "관광비자 (600/651) 입국 후 학생비자 전환 시도",
+"action": "🔴 GS 평가 매우 엄격",
+"alternative": "✅ 한국 귀국 후 학생비자 신청 + 사유서 보강",
+"wilson_reason": "DHA = 관광 → 학생비자 전환 = '비자 쇼핑' 의심. GS 평가 매우 까다로움. 한국 귀국 후 신청이 안전",
+"origin": "ChatGPT 신규",
+"priority": "🔴 매우 높음"
+}
+},
+{
+"id": "GS-06",
+"severity": "hard",
+"category": "category_2_gs_core",
+"title": "잦은 코스 변경",
+"condition": "호주 도착 후 코스 2회+ 변경 이력",
+"action": "🔴 다음 비자 GS 평가 위험",
+"alternative": "✅ 코스 변경 사유 일관성 있게 설명 + 커리어 연결",
+"wilson_reason": "DHA = 코스 잦은 변경 = 학업 목적 불명확. 추천 시 학생에게 '이번이 마지막 변경' 명확히 인지시킴",
+"raw": {
+"id": "GS-06",
+"rule_name": "잦은 코스 변경",
+"condition": "호주 도착 후 코스 2회+ 변경 이력",
+"action": "🔴 다음 비자 GS 평가 위험",
+"alternative": "✅ 코스 변경 사유 일관성 있게 설명 + 커리어 연결",
+"wilson_reason": "DHA = 코스 잦은 변경 = 학업 목적 불명확. 추천 시 학생에게 '이번이 마지막 변경' 명확히 인지시킴",
+"origin": "ChatGPT 신규",
+"priority": "🔴 높음"
+}
+},
+{
+"id": "GS-07",
+"severity": "hard",
+"category": "category_2_gs_core",
+"title": "단순 비자 연장 + 사파 학교 고집",
+"condition": "워홀러 비자 연장 목적 + 학업 의지 0% + 저가/사파 학교 고집",
+"action": "🔴 GS 거절 + 폐교 위험 동시",
+"alternative": "✅ 학업 의지 점검 + 운영 안전한 가성비 학교 추천",
+"wilson_reason": "윌슨 19년 = 단순 비자 연장 + 사파 학교 = 학교 폐교 시 비자 영향 + GS 의심 동시. B2 페르소나 핵심 차단",
+"raw": {
+"id": "GS-07",
+"rule_name": "단순 비자 연장 + 사파 학교 고집",
+"condition": "워홀러 비자 연장 목적 + 학업 의지 0% + 저가/사파 학교 고집",
+"action": "🔴 GS 거절 + 폐교 위험 동시",
+"alternative": "✅ 학업 의지 점검 + 운영 안전한 가성비 학교 추천",
+"wilson_reason": "윌슨 19년 = 단순 비자 연장 + 사파 학교 = 학교 폐교 시 비자 영향 + GS 의심 동시. B2 페르소나 핵심 차단",
+"origin": "윌슨 BLOCK-024",
+"priority": "🔴 높음"
+}
+},
+{
+"id": "DIR-01",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "영어 부족 + 학부 직접 차단",
+"condition": "IELTS < 5.5 또는 영어 시험 없음 + 학부/석사 Direct 지원",
+"action": "❌ Direct 차단",
+"alternative": "✅ 어학원 (필리핀 EC → 호주 EAP) → Foundation/Diploma → 학부",
+"wilson_reason": "영어 부족 = 호주 도착 후 학업 따라가기 불가능 = 가장 큰 실패 케이스 (윌슨 19년 실패)",
+"raw": {
+"id": "DIR-01",
+"rule_name": "영어 부족 + 학부 직접 차단",
+"condition": "IELTS < 5.5 또는 영어 시험 없음 + 학부/석사 Direct 지원",
+"action": "❌ Direct 차단",
+"alternative": "✅ 어학원 (필리핀 EC → 호주 EAP) → Foundation/Diploma → 학부",
+"wilson_reason": "영어 부족 = 호주 도착 후 학업 따라가기 불가능 = 가장 큰 실패 케이스 (윌슨 19년 실패)",
+"origin": "윌슨 BLOCK-001 + ChatGPT DIR-01/DIR-02 통합",
+"priority": "높음"
+}
+},
+{
+"id": "DIR-02",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "고졸 + 석사 직접 차단",
+"condition": "한국 학력 = 고졸 (검정고시/수능/내신) + 호주 석사 Direct 지원",
+"action": "❌ 석사 Direct 차단",
+"alternative": "✅ Foundation/Diploma → 학사 → 석사 (단계별)",
+"wilson_reason": "석사 = 학사 학위 필수. 고졸 = 학사부터 시작",
+"raw": {
+"id": "DIR-02",
+"rule_name": "고졸 + 석사 직접 차단",
+"condition": "한국 학력 = 고졸 (검정고시/수능/내신) + 호주 석사 Direct 지원",
+"action": "❌ 석사 Direct 차단",
+"alternative": "✅ Foundation/Diploma → 학사 → 석사 (단계별)",
+"wilson_reason": "석사 = 학사 학위 필수. 고졸 = 학사부터 시작",
+"origin": "윌슨 BLOCK-002 + ChatGPT ABS-03 통합",
+"priority": "높음"
+}
+},
+{
+"id": "DIR-03",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "검정고시 + Go8 직접 차단",
+"condition": "한국 학력 = 검정고시 + Go8 Direct 입학 시도",
+"action": "⚠️ Go8 8개 학교 Direct = 까다로움 (불가능 가까움)",
+"alternative": "✅ Foundation 컬리지 (Trinity/Monash College/UNSW Foundation/Eynesbury) → Go8 1학년",
+"wilson_reason": "검정고시 = 호주 학교가 한국 정규 고졸로 인정 안 함 = Foundation 안전한 길",
+"raw": {
+"id": "DIR-03",
+"rule_name": "검정고시 + Go8 직접 차단",
+"condition": "한국 학력 = 검정고시 + Go8 Direct 입학 시도",
+"action": "⚠️ Go8 8개 학교 Direct = 까다로움 (불가능 가까움)",
+"alternative": "✅ Foundation 컬리지 (Trinity/Monash College/UNSW Foundation/Eynesbury) → Go8 1학년",
+"wilson_reason": "검정고시 = 호주 학교가 한국 정규 고졸로 인정 안 함 = Foundation 안전한 길",
+"origin": "윌슨 BLOCK-003 + ChatGPT DIR-03 통합",
+"priority": "높음"
+}
+},
+{
+"id": "DIR-04",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "비전공 + Master 차단",
+"condition": "한국 학사 학과 ≠ 호주 Master 전공 (Engineering/IT/Nursing/MSW 등)",
+"action": "⚠️ Direct 차단 또는 추가 코스 필요",
+"alternative": "✅ Graduate Certificate (6개월) → Master / 또는 학부 1년 추가",
+"wilson_reason": "Engineering/IT/Nursing/MSW 석사 = 학부 전공 이수 필수. 비전공 = 추가 학습 필요. AASW/ACS/AHPRA 등 협회 인증 엄격",
+"raw": {
+"id": "DIR-04",
+"rule_name": "비전공 + Master 차단",
+"condition": "한국 학사 학과 ≠ 호주 Master 전공 (Engineering/IT/Nursing/MSW 등)",
+"action": "⚠️ Direct 차단 또는 추가 코스 필요",
+"alternative": "✅ Graduate Certificate (6개월) → Master / 또는 학부 1년 추가",
+"wilson_reason": "Engineering/IT/Nursing/MSW 석사 = 학부 전공 이수 필수. 비전공 = 추가 학습 필요. AASW/ACS/AHPRA 등 협회 인증 엄격",
+"origin": "윌슨 BLOCK-004/007/008 + ChatGPT DIR-05/MAJ-IT-01 통합",
+"priority": "높음"
+}
+},
+{
+"id": "DIR-05",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "경력 없음 + MBA 차단",
+"condition": "한국 직장 경력 < 2년 + MBA 지원",
+"action": "❌ MBA Direct 차단 (대부분 호주 MBA = 2-3년 경력 必)",
+"alternative": "✅ Master of Business / Master of Management (경력 X 가능) 또는 Bond MBA",
+"wilson_reason": "MBA = 경력자용. 경력 없음 = MBA 가치 낮고 비싸게 시간 낭비",
+"raw": {
+"id": "DIR-05",
+"rule_name": "경력 없음 + MBA 차단",
+"condition": "한국 직장 경력 < 2년 + MBA 지원",
+"action": "❌ MBA Direct 차단 (대부분 호주 MBA = 2-3년 경력 必)",
+"alternative": "✅ Master of Business / Master of Management (경력 X 가능) 또는 Bond MBA",
+"wilson_reason": "MBA = 경력자용. 경력 없음 = MBA 가치 낮고 비싸게 시간 낭비",
+"origin": "윌슨 BLOCK-005",
+"priority": "높음"
+}
+},
+{
+"id": "DIR-06",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "GPA 2.0 미만 + Go8 석사 차단",
+"condition": "한국 학사 GPA < 2.0/4.5 (= 2.0/4.0) + Go8 석사 지원",
+"action": "❌ Go8 석사 Direct 차단",
+"alternative": "✅ 비-Go8 석사 또는 Graduate Diploma → 석사 단계별",
+"wilson_reason": "Go8 석사 입학 = 평균 GPA 3.0+/4.0. 너무 낮으면 입학 거부",
+"raw": {
+"id": "DIR-06",
+"rule_name": "GPA 2.0 미만 + Go8 석사 차단",
+"condition": "한국 학사 GPA < 2.0/4.5 (= 2.0/4.0) + Go8 석사 지원",
+"action": "❌ Go8 석사 Direct 차단",
+"alternative": "✅ 비-Go8 석사 또는 Graduate Diploma → 석사 단계별",
+"wilson_reason": "Go8 석사 입학 = 평균 GPA 3.0+/4.0. 너무 낮으면 입학 거부",
+"origin": "윌슨 BLOCK-006 + ChatGPT DIR-04 통합",
+"priority": "높음"
+}
+},
+{
+"id": "DIR-07",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "학점은행/사이버대 + Go8 차단",
+"condition": "한국 학력 = 학점은행 / 사이버대 / 야간대 졸업 + Go8 지원",
+"action": "⚠️ USyd / UMelb / UNSW / Monash 등 = 학위 인정 안 함 (대부분)",
+"alternative": "✅ 비-Go8 공립대 일부 / 사립대 / Foundation 패스웨이",
+"wilson_reason": "Go8 = 정규 4년제 한국 대학 학위만 인정. 학점은행 = 학위 인정 학교 별도 확인 必",
+"raw": {
+"id": "DIR-07",
+"rule_name": "학점은행/사이버대 + Go8 차단",
+"condition": "한국 학력 = 학점은행 / 사이버대 / 야간대 졸업 + Go8 지원",
+"action": "⚠️ USyd / UMelb / UNSW / Monash 등 = 학위 인정 안 함 (대부분)",
+"alternative": "✅ 비-Go8 공립대 일부 / 사립대 / Foundation 패스웨이",
+"wilson_reason": "Go8 = 정규 4년제 한국 대학 학위만 인정. 학점은행 = 학위 인정 학교 별도 확인 必",
+"origin": "윌슨 BLOCK-009",
+"priority": "높음"
+}
+},
+{
+"id": "DIR-08",
+"severity": "soft",
+"category": "category_3_direct_entry_block",
+"title": "Year 12만 1년 = 호주 대학 진학 차단",
+"condition": "한국 고2 + 호주 Year 12 1년 = 호주 대학 직진",
+"action": "⚠️ ATAR 1년 = 호주 대학 매우 어려움",
+"alternative": "✅ Foundation (1년) → 학사 1학년 / 또는 Year 11-12 (2년) → ATAR",
+"wilson_reason": "ATAR = 2년 누적 평가. 1년만 하면 Year 12 시험만으로 평가되어 한국 학생 매우 불리",
+"raw": {
+"id": "DIR-08",
+"rule_name": "Year 12만 1년 = 호주 대학 진학 차단",
+"condition": "한국 고2 + 호주 Year 12 1년 = 호주 대학 직진",
+"action": "⚠️ ATAR 1년 = 호주 대학 매우 어려움",
+"alternative": "✅ Foundation (1년) → 학사 1학년 / 또는 Year 11-12 (2년) → ATAR",
+"wilson_reason": "ATAR = 2년 누적 평가. 1년만 하면 Year 12 시험만으로 평가되어 한국 학생 매우 불리",
+"origin": "윌슨 BLOCK-018",
+"priority": "높음"
+}
+},
+{
+"id": "RISK-01",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "워홀 → 전공 변경",
+"condition": "워홀 후 학생비자 전환 + 한국 학력과 다른 전공 선택",
+"action": "⚠️ HIGH RISK / 사유서 필수",
+"alternative": "✅ 전공 변경 사유 + 워홀 경험 연결 + 커리어 계획",
+"wilson_reason": "DHA = 워홀 후 무관한 전공 = GS 의심. 워홀 직종 + 새 전공 = 연결성 명확히",
+"raw": {
+"id": "RISK-01",
+"rule_name": "워홀 → 전공 변경",
+"condition": "워홀 후 학생비자 전환 + 한국 학력과 다른 전공 선택",
+"action": "⚠️ HIGH RISK / 사유서 필수",
+"alternative": "✅ 전공 변경 사유 + 워홀 경험 연결 + 커리어 계획",
+"wilson_reason": "DHA = 워홀 후 무관한 전공 = GS 의심. 워홀 직종 + 새 전공 = 연결성 명확히",
+"origin": "ChatGPT 신규",
+"priority": "높음"
+}
+},
+{
+"id": "RISK-02",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "나이 대비 낮은 과정",
+"condition": "30대+ 학생 + Cert/Diploma 등 낮은 과정 지원",
+"action": "⚠️ HIGH RISK / GS 평가 까다로움",
+"alternative": "✅ 직업 전환 사유 + PR 경로 명확화 (TAFE 트레이드 = OK)",
+"wilson_reason": "30대+ = 보통 Master 진학. 낮은 과정 선택 시 = 직업/PR 명확한 사유 必",
+"raw": {
+"id": "RISK-02",
+"rule_name": "나이 대비 낮은 과정",
+"condition": "30대+ 학생 + Cert/Diploma 등 낮은 과정 지원",
+"action": "⚠️ HIGH RISK / GS 평가 까다로움",
+"alternative": "✅ 직업 전환 사유 + PR 경로 명확화 (TAFE 트레이드 = OK)",
+"wilson_reason": "30대+ = 보통 Master 진학. 낮은 과정 선택 시 = 직업/PR 명확한 사유 必",
+"origin": "ChatGPT RISK-04 + 윌슨 BLOCK-005 통합",
+"priority": "높음"
+}
+},
+{
+"id": "RISK-03",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "PR + Sydney/Melbourne Metro 차단",
+"condition": "PR 목표 + 도시 = Sydney / Melbourne Metro",
+"action": "❌ Metro = Regional 가산점 0점 = PR 어려움",
+"alternative": "✅ Cat 3 DRA: Hobart / Darwin / Cairns / Townsville / Ballarat (+15점 + 추가) / Cat 2 +15: Perth / Adelaide / Gold Coast / Canberra / Newcastle",
+"wilson_reason": "PR 빠른 길 = Regional 가산점 必. Metro = 학벌만 가능 / PR 어려움",
+"raw": {
+"id": "RISK-03",
+"rule_name": "PR + Sydney/Melbourne Metro 차단",
+"condition": "PR 목표 + 도시 = Sydney / Melbourne Metro",
+"action": "❌ Metro = Regional 가산점 0점 = PR 어려움",
+"alternative": "✅ Cat 3 DRA: Hobart / Darwin / Cairns / Townsville / Ballarat (+15점 + 추가) / Cat 2 +15: Perth / Adelaide / Gold Coast / Canberra / Newcastle",
+"wilson_reason": "PR 빠른 길 = Regional 가산점 必. Metro = 학벌만 가능 / PR 어려움",
+"origin": "윌슨 BLOCK-012 + ChatGPT BUD-03 통합",
+"priority": "매우 높음 (PR 학생)"
+}
+},
+{
+"id": "RISK-04",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "PR 목적 + 트레이드 1.5년 미만",
+"condition": "PR 목적 + 트레이드 (Carpenter/Welder/Chef 등) 1.5년 미만 코스",
+"action": "❌ 자동 차단 + 2년 패키지 자동 추천",
+"alternative": "✅ 2년 패키지 (Cert IV + Diploma 또는 Diploma + Adv Diploma)",
+"wilson_reason": "PR 트레이드 = 2년+ 학업 必 (485 비자 자격). 1.5년 = PR 0% / 시간/돈 낭비",
+"raw": {
+"id": "RISK-04",
+"rule_name": "PR 목적 + 트레이드 1.5년 미만",
+"condition": "PR 목적 + 트레이드 (Carpenter/Welder/Chef 등) 1.5년 미만 코스",
+"action": "❌ 자동 차단 + 2년 패키지 자동 추천",
+"alternative": "✅ 2년 패키지 (Cert IV + Diploma 또는 Diploma + Adv Diploma)",
+"wilson_reason": "PR 트레이드 = 2년+ 학업 必 (485 비자 자격). 1.5년 = PR 0% / 시간/돈 낭비",
+"origin": "윌슨 BLOCK-020",
+"priority": "높음"
+}
+},
+{
+"id": "RISK-05",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "검정고시 + 단순 자유 추구 + 부모 의지 0%",
+"condition": "검정고시 학생 + 자퇴 사유 = 단순 자유 + 부모 동기 0%",
+"action": "⚠️ 또 자퇴 위험 / 호주 가서도 못 적응",
+"alternative": "✅ 부모 동시 상담 → 양측 동기 정렬 → 진행 / 또는 1년 유예",
+"wilson_reason": "윌슨 19년 = 학생만 자유 추구 + 부모 미지원 = 호주 도착 후 또 중도 포기 多",
+"raw": {
+"id": "RISK-05",
+"rule_name": "검정고시 + 단순 자유 추구 + 부모 의지 0%",
+"condition": "검정고시 학생 + 자퇴 사유 = 단순 자유 + 부모 동기 0%",
+"action": "⚠️ 또 자퇴 위험 / 호주 가서도 못 적응",
+"alternative": "✅ 부모 동시 상담 → 양측 동기 정렬 → 진행 / 또는 1년 유예",
+"wilson_reason": "윌슨 19년 = 학생만 자유 추구 + 부모 미지원 = 호주 도착 후 또 중도 포기 多",
+"origin": "윌슨 BLOCK-021",
+"priority": "높음 (A1/A2 페르소나)"
+}
+},
+{
+"id": "RISK-06",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "검정고시 + 매우 강한 트라우마 + 큰 도시",
+"condition": "검정고시 학생 + 학교 폭력/우울증 등 강한 트라우마 + Sydney/Melbourne 큰 도시 지원",
+"action": "⚠️ 재발 방지 위해 매칭 전환",
+"alternative": "✅ Adelaide/Hobart 작은 도시 + 한국 학생 < 5% + 케어 좋은 학교 (Foundation)",
+"wilson_reason": "윌슨 19년 = 트라우마 학생 큰 도시 = 또 압박/우울증 재발 위험. 작은 도시 = 회복 시간",
+"raw": {
+"id": "RISK-06",
+"rule_name": "검정고시 + 매우 강한 트라우마 + 큰 도시",
+"condition": "검정고시 학생 + 학교 폭력/우울증 등 강한 트라우마 + Sydney/Melbourne 큰 도시 지원",
+"action": "⚠️ 재발 방지 위해 매칭 전환",
+"alternative": "✅ Adelaide/Hobart 작은 도시 + 한국 학생 < 5% + 케어 좋은 학교 (Foundation)",
+"wilson_reason": "윌슨 19년 = 트라우마 학생 큰 도시 = 또 압박/우울증 재발 위험. 작은 도시 = 회복 시간",
+"origin": "윌슨 BLOCK-022",
+"priority": "높음 (A1/A2 페르소나)"
+}
+},
+{
+"id": "RISK-07",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "한국 학생 30%+ 학교 추천 차단 (Wilson 강세)",
+"condition": "추천하려는 학교 한국 학생 비율 ≥ 30%",
+"action": "❌ 한국 학생 30%+ 학교 추천 차단",
+"alternative": "✅ 한국 학생 < 15% 학교 우선 / Cat 2-3 도시 우선 (Adelaide/Darwin/Hobart 한국인 < 5%)",
+"wilson_reason": "윌슨 19년 = 한국 학생 多 학교 = 한국어 사용 多 = 영어 향상 X = 호주 대학 진학 페일 多. Strathfield/Burwood/Chatswood/Box Hill/Glen Waverley = 회피",
+"raw": {
+"id": "RISK-07",
+"rule_name": "한국 학생 30%+ 학교 추천 차단 (Wilson 강세)",
+"condition": "추천하려는 학교 한국 학생 비율 ≥ 30%",
+"action": "❌ 한국 학생 30%+ 학교 추천 차단",
+"alternative": "✅ 한국 학생 < 15% 학교 우선 / Cat 2-3 도시 우선 (Adelaide/Darwin/Hobart 한국인 < 5%)",
+"wilson_reason": "윌슨 19년 = 한국 학생 多 학교 = 한국어 사용 多 = 영어 향상 X = 호주 대학 진학 페일 多. Strathfield/Burwood/Chatswood/Box Hill/Glen Waverley = 회피",
+"origin": "윌슨 BLOCK-019",
+"priority": "Wilson 강세"
+}
+},
+{
+"id": "RISK-08",
+"severity": "hard",
+"category": "category_4_high_risk",
+"title": "18세 미만 + 부모 동반 X + 영어 X",
+"condition": "학생 14-17세 + 부모/Guardian X + IELTS 5.0 미만",
+"action": "❌ 호주 단독 유학 차단",
+"alternative": "✅ 옵션 A: 부모 동반 (590 Guardian Visa) / 옵션 B: 어학원 6개월 + 부모 단기 동반 + 적응 후 단독",
+"wilson_reason": "Wilson 19년 = 14-17세 + 부모 동반 X + 영어 X = 학교 적응 매우 어려움 / Welfare 위반 多 / 비자 취소 위험",
+"raw": {
+"id": "RISK-08",
+"rule_name": "18세 미만 + 부모 동반 X + 영어 X",
+"condition": "학생 14-17세 + 부모/Guardian X + IELTS 5.0 미만",
+"action": "❌ 호주 단독 유학 차단",
+"alternative": "✅ 옵션 A: 부모 동반 (590 Guardian Visa) / 옵션 B: 어학원 6개월 + 부모 단기 동반 + 적응 후 단독",
+"wilson_reason": "Wilson 19년 = 14-17세 + 부모 동반 X + 영어 X = 학교 적응 매우 어려움 / Welfare 위반 多 / 비자 취소 위험",
+"origin": "윌슨 BLOCK-017",
+"priority": "절대 (A5 페르소나)"
+}
+},
+{
+"id": "RISK-09",
+"severity": "soft",
+"category": "category_4_high_risk",
+"title": "35세+ + 영어 부족 + 자격 없음 (B4 핵심)",
+"condition": "B4 직장인 + 35세+ + IELTS < 6.0 + PR 자격 직업 X",
+"action": "⚠️ HIGH RISK / PR 매우 어려움 / 시간/돈 손실 위험",
+"alternative": "✅ 영어 점수 우선 보강 (IELTS 7.0+ Proficient 10점) / 또는 491 지방 후원 (Cat 3) / 또는 직업 전환 (TAFE 트레이드)",
+"wilson_reason": "B4 페르소나 차단룰 = 윌슨 19년 = 35세+ 영어 부족 = PR 점수 부족 + 비자 자격 부족 = PR 거의 불가능. 영어/직업 보강 必",
+"raw": {
+"id": "RISK-09",
+"rule_name": "35세+ + 영어 부족 + 자격 없음 (B4 핵심)",
+"condition": "B4 직장인 + 35세+ + IELTS < 6.0 + PR 자격 직업 X",
+"action": "⚠️ HIGH RISK / PR 매우 어려움 / 시간/돈 손실 위험",
+"alternative": "✅ 영어 점수 우선 보강 (IELTS 7.0+ Proficient 10점) / 또는 491 지방 후원 (Cat 3) / 또는 직업 전환 (TAFE 트레이드)",
+"wilson_reason": "B4 페르소나 차단룰 = 윌슨 19년 = 35세+ 영어 부족 = PR 점수 부족 + 비자 자격 부족 = PR 거의 불가능. 영어/직업 보강 必",
+"origin": "윌슨 B4 페르소나 차단룰 정식 등재 (2026-04-29)",
+"priority": "높음 (B4 핵심)"
+}
+},
+{
+"id": "BUD-01",
+"severity": "soft",
+"category": "category_5_budget",
+"title": "예산 부족 + Go8 학사 차단",
+"condition": "연간 예산 < $30,000 + Go8 학사 지원",
+"action": "❌ Go8 학사 = 평균 $40-60K/년 = 4년 = $160-240K = 부담 과도",
+"alternative": "✅ Cat 3 DRA Regional (Federation/CDU/UTAS/JCU/Avondale) = $24-35K + PR",
+"wilson_reason": "예산 부족 = 부모 지원 끊김 → 중도 포기 → 귀국 (윌슨 19년 자주 본 실패)",
+"raw": {
+"id": "BUD-01",
+"rule_name": "예산 부족 + Go8 학사 차단",
+"condition": "연간 예산 < $30,000 + Go8 학사 지원",
+"action": "❌ Go8 학사 = 평균 $40-60K/년 = 4년 = $160-240K = 부담 과도",
+"alternative": "✅ Cat 3 DRA Regional (Federation/CDU/UTAS/JCU/Avondale) = $24-35K + PR",
+"wilson_reason": "예산 부족 = 부모 지원 끊김 → 중도 포기 → 귀국 (윌슨 19년 자주 본 실패)",
+"origin": "윌슨 BLOCK-011 + ChatGPT BUD-01 통합",
+"priority": "높음"
+}
+},
+{
+"id": "BUD-02",
+"severity": "hard",
+"category": "category_5_budget",
+"title": "생활비 증빙 없음",
+"condition": "학비 외 생활비 12개월 증빙 불가 (2026 기준 = $29,710/년)",
+"action": "❌ 학생비자 신청 자체 불가",
+"alternative": "✅ 부모 후원 증빙 + 은행 잔고 + 12개월 생활비 마련",
+"wilson_reason": "DHA 2026 = 학생비자 = 학비 + 생활비 $29,710 + 항공료 $2,500 = 모두 증빙 필수. 미증빙 = 비자 거절",
+"raw": {
+"id": "BUD-02",
+"rule_name": "생활비 증빙 없음",
+"condition": "학비 외 생활비 12개월 증빙 불가 (2026 기준 = $29,710/년)",
+"action": "❌ 학생비자 신청 자체 불가",
+"alternative": "✅ 부모 후원 증빙 + 은행 잔고 + 12개월 생활비 마련",
+"wilson_reason": "DHA 2026 = 학생비자 = 학비 + 생활비 $29,710 + 항공료 $2,500 = 모두 증빙 필수. 미증빙 = 비자 거절",
+"origin": "ChatGPT 신규 2026 강화",
+"priority": "절대"
+}
+},
+{
+"id": "MAJ-NUR-01",
+"severity": "hard",
+"category": "category_6_major_specific_gs_nursing",
+"title": "PTE Speaking 약 + Health 분야 차단 (2026.04.23 변경)",
+"condition": "PTE Speaking < 76 + AHPRA/DHA 등록 의료직 (간호/약사/의사/물리치료)",
+"action": "❌ PTE = AHPRA 등록 불가",
+"alternative": "✅ IELTS 7.0 (모든 섹션) 추천 = 변경 없음 = 안정",
+"wilson_reason": "2026.04.23 시행 = PTE Speaking 76 = Speaking 약한 학생 매우 어려움. IELTS",
+"raw": {
+"id": "MAJ-NUR-01",
+"rule_name": "PTE Speaking 약 + Health 분야 차단 (2026.04.23 변경)",
+"condition": "PTE Speaking < 76 + AHPRA/DHA 등록 의료직 (간호/약사/의사/물리치료)",
+"action": "❌ PTE = AHPRA 등록 불가",
+"alternative": "✅ IELTS 7.0 (모든 섹션) 추천 = 변경 없음 = 안정",
+"wilson_reason": "2026.04.23 시행 = PTE Speaking 76 = Speaking 약한 학생 매우 어려움. IELTS",
+"origin": "윌슨 BLOCK-010 + ChatGPT MAJ-NUR-01 통합",
+"priority": "절대"
+}
+},
+{
+"id": "MAJ-NUR-02",
+"severity": "hard",
+"category": "category_6_major_specific_gs_nursing",
+"title": "간호 이유 없음 + 단순 PR 목적",
+"condition": "간호 학과 지원 + 간호사가 되려는 동기 설명 없음 / 단순 PR 목적",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 간호 동기 (사람 돌봄/의료 관심/경력 전환 등) + PR은 부수적",
+"wilson_reason": "간호 = NMBA 등록 엄격. GS 평가도 매우 까다로움. 단순 PR 목적 = 거절 多",
+"raw": {
+"id": "MAJ-NUR-02",
+"rule_name": "간호 이유 없음 + 단순 PR 목적",
+"condition": "간호 학과 지원 + 간호사가 되려는 동기 설명 없음 / 단순 PR 목적",
+"action": "🔴 GS 평가 BLOCK 위험",
+"alternative": "✅ 간호 동기 (사람 돌봄/의료 관심/경력 전환 등) + PR은 부수적",
+"wilson_reason": "간호 = NMBA 등록 엄격. GS 평가도 매우 까다로움. 단순 PR 목적 = 거절 多",
+"origin": "ChatGPT 신규",
+"priority": "🔴 높음"
+}
+},
+{
+"id": "MAJ-NUR-03",
+"severity": "soft",
+"category": "category_6_major_specific_gs_nursing",
+"title": "Master of Nursing / GE + 학력 조건 (한국 학사 必)",
+"condition": "한국 학사 ≠ 간호/보건 + Master of Nursing Practice 또는 GE 지원",
+"action": "✅ Master of Nursing / GE = 한국 학사 졸업 시 입학 가능 (선수과목 요구 학교 일부 있음)",
+"alternative": "✅ 한국 학사 보유: Master of Nursing 또는 GE 직접 가능 / 선수과목 요구 학교는 별도 이수 / ❌ 고졸 (검정고시 포함) = Master/GE 둘 다 불가 = Bachelor of Nursing부터",
+"wilson_reason": "윌슨 19년 정정: Master of Nursing GE = 비간호 학사도 입학 가능 (한국 학사 졸업 = 필수 조건). 단, 학교마다 선수과목(Anatomy/Physiology 등) 요구 다름. 고졸 (검정고시 포함) = 학사 학위 없으면 Master/GE 둘 다 불가 = Bachelor부터 시작",
+"raw": {
+"id": "MAJ-NUR-03",
+"rule_name": "Master of Nursing / GE + 학력 조건 (한국 학사 必)",
+"condition": "한국 학사 ≠ 간호/보건 + Master of Nursing Practice 또는 GE 지원",
+"action": "✅ Master of Nursing / GE = 한국 학사 졸업 시 입학 가능 (선수과목 요구 학교 일부 있음)",
+"alternative": "✅ 한국 학사 보유: Master of Nursing 또는 GE 직접 가능 / 선수과목 요구 학교는 별도 이수 / ❌ 고졸 (검정고시 포함) = Master/GE 둘 다 불가 = Bachelor of Nursing부터",
+"wilson_reason": "윌슨 19년 정정: Master of Nursing GE = 비간호 학사도 입학 가능 (한국 학사 졸업 = 필수 조건). 단, 학교마다 선수과목(Anatomy/Physiology 등) 요구 다름. 고졸 (검정고시 포함) = 학사 학위 없으면 Master/GE 둘 다 불가 = Bachelor부터 시작",
+"origin": "윌슨 BLOCK-007",
+"priority": "높음 (학력 조건 정확 안내 필수)"
+}
+},
+{
+"id": "MAJ-COOK-01",
+"severity": "soft",
+"category": "category_6_major_specific_gs_cookery",
+"title": "요리 경험 없음 + 워홀 후 요리 학과",
+"condition": "한국 요리 경력 X + 워홀 후 요리 학과 지원",
+"action": "⚠️ HIGH RISK / GS 의심",
+"alternative": "✅ 워홀 中 요식업 경험 강조 + 셰프 동기 명확화 + 학교 명문도 점검",
+"wilson_reason": "워홀 → 요리 = 흔한 PR 패턴 = DHA 의심. 진짜 요리 동기 + Le Cordon Bleu/William Angliss 등 명문 학교 = 안전",
+"raw": {
+"id": "MAJ-COOK-01",
+"rule_name": "요리 경험 없음 + 워홀 후 요리 학과",
+"condition": "한국 요리 경력 X + 워홀 후 요리 학과 지원",
+"action": "⚠️ HIGH RISK / GS 의심",
+"alternative": "✅ 워홀 中 요식업 경험 강조 + 셰프 동기 명확화 + 학교 명문도 점검",
+"wilson_reason": "워홀 → 요리 = 흔한 PR 패턴 = DHA 의심. 진짜 요리 동기 + Le Cordon Bleu/William Angliss 등 명문 학교 = 안전",
+"origin": "ChatGPT 신규",
+"priority": "높음"
+}
+},
+{
+"id": "MAJ-COOK-02",
+"severity": "soft",
+"category": "category_6_major_specific_gs_cookery",
+"title": "요리 저가/사파 학교 + 취업 계획 없음",
+"condition": "저가 요리 학교 + 졸업 후 취업 계획 없음",
+"action": "🔴 HIGH RISK / GS BLOCK 위험",
+"alternative": "✅ TAFE QLD Cert IV $32,100 / Le Cordon Bleu / William Angliss + 취업 계획",
+"wilson_reason": "윌슨 19년 = 사파 요리 학교 = 폐교 위험 + GS 의심 동시",
+"raw": {
+"id": "MAJ-COOK-02",
+"rule_name": "요리 저가/사파 학교 + 취업 계획 없음",
+"condition": "저가 요리 학교 + 졸업 후 취업 계획 없음",
+"action": "🔴 HIGH RISK / GS BLOCK 위험",
+"alternative": "✅ TAFE QLD Cert IV $32,100 / Le Cordon Bleu / William Angliss + 취업 계획",
+"wilson_reason": "윌슨 19년 = 사파 요리 학교 = 폐교 위험 + GS 의심 동시",
+"origin": "윌슨 BLOCK-024 + ChatGPT MAJ-COOK-02/03 통합",
+"priority": "높음"
+}
+},
+{
+"id": "MAJ-IT-01",
+"severity": "soft",
+"category": "category_6_major_specific_gs_it",
+"title": "ACS IT 등록 + 비전공 + Master of IT 짧은 코스 차단",
+"condition": "ACS (호주 IT 협회) 등록 목표 + 한국 학사 ≠ IT/CS",
+"action": "⚠️ ACS = 학부 전공 + 경력 평가. 짧은 IT 석사 (1년) = ACS 인정 안 될 수 있음",
+"alternative": "✅ Master of IT 2년 + 추가 ACS Professional Year (PYP) = 등록",
+"wilson_reason": "ACS = qualification + experience 평가. 영어 시험은 안 봄. 학력 + 경력 둘 다 필요",
+"raw": {
+"id": "MAJ-IT-01",
+"rule_name": "ACS IT 등록 + 비전공 + Master of IT 짧은 코스 차단",
+"condition": "ACS (호주 IT 협회) 등록 목표 + 한국 학사 ≠ IT/CS",
+"action": "⚠️ ACS = 학부 전공 + 경력 평가. 짧은 IT 석사 (1년) = ACS 인정 안 될 수 있음",
+"alternative": "✅ Master of IT 2년 + 추가 ACS Professional Year (PYP) = 등록",
+"wilson_reason": "ACS = qualification + experience 평가. 영어 시험은 안 봄. 학력 + 경력 둘 다 필요",
+"origin": "윌슨 BLOCK-015 + ChatGPT MAJ-IT-01 통합",
+"priority": "높음"
+}
+},
+{
+"id": "MAJ-TEA-01",
+"severity": "hard",
+"category": "category_6_major_specific_gs_teaching",
+"title": "AITSL Teacher 등록 + IELTS 외 시험 차단",
+"condition": "호주 교사 등록 (Master of Teaching) 졸업 후 등록 시",
+"action": "❌ AITSL = IELTS 7.5 (L8 S8 R7 W7) 1회 시험만 인정 / PTE/TOEFL 합산 X",
+"alternative": "✅ IELTS 7.5 1회 도달 必 / 시험 분리 합산 X",
+"wilson_reason": "AITSL 영어 시험 룰 = 가장 까다로움. PTE 79 도달해도 = AITSL 불가",
+"raw": {
+"id": "MAJ-TEA-01",
+"rule_name": "AITSL Teacher 등록 + IELTS 외 시험 차단",
+"condition": "호주 교사 등록 (Master of Teaching) 졸업 후 등록 시",
+"action": "❌ AITSL = IELTS 7.5 (L8 S8 R7 W7) 1회 시험만 인정 / PTE/TOEFL 합산 X",
+"alternative": "✅ IELTS 7.5 1회 도달 必 / 시험 분리 합산 X",
+"wilson_reason": "AITSL 영어 시험 룰 = 가장 까다로움. PTE 79 도달해도 = AITSL 불가",
+"origin": "윌슨 BLOCK-014",
+"priority": "절대"
+}
+},
+{
+"id": "MAJ-SW-01",
+"severity": "soft",
+"category": "category_6_major_specific_gs_social_work",
+"title": "Master of Social Work + 비관련 학사 차단",
+"condition": "한국 학사 ≠ 사회복지/심리/교육/보건 + MSW (2년) 지원",
+"action": "⚠️ MSW Direct = 관련 학사 必 / Foundation 필요",
+"alternative": "✅ Graduate Diploma of Social Welfare → MSW 또는 Bachelor of Social Work (학사 다시)",
+"wilson_reason": "AASW (호주 사회복지사 협회) = 학사 전공 인정 엄격. 비관련 = 인정 안 됨",
+"raw": {
+"id": "MAJ-SW-01",
+"rule_name": "Master of Social Work + 비관련 학사 차단",
+"condition": "한국 학사 ≠ 사회복지/심리/교육/보건 + MSW (2년) 지원",
+"action": "⚠️ MSW Direct = 관련 학사 必 / Foundation 필요",
+"alternative": "✅ Graduate Diploma of Social Welfare → MSW 또는 Bachelor of Social Work (학사 다시)",
+"wilson_reason": "AASW (호주 사회복지사 협회) = 학사 전공 인정 엄격. 비관련 = 인정 안 됨",
+"origin": "윌슨 BLOCK-008",
+"priority": "높음"
+}
+}
+]

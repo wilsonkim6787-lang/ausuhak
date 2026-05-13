@@ -1,0 +1,242 @@
+[
+{
+"id": "ibt_renaming",
+"title": "ibt renaming",
+"quote": "✅ 2026-04-28 검증 완료 / IBT 형식 명칭 = 모두 새 명칭 사용",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "closures_total",
+"title": "closures total",
+"quote": "18",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "new_universities",
+"title": "new universities",
+"quote": "Adelaide University (2026.01.05 합병) + AUT (2025.01 신규) = 호주 41개 대학",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "uts_alert",
+"title": "uts alert",
+"quote": "UTS 400명 감원 + 150 코스 정지 = 학생 코스 사전 확인 必",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "umelb_alert",
+"title": "umelb alert",
+"quote": "UMelb 2026.07 신규 지원 마감 = 7월 입학 거의 불가",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "excelsia_upgrade",
+"title": "excelsia upgrade",
+"quote": "Excelsia College → University College 승격 (2024) + Pennant Hills 이전 (2025.07)",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "elicos_market",
+"title": "elicos market",
+"quote": "비자료 $2,000 (2025.07~) = 어학원 단독 비자 39% 감소 = 패키지 비자 권장",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "apic_disambiguation",
+"title": "apic disambiguation",
+"quote": "APIC = 두 학교 (Asia Pacific International College ≠ Australian Pacific College)",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_FUNNEL_FINAL_GATE",
+"title": "윌슨 최종 체크 게이트 (Funnel → 카카오 사이)",
+"quote": "카카오 보내기 전 내가 최종 체크 하고 버튼 누르면 카카오. 이거 중요하니까 메모 해놔. 다음 채팅창에 가면 또 꼬여",
+"principle": "",
+"truth": "",
+"applies_to": "STEP 3 Funnel + STEP 6 카드 + STEP 7 관리자 페이지",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_A6_ABSORBED_BY_B1",
+"title": "A6 페르소나 삭제 → B1에 흡수 (시장 진실)",
+"quote": "워홀 고객들은 한국보다 현지에서 연락 많이 오고, 한국에서 문의한 친구들은 PR을 크게 생각지 않음",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_ADULT_STUDENTS_COMPARE",
+"title": "성인 학생 = 여러 유학원 비교 = 차별화 마케팅 필수",
+"quote": "대학 재학생들도 문의가 많지만, 성인이기에 여러군데 많이 알아보지",
+"principle": "",
+"truth": "",
+"applies_to": "A3 (대학 재학 포함) / B1, B3, B4 (성인 페르소나 모두)",
+"marketing": "사이트 카피: '여러 유학원 비교 중이세요? 윌슨 19년이 끝.' / A3 카드: '비교 끝 - 윌슨 무료 상담'",
+"conditions": {}
+},
+{
+"id": "ALERT_PRE_DECISION_MARKET",
+"title": "자퇴 결정 前 시장 = 새 발견 (윌슨 19년 통찰)",
+"quote": "요즘에 나이가 16~19세로 해줘",
+"principle": "",
+"truth": "",
+"applies_to": "A1 (학생) + A2 (부모) / 카드 ID 분기",
+"marketing": "Funnel: '자퇴 고려 中' 옵션 = 학생/부모 양쪽 모두 / 카드: 합리적 계산 자료 (5,400만 vs 1년)",
+"conditions": {}
+},
+{
+"id": "ALERT_OPTION_3_WILSON_EMPTY_MARKET",
+"title": "옵션 3 = Wilson 19년 빈 시장 핵심",
+"quote": "",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "옵션 3 강조 메시지: '한국 유학원이 잘 모르는 영역 - 19년 PR 전문' / B1 카드: 워홀 직종 PR 카운트 + 5년 통합 설계 + Cat 2 PR 가속",
+"conditions": {}
+},
+{
+"id": "ALERT_KAKAO_PERSISTENT_BUTTON",
+"title": "사이트 하단 카카오 버튼 항상 표시 = 모든 페이지 안전망",
+"quote": "",
+"principle": "카카오 / 잘 모르는 학생도 직행 / 19년 윌슨 = 다른 유학원 챗봇과 차별화",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_REALITY_CHECK_SECTION",
+"title": "카드 6 Section 핵심 = '현실 체크' (실패 사례)",
+"quote": "1. 상황 선택 (공감) / 2. 실패 사례·현실 체크 (신뢰) / 3. 노하우 / 4. 루트 / 5. 간단 입력 / 6. 카톡 연결",
+"principle": "",
+"truth": "",
+"applies_to": "모든 페르소나 카드 15가지 = Section 2에 페르소나별 실패 사례 박힘",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_TRANSPARENT_BUSINESS_MODEL",
+"title": "투명 비즈니스 모델 = ausuhak 핵심 차별화",
+"quote": "학비를 학생 또는 부모님이 직접 보내게 할꺼야. 기타 보험료 및 수속비, 비자 신청비만 받고, 그것도 영수증 다 드림. 학생 수속페이지에 직접 체크 가능하게.",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "사이트 카피: '학비 = 직접 송금 / 우리는 보험료/수속비/비자비만 / 영수증 100% 공개' / A2 부모 카드 (사기 두려움 해소): '학비 직접 송금 = 사기 0% 가능'",
+"conditions": {}
+},
+{
+"id": "ALERT_PARENT_DOUBT_CHILD_ABILITY",
+"title": "A2 부모님 가장 큰 의문 = 자녀 능력 의심 + 자책감",
+"quote": "검정고시 부모님, 고등학교 자퇴 했는데, 잘 할 수 있을까? 이런 의문을 가짐.",
+"principle": "",
+"truth": "answer 1: 한국에서 못 한 거 = 자녀 능력 X 절대 아님 (시스템 차이) / answer 2: 한국 = 조건 / 호주 = 달란트만 봄 (다른 시스템 = 다른 결과) / answer 3: 윌슨 시스템 = 졸업 보장 (Foundation + EAP + 화상영어 + 작은 도시 + 부모 카카오)",
+"applies_to": "A2_post / A2_pre 카드 = Section 1, 2, 6에 박혔음. A4 부모도 적용 가능 (다음 카드)",
+"marketing": "사이트 카피: '자녀 능력 의심 마세요. 한국에서 못 한 게 = 능력 X. 시스템 차이일 뿐.' / 부모 카드: '950명 부모님 모두 같은 의문 / 19년 답변 = 데이터로 증명'",
+"conditions": {}
+},
+{
+"id": "ALERT_CLAUDE_BAKING_PRINCIPLE",
+"title": "Claude 박을 원칙: 윌슨님 말씀 그대로 박음 / 자동 해석 X",
+"quote": "위에 작업 할때, 왜 니맘대로 해? 시골이 좋은데 학생은 안간다고 이야기 해잖아.",
+"principle": "",
+"truth": "",
+"applies_to": "모든 박제 작업 (영구 원칙)",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_GO8_DIPLOMA_TRUTH",
+"title": "Go8 Diploma 진실 (윌슨 19년 정정 / UMelb 추가)",
+"quote": "",
+"principle": "",
+"truth": "Go8 8개 中 빠른 진학 (2학년 편입) 가능 = 6개 (UNSW/Monash/UQ/UWA/Adelaide/ANU) / USyd = Foundation만 (Diploma 없음) / UMelb = Foundation 必 (Diploma 빠른 루트 아님)",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_DIPLOMA_REQUIRES_KOREAN_UNI",
+"title": "Diploma 입학 조건 = 한국 대학 재학 1-2년 必",
+"quote": "한국 친구들이 디플로마를 좋아해 이유는 1년 아낄 수 있으니까",
+"principle": "",
+"truth": "Diploma = 한국 대학 재학 1-2년 학점 필요 / 검정고시 학생 = Diploma X = Foundation만 / 고3 졸업 + 한국 대학 재학 1년 = Diploma 가능",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_ENGLISH_SKILL_VS_SCORE",
+"title": "영어 점수 ≠ 학업 성공 (활용 능력 + 의지)",
+"quote": "G8 대학도 디플로마가 있어서 바로 학생이 가기도 하는데, 영어 점수 뿐만 아니라, 실제 영어 활용 능력이 좋은 학생, 열심히 하는 학생은 가서도 잘해. 안하는 학생이 문제지.",
+"principle": "",
+"truth": "IELTS 점수 = 입학 자격일 뿐 ≠ 학업 성공 / 영어 활용 능력 (회화/작문/이해) = 진짜 변수 / 학업 의지 (열심히 하는 학생) = 가장 큰 변수",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_STUDENT_WILL_IS_KEY",
+"title": "학생 의지 = 가장 큰 변수",
+"quote": "안 하는 학생이 문제지",
+"principle": "",
+"truth": "학교 / 도시 / Foundation / Diploma 모두 좋아도 / 학생 의지 0% = 페일 / 학생 의지 100% = 시스템 다 극복",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_RURAL_VS_CITY_DILEMMA",
+"title": "시골 학교 vs 도시 욕심 = 윌슨 19년 안타까움 ⚠️",
+"quote": "이런 학생은 시골로 빼면 좋은데 학생이 싫어해 ;;",
+"principle": "",
+"truth": "",
+"applies_to": "",
+"marketing": "",
+"conditions": {}
+},
+{
+"id": "ALERT_NO_SINGLE_SCHOOL_RECOMMENDATION",
+"title": "특정 학교 단일 추천 X = 윌슨 절대 원칙",
+"quote": "특정 학교만 추천 하는 거야?",
+"principle": "['학교 같은 것 없음', '학교에 등급 매기는 표현 X', '학생 상황별 맞춤 옵션 안내만', '윌슨 매칭 = 카카오에서 직접']",
+"truth": "",
+"applies_to": "모든 카드 / 시뮬레이션 / 매칭 엔진",
+"marketing": "",
+"conditions": {}
+}
+]

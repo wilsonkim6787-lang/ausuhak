@@ -54,13 +54,12 @@ export default function Hero() {
               >
                 {t("ctaKakao")}
               </a>
-              <button
-                type="button"
-                disabled
-                className="inline-flex min-h-[48px] cursor-not-allowed items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-3.5 text-base font-semibold text-navy-800 opacity-60"
+              <a
+                href="/diagnose"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-3.5 text-base font-semibold text-navy-800 transition hover:bg-navy-800 hover:text-cream-100"
               >
                 {t("ctaDiagnose")}
-              </button>
+              </a>
             </div>
 
             {/* 트러스트 시그널 */}

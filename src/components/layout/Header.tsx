@@ -12,7 +12,7 @@ export default function Header() {
   const kakaoUrl = "https://pf.kakao.com/_GadTX";
 
   const menuItems = [
-    { key: "diagnose", label: t("menuDiagnose"), href: "#diagnose" },
+    { key: "diagnose", label: t("menuDiagnose"), href: "/diagnose" },
     { key: "story", label: t("menuStory"), href: "#wilson-story" },
     { key: "medical", label: t("menuMedical"), href: "#medical" },
     { key: "faq", label: t("menuFaq"), href: "#faq" },
