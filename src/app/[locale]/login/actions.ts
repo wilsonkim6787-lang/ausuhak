@@ -22,7 +22,18 @@ export async function loginAction(
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    return { error: "이메일 또는 비밀번호가 올바르지 않습니다." };
+    // Wilson 전용 admin / 실제 에러 메시지 노출해 진단 용이
+    const msg = error.message.toLowerCase();
+    if (msg.includes("invalid login credentials")) {
+      return { error: "이메일 또는 비밀번호가 올바르지 않습니다. (Supabase 응답 확인됨)" };
+    }
+    if (msg.includes("email not confirmed")) {
+      return { error: "이메일 미확인 상태. Supabase Dashboard → Authentication → Users → 해당 행 ⋮ → 'Confirm user' 클릭하세요." };
+    }
+    if (msg.includes("fetch")) {
+      return { error: `Supabase 연결 실패. 환경변수 (NEXT_PUBLIC_SUPABASE_URL / ANON_KEY) 점검 필요. 원본: ${error.message}` };
+    }
+    return { error: `로그인 실패: ${error.message} (status=${error.status ?? "?"})` };
   }
 
   revalidatePath("/", "layout");
