@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 // PART F-2 / PART E-16 site_settings 동적 로드 (Phase 1.7에서 DB 연결)
@@ -85,9 +86,9 @@ export default function Footer() {
             <a href="#" className="hover:text-gold-500">
               {t("terms")}
             </a>
-            <a href="/en" className="hover:text-gold-500">
+            <Link href="/en" className="hover:text-gold-500">
               {t("languageToggle")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

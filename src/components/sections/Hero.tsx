@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 // PART F-2 / PART O O-6: Hero 1차 화면
@@ -54,12 +55,12 @@ export default function Hero() {
               >
                 {t("ctaKakao")}
               </a>
-              <a
+              <Link
                 href="/diagnose"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-3.5 text-base font-semibold text-navy-800 transition hover:bg-navy-800 hover:text-cream-100"
               >
                 {t("ctaDiagnose")}
-              </a>
+              </Link>
             </div>
 
             {/* 트러스트 시그널 */}

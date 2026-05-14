@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 
@@ -23,7 +24,7 @@ export default function Header() {
       <header className="sticky top-0 z-40 border-b border-cream-300 bg-cream-100/92 backdrop-blur-md">
         <nav className="container mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:h-20 sm:px-6">
           {/* Logo */}
-          <a href="/" className="flex items-baseline gap-2.5">
+          <Link href="/" className="flex items-baseline gap-2.5">
             <span className="font-display text-lg font-bold tracking-tight text-navy-900 sm:text-[22px]">
               ausuhak
               <span className="italic text-gold-600">.com</span>
@@ -31,7 +32,7 @@ export default function Header() {
             <span className="hidden text-[11px] font-medium text-ink-500 sm:inline">
               {t("subBrand")}
             </span>
-          </a>
+          </Link>
 
           {/* Desktop menu */}
           <div className="hidden items-center gap-7 sm:flex">
