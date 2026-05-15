@@ -14,6 +14,7 @@ const menus = [
   { href: "/admin/students/kanban", label: "📋 학생 칸반", phase: 2 },
   { href: "/admin/quotes", label: "💵 견적서", phase: 1 },
   { href: "/admin/payments", label: "💰 결제·커미션", phase: 1 },
+  { href: "/admin/care", label: "🩺 학생 자동 케어", phase: 1 },
   { href: "/admin/activity", label: "🛡️ 활동 로그", phase: 1 },
   { href: "/admin/issues", label: "🚨 이슈 트래킹", phase: 2 },
   { href: "/admin/manuals", label: "📚 매뉴얼 475", phase: 2 },
