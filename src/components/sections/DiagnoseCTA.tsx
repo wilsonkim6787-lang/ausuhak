@@ -110,16 +110,38 @@ const FIELDS: FieldDef[] = [
   },
 ];
 
-const CONCERNS = [
-  { icon: "\u{1F4DA}", key: "concern1" },
-  { icon: "\u{1F4DD}", key: "concern2" },
-  { icon: "\u{1F4B0}", key: "concern3" },
-  { icon: "\u{1FA7A}", key: "concern4" },
-  { icon: "\u{1F3E5}", key: "concern5" },
-  { icon: "\u{2B50}", key: "concern6" },
-  { icon: "\u{1F6C2}", key: "concern7" },
-  { icon: "\u{1F4D6}", key: "concern8" },
-] as const;
+interface ConcernDef {
+  icon: string;
+  qKey:
+    | "concern1Q"
+    | "concern2Q"
+    | "concern3Q"
+    | "concern4Q"
+    | "concern5Q"
+    | "concern6Q"
+    | "concern7Q"
+    | "concern8Q";
+  aKey:
+    | "concern1A"
+    | "concern2A"
+    | "concern3A"
+    | "concern4A"
+    | "concern5A"
+    | "concern6A"
+    | "concern7A"
+    | "concern8A";
+}
+
+const CONCERNS: ConcernDef[] = [
+  { icon: "\u{1F4DA}", qKey: "concern1Q", aKey: "concern1A" },
+  { icon: "\u{1F4DD}", qKey: "concern2Q", aKey: "concern2A" },
+  { icon: "\u{1F4B0}", qKey: "concern3Q", aKey: "concern3A" },
+  { icon: "\u{1FA7A}", qKey: "concern4Q", aKey: "concern4A" },
+  { icon: "\u{1F3E5}", qKey: "concern5Q", aKey: "concern5A" },
+  { icon: "\u{2B50}", qKey: "concern6Q", aKey: "concern6A" },
+  { icon: "\u{1F6C2}", qKey: "concern7Q", aKey: "concern7A" },
+  { icon: "\u{1F4D6}", qKey: "concern8Q", aKey: "concern8A" },
+];
 
 export default function DiagnoseCTA() {
   const t = useTranslations("DiagnoseCTA");
@@ -157,27 +179,32 @@ export default function DiagnoseCTA() {
         </div>
 
         <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12">
-          {/* 좌측: 공감 패널 */}
+          {/* 좌측: 공감 패널 (Q + A 풀어 쓰기) */}
           <aside className="rounded-3xl border border-cream-100/15 bg-navy-800/40 p-7 backdrop-blur-sm sm:p-9">
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("concernHeading")}
             </p>
-            <ul className="mt-5 space-y-3.5">
+            <ul className="mt-6 space-y-5">
               {CONCERNS.map((c) => (
-                <li key={c.key} className="flex items-start gap-3">
+                <li key={c.qKey} className="flex items-start gap-3">
                   <span
                     aria-hidden
-                    className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-base"
+                    className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-base"
                   >
                     {c.icon}
                   </span>
-                  <span className="pt-1 text-sm leading-relaxed text-cream-100 sm:text-base">
-                    {t(c.key as "concern1")}
-                  </span>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold leading-snug text-cream-100 sm:text-[15px]">
+                      {t(c.qKey)}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-cream-200/85 sm:text-[13px]">
+                      {t(c.aKey)}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 border-t border-cream-100/15 pt-5 text-xs leading-relaxed text-cream-200/80 sm:text-sm">
+            <p className="mt-7 border-t border-cream-100/15 pt-5 text-xs leading-relaxed text-cream-200/80 sm:text-sm">
               {t("concernNote")}
             </p>
           </aside>
