@@ -3,6 +3,7 @@
 // 30초 진단 폼 (PART F-3 / 6변수 입력 → /api/diagnose → /diagnose/result/[uuid])
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 type Step = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -56,6 +57,14 @@ export default function DiagnoseForm() {
       major: data.major,
       budget_range: data.budget_range,
     };
+    track("diagnostic_complete", {
+      age: payload.age,
+      education: payload.education,
+      english_level: payload.english_level,
+      region: payload.preferred_region,
+      major: payload.major,
+      budget: payload.budget_range,
+    });
     try {
       const res = await fetch("/api/diagnose", {
         method: "POST",

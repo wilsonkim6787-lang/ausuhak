@@ -51,6 +51,7 @@ export default function Hero() {
                 href={kakaoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-kakao-source="hero"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-7 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg"
               >
                 {t("ctaKakao")}

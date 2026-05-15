@@ -49,6 +49,7 @@ export default function Header() {
               href={kakaoUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-kakao-source="header_desktop"
               className="rounded-full bg-navy-900 px-5 py-2.5 text-[13px] font-semibold text-gold-500 transition hover:bg-gold-600 hover:text-navy-900"
             >
               {t("ctaKakao")}
@@ -61,6 +62,7 @@ export default function Header() {
               href={kakaoUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-kakao-source="header_mobile"
               className="rounded-full bg-navy-900 px-3.5 py-2 text-xs font-semibold text-gold-500"
             >
               💬
@@ -104,6 +106,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
+              data-kakao-source="header_mobile_menu"
               className="mt-6 rounded-full bg-gold-600 px-6 py-4 text-center text-base font-semibold text-white"
             >
               {t("ctaKakao")}

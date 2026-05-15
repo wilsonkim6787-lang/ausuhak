@@ -1,4 +1,6 @@
 import { Playfair_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import AnalyticsTracker from "@/components/analytics/AnalyticsTracker";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -19,7 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${playfair.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <AnalyticsTracker />
+        <Analytics />
+      </body>
     </html>
   );
 }

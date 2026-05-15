@@ -260,6 +260,7 @@ export function Card7Next({ data, kakaoUrl }: { data: CardsT["card7_next"]; kaka
               href={href}
               target={isKakao ? "_blank" : undefined}
               rel={isKakao ? "noopener noreferrer" : undefined}
+              data-kakao-source={isKakao ? "result_card7" : undefined}
               className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 text-sm font-medium transition ${
                 isKakao
                   ? "border-gold-600 bg-gold-600 text-white hover:bg-gold-500"

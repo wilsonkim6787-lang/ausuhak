@@ -45,6 +45,7 @@ export default function Footer() {
                   href={kakaoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-kakao-source="footer"
                   className="text-cream-100 underline-offset-2 hover:underline"
                 >
                   pf.kakao.com/_GadTX
