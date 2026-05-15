@@ -44,3 +44,6 @@ next-env.d.ts
 
 # Claude Code local settings (per-user / 공유 X)
 .claude/
+
+# Local HTML analysis (FINAL.html 추출용 임시 / 커밋 X)
+.tmp_html_analysis/
