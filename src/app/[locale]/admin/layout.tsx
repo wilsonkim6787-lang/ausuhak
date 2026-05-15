@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
+import { logUnauthorized } from "@/lib/audit/log";
 import Sidebar from "@/components/admin/Sidebar";
 
 // /admin/* 진입 시 1차 보호 (서버 컴포넌트 레벨).
@@ -16,8 +17,14 @@ export default async function AdminLayout({
   setRequestLocale(locale);
 
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
-  if (user.role !== "super_admin") redirect("/");
+  if (!user) {
+    await logUnauthorized("/admin", "super_admin", null, null);
+    redirect("/login");
+  }
+  if (user.role !== "super_admin") {
+    await logUnauthorized("/admin", "super_admin", user.role, user.id);
+    redirect("/");
+  }
 
   return (
     <div className="flex min-h-screen bg-cream-100">

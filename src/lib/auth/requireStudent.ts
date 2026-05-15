@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser, type AppUser } from "./getUser";
+import { logUnauthorized } from "@/lib/audit/log";
 
 export type StudentRow = {
   id: string;
@@ -30,9 +31,15 @@ export async function requireStudent(): Promise<{
   student: StudentRow;
 }> {
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
+  if (!user) {
+    await logUnauthorized("/mypage", "student", null, null);
+    redirect("/login");
+  }
   if (user.role === "super_admin") redirect("/admin");
-  if (user.role !== "student") redirect("/");
+  if (user.role !== "student") {
+    await logUnauthorized("/mypage", "student", user.role, user.id);
+    redirect("/");
+  }
 
   const supabase = await createClient();
   const { data: existing } = await supabase

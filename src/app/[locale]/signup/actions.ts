@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { logActivity } from "@/lib/audit/log";
 
 export type SignupState = {
   error?: string;
@@ -58,6 +59,14 @@ export async function signupAction(
     }
     return { error: `가입 실패: ${error.message} (status=${error.status ?? "?"})` };
   }
+
+  await logActivity({
+    action_type: "signup",
+    user_id: data.user?.id ?? null,
+    details: {
+      email_confirmed_auto: !!data.session,
+    },
+  });
 
   // 이메일 확인 OFF → session 즉시 발급 → /
   // 이메일 확인 ON  → session 없음 → 안내 메시지로 멈춤

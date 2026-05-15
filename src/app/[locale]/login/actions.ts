@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { logActivity } from "@/lib/audit/log";
 
 export type LoginState = { error?: string };
 
@@ -47,6 +48,12 @@ export async function loginAction(
     if (profile?.role === "super_admin") dest = "/admin";
     else if (profile?.role === "staff") dest = "/staff";
     else if (profile?.role === "student") dest = "/mypage";
+
+    await logActivity({
+      action_type: "login",
+      details: { role: profile?.role ?? null, dest },
+      user_id: data.user.id,
+    });
   }
 
   revalidatePath("/", "layout");
@@ -55,6 +62,11 @@ export async function loginAction(
 
 export async function logoutAction() {
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  await logActivity({
+    action_type: "logout",
+    user_id: user?.id ?? null,
+  });
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
   redirect("/login");

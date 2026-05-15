@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentUser } from "@/lib/auth/getUser";
+import { logActivity } from "@/lib/audit/log";
 
 export type PaymentActionState = {
   ok?: boolean;
@@ -57,6 +58,13 @@ export async function addPaymentAction(
     note,
   });
   if (error) return { error: `추가 실패: ${error.message}` };
+
+  await logActivity({
+    action_type: "create_payment",
+    target_table: "payments",
+    target_id: studentId,
+    details: { payment_type: paymentType, amount_krw: amountKrw },
+  });
 
   revalidatePath(`/admin/students/${studentId}/payments`);
   revalidatePath("/admin/payments");
@@ -157,6 +165,16 @@ export async function confirmPaymentAction(
     recoveryUrl = linkData?.properties?.action_link ?? undefined;
   }
 
+  await logActivity({
+    action_type: "confirm_payment",
+    target_table: "payments",
+    target_id: paymentId,
+    details: {
+      student_id: studentId,
+      auto_signup: !!recoveryUrl,
+    },
+  });
+
   revalidatePath(`/admin/students/${studentId}/payments`);
   revalidatePath(`/admin/students/${studentId}`);
   revalidatePath("/admin/payments");
@@ -189,6 +207,17 @@ export async function refundPaymentAction(
     })
     .eq("id", paymentId);
   if (error) return { error: `환불 처리 실패: ${error.message}` };
+
+  await logActivity({
+    action_type: "refund_payment",
+    target_table: "payments",
+    target_id: paymentId,
+    details: {
+      student_id: studentId,
+      refund_amount: refundAmount,
+      reason,
+    },
+  });
 
   revalidatePath(`/admin/students/${studentId}/payments`);
   revalidatePath("/admin/payments");
