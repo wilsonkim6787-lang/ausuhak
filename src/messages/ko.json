@@ -154,6 +154,9 @@
     "subtitle": "Wilson이 19년 동안 가장 많이 받은 질문 264개. 카테고리를 골라 펼쳐보세요.",
     "totalLabel": "총 {n}개 질문",
     "backToHome": "메인으로",
+    "backToIndex": "전체 카테고리",
+    "indexHeading": "카테고리를 골라주세요",
+    "itemCountLabel": "{n}개 질문",
     "ctaTitle": "본인 케이스 더 자세히 묻고 싶으면",
     "ctaBody": "FAQ에 없는 상황 — 카카오 채널에서 Wilson이 직접 답해드립니다.",
     "ctaKakao": "카카오 상담"
