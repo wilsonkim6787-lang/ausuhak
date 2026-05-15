@@ -15,6 +15,7 @@ export default async function LoginPage({
   // 이미 로그인된 super_admin은 /admin으로 / 그 외는 메인으로
   const user = await getCurrentUser();
   if (user?.role === "super_admin") redirect("/admin");
+  if (user?.role === "staff") redirect("/staff");
   if (user?.role === "student") redirect("/mypage");
   if (user) redirect("/");
 

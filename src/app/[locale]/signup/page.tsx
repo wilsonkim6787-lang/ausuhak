@@ -15,6 +15,7 @@ export default async function SignupPage({
   // 이미 로그인된 사용자는 role별 홈으로
   const user = await getCurrentUser();
   if (user?.role === "super_admin") redirect("/admin");
+  if (user?.role === "staff") redirect("/staff");
   if (user?.role === "student") redirect("/mypage");
   if (user) redirect("/");
 

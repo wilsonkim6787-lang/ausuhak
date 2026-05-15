@@ -45,7 +45,7 @@ export async function loginAction(
       .eq("id", data.user.id)
       .single();
     if (profile?.role === "super_admin") dest = "/admin";
-    else if (profile?.role === "staff") dest = "/"; // TODO Step 2.6: /staff
+    else if (profile?.role === "staff") dest = "/staff";
     else if (profile?.role === "student") dest = "/mypage";
   }
 
