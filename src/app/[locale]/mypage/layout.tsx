@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { requireStudent } from "@/lib/auth/requireStudent";
 import StickyKakao from "@/components/layout/StickyKakao";
+import Footer from "@/components/layout/Footer";
 import MypageNav from "@/components/mypage/MypageNav";
 
 export default async function MypageLayout({
@@ -38,7 +39,7 @@ export default async function MypageLayout({
         </div>
       </header>
 
-      <main className="container mx-auto flex max-w-5xl flex-col sm:flex-row">
+      <main className="container mx-auto flex max-w-5xl flex-col pb-20 sm:flex-row sm:pb-0">
         <div className="w-full shrink-0 sm:w-56">
           <MypageNav userName={user.name} />
         </div>
@@ -46,6 +47,7 @@ export default async function MypageLayout({
           {children}
         </div>
       </main>
+      <Footer />
       <StickyKakao />
     </>
   );

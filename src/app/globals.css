@@ -1,5 +1,6 @@
-/* Pretendard Variable - 한글 메인 폰트 (PART O O-3) - @import는 최상단 */
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+/* Pretendard Variable - 한글 메인 폰트 (PART O O-3) - @import는 최상단
+   전체 variable 빌드 사용 (dynamic-subset은 일부 한글 글자 누락 위험) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
 @import "tailwindcss";
 
 @theme inline {
