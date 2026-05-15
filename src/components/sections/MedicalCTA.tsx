@@ -27,12 +27,12 @@ export default function MedicalCTA() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <Link
-                href="/medical"
+              <a
+                href="/medical.html"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-navy-900 px-7 py-3.5 text-base font-semibold text-cream-100 shadow-md transition hover:bg-navy-800 hover:shadow-lg"
               >
                 {t("ctaPrimary")}
-              </Link>
+              </a>
               <Link
                 href="/medical/isat"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-3.5 text-base font-semibold text-navy-800 transition hover:bg-navy-800 hover:text-cream-100"
