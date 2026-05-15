@@ -50,7 +50,7 @@ const SECTIONS: Section[] = [
       { label: "첫 1주 체크리스트", note: "기숙사·렌트 / 휴대폰·은행 / 학교 오리엔테이션" },
       { label: "첫 1개월 체크리스트", note: "Tax File Number / Medicare(영주권자만) / OSHC 등록 확인" },
       { label: "알바 구하기 + 영문 면접", note: "20시간/주 (학기 중) / Cover Letter + Resume" },
-      { label: "PR 로드맵 (전공별)", note: "간호 RN → 491/189 / IT → 491/190 / Trade → 482/494" },
+      { label: "영주권 계획 (전공별)", note: "간호 RN → 491/189 / IT → 491/190 / Trade → 482/494" },
     ],
   },
 ];

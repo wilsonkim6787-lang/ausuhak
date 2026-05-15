@@ -40,13 +40,16 @@ export default function Hero() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
                 href="/diagnose"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-7 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg"
+                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-7 py-4 text-base font-semibold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
               >
                 {t("ctaDiagnose")} <span aria-hidden>→</span>
               </Link>
               <a
-                href="#story"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-3.5 text-base font-semibold text-navy-800 transition hover:bg-navy-800 hover:text-cream-100"
+                href="https://pf.kakao.com/_GadTX"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-kakao-source="hero"
+                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-4 text-base font-semibold text-navy-800 transition hover:bg-navy-800 hover:text-cream-100 sm:text-lg"
               >
                 {t("ctaStory")}
               </a>
