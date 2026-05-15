@@ -18,7 +18,7 @@ const TABS: TabDef[] = [
   { href: "/applications",   label: "학교 지원",     phase: 1 },
   { href: "/documents",      label: "서류",         phase: 1 },
   { href: "/deadlines",      label: "마감일",       phase: 1 },
-  { href: "/payments",       label: "결제",         phase: 2 },
+  { href: "/payments",       label: "결제",         phase: 1 },
   { href: "/visa",           label: "비자",         phase: 2 },
   { href: "/notifications",  label: "알림 이력",     phase: 2 },
   { href: "/activity",       label: "활동 로그",     phase: 3 },
