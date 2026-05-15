@@ -57,23 +57,14 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: 자매 서비스 (PART N-11 / 푸터 로고만) */}
+          {/* Column 3: Wilson 자매 서비스 (페이지 최하단에만 / 브랜드명 직접 노출 X) */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("sisterEyebrow")}
             </p>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="flex aspect-[3/2] items-center justify-center rounded-lg border border-cream-300/20 bg-white/5 p-3 text-center text-[10px] font-semibold tracking-wider text-cream-300">
-                EC 어학원
-                <br />
-                (로고)
-              </div>
-              <div className="flex aspect-[3/2] items-center justify-center rounded-lg border border-cream-300/20 bg-white/5 p-3 text-center text-[10px] font-semibold tracking-wider text-cream-300">
-                EC 화상영어
-                <br />
-                (로고)
-              </div>
-            </div>
+            <p className="mt-4 text-sm leading-relaxed text-cream-200">
+              {t("sisterBody")}
+            </p>
           </div>
         </div>
 

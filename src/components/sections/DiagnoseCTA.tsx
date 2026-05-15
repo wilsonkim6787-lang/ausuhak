@@ -9,6 +9,8 @@ export default function DiagnoseCTA() {
     t("bullet2"),
     t("bullet3"),
     t("bullet4"),
+    t("bullet5"),
+    t("bullet6"),
   ];
 
   return (
@@ -32,6 +34,7 @@ export default function DiagnoseCTA() {
               {t("titleLine1")}
               <br />
               <span className="italic text-gold-500">{t("titleLine2")}</span>
+              <span aria-hidden>.</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-cream-200 sm:text-lg">
               {t("subtitle")}
