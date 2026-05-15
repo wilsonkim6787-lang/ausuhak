@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import Hero from "@/components/sections/Hero";
 import WilsonStory from "@/components/sections/WilsonStory";
+import OfferShowcase from "@/components/sections/OfferShowcase";
 import DiagnoseCTA from "@/components/sections/DiagnoseCTA";
 import MedicalCTA from "@/components/sections/MedicalCTA";
 import FAQPreview from "@/components/sections/FAQPreview";
@@ -37,6 +38,7 @@ export default async function Home({
       <main className="flex-1">
         <Hero />
         <WilsonStory />
+        <OfferShowcase />
         <DiagnoseCTA />
         <MedicalCTA />
         <FAQPreview />

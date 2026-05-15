@@ -114,6 +114,16 @@
     "ctaPrimary": "의대 준비 센터 입장",
     "ctaSubtext": "ISAT 200문제 · MMI 20개 시나리오 · 5가지 진학 루트"
   },
+  "OfferShowcase": {
+    "eyebrow": "사회적 증거 — 합격 오퍼",
+    "title": "950명+ 학생의 진짜 합격증",
+    "subtitle": "검정고시·워홀러·대졸 — 학생 한 명마다 호주 명문대의 진짜 오퍼. Wilson이 19년 동안 보낸 학생들의 합격증을 직접 모으고 있습니다.",
+    "statusBadge": "갤러리 준비 중",
+    "statusNote": "Wilson이 학생 동의를 받아 합격증 갤러리를 곧 공개합니다. 학생 이름·여권번호 등 개인정보는 마스킹 처리됩니다.",
+    "placeholderLabel": "오퍼 이미지",
+    "ctaPrimary": "더 자세히 카톡으로 묻기",
+    "ctaNote": "지금 진단으로 본인 케이스를 먼저 받아볼 수 있습니다"
+  },
   "FAQPreview": {
     "eyebrow": "자주 묻는 질문",
     "title": "자주 묻는 질문",
