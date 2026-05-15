@@ -5,6 +5,9 @@ import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import Hero from "@/components/sections/Hero";
 import WilsonStory from "@/components/sections/WilsonStory";
+import DiagnoseCTA from "@/components/sections/DiagnoseCTA";
+import MedicalCTA from "@/components/sections/MedicalCTA";
+import FAQPreview from "@/components/sections/FAQPreview";
 import EnglishLanding from "@/components/sections/EnglishLanding";
 
 // PART A A-4: 한국어 = ausuhak.com / 영문 = ausuhak.com/en
@@ -34,6 +37,9 @@ export default async function Home({
       <main className="flex-1">
         <Hero />
         <WilsonStory />
+        <DiagnoseCTA />
+        <MedicalCTA />
+        <FAQPreview />
       </main>
       <Footer />
       <StickyKakao />
