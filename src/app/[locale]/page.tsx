@@ -8,11 +8,8 @@ import ConcernQuestions from "@/components/sections/ConcernQuestions";
 import WilsonStory from "@/components/sections/WilsonStory";
 import OfferShowcase from "@/components/sections/OfferShowcase";
 import DiagnoseCTA from "@/components/sections/DiagnoseCTA";
-import ParentConcerns from "@/components/sections/ParentConcerns";
-import MajorCategories from "@/components/sections/MajorCategories";
 import MedicalCTA from "@/components/sections/MedicalCTA";
 import FAQPreview from "@/components/sections/FAQPreview";
-import FinalCTA from "@/components/sections/FinalCTA";
 import EnglishLanding from "@/components/sections/EnglishLanding";
 
 // PART A A-4: 한국어 = ausuhak.com / 영문 = ausuhak.com/en
@@ -45,11 +42,8 @@ export default async function Home({
         <DiagnoseCTA />
         <WilsonStory />
         <OfferShowcase />
-        <ParentConcerns />
-        <MajorCategories />
         <MedicalCTA />
         <FAQPreview />
-        <FinalCTA />
       </main>
       <Footer />
       <StickyKakao />
