@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { requireStudent } from "@/lib/auth/requireStudent";
 
@@ -116,10 +117,17 @@ export default async function MypageQuotePage() {
                 </span>
               </div>
 
-              {/* PDF 다운로드는 Step 2.4에서 추가 */}
-              <p className="mt-3 text-xs text-ink-500">
-                * PDF 다운로드는 곧 추가됩니다. 지금은 카톡으로 받으신 견적서를 참고해주세요.
-              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <Link
+                  href={`/mypage/quote/${q.id}`}
+                  className="rounded-full bg-navy-900 px-4 py-1.5 text-xs font-semibold text-gold-400 transition hover:bg-navy-800"
+                >
+                  📄 PDF 보기
+                </Link>
+                <span className="text-[11px] text-ink-500">
+                  Ctrl/Cmd + P로 PDF 저장 가능
+                </span>
+              </div>
             </li>
           ))}
         </ul>

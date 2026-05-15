@@ -105,3 +105,10 @@ button {
   outline-offset: 4px;
   border-radius: 4px;
 }
+
+/* Quote PDF print stylesheet (Step 2.4) */
+@media print {
+  @page { margin: 12mm; size: A4; }
+  body { background: #fff !important; }
+}
+

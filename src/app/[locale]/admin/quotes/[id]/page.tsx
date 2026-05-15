@@ -88,9 +88,18 @@ export default async function QuoteDetailPage({
             {quote.status ?? "draft"}
           </span>
         </div>
-        <p className="mt-2 text-sm text-ink-500">
-          최근 수정: {new Date(quote.updated_at).toLocaleString("ko-KR")}
-        </p>
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <p className="text-sm text-ink-500">
+            최근 수정: {new Date(quote.updated_at).toLocaleString("ko-KR")}
+          </p>
+          <Link
+            href={`/admin/quotes/${quote.id}/pdf`}
+            target="_blank"
+            className="rounded-full bg-navy-900 px-4 py-1.5 text-xs font-semibold text-gold-400 transition hover:bg-navy-800"
+          >
+            📄 PDF 보기 / 인쇄
+          </Link>
+        </div>
       </header>
 
       <QuoteForm
