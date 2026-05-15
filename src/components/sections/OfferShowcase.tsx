@@ -8,15 +8,24 @@ interface OfferCard {
 }
 
 const OFFERS: OfferCard[] = [
-  { school: "The University of Sydney", major: "Bachelor of Nursing", year: "2025", initials: "K.J.Y" },
-  { school: "UNSW Sydney", major: "Bachelor of Commerce", year: "2025", initials: "L.S.H" },
-  { school: "The University of Melbourne", major: "Bachelor of Science", year: "2024", initials: "P.M.J" },
-  { school: "Monash University", major: "Master of IT", year: "2025", initials: "C.D.W" },
-  { school: "The University of Queensland", major: "Bachelor of Engineering", year: "2024", initials: "J.H.S" },
-  { school: "Australian National University", major: "Bachelor of Arts", year: "2025", initials: "K.E.J" },
-  { school: "The University of Adelaide", major: "Bachelor of Nursing", year: "2024", initials: "S.Y.B" },
-  { school: "University of Newcastle", major: "Doctor of Medicine (FSM)", year: "2025", initials: "L.J.H" },
-  { school: "La Trobe University", major: "Bachelor of Nursing", year: "2024", initials: "C.M.K" },
+  {
+    school: "The University of Sydney",
+    major: "Bachelor of Nursing",
+    year: "2025",
+    initials: "K.J.Y",
+  },
+  {
+    school: "UNSW Sydney",
+    major: "Bachelor of Commerce",
+    year: "2025",
+    initials: "L.S.H",
+  },
+  {
+    school: "The University of Melbourne",
+    major: "Bachelor of Science",
+    year: "2024",
+    initials: "P.M.J",
+  },
 ];
 
 export default function OfferShowcase() {
@@ -42,48 +51,58 @@ export default function OfferShowcase() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {OFFERS.map((o, i) => (
-            <div
-              key={i}
-              className="overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div
-                className="relative flex aspect-[4/5] items-center justify-center border-b border-cream-300"
-                style={{
-                  background:
-                    "repeating-linear-gradient(135deg, #FBF7EE 0, #FBF7EE 10px, #F5EFD9 10px, #F5EFD9 20px)",
-                }}
+        {/* 모바일: 가로 스와이프 carousel (scroll-snap) / PC: 3개 그리드 */}
+        <div className="mt-12 -mx-4 overflow-x-auto pb-2 sm:mx-0 sm:overflow-visible sm:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <ul className="flex snap-x snap-mandatory gap-5 px-4 sm:grid sm:grid-cols-3 sm:px-0">
+            {OFFERS.map((o, i) => (
+              <li
+                key={i}
+                className="w-[80vw] max-w-[340px] shrink-0 list-none snap-center sm:w-auto sm:max-w-none"
               >
-                <div className="text-center">
-                  <div className="font-display text-4xl text-gold-600 opacity-50">
-                    {"\u{1F4DC}"}
+                <div className="overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <div
+                    className="relative flex aspect-[4/5] items-center justify-center border-b border-cream-300"
+                    style={{
+                      background:
+                        "repeating-linear-gradient(135deg, #FBF7EE 0, #FBF7EE 10px, #F5EFD9 10px, #F5EFD9 20px)",
+                    }}
+                  >
+                    <div className="text-center">
+                      <div className="font-display text-5xl text-gold-600 opacity-50">
+                        {"\u{1F4DC}"}
+                      </div>
+                      <p className="mt-3 text-[11px] font-bold tracking-[0.2em] text-ink-500">
+                        {t("placeholderLabel")}
+                      </p>
+                      <p className="mt-1 text-[10px] text-ink-500">
+                        {o.year} OFFER
+                      </p>
+                    </div>
+                    <div className="absolute right-3 top-3 rounded-full bg-navy-900/85 px-3 py-1 text-[10px] font-bold tracking-wider text-cream-100">
+                      {o.initials}
+                    </div>
                   </div>
-                  <p className="mt-3 text-[11px] font-bold tracking-[0.2em] text-ink-500">
-                    {t("placeholderLabel")}
-                  </p>
-                  <p className="mt-1 text-[10px] text-ink-500">
-                    {o.year} OFFER
-                  </p>
+                  <div className="p-5">
+                    <p className="text-xs font-bold tracking-wider text-gold-600">
+                      {o.year}
+                    </p>
+                    <p className="mt-1.5 text-sm font-bold leading-snug text-navy-900 sm:text-base">
+                      {o.school}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-ink-700 sm:text-sm">
+                      {o.major}
+                    </p>
+                  </div>
                 </div>
-                <div className="absolute right-3 top-3 rounded-full bg-navy-900/85 px-3 py-1 text-[10px] font-bold tracking-wider text-cream-100">
-                  {o.initials}
-                </div>
-              </div>
-              <div className="p-5">
-                <p className="text-xs font-bold tracking-wider text-gold-600">
-                  {o.year}
-                </p>
-                <p className="mt-1.5 text-sm font-bold leading-snug text-navy-900 sm:text-base">
-                  {o.school}
-                </p>
-                <p className="mt-1 text-xs leading-relaxed text-ink-700 sm:text-sm">
-                  {o.major}
-                </p>
-              </div>
-            </div>
-          ))}
+              </li>
+            ))}
+          </ul>
         </div>
+
+        {/* 모바일 스와이프 힌트 */}
+        <p className="mt-4 text-center text-xs text-ink-500 sm:hidden">
+          {t("swipeHint")}
+        </p>
 
         <div className="mx-auto mt-12 max-w-3xl rounded-2xl border-l-4 border-gold-600 bg-gold-100 p-6 sm:p-7">
           <p className="text-sm leading-relaxed text-ink-900 sm:text-base">
