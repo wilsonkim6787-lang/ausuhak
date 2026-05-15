@@ -52,8 +52,8 @@ export default function Hero() {
               </a>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {([1, 2, 3, 4] as const).map((i) => (
+            <div className="mt-10 grid grid-cols-3 gap-4">
+              {([1, 2, 3] as const).map((i) => (
                 <div key={i} className="text-center sm:text-left">
                   <div className="font-display text-3xl font-bold text-navy-900 sm:text-4xl">
                     {t(`stat${i}Num` as const)}

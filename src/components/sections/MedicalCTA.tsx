@@ -1,72 +1,95 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export default function MedicalCTA() {
   const t = useTranslations("MedicalCTA");
 
-  const stats = [
-    { value: "5", label: t("stat1") },
-    { value: "21", label: t("stat2") },
-    { value: "ISAT", label: t("stat3") },
-    { value: "MMI", label: t("stat4") },
+  const cards = [
+    {
+      icon: t("card1Icon"),
+      eyebrow: t("card1Eyebrow"),
+      title: t("card1Title"),
+      body: t("card1Body"),
+      tag1: t("card1Tag1"),
+      tag2: t("card1Tag2"),
+    },
+    {
+      icon: t("card2Icon"),
+      eyebrow: t("card2Eyebrow"),
+      title: t("card2Title"),
+      body: t("card2Body"),
+      tag1: t("card2Tag1"),
+      tag2: t("card2Tag2"),
+    },
+    {
+      icon: t("card3Icon"),
+      eyebrow: t("card3Eyebrow"),
+      title: t("card3Title"),
+      body: t("card3Body"),
+      tag1: t("card3Tag1"),
+      tag2: t("card3Tag2"),
+    },
   ];
 
   return (
-    <section className="bg-cream-100">
+    <section className="bg-cream-200">
       <div className="container mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
-        <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.1fr]">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
-              {t("eyebrow")}
-            </span>
-            <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-navy-900 sm:text-5xl">
-              {t("title")}
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-700 sm:text-lg">
-              {t("subtitle")}
-            </p>
+        <div className="text-center">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
+            {t("eyebrow")}
+          </span>
+          <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold leading-tight text-navy-900 sm:text-5xl">
+            {t("title")}
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
+            {t("subtitle")}
+          </p>
+        </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <a
-                href="/medical.html"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-navy-900 px-7 py-3.5 text-base font-semibold text-cream-100 shadow-md transition hover:bg-navy-800 hover:shadow-lg"
-              >
-                {t("ctaPrimary")}
-              </a>
-              <Link
-                href="/medical/isat"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-3.5 text-base font-semibold text-navy-800 transition hover:bg-navy-800 hover:text-cream-100"
-              >
-                {t("ctaSecondary")}
-              </Link>
+        <div className="mt-12 grid gap-6 sm:grid-cols-3">
+          {cards.map((c) => (
+            <div
+              key={c.eyebrow}
+              className="flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-8"
+            >
+              <div className="text-4xl">{c.icon}</div>
+              <p className="mt-4 text-[11px] font-bold tracking-[0.15em] text-gold-600">
+                {c.eyebrow}
+              </p>
+              <h3 className="mt-2 text-lg font-bold text-navy-900 sm:text-xl">
+                {c.title}
+              </h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-700">
+                {c.body}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <span className="inline-flex items-center rounded-full bg-cream-100 px-3 py-1 text-xs font-semibold text-navy-800">
+                  {c.tag1}
+                </span>
+                <span className="inline-flex items-center rounded-full bg-cream-100 px-3 py-1 text-xs font-semibold text-navy-800">
+                  {c.tag2}
+                </span>
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
 
-          <div>
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm"
-                >
-                  <p className="font-display text-3xl font-bold text-navy-900 sm:text-4xl">
-                    {s.value}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-700">
-                    {s.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 rounded-2xl border-l-4 border-gold-600 bg-gold-100 p-6">
-              <p className="text-sm font-bold uppercase tracking-wider text-gold-600">
-                {t("noteEyebrow")}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-ink-900 sm:text-base">
-                {t("noteBody")}
-              </p>
-            </div>
-          </div>
+        <div className="mx-auto mt-12 max-w-3xl rounded-2xl border-l-4 border-gold-600 bg-gold-100 p-7 sm:p-8">
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-gold-600">
+            {t("honestEyebrow")}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-ink-900 sm:text-base">
+            {t("honestBody")}
+          </p>
+        </div>
+
+        <div className="mt-12 text-center">
+          <a
+            href="/medical.html"
+            className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-navy-900 px-8 py-4 text-base font-semibold text-cream-100 shadow-md transition hover:bg-navy-800 hover:shadow-lg sm:text-lg"
+          >
+            {t("ctaPrimary")} <span aria-hidden>→</span>
+          </a>
+          <p className="mt-4 text-sm text-ink-500">{t("ctaSubtext")}</p>
         </div>
       </div>
     </section>
