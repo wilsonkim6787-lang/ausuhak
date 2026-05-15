@@ -91,7 +91,7 @@
   },
   "MedicalCTA": {
     "eyebrow": "호주 의대 준비 센터",
-    "title": "호주 의대, 지금 상황에 맞는 입학 방법부터 확인하세요",
+    "title": "호주 의대, 지금 상황에 맞는 진학 루트부터 확인하세요",
     "subtitle": "ISAT 모의고사 · MMI 인터뷰 연습 · UCAT/GAMSAT/GEMSAS 지원 전략. 19년 경력 Wilson Kim이 직접 구성한 통합 준비 도구입니다.",
     "card1Icon": "📊",
     "card1Eyebrow": "ISAT MOCK TEST",
@@ -107,20 +107,20 @@
     "card2Tag2": "실전 시나리오",
     "card3Icon": "🎯",
     "card3Eyebrow": "STRATEGY",
-    "card3Title": "5가지 입학 방법 비교",
+    "card3Title": "5가지 진학 루트 비교",
     "card3Body": "Year 12/IB/수능 직접 지원 · Foundation · 학사 후 Graduate Entry MD · 한국 의사 AMC 경로 · 한국 의대 재학생의 호주 의대 재지원.",
     "card3Tag1": "5개 루트",
     "card3Tag2": "Newcastle FSM 안내",
     "honestEyebrow": "진실도 100",
     "honestBody": "호주 의대 진학은 학생마다 적합한 루트가 다릅니다. 본 페이지의 ISAT·MMI 도구는 무료 체험을 제공하며, 본인 조건에 맞는 자세한 진학 안내는 카카오 상담을 통해 확인하실 수 있습니다.",
     "ctaPrimary": "의대 준비 센터 입장",
-    "ctaSubtext": "ISAT 200문제 · MMI 20개 시나리오 · 5가지 입학 방법"
+    "ctaSubtext": "ISAT 200문제 · MMI 20개 시나리오 · 5가지 진학 루트"
   },
   "FinalCTA": {
     "eyebrow": "마지막으로",
     "titleLine1": "지금 필요한 건 학교 리스트가 아니라,",
     "titleLine2": "내 상황에 맞는 순서입니다.",
-    "body": "검정고시·워홀러·대졸 어느 출발점에서도, 가능한 입학 방법은 한 가지가 아닙니다. 본인 상황을 먼저 알려주시면 — Wilson 19년 노하우로 현실적인 순서를 같이 정리해드립니다.",
+    "body": "검정고시·워홀러·대졸 어느 출발점에서도, 가능한 진학 루트은 한 가지가 아닙니다. 본인 상황을 먼저 알려주시면 — Wilson 19년 노하우로 현실적인 순서를 같이 정리해드립니다.",
     "ctaPrimary": "내 상황 확인하기",
     "ctaSecondary": "카카오 상담하기",
     "ctaNote": "30초 안에 7장 리포트 / 결제·약정 없음"
@@ -134,7 +134,7 @@
     "cat1Body": "Bachelor of Nursing 3년 → AHPRA 등록 → RN 취업 → 영주권. 영어 IELTS 7.0 (L/R/S 7.0, W 6.5) 필수. 검정고시도 디플로마 경유로 진입 가능합니다.",
     "cat2Title": "의대·약대",
     "cat2Tag": "ISAT/MMI 필요",
-    "cat2Body": "호주 의대 학부 직진학 + Graduate Entry MD + Newcastle FSM 등 5가지 입학 방법. ISAT 200문제·MMI 20 스테이션·UCAT/GAMSAT 전략까지 한 페이지에 정리되어 있습니다.",
+    "cat2Body": "호주 의대 학부 직진학 + Graduate Entry MD + Newcastle FSM 등 5가지 진학 루트. ISAT 200문제·MMI 20 스테이션·UCAT/GAMSAT 전략까지 한 페이지에 정리되어 있습니다.",
     "cat3Title": "IT",
     "cat3Tag": "취업·영주권 강세",
     "cat3Body": "Bachelor of IT/Computer Science 또는 Master of IT 2년. 졸업 후 485 비자 → 취업 → 영주권 트랙. 한국 학사 졸업자는 석사 직진학이 가장 빠른 경로입니다.",

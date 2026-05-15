@@ -32,7 +32,7 @@ export default async function MedicalPage({
               호주 의대 준비, Wilson이 직접 코칭합니다.
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-cream-200 sm:text-base">
-              5가지 입학 방법 · ISAT 200문제 · MMI 40 스테이션 · 21개 의대 학교 정보. <br />
+              5가지 진학 루트 · ISAT 200문제 · MMI 40 스테이션 · 21개 의대 학교 정보. <br />
               의대 학생 응대는 Wilson 직접 (직원 위임 X). 평일 10:00~18:00 KST.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -64,7 +64,7 @@ export default async function MedicalPage({
         {/* 5진학루트 */}
         <section className="container mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
           <h2 className="font-display text-2xl font-bold text-navy-900 sm:text-3xl">
-            5가지 입학 방법
+            5가지 진학 루트
           </h2>
           <p className="mt-2 text-sm text-ink-700">
             본인 상황이 어느 방법인지 헷갈리면 카톡 상담 → Wilson 19년 노하우로 함께 정리.
