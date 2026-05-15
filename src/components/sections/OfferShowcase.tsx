@@ -32,7 +32,7 @@ export default function OfferShowcase() {
   const t = useTranslations("OfferShowcase");
 
   return (
-    <section id="offers" className="bg-cream-100">
+    <section id="offers" className="bg-white">
       <div className="container mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="text-center">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
