@@ -119,8 +119,6 @@ const CONCERNS = [
   { icon: "\u{2B50}", key: "concern6" },
   { icon: "\u{1F6C2}", key: "concern7" },
   { icon: "\u{1F4D6}", key: "concern8" },
-  { icon: "\u{1F3E0}", key: "concern9" },
-  { icon: "\u{1F6EB}", key: "concern10" },
 ] as const;
 
 export default function DiagnoseCTA() {
