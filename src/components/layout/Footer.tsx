@@ -16,11 +16,11 @@ export default function Footer() {
           <div>
             <p className="font-display text-xl font-bold">
               ausuhak<span className="italic text-gold-500">.com</span>
-              <span className="ml-1 text-sm font-medium text-cream-300">
+              <span className="ml-1 text-sm font-medium text-cream-200">
                 (호주유학)
               </span>
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-cream-300">
+            <p className="mt-2 text-sm leading-relaxed text-cream-200">
               {t("tagline")}
             </p>
 
@@ -40,19 +40,19 @@ export default function Footer() {
             </p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                💬{" "}
                 <a
                   href={kakaoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-kakao-source="footer"
-                  className="text-cream-100 underline-offset-2 hover:underline"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#FEE500] px-4 py-2 text-sm font-semibold text-[#3C1E1E] transition hover:scale-[1.02]"
                 >
-                  pf.kakao.com/_GadTX
+                  <span aria-hidden>{"\u{1F4AC}"}</span>
+                  카카오 채널로 1:1 상담
                 </a>
               </li>
-              <li className="text-cream-300">
-                ⏰ {t("hoursValue")}
+              <li className="text-cream-200">
+                <span aria-hidden>{"\u{23F0}"}</span> {t("hoursValue")}
               </li>
             </ul>
           </div>
@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         {/* 하단 라인 */}
-        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-cream-300/10 pt-6 text-xs text-cream-300 sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-cream-100/15 pt-6 text-xs text-cream-200 sm:flex-row sm:items-center">
           <p>© 2026 ausuhak.com</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-gold-500">
