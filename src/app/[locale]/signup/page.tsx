@@ -15,7 +15,8 @@ export default async function SignupPage({
   // 이미 로그인된 사용자는 role별 홈으로
   const user = await getCurrentUser();
   if (user?.role === "super_admin") redirect("/admin");
-  if (user) redirect("/"); // TODO Step 2.2: student → /mypage
+  if (user?.role === "student") redirect("/mypage");
+  if (user) redirect("/");
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-cream-100 px-4 py-16">

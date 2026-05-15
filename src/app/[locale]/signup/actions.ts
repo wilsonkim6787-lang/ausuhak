@@ -63,7 +63,7 @@ export async function signupAction(
   // 이메일 확인 ON  → session 없음 → 안내 메시지로 멈춤
   if (data.session) {
     revalidatePath("/", "layout");
-    redirect("/"); // TODO Step 2.2: /mypage
+    redirect("/mypage");
   }
 
   return {

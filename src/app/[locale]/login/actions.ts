@@ -46,7 +46,7 @@ export async function loginAction(
       .single();
     if (profile?.role === "super_admin") dest = "/admin";
     else if (profile?.role === "staff") dest = "/"; // TODO Step 2.6: /staff
-    else if (profile?.role === "student") dest = "/"; // TODO Step 2.2: /mypage
+    else if (profile?.role === "student") dest = "/mypage";
   }
 
   revalidatePath("/", "layout");
