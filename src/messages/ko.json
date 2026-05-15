@@ -9,7 +9,9 @@
     "menuStory": "Wilson 19년",
     "menuMedical": "의대 준비",
     "menuFaq": "자주 묻는 질문",
-    "ctaKakao": "💬 카톡 상담"
+    "menuLogin": "로그인",
+    "menuSignup": "회원가입",
+    "ctaKakao": "카톡 상담"
   },
   "Hero": {
     "badge": "QEAC E240 · 19년 호주 유학 상담",

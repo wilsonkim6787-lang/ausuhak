@@ -5,12 +5,11 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 
-// PART O O-5-4: Sticky header / 80px desktop / 56px mobile
-// PART N-3: 메뉴 4개 (진단·FAQ·의대·회사소개) + Gold CTA
+const KAKAO_URL = "https://pf.kakao.com/_GadTX";
+
 export default function Header() {
   const t = useTranslations("Header");
   const [open, setOpen] = useState(false);
-  const kakaoUrl = "https://pf.kakao.com/_GadTX";
 
   const menuItems = [
     { key: "diagnose", label: t("menuDiagnose"), href: "/diagnose" },
@@ -22,7 +21,7 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-cream-300 bg-cream-100/92 backdrop-blur-md">
-        <nav className="container mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:h-20 sm:px-6">
+        <nav className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-20 sm:px-6">
           {/* Logo */}
           <Link href="/" className="flex items-baseline gap-2.5">
             <span className="font-display text-lg font-bold tracking-tight text-navy-900 sm:text-[22px]">
@@ -35,7 +34,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop menu */}
-          <div className="hidden items-center gap-7 sm:flex">
+          <div className="hidden items-center gap-5 sm:flex">
             {menuItems.map((item) => (
               <a
                 key={item.key}
@@ -45,13 +44,32 @@ export default function Header() {
                 {item.label}
               </a>
             ))}
+
+            {/* 로그인 / 회원가입 (구분선으로 분리) */}
+            <div className="flex items-center gap-3 border-l border-cream-300 pl-5">
+              <Link
+                href="/login"
+                className="text-sm font-medium text-navy-700 transition hover:text-gold-600"
+              >
+                {t("menuLogin")}
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-full border border-navy-700 px-4 py-1.5 text-sm font-semibold text-navy-700 transition hover:border-gold-600 hover:bg-gold-600 hover:text-white"
+              >
+                {t("menuSignup")}
+              </Link>
+            </div>
+
+            {/* 카톡 = 노란 카카오 색 (가시성 명확) */}
             <a
-              href={kakaoUrl}
+              href={KAKAO_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-kakao-source="header_desktop"
-              className="rounded-full bg-navy-900 px-5 py-2.5 text-[13px] font-semibold text-gold-500 transition hover:bg-gold-600 hover:text-navy-900"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#FEE500] px-4 py-2 text-sm font-bold text-[#3C1E1E] transition hover:scale-[1.02]"
             >
+              <span aria-hidden>{"\u{1F4AC}"}</span>
               {t("ctaKakao")}
             </a>
           </div>
@@ -59,13 +77,14 @@ export default function Header() {
           {/* Mobile menu toggle */}
           <div className="flex items-center gap-2 sm:hidden">
             <a
-              href={kakaoUrl}
+              href={KAKAO_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-kakao-source="header_mobile"
-              className="rounded-full bg-navy-900 px-3.5 py-2 text-xs font-semibold text-gold-500"
+              aria-label="카톡 상담"
+              className="rounded-full bg-[#FEE500] px-3 py-2 text-sm font-bold text-[#3C1E1E]"
             >
-              💬
+              <span aria-hidden>{"\u{1F4AC}"}</span>
             </a>
             <button
               type="button"
@@ -101,14 +120,34 @@ export default function Header() {
                 {item.label}
               </a>
             ))}
+
+            {/* 모바일 로그인 / 회원가입 */}
+            <div className="mt-2 flex gap-3">
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="flex-1 rounded-full border border-cream-100/40 py-3 text-center text-sm font-semibold text-cream-100"
+              >
+                {t("menuLogin")}
+              </Link>
+              <Link
+                href="/signup"
+                onClick={() => setOpen(false)}
+                className="flex-1 rounded-full bg-gold-600 py-3 text-center text-sm font-bold text-white"
+              >
+                {t("menuSignup")}
+              </Link>
+            </div>
+
             <a
-              href={kakaoUrl}
+              href={KAKAO_URL}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               data-kakao-source="header_mobile_menu"
-              className="mt-6 rounded-full bg-gold-600 px-6 py-4 text-center text-base font-semibold text-white"
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#FEE500] px-6 py-4 text-center text-base font-bold text-[#3C1E1E]"
             >
+              <span aria-hidden>{"\u{1F4AC}"}</span>
               {t("ctaKakao")}
             </a>
           </nav>

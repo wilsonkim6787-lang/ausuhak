@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import FaqAccordion from "@/components/faq/FaqAccordion";
+import type { FaqItem } from "@/data/faqs";
 
 interface CategoryPreview {
   icon: string;
   name: string;
-  questions: string[];
+  items: FaqItem[];
 }
 
 interface Props {
@@ -28,8 +30,6 @@ const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 export default function FAQPreviewClient({ categories, total, labels }: Props) {
   const [active, setActive] = useState(0);
   const activeCat = categories[active];
-  const remaining = total - active * 0; // total은 전체 / per-category remaining 계산은 active 카테고리 기준
-  void remaining;
 
   return (
     <section id="faq" className="bg-cream-200">
@@ -65,24 +65,14 @@ export default function FAQPreviewClient({ categories, total, labels }: Props) {
           ))}
         </div>
 
-        <div className="mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-7 shadow-sm sm:p-9">
-          <ul className="divide-y divide-cream-300">
-            {activeCat.questions.map((q, i) => (
-              <li key={i} className="flex items-start gap-3 py-4">
-                <span
-                  aria-hidden
-                  className="mt-1.5 size-1.5 shrink-0 rounded-full bg-gold-600"
-                />
-                <span className="text-base text-navy-900 sm:text-lg">{q}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="mx-auto mt-10 max-w-3xl">
+          <FaqAccordion items={activeCat.items} />
           <div className="mt-6 text-center">
             <Link
-              href={`/faq?cat=${active}`}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-gold-600 hover:text-gold-500"
+              href={`/faq?cat=${active}#cat-${active}`}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-gold-600 transition hover:text-gold-500"
             >
-              {labels.seeAllLabel} ({total}개) <span aria-hidden>→</span>
+              {labels.seeAllLabel} (전체 {total}개) <span aria-hidden>→</span>
             </Link>
           </div>
         </div>
@@ -99,7 +89,7 @@ export default function FAQPreviewClient({ categories, total, labels }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             data-kakao-source="faq-preview"
-            className="mt-7 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-3.5 text-base font-semibold text-navy-900 shadow-md transition hover:bg-gold-500 hover:shadow-lg"
+            className="mt-7 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg"
           >
             {labels.ctaKakao} <span aria-hidden>→</span>
           </a>

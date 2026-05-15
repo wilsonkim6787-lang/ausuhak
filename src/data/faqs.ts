@@ -19,11 +19,11 @@ const data = raw as FaqData;
 
 export const FAQ_CATEGORIES: FaqCategory[] = data.categories;
 
-export function getCategoryPreview(limit = 5): { icon: string; name: string; questions: string[] }[] {
+export function getCategoryPreview(limit = 5): { icon: string; name: string; items: FaqItem[] }[] {
   return FAQ_CATEGORIES.map((c) => ({
     icon: c.icon,
     name: c.name,
-    questions: c.items.slice(0, limit).map((it) => it.q),
+    items: c.items.slice(0, limit),
   }));
 }
 

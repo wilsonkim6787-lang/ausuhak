@@ -85,7 +85,7 @@ export default function MedicalCTA() {
         <div className="mt-12 text-center">
           <a
             href="/medical.html"
-            className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-navy-900 px-8 py-4 text-base font-semibold text-cream-100 shadow-md transition hover:bg-navy-800 hover:shadow-lg sm:text-lg"
+            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
           >
             {t("ctaPrimary")} <span aria-hidden>→</span>
           </a>
