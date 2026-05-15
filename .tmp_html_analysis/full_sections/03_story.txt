@@ -1,0 +1,191 @@
+<section class="section story" id="story" style="background:var(--cream);position:relative;overflow:hidden">
+  
+  <!-- 배경 장식 -->
+  <div style="position:absolute;top:80px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,150,42,0.06) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
+  
+  <div class="container" style="position:relative;z-index:1">
+    <div class="section-eyebrow">SECTION 03 — 진짜 이야기</div>
+    
+    <!-- 큰 인용구 형식의 헤드라인 -->
+    <h2 class="section-title" style="font-style:italic;max-width:800px;line-height:1.25">
+      "학생한테 진심이면,<br>
+      다 <span class="em">당연한 일</span>입니다."
+    </h2>
+    <p class="section-desc" style="margin-top:20px">
+      19년, 그렇게 살았습니다.<br>
+      <span style="color:var(--ink-mute);font-size:14px">— Wilson Kim, QEAC E240</span>
+    </p>
+    
+    <!-- Wilson 프로필 카드 -->
+    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;margin-top:64px;padding:40px;background:var(--paper);border-radius:var(--r-xl);box-shadow:var(--shadow-md)">
+      
+      <!-- 좌측: 사진 -->
+      <div style="aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden">
+        <div class="placeholder-img" style="height:100%;min-height:340px">
+          <div class="ph-icon">📸</div>
+          <div class="ph-label">C-1 Wilson 프로필</div>
+          <div class="ph-desc">
+            정면 프로필 사진<br>
+            (밝은 표정, 깔끔한 배경)<br>
+            <br>
+            <strong style="color:#0A1628">권장: 4:5 세로 비율</strong>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 우측: 짧은 소개 -->
+      <div>
+        <div style="display:inline-block;background:rgba(201,150,42,0.12);border:1px solid rgba(201,150,42,0.3);padding:6px 16px;border-radius:var(--r-pill);font-size:12px;font-weight:700;color:var(--gold);letter-spacing:0.5px;margin-bottom:20px">
+          QEAC E240 · 19년
+        </div>
+        <h3 style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--navy-deep);margin-bottom:16px;line-height:1.3">
+          학생들이 저를<br>
+          <span style="color:var(--gold);font-style:italic">삼촌</span>이라 부릅니다.
+        </h3>
+        <p style="color:var(--ink-soft);line-height:1.8;font-size:16px;margin-bottom:24px">
+          유학원이라기보다, 학생들의 호주 길잡이로 19년을 살았습니다.<br>
+          <strong style="color:var(--navy-deep)">한국 사무실에 앉아서 카톡만 하지 않습니다.</strong>
+          호주 학교 안에 들어가서 일해보고, 학생들과 시간을 직접 보냅니다.
+        </p>
+        
+        <!-- placeholder for 자기소개 보강 -->
+        <div class="placeholder">
+          <strong>A-2, A-4 자료 필요</strong>
+          Wilson 본인 한 줄 소개 + "사회인을 키우는 거지" 철학 풀어쓰기
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- 솔직한 인정 박스 -->
+    <div style="margin-top:48px;padding:32px 40px;background:linear-gradient(135deg,#FBF7EE 0%,#F5EFD9 100%);border-left:4px solid var(--gold);border-radius:var(--r-md);max-width:800px;margin-left:auto;margin-right:auto">
+      <p style="font-family:var(--font-display);font-size:24px;font-style:italic;color:var(--navy-deep);line-height:1.5;margin-bottom:12px">
+        "모든 학생이 성공하지는 못했습니다.<br>
+        실패한 친구들도 있었습니다."
+      </p>
+      <p style="font-size:15px;color:var(--ink-soft);line-height:1.7;margin:0">
+        그래서 19년, 멈추지 않았습니다.<br>
+        <strong style="color:var(--navy-deep)">실패를 줄이려고 방법을 계속 바꿨습니다.</strong>
+        필리핀 EC 어학원에 1~2주씩 여러 번 가서 학생들과 직접 시간을 보냅니다.
+        성격을 알아야 전공이 맞고, 친해야 호주에서도 관리됩니다.
+      </p>
+    </div>
+    
+    <!-- 4가지 일하는 방식 -->
+    <h3 style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--navy-deep);margin:80px 0 32px;text-align:center">
+      19년, 이렇게 일했습니다
+    </h3>
+    
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:48px">
+      
+      <!-- 카드 1 -->
+      <div style="background:var(--paper);border-radius:var(--r-lg);padding:32px;border:1px solid var(--line);transition:all 0.3s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(10,22,40,0.08)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <div style="font-family:var(--font-display);font-size:48px;font-weight:700;color:var(--gold);font-style:italic;line-height:1;margin-bottom:16px">01</div>
+        <h4 style="font-size:20px;font-weight:600;color:var(--navy-deep);margin-bottom:12px">1년에 50명, 그 이상은 못 받습니다</h4>
+        <p style="color:var(--ink-soft);line-height:1.7;font-size:14px;margin-bottom:16px">
+          대학 진학 30명, 디플로마·랭귀지 20명. 19년 일해보니
+          한 학생을 제대로 보려면 입학 전 상담 5-7회, 입학 후에도
+          학기마다 케어가 필요했습니다. 50명이 한 사람이 감당 가능한 한계선입니다.
+        </p>
+        <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:0.5px">
+          1년 50명 한정
+        </div>
+      </div>
+      
+      <!-- 카드 2 -->
+      <div style="background:var(--paper);border-radius:var(--r-lg);padding:32px;border:1px solid var(--line);transition:all 0.3s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(10,22,40,0.08)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <div style="font-family:var(--font-display);font-size:48px;font-weight:700;color:var(--gold);font-style:italic;line-height:1;margin-bottom:16px">02</div>
+        <h4 style="font-size:20px;font-weight:600;color:var(--navy-deep);margin-bottom:12px">영어 준비 단계부터, 직접 운영합니다</h4>
+        <p style="color:var(--ink-soft);line-height:1.7;font-size:14px;margin-bottom:16px">
+          필리핀 세부에 EC 어학원, 한국에 EC 화상영어 센터를 직영합니다.
+          PTE·IELTS·기초 영어까지 — 호주 가기 전부터 학생을 보고 있어서,
+          입학 시점에 어떤 학생인지 이미 압니다. 1년에 약 4개월은 필리핀에 직접 있습니다.
+        </p>
+        <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:0.5px">
+          EC 어학원(필리핀 세부) + EC 화상영어(한국) 직영
+        </div>
+      </div>
+      
+      <!-- 카드 3 -->
+      <div style="background:var(--paper);border-radius:var(--r-lg);padding:32px;border:1px solid var(--line);transition:all 0.3s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(10,22,40,0.08)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <div style="font-family:var(--font-display);font-size:48px;font-weight:700;color:var(--gold);font-style:italic;line-height:1;margin-bottom:16px">03</div>
+        <h4 style="font-size:20px;font-weight:600;color:var(--navy-deep);margin-bottom:12px">호주에서도 끝나지 않습니다</h4>
+        <p style="color:var(--ink-soft);line-height:1.7;font-size:14px;margin-bottom:16px">
+          19년 중 상당 기간을 호주 대학 안에서 일했습니다.
+          지금도 1년에 한두 번 호주에 가서 학생들 캠퍼스를 직접 다녀옵니다.
+          졸업 후에도 카톡에 그대로 남아있는 학생이 많습니다 — "삼촌"이라 부릅니다.
+        </p>
+        <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:0.5px">
+          학생 → 사회인 → 동반자
+        </div>
+      </div>
+      
+      <!-- 카드 4 -->
+      <div style="background:var(--paper);border-radius:var(--r-lg);padding:32px;border:1px solid var(--line);transition:all 0.3s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(10,22,40,0.08)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <div style="font-family:var(--font-display);font-size:48px;font-weight:700;color:var(--gold);font-style:italic;line-height:1;margin-bottom:16px">04</div>
+        <h4 style="font-size:20px;font-weight:600;color:var(--navy-deep);margin-bottom:12px">"추천 학교"가 정해져 있지 않습니다</h4>
+        <p style="color:var(--ink-soft);line-height:1.7;font-size:14px;margin-bottom:16px">
+          일반 유학원은 추천 학교가 5-10곳으로 고정되어 있습니다. 저는 그게 안 됩니다.
+          같은 간호학과여도 학생 성격에 따라 La Trobe가 맞기도 하고 UniSC가 맞기도 합니다.
+          800명을 졸업·취업·영주권까지 따라가본 데이터가 있으니까요.
+        </p>
+        <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:0.5px">
+          학생 상황 기반 매칭
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- 사회인 후기 — placeholder -->
+    <h3 style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--navy-deep);margin:80px 0 16px;text-align:center">
+      졸업 후, 사회인이 되어
+    </h3>
+    <p style="text-align:center;color:var(--ink-soft);margin-bottom:40px">
+      학생들이 어떻게 살고 있는지 — 본인 말로 들려드립니다.
+    </p>
+    
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <!-- 후기 카드 1 -->
+      <div style="background:var(--paper);border-radius:var(--r-lg);padding:28px;border:1px solid var(--line);position:relative">
+        <div style="font-size:48px;font-family:var(--font-display);color:var(--gold);line-height:0.6;font-style:italic;margin-bottom:8px">"</div>
+        <div class="placeholder" style="margin:0">
+          <strong>B-1 후기 #1</strong>
+          졸업 N년 / 학교 / 현재 직업 / 한 줄 후기
+        </div>
+      </div>
+      
+      <!-- 후기 카드 2 -->
+      <div style="background:var(--paper);border-radius:var(--r-lg);padding:28px;border:1px solid var(--line)">
+        <div style="font-size:48px;font-family:var(--font-display);color:var(--gold);line-height:0.6;font-style:italic;margin-bottom:8px">"</div>
+        <div class="placeholder" style="margin:0">
+          <strong>B-1 후기 #2</strong>
+          졸업 N년 / 학교 / 현재 직업 / 한 줄 후기
+        </div>
+      </div>
+      
+      <!-- 후기 카드 3 -->
+      <div style="background:var(--paper);border-radius:var(--r-lg);padding:28px;border:1px solid var(--line)">
+        <div style="font-size:48px;font-family:var(--font-display);color:var(--gold);line-height:0.6;font-style:italic;margin-bottom:8px">"</div>
+        <div class="placeholder" style="margin:0">
+          <strong>B-1 후기 #3</strong>
+          졸업 N년 / 학교 / 현재 직업 / 한 줄 후기
+        </div>
+      </div>
+    </div>
+    
+    <!-- CTA 박스 -->
+    <div style="margin-top:64px;padding:40px;background:var(--navy-deep);border-radius:var(--r-xl);text-align:center;color:var(--cream)">
+      <h3 style="font-family:var(--font-display);font-size:26px;color:var(--gold-light);margin-bottom:12px;font-weight:700">
+        당신도 한 명의 학생이 됩니다
+      </h3>
+      <p style="margin-bottom:24px;color:rgba(251,247,238,0.8);line-height:1.7">
+        1년 50명 안에서, Wilson 19년 노하우와 함께.<br>
+        먼저 30초 진단으로 시작하세요.
+      </p>
+      <a href="#diagnose" class="btn-primary" style="background:var(--gold);color:var(--navy-deep)">
+        내 상태 30초 진단 →
+      </a>
+    </div>
+    
+  </div>
+</section>

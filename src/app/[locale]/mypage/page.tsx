@@ -110,7 +110,7 @@ export default async function MypageHome() {
       {/* Stage 12 시각화 */}
       <section className="rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">
         <h2 className="mb-4 font-display text-lg font-semibold text-navy-900">
-          🎯 전체 진행 단계 (12단계)
+          🎯 전체 로드맵 (12단계)
         </h2>
         <StageTimeline currentStage={student.current_stage} />
       </section>

@@ -1,0 +1,25 @@
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-eyebrow" style="text-align:center">SECTION 06 — 자주 묻는 질문</div>
+    <h2 class="section-title" style="text-align:center">
+      자주 묻는 <span class="em">질문</span>
+    </h2>
+    <p class="section-desc" style="text-align:center">
+      19년 동안 받았던 질문들입니다.<br>
+      더 깊은 이야기는 카카오에서 나누겠습니다.
+    </p>
+    
+    <!-- 카테고리 탭 -->
+    <div class="faq-tabs" id="faqTabs"></div>
+    
+    <!-- FAQ 리스트 -->
+    <div class="faq-list" id="faqList"></div>
+    
+    <!-- 마지막 CTA -->
+    <div class="faq-final-cta">
+      <h3>여기서 답을 못 찾으셨다면</h3>
+      <p>학생 한 명 한 명이 다른 상황 — Wilson 19년 노하우는 1:1 상담에서.</p>
+      <a href="https://open.kakao.com/o/studywilson" target="_blank">💬 카카오 무료 상담 받기 →</a>
+    </div>
+  </div>
+</section>

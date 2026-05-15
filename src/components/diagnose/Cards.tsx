@@ -133,7 +133,7 @@ export function Card1Schools({ data }: { data: CardsT["card1_schools"] }) {
           {/* 경로 B: Pathway 경유 (Foundation/Diploma) — 고졸/검정고시만 */}
           {dual && (
             <div className="border-t border-cream-300 pt-5">
-              <PathHeader label="B" sub="기초 과정 경유 (Foundation/Diploma → 학사)" />
+              <PathHeader label="B" sub="Pathway 경유 (Foundation/Diploma → 학사)" />
               {pathwayEmpty ? (
                 <p className="rounded-lg border border-cream-200 bg-cream-100/40 px-3 py-2 text-xs text-ink-500">
                   이 지역에 Foundation/Diploma 정본 학교가 적습니다.

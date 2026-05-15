@@ -1,0 +1,81 @@
+<section class="section diagnose" id="diagnose">
+  <div class="container">
+    
+    <div class="section-eyebrow">SECTION 02 — 자동 진단</div>
+    <h2 class="section-title">
+      30초만 알려주시면<br>
+      <span class="em">7장 리포트</span>로 보여드립니다.
+    </h2>
+    <p class="section-desc">
+      이 지역, 이 전공, 이 길을 정직하게.
+      학교·비용·졸업 조건·5년 로드맵까지 한 번에.
+    </p>
+    
+    <!-- 진단 카드 -->
+    <div class="diag-card">
+      <div class="diag-step"><span class="num">1</span> 내 정보 입력 (30초)</div>
+      <h3>30초면 됩니다 — 6가지만</h3>
+      
+      <!-- 진행률 바 -->
+      <div class="diag-progress">
+        <div class="diag-progress-bar"><div class="diag-progress-fill" id="diagProgressFill"></div></div>
+        <div class="diag-progress-text"><span id="diagProgressNum">0</span> / 6</div>
+      </div>
+      
+      <div class="diag-grid">
+        <!-- 1. 전공 (가장 쉬움) -->
+        <div class="diag-field">
+          <label>📚 희망 전공</label>
+          <select id="dMajor" onchange="updateDiagProgress()">
+            <option value="">선택해주세요</option>
+            <option value="nursing">간호</option>
+            <option value="business">경영</option>
+            <option value="it">IT</option>
+            <option value="cooking">요리</option>
+            <option value="hotel">호텔경영</option>
+            <option value="medicine">의대</option>
+            <option value="pharmacy">약대</option>
+            <option value="other">기타·잘 모르겠어요</option>
+          </select>
+        </div>
+        
+        <!-- 2. 지역 -->
+        <div class="diag-field">
+          <label>📍 희망 지역</label>
+          <select id="dRegion" onchange="updateDiagProgress()">
+            <option value="">선택해주세요</option>
+            <option value="nsw">NSW (시드니)</option>
+            <option value="vic">VIC (멜번)</option>
+            <option value="qld">QLD (브리즈번)</option>
+            <option value="goldcoast">골드코스트</option>
+            <option value="sa">SA (애들레이드)</option>
+            <option value="wa">WA (퍼스)</option>
+            <option value="tas">TAS (호바트)</option>
+            <option value="any">상관없음</option>
+          </select>
+        </div>
+        
+        <!-- 3. 학력 -->
+        <div class="diag-field">
+          <label>🎓 현재 학력</label>
+          <select id="dEdu" onchange="updateDiagProgress()">
+            <option value="">선택해주세요</option>
+            <option value="high">고졸 (또는 졸업 예정)</option>
+            <option value="ged">검정고시 (또는 자퇴 예정)</option>
+            <option value="uni-current">대학 재학·휴학</option>
+            <option value="uni-grad">대학 졸업</option>
+            <option value="master">석사 이상</option>
+          </select>
+          <div class="diag-hint">💡 학력에 따라 진학 경로가 달라집니다.</div>
+        </div>
+        
+        <!-- 4. 영어 -->
+        <div class="diag-field">
+          <label>📊 영어 수준</label>
+          <select id="dEng" onchange="updateDiagProgress()">
+            <option value="">선택해주세요</option>
+            <option value="0">영어 점수 없음</option>
+            <option value="5.0">IELTS 5.0~5.5</option>
+            <option value="6.0">IELTS 6.0</option>
+            <option value="6.5">IELTS 6.5</option>
+            <option value="7.0">IELTS 7.0 이상</option>
