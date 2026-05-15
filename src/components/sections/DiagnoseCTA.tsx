@@ -14,7 +14,13 @@ interface FieldOption {
 interface FieldDef {
   key: FieldKey;
   icon: string;
-  labelKey: "fieldMajor" | "fieldRegion" | "fieldEdu" | "fieldEnglish" | "fieldBudget" | "fieldGoal";
+  labelKey:
+    | "fieldMajor"
+    | "fieldRegion"
+    | "fieldEdu"
+    | "fieldEnglish"
+    | "fieldBudget"
+    | "fieldGoal";
   hintKey?: "fieldEduHint" | "fieldEnglishHint" | "fieldGoalHint";
   options: FieldOption[];
 }
@@ -104,6 +110,15 @@ const FIELDS: FieldDef[] = [
   },
 ];
 
+const CONCERNS = [
+  { icon: "\u{1F4DA}", key: "concern1" },
+  { icon: "\u{1F4DD}", key: "concern2" },
+  { icon: "\u{1F4B0}", key: "concern3" },
+  { icon: "\u{1FA7A}", key: "concern4" },
+  { icon: "\u{1F3E0}", key: "concern5" },
+  { icon: "\u{1F6EB}", key: "concern6" },
+] as const;
+
 export default function DiagnoseCTA() {
   const t = useTranslations("DiagnoseCTA");
   const router = useRouter();
@@ -114,19 +129,21 @@ export default function DiagnoseCTA() {
 
   const onSubmit = () => {
     const qs = new URLSearchParams(
-      Object.entries(values).filter(([, v]) => v).map(([k, v]) => [k, v!])
+      Object.entries(values)
+        .filter(([, v]) => v)
+        .map(([k, v]) => [k, v!]),
     ).toString();
     router.push(qs ? `/diagnose?${qs}` : "/diagnose");
   };
 
   return (
     <section id="diagnose" className="bg-navy-900 text-cream-100">
-      <div className="container mx-auto max-w-4xl px-4 py-20 sm:px-6 sm:py-28">
+      <div className="container mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="text-center">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-500">
             {t("eyebrow")}
           </span>
-          <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-cream-100 sm:text-5xl">
+          <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold leading-tight text-cream-100 sm:text-5xl">
             {t("titleLine1")}
             <br />
             <span className="italic text-gold-500">{t("titleLine2")}</span>
@@ -137,79 +154,112 @@ export default function DiagnoseCTA() {
           </p>
         </div>
 
-        <div className="mt-12 rounded-3xl bg-white p-6 text-ink-900 shadow-xl sm:p-9">
-          <div className="flex items-center gap-3">
-            <span className="flex size-9 items-center justify-center rounded-full bg-gold-600 text-base font-bold text-white">
-              1
-            </span>
-            <span className="text-sm font-semibold text-navy-900 sm:text-base">
-              {t("stepHeader")}
-            </span>
-          </div>
-          <h3 className="mt-4 font-display text-xl font-bold text-navy-900 sm:text-2xl">
-            {t("stepTitle")}
-          </h3>
+        <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12">
+          {/* 좌측: 공감 패널 */}
+          <aside className="rounded-3xl border border-cream-100/15 bg-navy-800/40 p-7 backdrop-blur-sm sm:p-9">
+            <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
+              {t("concernHeading")}
+            </p>
+            <ul className="mt-5 space-y-3.5">
+              {CONCERNS.map((c) => (
+                <li key={c.key} className="flex items-start gap-3">
+                  <span
+                    aria-hidden
+                    className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-base"
+                  >
+                    {c.icon}
+                  </span>
+                  <span className="pt-1 text-sm leading-relaxed text-cream-100 sm:text-base">
+                    {t(c.key as "concern1")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 border-t border-cream-100/15 pt-5 text-xs leading-relaxed text-cream-200/80 sm:text-sm">
+              {t("concernNote")}
+            </p>
+          </aside>
 
-          <div className="mt-5 flex items-center gap-3">
-            <div
-              className="h-2 flex-1 overflow-hidden rounded-full bg-cream-200"
-              role="progressbar"
-              aria-valuenow={filled}
-              aria-valuemin={0}
-              aria-valuemax={6}
-            >
-              <div
-                className="h-full rounded-full bg-gold-600 transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
+          {/* 우측: 진단 폼 */}
+          <div className="rounded-3xl bg-white p-6 text-ink-900 shadow-xl sm:p-9">
+            <div className="flex items-center gap-3">
+              <span className="flex size-9 items-center justify-center rounded-full bg-gold-600 text-base font-bold text-white">
+                1
+              </span>
+              <span className="text-sm font-semibold text-navy-900 sm:text-base">
+                {t("stepHeader")}
+              </span>
             </div>
-            <span className="text-sm font-bold tabular-nums text-navy-900">
-              {filled} / 6
-            </span>
-          </div>
+            <h3 className="mt-4 font-display text-xl font-bold text-navy-900 sm:text-2xl">
+              {t("stepTitle")}
+            </h3>
 
-          <div className="mt-7 grid gap-5 sm:grid-cols-2">
-            {FIELDS.map((f) => (
-              <div key={f.key}>
-                <label
-                  htmlFor={`dx-${f.key}`}
-                  className="flex items-center gap-2 text-sm font-semibold text-navy-900"
-                >
-                  <span aria-hidden>{f.icon}</span>
-                  {t(f.labelKey)}
-                </label>
-                <select
-                  id={`dx-${f.key}`}
-                  value={values[f.key] ?? ""}
-                  onChange={(e) =>
-                    setValues((prev) => ({ ...prev, [f.key]: e.target.value }))
-                  }
-                  className="mt-2 w-full rounded-lg border border-cream-300 bg-cream-100 px-4 py-3 text-sm text-navy-900 transition focus:border-gold-600 focus:outline-none focus:ring-2 focus:ring-gold-600/30"
-                >
-                  <option value="">{t("selectPlaceholder")}</option>
-                  {f.options.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-                {f.hintKey && (
-                  <p className="mt-1.5 text-xs text-ink-500">{t(f.hintKey)}</p>
-                )}
+            <div className="mt-5 flex items-center gap-3">
+              <div
+                className="h-2 flex-1 overflow-hidden rounded-full bg-cream-200"
+                role="progressbar"
+                aria-valuenow={filled}
+                aria-valuemin={0}
+                aria-valuemax={6}
+              >
+                <div
+                  className="h-full rounded-full bg-gold-600 transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
-            ))}
-          </div>
+              <span className="text-sm font-bold tabular-nums text-navy-900">
+                {filled} / 6
+              </span>
+            </div>
 
-          <button
-            type="button"
-            onClick={onSubmit}
-            className="mt-9 inline-flex min-h-[56px] w-full items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
-          >
-            {t("ctaPrimary")} <span aria-hidden>→</span>
-          </button>
-          <p className="mt-3 text-center text-xs text-ink-500">
-            {t("ctaSubtext")}
-          </p>
+            <div className="mt-7 grid gap-5 sm:grid-cols-2">
+              {FIELDS.map((f) => (
+                <div key={f.key}>
+                  <label
+                    htmlFor={`dx-${f.key}`}
+                    className="flex items-center gap-2 text-sm font-semibold text-navy-900"
+                  >
+                    <span aria-hidden>{f.icon}</span>
+                    {t(f.labelKey)}
+                  </label>
+                  <select
+                    id={`dx-${f.key}`}
+                    value={values[f.key] ?? ""}
+                    onChange={(e) =>
+                      setValues((prev) => ({
+                        ...prev,
+                        [f.key]: e.target.value,
+                      }))
+                    }
+                    className="mt-2 w-full rounded-lg border border-cream-300 bg-cream-100 px-4 py-3 text-sm text-navy-900 transition focus:border-gold-600 focus:outline-none focus:ring-2 focus:ring-gold-600/30"
+                  >
+                    <option value="">{t("selectPlaceholder")}</option>
+                    {f.options.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                  {f.hintKey && (
+                    <p className="mt-1.5 text-xs text-ink-500">
+                      {t(f.hintKey)}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={onSubmit}
+              className="mt-9 inline-flex min-h-[56px] w-full items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
+            >
+              {t("ctaPrimary")} <span aria-hidden>→</span>
+            </button>
+            <p className="mt-3 text-center text-xs text-ink-500">
+              {t("ctaSubtext")}
+            </p>
+          </div>
         </div>
       </div>
     </section>
