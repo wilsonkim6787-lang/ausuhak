@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 
 <style>
 :root {
@@ -578,6 +578,14 @@ table.compare tr:nth-child(even) { background: var(--soft); }
   .result-breakdown { grid-template-columns: 1fr; }
 }
 </style>
+
+
+<!-- ausuhak-font-hardening-start -->
+<style>
+  html, body { font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif !important; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  h1, h2, h3, .font-display { font-family: 'Playfair Display', 'Pretendard Variable', Pretendard, serif; }
+</style>
+<!-- ausuhak-font-hardening-end -->
 </head>
 <body>
 
@@ -622,6 +630,10 @@ table.compare tr:nth-child(even) { background: var(--soft); }
 <!-- ══════════════════════════════════════════════════════════ -->
 <div class="container">
 
+
+<!-- ausuhak-anchor:isat -->
+<div id="isat" style="position:relative;top:-72px;height:0;visibility:hidden;" aria-hidden="true"></div>
+<!-- /ausuhak-anchor:isat -->
 <div class="tab-content" id="tab-isat">
 
   <!-- 시작 전 안내 -->
@@ -741,6 +753,10 @@ table.compare tr:nth-child(even) { background: var(--soft); }
 <!-- ══════════════════════════════════════════════════════════ -->
 <!-- MMI Interview -->
 <!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- ausuhak-anchor:mmi -->
+<div id="mmi" style="position:relative;top:-72px;height:0;visibility:hidden;" aria-hidden="true"></div>
+<!-- /ausuhak-anchor:mmi -->
 <div class="tab-content" id="tab-mmi">
 
   <h2 class="section-title">🎤 MMI 면접 — 의대 합격의 마지막 관문</h2>
@@ -816,6 +832,10 @@ table.compare tr:nth-child(even) { background: var(--soft); }
 <!-- ══════════════════════════════════════════════════════════ -->
 <!-- 지원 전략 -->
 <!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- ausuhak-anchor:strategy -->
+<div id="strategy" style="position:relative;top:-72px;height:0;visibility:hidden;" aria-hidden="true"></div>
+<!-- /ausuhak-anchor:strategy -->
 <div class="tab-content active" id="tab-strategy">
 
   <h2 class="section-title">🎯 호주 의대, 5가지 진학 루트 비교</h2>
@@ -7828,5 +7848,20 @@ function exitMMI() {
 </footer>
 <!-- AUSUHAK_SITE_FOOTER_END -->
 
+<!-- ausuhak-hash-sync-start -->
+<script>(function(){
+  var valid=['isat','mmi','strategy'];
+  function sync(){
+    var h=(location.hash||'').replace('#','');
+    if(valid.indexOf(h)>=0 && typeof switchTab==='function'){
+      try{switchTab(h);}catch(e){}
+      var t=document.getElementById(h);
+      if(t && t.scrollIntoView){setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'});},80);}
+    }
+  }
+  window.addEventListener('DOMContentLoaded',sync);
+  window.addEventListener('hashchange',sync);
+})();</script>
+<!-- ausuhak-hash-sync-end -->
 </body>
 </html>

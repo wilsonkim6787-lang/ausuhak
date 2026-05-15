@@ -11,6 +11,7 @@ export default function MedicalCTA() {
       body: t("card1Body"),
       tag1: t("card1Tag1"),
       tag2: t("card1Tag2"),
+      href: "/medical.html#isat",
     },
     {
       icon: t("card2Icon"),
@@ -19,6 +20,7 @@ export default function MedicalCTA() {
       body: t("card2Body"),
       tag1: t("card2Tag1"),
       tag2: t("card2Tag2"),
+      href: "/medical.html#mmi",
     },
     {
       icon: t("card3Icon"),
@@ -27,6 +29,7 @@ export default function MedicalCTA() {
       body: t("card3Body"),
       tag1: t("card3Tag1"),
       tag2: t("card3Tag2"),
+      href: "/medical.html#strategy",
     },
   ];
 
@@ -47,15 +50,16 @@ export default function MedicalCTA() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
           {cards.map((c) => (
-            <div
+            <a
               key={c.eyebrow}
-              className="flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-8"
+              href={c.href}
+              className="group flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-gold-600 hover:shadow-lg sm:p-8"
             >
               <div className="text-4xl">{c.icon}</div>
               <p className="mt-4 text-[11px] font-bold tracking-[0.15em] text-gold-600">
                 {c.eyebrow}
               </p>
-              <h3 className="mt-2 text-lg font-bold text-navy-900 sm:text-xl">
+              <h3 className="mt-2 text-lg font-bold text-navy-900 group-hover:text-gold-600 sm:text-xl">
                 {c.title}
               </h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-700">
@@ -69,7 +73,10 @@ export default function MedicalCTA() {
                   {c.tag2}
                 </span>
               </div>
-            </div>
+              <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-gold-600">
+                자세히 보기 <span aria-hidden className="transition group-hover:translate-x-1">→</span>
+              </span>
+            </a>
           ))}
         </div>
 
