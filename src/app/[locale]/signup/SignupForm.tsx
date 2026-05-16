@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { Button } from "@/components/ui/Button";
+import OAuthButtons from "@/components/auth/OAuthButtons";
 import { signupAction, type SignupState } from "./actions";
 
 const initial: SignupState = {};
@@ -10,7 +11,14 @@ export default function SignupForm() {
   const [state, formAction, pending] = useActionState(signupAction, initial);
 
   return (
-    <form action={formAction} className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
+      <OAuthButtons label="가입" />
+      <div className="flex items-center gap-2 text-[11px] text-ink-500">
+        <div className="h-px flex-1 bg-cream-300" />
+        <span>또는 이메일</span>
+        <div className="h-px flex-1 bg-cream-300" />
+      </div>
+      <form action={formAction} className="flex flex-col gap-4">
       <label className="flex flex-col gap-1.5">
         <span className="text-xs font-semibold text-navy-700">이름</span>
         <input
@@ -77,6 +85,7 @@ export default function SignupForm() {
       <Button type="submit" disabled={pending} size="lg" className="mt-2">
         {pending ? "가입 중…" : "가입하기"}
       </Button>
-    </form>
+      </form>
+    </div>
   );
 }

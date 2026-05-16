@@ -1,11 +1,13 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { logActivity } from "@/lib/audit/log";
 
 export type LoginState = { error?: string };
+export type OAuthProvider = "kakao" | "google";
 
 export async function loginAction(
   _prev: LoginState,
@@ -58,6 +60,35 @@ export async function loginAction(
 
   revalidatePath("/", "layout");
   redirect(dest);
+}
+
+// OAuth 로그인 (카카오·구글) — provider 로 리다이렉트.
+// Supabase Dashboard → Auth → Providers 에서 활성화 + Client ID/Secret 입력 필수.
+// 콜백: /auth/callback (route handler) 에서 exchangeCodeForSession 처리.
+export async function signInWithOAuthAction(formData: FormData): Promise<void> {
+  const provider = String(formData.get("provider") ?? "") as OAuthProvider;
+  if (!["kakao", "google"].includes(provider)) {
+    redirect("/login?error=invalid_provider");
+  }
+
+  const h = await headers();
+  const proto = h.get("x-forwarded-proto") ?? "https";
+  const host = h.get("host") ?? "www.ausuhak.com";
+  const origin = `${proto}://${host}`;
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: `${origin}/auth/callback`,
+    },
+  });
+
+  if (error || !data?.url) {
+    redirect(`/login?error=${encodeURIComponent(error?.message ?? "oauth_failed")}`);
+  }
+
+  redirect(data.url);
 }
 
 export async function logoutAction() {
