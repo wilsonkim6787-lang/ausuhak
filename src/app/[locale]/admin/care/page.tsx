@@ -10,10 +10,12 @@ import {
   renderAutoMessage,
   type StudentForCare,
 } from "@/lib/care/rules";
+import CopyButton from "@/components/admin/CopyButton";
 
 type StudentRaw = {
   id: string;
   name: string | null;
+  kakao_id: string | null;
   current_stage: number;
   lead_status: string | null;
   updated_at: string;
@@ -41,7 +43,7 @@ export default async function AdminCarePage({
     supabase
       .from("students")
       .select(
-        "id, name, current_stage, lead_status, updated_at, user_id, users(last_login_at)",
+        "id, name, kakao_id, current_stage, lead_status, updated_at, user_id, users(last_login_at)",
       )
       .limit(2000),
     supabase
@@ -87,6 +89,7 @@ export default async function AdminCarePage({
       return {
         id: raw.id,
         name: raw.name,
+        kakao_id: raw.kakao_id,
         current_stage: raw.current_stage,
         lead_status: raw.lead_status,
         updated_at: raw.updated_at,
@@ -217,27 +220,42 @@ function RuleGroup({
         <p className="mt-3 text-xs text-ink-500">— 트리거된 학생 없음</p>
       ) : (
         <ul className="mt-3 space-y-1.5">
-          {hits.slice(0, 20).map((h) => (
-            <li
-              key={`${h.rule_id}-${h.student_id}`}
-              className="flex items-center justify-between gap-2 rounded-lg bg-white px-3 py-2 text-sm"
-            >
-              <Link
-                href={`/admin/students/${h.student_id}`}
-                className="min-w-0 flex-1 truncate font-medium text-navy-900 underline-offset-2 hover:underline"
+          {hits.slice(0, 20).map((h) => {
+            const message = rule.autoMessageTemplate
+              ? renderAutoMessage(rule, h.student_name)
+              : null;
+            return (
+              <li
+                key={`${h.rule_id}-${h.student_id}`}
+                className="flex flex-wrap items-center gap-2 rounded-lg bg-white px-3 py-2 text-sm"
               >
-                {h.student_name?.trim() || "이름 미입력"}
-              </Link>
-              <span className="shrink-0 rounded-full bg-navy-900 px-2 py-0.5 text-[10px] font-bold text-white">
-                Stage {h.current_stage}
-              </span>
-              {h.days_since != null && (
-                <span className="shrink-0 text-[11px] font-semibold text-ink-700">
-                  {h.days_since}일 전
+                <Link
+                  href={`/admin/students/${h.student_id}`}
+                  className="min-w-0 flex-1 truncate font-medium text-navy-900 underline-offset-2 hover:underline"
+                >
+                  {h.student_name?.trim() || "이름 미입력"}
+                </Link>
+                <span className="shrink-0 rounded-full bg-navy-900 px-2 py-0.5 text-[10px] font-bold text-white">
+                  Stage {h.current_stage}
                 </span>
-              )}
-            </li>
-          ))}
+                {h.days_since != null && (
+                  <span className="shrink-0 text-[11px] font-semibold text-ink-700">
+                    {h.days_since}일 전
+                  </span>
+                )}
+                {h.student_kakao_id && (
+                  <CopyButton
+                    value={h.student_kakao_id}
+                    label={`📋 ${h.student_kakao_id}`}
+                    copiedLabel="ID 복사됨"
+                  />
+                )}
+                {message && (
+                  <CopyButton value={message} label="💬 메시지 복사" />
+                )}
+              </li>
+            );
+          })}
           {hits.length > 20 && (
             <li className="text-center text-[11px] text-ink-500">
               ...외 {hits.length - 20}명

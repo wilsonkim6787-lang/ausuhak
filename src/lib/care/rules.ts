@@ -81,6 +81,7 @@ export const CARE_RULES: CareRule[] = [
 export type StudentForCare = {
   id: string;
   name: string | null;
+  kakao_id: string | null;
   current_stage: number;
   lead_status: string | null;
   updated_at: string;
@@ -97,6 +98,7 @@ export type CareHit = {
   rule_id: string;
   student_id: string;
   student_name: string | null;
+  student_kakao_id: string | null;
   current_stage: number;
   severity: RuleSeverity;
   days_since: number | null; // 정체된 일수 (계산 가능 시)
@@ -180,6 +182,7 @@ function makeHit(
     rule_id: ruleId,
     student_id: s.id,
     student_name: s.name,
+    student_kakao_id: s.kakao_id,
     current_stage: s.current_stage,
     severity: rule.severity,
     days_since: daysSince,
