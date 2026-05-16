@@ -47,3 +47,7 @@ next-env.d.ts
 
 # Local HTML analysis (FINAL.html 추출용 임시 / 커밋 X)
 .tmp_html_analysis/
+
+# Python (scripts/ 실행 시 자동 생성되는 bytecode 캐시)
+__pycache__/
+*.pyc
