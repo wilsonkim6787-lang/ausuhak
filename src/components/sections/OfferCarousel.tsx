@@ -13,6 +13,7 @@ export type OfferItem = {
   year: number | null;
   student_alias: string | null;
   image_url: string | null;
+  is_pdf?: boolean;
 };
 
 const ROTATE_MS = 5000;
@@ -90,7 +91,7 @@ function CardLi({ o, placeholderLabel }: { o: OfferItem; placeholderLabel: strin
   const card = (
     <div className="group h-full overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
       <div className="relative aspect-[4/5] border-b border-cream-300">
-        {o.image_url ? (
+        {o.image_url && !o.is_pdf ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={o.image_url}
@@ -98,6 +99,17 @@ function CardLi({ o, placeholderLabel }: { o: OfferItem; placeholderLabel: strin
             className="h-full w-full object-cover"
             loading="lazy"
           />
+        ) : o.image_url && o.is_pdf ? (
+          <div className="flex h-full items-center justify-center bg-cream-200">
+            <div className="text-center">
+              <span className="text-5xl">📄</span>
+              <p className="mt-3 text-[11px] font-bold tracking-[0.2em] text-ink-700">
+                PDF 합격증
+              </p>
+              <p className="mt-1 text-[10px] text-ink-500">{o.year ?? "—"} OFFER</p>
+              <p className="mt-2 text-[9px] text-gold-600">클릭하여 보기</p>
+            </div>
+          </div>
         ) : (
           <div
             className="flex h-full items-center justify-center"

@@ -56,6 +56,8 @@ export default async function AdminOffersPage({
 
   const bucketUrl = (path: string) =>
     `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${path}`;
+  const isPdf = (path: string | null | undefined) =>
+    !!path && path.toLowerCase().endsWith(".pdf");
 
   return (
     <div className="flex flex-col gap-5">
@@ -104,13 +106,20 @@ export default async function AdminOffersPage({
                     }`}
                   >
                     <div className="relative aspect-[4/5] bg-cream-200">
-                      {offer.image_path ? (
+                      {offer.image_path && !isPdf(offer.image_path) ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={bucketUrl(offer.image_path)}
                           alt={offer.school}
                           className="h-full w-full object-cover"
                         />
+                      ) : offer.image_path && isPdf(offer.image_path) ? (
+                        <div className="flex h-full items-center justify-center">
+                          <div className="text-center">
+                            <span className="text-3xl">📄</span>
+                            <p className="mt-1 text-[9px] font-bold text-ink-700">PDF</p>
+                          </div>
+                        </div>
                       ) : (
                         <div className="flex h-full items-center justify-center text-[10px] text-ink-500">
                           (이미지 없음)
@@ -169,12 +178,29 @@ function OfferForm({
 
         {editing?.image_path && (
           <div className="rounded-lg border border-cream-300 bg-cream-100/50 p-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={bucketUrl(editing.image_path)}
-              alt={editing.school}
-              className="mx-auto max-h-48 rounded"
-            />
+            {editing.image_path.toLowerCase().endsWith(".pdf") ? (
+              <div className="flex items-center justify-between gap-2 p-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">📄</span>
+                  <span className="text-xs font-semibold text-navy-900">PDF</span>
+                </div>
+                <a
+                  href={bucketUrl(editing.image_path)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-semibold text-gold-600 hover:underline"
+                >
+                  새 탭 열기 →
+                </a>
+              </div>
+            ) : (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={bucketUrl(editing.image_path)}
+                alt={editing.school}
+                className="mx-auto max-h-48 rounded"
+              />
+            )}
             <p className="mt-1 text-center text-[10px] text-ink-500 truncate">{editing.image_path}</p>
           </div>
         )}

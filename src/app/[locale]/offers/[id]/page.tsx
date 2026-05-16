@@ -67,7 +67,10 @@ export default async function OfferDetailPage({
 
   const bucketUrl = (path: string) =>
     `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${path}`;
+  const isPdf = (path: string | null) =>
+    !!path && path.toLowerCase().endsWith(".pdf");
   const imageUrl = o.image_path ? bucketUrl(o.image_path) : null;
+  const mainIsPdf = isPdf(o.image_path);
   const storyHtml = o.story ? await marked.parse(o.story) : "";
 
   return (
@@ -101,8 +104,8 @@ export default async function OfferDetailPage({
             <p className="mt-2 text-sm text-ink-700 sm:text-base">{o.program}</p>
           )}
 
-          {/* 합격증 이미지 */}
-          {imageUrl && (
+          {/* 합격증 이미지 또는 PDF */}
+          {imageUrl && !mainIsPdf && (
             <figure className="mt-6 overflow-hidden rounded-2xl border border-cream-300 bg-white p-3 shadow-sm">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -110,6 +113,43 @@ export default async function OfferDetailPage({
                 alt={`${o.school} 합격증`}
                 className="mx-auto max-h-[600px] w-auto"
               />
+            </figure>
+          )}
+          {imageUrl && mainIsPdf && (
+            <figure className="mt-6 overflow-hidden rounded-2xl border border-cream-300 bg-white p-3 shadow-sm">
+              <object
+                data={imageUrl}
+                type="application/pdf"
+                className="hidden h-[720px] w-full sm:block"
+                aria-label={`${o.school} 합격증 PDF`}
+              >
+                <div className="flex h-32 items-center justify-center p-6 text-sm text-ink-700">
+                  PDF 미리보기 지원 안 됨.
+                  <a
+                    href={imageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-2 font-semibold text-gold-600 underline"
+                  >
+                    새 탭에서 열기
+                  </a>
+                </div>
+              </object>
+              {/* 모바일 fallback */}
+              <div className="flex items-center justify-between gap-3 p-3 sm:hidden">
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl">📄</span>
+                  <span className="text-sm font-semibold text-navy-900">PDF 합격증</span>
+                </div>
+                <a
+                  href={imageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-gold-600 px-4 py-2 text-xs font-semibold text-white"
+                >
+                  PDF 열기 →
+                </a>
+              </div>
             </figure>
           )}
 
@@ -155,14 +195,16 @@ export default async function OfferDetailPage({
                 </Link>
               </div>
               <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {others.map((other) => (
+                {others.map((other) => {
+                  const otherIsPdf = isPdf(other.image_path);
+                  return (
                   <li key={other.id}>
                     <Link
                       href={`/offers/${other.id}`}
                       className="group block overflow-hidden rounded-xl border border-cream-300 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                     >
                       <div className="relative aspect-[4/5] bg-cream-200">
-                        {other.image_path ? (
+                        {other.image_path && !otherIsPdf ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={bucketUrl(other.image_path)}
@@ -170,6 +212,13 @@ export default async function OfferDetailPage({
                             loading="lazy"
                             className="h-full w-full object-cover transition group-hover:scale-105"
                           />
+                        ) : other.image_path && otherIsPdf ? (
+                          <div className="flex h-full items-center justify-center">
+                            <div className="text-center">
+                              <span className="text-3xl">📄</span>
+                              <p className="mt-1 text-[9px] font-bold text-ink-700">PDF</p>
+                            </div>
+                          </div>
                         ) : (
                           <div className="flex h-full items-center justify-center text-[10px] text-ink-500">
                             (이미지 없음)
@@ -198,7 +247,8 @@ export default async function OfferDetailPage({
                       </div>
                     </Link>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </section>
           )}

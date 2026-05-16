@@ -55,6 +55,7 @@ export default async function OfferShowcase() {
         image_url: r.image_path
           ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${r.image_path}`
           : null,
+        is_pdf: r.image_path ? r.image_path.toLowerCase().endsWith(".pdf") : false,
       }));
 
   return (
