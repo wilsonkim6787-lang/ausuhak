@@ -114,12 +114,19 @@ export default async function AdminOffersPage({
                           className="h-full w-full object-cover"
                         />
                       ) : offer.image_path && isPdf(offer.image_path) ? (
-                        <div className="flex h-full items-center justify-center">
-                          <div className="text-center">
-                            <span className="text-3xl">📄</span>
-                            <p className="mt-1 text-[9px] font-bold text-ink-700">PDF</p>
+                        <object
+                          data={`${bucketUrl(offer.image_path)}#toolbar=0&navpanes=0&scrollbar=0&view=FitH&page=1`}
+                          type="application/pdf"
+                          className="pointer-events-none absolute inset-0 h-full w-full bg-white"
+                          aria-label={`${offer.school} PDF`}
+                        >
+                          <div className="flex h-full items-center justify-center">
+                            <div className="text-center">
+                              <span className="text-3xl">📄</span>
+                              <p className="mt-1 text-[9px] font-bold text-ink-700">PDF</p>
+                            </div>
                           </div>
-                        </div>
+                        </object>
                       ) : (
                         <div className="flex h-full items-center justify-center text-[10px] text-ink-500">
                           (이미지 없음)

@@ -100,16 +100,26 @@ function CardLi({ o, placeholderLabel }: { o: OfferItem; placeholderLabel: strin
             loading="lazy"
           />
         ) : o.image_url && o.is_pdf ? (
-          <div className="flex h-full items-center justify-center bg-cream-200">
-            <div className="text-center">
-              <span className="text-5xl">📄</span>
-              <p className="mt-3 text-[11px] font-bold tracking-[0.2em] text-ink-700">
-                PDF 합격증
-              </p>
-              <p className="mt-1 text-[10px] text-ink-500">{o.year ?? "—"} OFFER</p>
-              <p className="mt-2 text-[9px] text-gold-600">클릭하여 보기</p>
-            </div>
-          </div>
+          <>
+            {/* PC: PDF 첫 페이지 인라인 렌더링 (브라우저 내장 viewer). pointer-events:none → 부모 Link 클릭 통과 */}
+            <object
+              data={`${o.image_url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH&page=1`}
+              type="application/pdf"
+              className="pointer-events-none absolute inset-0 h-full w-full bg-white"
+              aria-label={`${o.school} PDF 합격증`}
+            >
+              {/* fallback: 모바일·PDF 미지원 브라우저 */}
+              <div className="flex h-full items-center justify-center bg-cream-200">
+                <div className="text-center">
+                  <span className="text-5xl">📄</span>
+                  <p className="mt-3 text-[11px] font-bold tracking-[0.2em] text-ink-700">
+                    PDF 합격증
+                  </p>
+                  <p className="mt-1 text-[10px] text-ink-500">{o.year ?? "—"} OFFER</p>
+                </div>
+              </div>
+            </object>
+          </>
         ) : (
           <div
             className="flex h-full items-center justify-center"
