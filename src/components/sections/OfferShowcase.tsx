@@ -3,9 +3,9 @@
 // 데이터 없을 때 placeholder 3장 (사회적 증거 빈 페이지 회피).
 // PART 0-1: 카톡 URL = pf.kakao.com/_GadTX 만.
 
-import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import OfferCarousel from "./OfferCarousel";
 
 type OfferRow = {
   id: string;
@@ -77,86 +77,9 @@ export default async function OfferShowcase() {
           </div>
         </div>
 
-        {/* 모바일: 가로 스와이프 carousel (scroll-snap) / PC: 3개 그리드 */}
-        <div className="mt-12 -mx-4 overflow-x-auto pb-2 sm:mx-0 sm:overflow-visible sm:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <ul className="flex snap-x snap-mandatory gap-5 px-4 sm:grid sm:grid-cols-3 sm:px-0">
-            {items.slice(0, 6).map((o, i) => {
-              const card = (
-                <div className="group overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                  <div className="relative aspect-[4/5] border-b border-cream-300">
-                    {o.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={o.image_url}
-                        alt={`${o.school} 합격증`}
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div
-                        className="flex h-full items-center justify-center"
-                        style={{
-                          background:
-                            "repeating-linear-gradient(135deg, #FBF7EE 0, #FBF7EE 10px, #F5EFD9 10px, #F5EFD9 20px)",
-                        }}
-                      >
-                        <div className="text-center">
-                          <div className="font-display text-5xl text-gold-600 opacity-50">
-                            {"\u{1F4DC}"}
-                          </div>
-                          <p className="mt-3 text-[11px] font-bold tracking-[0.2em] text-ink-500">
-                            {t("placeholderLabel")}
-                          </p>
-                          <p className="mt-1 text-[10px] text-ink-500">
-                            {o.year ?? "—"} OFFER
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    {o.student_alias && (
-                      <div className="absolute right-3 top-3 rounded-full bg-navy-900/85 px-3 py-1 text-[10px] font-bold tracking-wider text-cream-100">
-                        {o.student_alias}
-                      </div>
-                    )}
-                    {o.id && (
-                      <div className="absolute bottom-3 left-3 rounded-full bg-gold-600/90 px-3 py-1 text-[10px] font-bold tracking-wider text-white opacity-0 transition group-hover:opacity-100">
-                        후기 보기 →
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    {o.year && (
-                      <p className="text-xs font-bold tracking-wider text-gold-600">
-                        {o.year}
-                      </p>
-                    )}
-                    <p className="mt-1.5 text-sm font-bold leading-snug text-navy-900 sm:text-base">
-                      {o.school}
-                    </p>
-                    {o.program && (
-                      <p className="mt-1 text-xs leading-relaxed text-ink-700 sm:text-sm">
-                        {o.program}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-              return (
-                <li
-                  key={o.id ?? i}
-                  className="w-[80vw] max-w-[340px] shrink-0 list-none snap-center sm:w-auto sm:max-w-none"
-                >
-                  {o.id ? (
-                    <Link href={`/offers/${o.id}`} className="block">
-                      {card}
-                    </Link>
-                  ) : (
-                    card
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+        {/* PC = 3개씩 자동 회전 (5초) / 모바일 = 가로 swipe */}
+        <div className="mt-12">
+          <OfferCarousel items={items} placeholderLabel={t("placeholderLabel")} />
         </div>
 
         {/* 모바일 스와이프 힌트 (2장 이상일 때만) */}

@@ -37,19 +37,37 @@ export default async function OfferDetailPage({
   const HeaderCmp = locale === "en" ? HeaderEn : Header;
 
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("offers")
-    .select("id, school, program, year, student_alias, image_path, note, story, status")
-    .eq("id", id)
-    .eq("status", "published")
-    .single();
+  const [currentRes, othersRes] = await Promise.all([
+    supabase
+      .from("offers")
+      .select("id, school, program, year, student_alias, image_path, note, story, status")
+      .eq("id", id)
+      .eq("status", "published")
+      .single(),
+    supabase
+      .from("offers")
+      .select("id, school, program, year, student_alias, image_path")
+      .eq("status", "published")
+      .neq("id", id)
+      .order("display_order")
+      .order("year", { ascending: false })
+      .limit(8),
+  ]);
 
-  if (error || !data) notFound();
-  const o = data as Offer;
+  if (currentRes.error || !currentRes.data) notFound();
+  const o = currentRes.data as Offer;
+  const others = (othersRes.data ?? []) as Array<{
+    id: string;
+    school: string;
+    program: string | null;
+    year: number | null;
+    student_alias: string | null;
+    image_path: string | null;
+  }>;
 
-  const imageUrl = o.image_path
-    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${o.image_path}`
-    : null;
+  const bucketUrl = (path: string) =>
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${path}`;
+  const imageUrl = o.image_path ? bucketUrl(o.image_path) : null;
   const storyHtml = o.story ? await marked.parse(o.story) : "";
 
   return (
@@ -120,6 +138,69 @@ export default async function OfferDetailPage({
             </section>
           ) : (
             <p className="mt-6 text-xs text-ink-500">— 후기 준비 중. 비슷한 케이스 상담은 카카오로.</p>
+          )}
+
+          {/* 다른 합격증 */}
+          {others.length > 0 && (
+            <section className="mt-10">
+              <div className="flex items-baseline justify-between gap-3">
+                <h2 className="font-display text-lg font-bold text-navy-900 sm:text-xl">
+                  다른 합격 케이스
+                </h2>
+                <Link
+                  href="/#offers"
+                  className="text-xs font-semibold text-gold-600 hover:underline"
+                >
+                  전체 보기 →
+                </Link>
+              </div>
+              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {others.map((other) => (
+                  <li key={other.id}>
+                    <Link
+                      href={`/offers/${other.id}`}
+                      className="group block overflow-hidden rounded-xl border border-cream-300 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                    >
+                      <div className="relative aspect-[4/5] bg-cream-200">
+                        {other.image_path ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={bucketUrl(other.image_path)}
+                            alt={other.school}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex h-full items-center justify-center text-[10px] text-ink-500">
+                            (이미지 없음)
+                          </div>
+                        )}
+                        {other.student_alias && (
+                          <div className="absolute right-1.5 top-1.5 rounded-full bg-navy-900/85 px-2 py-0.5 text-[9px] font-bold tracking-wider text-cream-100">
+                            {other.student_alias}
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-2.5">
+                        {other.year && (
+                          <p className="text-[10px] font-bold tracking-wider text-gold-600">
+                            {other.year}
+                          </p>
+                        )}
+                        <p className="mt-0.5 truncate text-[11px] font-bold text-navy-900 sm:text-xs">
+                          {other.school}
+                        </p>
+                        {other.program && (
+                          <p className="mt-0.5 truncate text-[10px] text-ink-700">
+                            {other.program}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           )}
 
           {/* 카카오 CTA */}
