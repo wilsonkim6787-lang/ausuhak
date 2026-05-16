@@ -14,6 +14,7 @@ const menus = [
   { href: "/staff/students", label: "📋 담당 학생", active: true },
   { href: "/staff/manuals", label: "📚 매뉴얼 475", active: true },
   { href: "/staff/faqs", label: "🔍 내부 FAQ 84", active: true },
+  { href: "/staff/sites", label: "🔗 자료 사이트", active: true },
   { href: "/staff/cases", label: "🧠 케이스 학습", active: true },
 ];
 
