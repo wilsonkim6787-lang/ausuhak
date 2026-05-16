@@ -82,27 +82,31 @@ async function InternalSection({
   const supabase = await createClient();
   const search = (sp.q ?? "").trim();
 
-  let query = supabase
+  let listQuery = supabase
     .from("internal_faqs")
     .select("id, faq_id, module_type, category, question")
     .order("module_type")
     .order("category");
-  if (sp.cat && sp.cat !== "all") query = query.eq("module_type", sp.cat);
+  if (sp.cat && sp.cat !== "all") listQuery = listQuery.eq("module_type", sp.cat);
   if (search) {
     const safe = search.replace(/%/g, "");
-    query = query.or(`question.ilike.%${safe}%,faq_id.ilike.%${safe}%`);
+    listQuery = listQuery.or(`question.ilike.%${safe}%,faq_id.ilike.%${safe}%`);
   }
-  const { data: rows, error } = await query.limit(200);
 
-  let editingRow: Record<string, unknown> | null = null;
-  if (sp.edit) {
-    const { data } = await supabase
-      .from("internal_faqs")
-      .select("id, faq_id, module_type, category, question, card_text, internal_data, wilson_note")
-      .eq("id", sp.edit)
-      .single();
-    editingRow = data ?? null;
-  }
+  // 리스트 + 편집 대상 병렬 fetch
+  const [listRes, editRes] = await Promise.all([
+    listQuery.limit(200),
+    sp.edit
+      ? supabase
+          .from("internal_faqs")
+          .select("id, faq_id, module_type, category, question, card_text, internal_data, wilson_note")
+          .eq("id", sp.edit)
+          .single()
+      : Promise.resolve({ data: null, error: null }),
+  ]);
+  const rows = listRes.data;
+  const error = listRes.error;
+  const editingRow = editRes.data ?? null;
 
   const moduleTypes = [
     { key: "scenario", label: "시나리오" },
@@ -288,19 +292,7 @@ async function StaffSection({
   const search = (sp.q ?? "").trim();
   const showNew = sp.new === "1";
 
-  // 카테고리 카운트
-  const { data: catRows } = await supabase
-    .from("staff_manuals")
-    .select("category");
-  const catCounts = new Map<string, number>();
-  for (const r of (catRows ?? []) as { category: string | null }[]) {
-    const c = r.category ?? "미분류";
-    catCounts.set(c, (catCounts.get(c) ?? 0) + 1);
-  }
-  const sortedCats = [...catCounts.entries()].sort((a, b) => b[1] - a[1]);
-  const totalCount = sortedCats.reduce((s, [, n]) => s + n, 0);
-
-  // 리스트
+  // 리스트 쿼리 빌드
   let listQuery = supabase
     .from("staff_manuals")
     .select("id, number, category, title")
@@ -313,18 +305,34 @@ async function StaffSection({
     const safe = search.replace(/%/g, "");
     listQuery = listQuery.or(`title.ilike.%${safe}%,search_text.ilike.%${safe}%`);
   }
-  const { data: manuals, error: listError } = await listQuery.limit(200);
 
-  // 편집 대상
+  // 카테고리 카운트 + 리스트 + 편집 대상 병렬 fetch (3 queries 동시)
+  const [catRowsRes, listRes, editRes] = await Promise.all([
+    supabase.from("staff_manuals").select("category"),
+    listQuery.limit(200),
+    sp.edit
+      ? supabase
+          .from("staff_manuals")
+          .select("id, number, category, title, content")
+          .eq("id", sp.edit)
+          .single()
+      : Promise.resolve({ data: null, error: null }),
+  ]);
+
+  const catCounts = new Map<string, number>();
+  for (const r of (catRowsRes.data ?? []) as { category: string | null }[]) {
+    const c = r.category ?? "미분류";
+    catCounts.set(c, (catCounts.get(c) ?? 0) + 1);
+  }
+  const sortedCats = [...catCounts.entries()].sort((a, b) => b[1] - a[1]);
+  const totalCount = sortedCats.reduce((s, [, n]) => s + n, 0);
+
+  const manuals = listRes.data;
+  const listError = listRes.error;
   let editing: Record<string, unknown> | null = null;
   if (sp.edit) {
-    const { data } = await supabase
-      .from("staff_manuals")
-      .select("id, number, category, title, content")
-      .eq("id", sp.edit)
-      .single();
-    if (!data) notFound();
-    editing = data;
+    if (!editRes.data) notFound();
+    editing = editRes.data;
   }
 
   return (
