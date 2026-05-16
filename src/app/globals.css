@@ -69,42 +69,48 @@
 
 /* ───────────────────────────────────────
    Reset + Base
+   @layer base 로 감싸야 함 — Tailwind v4 에서 layered utilities (text-white 등) 가
+   unlayered tag selector (a, button) 보다 낮은 우선순위를 가지므로,
+   layered 안으로 넣어야 utilities 가 정상적으로 이긴다.
+   (2026-05-16 Wilson 발견: active 탭 글자가 검정으로 묻히는 버그 = a { color: inherit } 가 text-white 를 이김)
    ─────────────────────────────────────── */
-* {
-  box-sizing: border-box;
-}
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.7;
-  letter-spacing: -0.02em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-}
-button {
-  font: inherit;
-  cursor: pointer;
-}
-:focus-visible {
-  outline: 2px solid var(--color-gold-600);
-  outline-offset: 4px;
-  border-radius: 4px;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold-600);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
 }
 
 /* Quote PDF print stylesheet (Step 2.4) */
