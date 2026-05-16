@@ -164,12 +164,12 @@
     "tagline": "Wilson Kim · 19년 호주 유학 컨설팅 + 호주 학교 교직원 경력 · 950명+ 누적 학생",
     "contactEyebrow": "연락",
     "hoursLabel": "영업 시간",
-    "hoursValue": "평일 10:00 ~ 18:00 (KST) · 주말·공휴일 휴무",
+    "hoursValue": "평일 10:00 ~ 18:00 (KST)\n주말·공휴일 휴무",
     "sisterEyebrow": "Wilson 자매 서비스",
-    "sisterBody": "출국 전 영어 준비 학원 + 화상영어 학습 센터. Wilson 자매서비스로 학생의 영어 단계부터 직접 봅니다.",
+    "sisterBody": "출국 전 영어 준비 학원 + 화상영어 학습 센터. Wilson 자매 서비스로 학생의 영어 단계부터 직접 봅니다.",
     "privacy": "개인정보처리방침",
     "terms": "이용약관",
-    "languageToggle": "English / For Partners"
+    "languageToggle": "English (For Partners)"
   },
   "Progress": {
     "title": "📍 Phase 1 빌드 진행",

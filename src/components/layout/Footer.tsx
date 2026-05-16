@@ -14,13 +14,10 @@ export default function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
           {/* Column 1: 브랜드 */}
           <div>
-            <p className="font-display text-xl font-bold">
-              ausuhak<span className="italic text-gold-500">.com</span>
-              <span className="ml-1 text-sm font-medium text-cream-200">
-                (호주유학)
-              </span>
+            <p className="font-display text-2xl font-bold tracking-wide text-cream-100">
+              ausuhak.com (호주유학)
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-cream-200">
+            <p className="mt-3 text-sm leading-relaxed text-cream-200">
               {t("tagline")}
             </p>
 
@@ -51,7 +48,7 @@ export default function Footer() {
                   카카오 채널로 1:1 상담
                 </a>
               </li>
-              <li className="text-cream-200">
+              <li className="whitespace-pre-line text-cream-200">
                 <span aria-hidden>{"\u{23F0}"}</span> {t("hoursValue")}
               </li>
             </ul>
@@ -72,12 +69,12 @@ export default function Footer() {
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-cream-100/15 pt-6 text-xs text-cream-200 sm:flex-row sm:items-center">
           <p>© 2026 ausuhak.com</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-gold-500">
+            <Link href="/privacy" className="hover:text-gold-500">
               {t("privacy")}
-            </a>
-            <a href="#" className="hover:text-gold-500">
+            </Link>
+            <Link href="/terms" className="hover:text-gold-500">
               {t("terms")}
-            </a>
+            </Link>
             <Link href="/en" className="hover:text-gold-500">
               {t("languageToggle")}
             </Link>
