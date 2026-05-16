@@ -19,6 +19,7 @@ const menus = [
   { href: "/admin/issues", label: "🚨 이슈 트래킹", phase: 2 },
   { href: "/admin/faqs", label: "📚 FAQ 통합 관리", phase: 1 },
   { href: "/admin/offers", label: "🏆 합격증 갤러리", phase: 1 },
+  { href: "/admin/sites", label: "🔗 자료 사이트", phase: 1 },
   { href: "/admin/cases", label: "🧠 케이스 학습", phase: 2 },
   { href: "/admin/db-updates", label: "🔄 DB 업데이트", phase: 3 },
   { href: "/admin/graduates", label: "🎓 졸업생 DB", phase: 2 },
