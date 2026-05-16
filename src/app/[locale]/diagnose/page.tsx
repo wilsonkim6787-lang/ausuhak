@@ -1,42 +1,135 @@
 import { setRequestLocale } from "next-intl/server";
+import { redirect } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
-import DiagnoseForm from "@/components/diagnose/DiagnoseForm";
+import {
+  BlocksBanner, Card1Schools, Card2Region, Card3Pathway,
+  Card4Major, Card5Visa, Card6Wilson, Card7Next,
+} from "@/components/diagnose/Cards";
+import { matchDiagnose } from "@/lib/matching";
+import type {
+  DiagnoseInput, Education, EnglishLevel, Region, Major, BudgetRange,
+} from "@/lib/matching";
+
+const KAKAO_URL = "https://pf.kakao.com/_GadTX";
+
+// DiagnoseCTA 의 영문 enum → matching 의 한글 enum
+const EDU_MAP: Record<string, Education> = {
+  high: "고졸",
+  ged: "검정고시",
+  "uni-current": "대학재학",
+  "uni-grad": "대졸",
+  master: "대졸",
+};
+const ENGLISH_MAP: Record<string, EnglishLevel> = {
+  none: "없음",
+  "5.0": "5.5",
+  "6.0": "6.0",
+  "6.5": "6.5",
+  "7.0": "7.0+",
+};
+const REGION_MAP: Record<string, Region> = {
+  nsw: "시드니",
+  vic: "멜번",
+  qld: "브리즈번",
+  goldcoast: "골드코스트",
+  sa: "애들레이드",
+  wa: "퍼스",
+  tas: "호바트",
+  any: "추천받기",
+};
+const MAJOR_MAP: Record<string, Major> = {
+  nursing: "간호",
+  business: "비즈니스",
+  it: "IT",
+  cooking: "요리·호텔",
+  hotel: "요리·호텔",
+  medicine: "의료",
+  pharmacy: "의료",
+  other: "미정",
+};
+const BUDGET_MAP: Record<string, BudgetRange> = {
+  save: "$25-35K",
+  mid: "$35-50K",
+  high: "$50-65K",
+  premium: "$65-80K",
+  vip: "$80K+",
+};
 
 export default async function DiagnosePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const sp = await searchParams;
+  const pick = (k: string) => {
+    const v = sp[k];
+    return typeof v === "string" ? v : "";
+  };
+
+  const education = EDU_MAP[pick("edu")];
+  const english_level = ENGLISH_MAP[pick("english")];
+  const preferred_region = REGION_MAP[pick("region")];
+  const major = MAJOR_MAP[pick("major")];
+  const budget_range = BUDGET_MAP[pick("budget")];
+
+  if (!education || !english_level || !preferred_region || !major || !budget_range) {
+    redirect("/#diagnose");
+  }
+
+  const input: DiagnoseInput = {
+    education, english_level, preferred_region, major, budget_range,
+  };
+  const result = matchDiagnose(input);
 
   return (
     <>
       <Header />
       <main className="flex-1 bg-cream-100">
-        <section className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-          <div className="mb-8 text-center">
+        <section className="container mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
+          <div className="mb-8">
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-gold-600/30 bg-gold-600/10 px-3 py-1 text-xs font-bold tracking-wider text-gold-600">
-              <span className="size-1.5 animate-pulse rounded-full bg-gold-600" />
-              30초 진단
+              <span className="size-1.5 rounded-full bg-success" />
+              진단 완료
             </div>
             <h1 className="font-display text-3xl font-bold leading-tight text-navy-900 sm:text-4xl">
-              호주 유학 경로 진단
+              {input.education} · {input.major} · {input.preferred_region}
             </h1>
-            <p className="mt-3 text-sm leading-relaxed text-ink-700 sm:text-base">
-              6가지 질문에 답하면, Wilson 19년 + 호주 학교 교직원 경력 기반으로
-              <br className="hidden sm:block" />
-              가장 맞는 학교·경로·비자를 카드 7장으로 정리해드립니다.
+            <p className="mt-2 text-sm text-ink-500">
+              영어 {input.english_level} · 예산 {input.budget_range}
             </p>
+            {result.is_medical && (
+              <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-navy-900 px-2.5 py-1 text-xs font-bold text-gold-400">
+                의대 트랙 ({result.medical_pathway})
+              </p>
+            )}
           </div>
 
-          <DiagnoseForm />
+          {(result.blocks_hard.length + result.blocks_soft.length > 0) && (
+            <div className="mb-8">
+              <BlocksBanner hard={result.blocks_hard} soft={result.blocks_soft} />
+            </div>
+          )}
 
-          <p className="mt-6 text-center text-xs text-ink-500">
-            * 진단 결과는 Wilson 검수 정본 (109교 · 36차단룰 · 24Alert · 83시나리오 FAQ) 기반.
-            <br />* 정확한 케이스 판단은 1:1 카톡 상담으로 확정합니다.
+          <div className="space-y-5">
+            <Card1Schools data={result.cards.card1_schools} />
+            <Card2Region data={result.cards.card2_region} />
+            <Card3Pathway data={result.cards.card3_pathway} />
+            <Card4Major data={result.cards.card4_major} />
+            <Card5Visa data={result.cards.card5_visa_pr} />
+            <Card6Wilson data={result.cards.card6_wilson} />
+            <Card7Next data={result.cards.card7_next} kakaoUrl={KAKAO_URL} />
+          </div>
+
+          <p className="mt-8 text-center text-xs text-ink-500">
+            * 이 결과는 Wilson 검수 정본 데이터 (109교 · 36차단룰 · 24Alert · 83시나리오 FAQ) 기반의 1차 매칭입니다.
+            <br />* 학비·정원·정책은 실시간 변동될 수 있어 1:1 카톡 상담으로 최종 확정합니다.
           </p>
         </section>
       </main>

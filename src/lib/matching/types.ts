@@ -12,7 +12,7 @@ export type BudgetRange = "$25-35K" | "$35-50K" | "$50-65K" | "$65-80K" | "$80K+
 export type AgeRange = "18미만" | "18-24" | "25-32" | "33-39" | "40+";
 
 export type DiagnoseInput = {
-  age: number;
+  age?: number;
   education: Education;
   english_level: EnglishLevel;
   preferred_region: Region;
@@ -76,7 +76,7 @@ export type Cards = {
 };
 
 export type MatchResult = {
-  age_range: AgeRange;
+  age_range: AgeRange | null;
   is_medical: boolean;
   medical_pathway: MedicalPathway | null;
   scenario_id: string | null;

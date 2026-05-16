@@ -99,7 +99,10 @@
     "fieldGoal": "목표",
     "fieldGoalHint": "모르셔도 됩니다. 7장 보고 정해도 늦지 않아요.",
     "ctaPrimary": "나에게 알맞은 학교로",
-    "ctaSubtext": "30초 안에 7장 리포트가 나옵니다"
+    "ctaSubtext": "30초 안에 7장 리포트가 나옵니다",
+    "wizardBack": "이전",
+    "wizardSkip": "잘 모르겠어요 (스킵)",
+    "wizardSelectHint": "터치해서 선택하세요"
   },
   "MedicalCTA": {
     "eyebrow": "호주 의대 준비 센터",

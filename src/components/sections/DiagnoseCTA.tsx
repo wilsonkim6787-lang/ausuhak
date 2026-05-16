@@ -139,18 +139,42 @@ export default function DiagnoseCTA() {
   const t = useTranslations("DiagnoseCTA");
   const router = useRouter();
   const [values, setValues] = useState<Partial<Record<FieldKey, string>>>({});
+  const [step, setStep] = useState(0); // 모바일 wizard 현재 단계 (0 ~ FIELDS.length)
 
   const filled = FIELDS.filter((f) => values[f.key]).length;
-  const progress = (filled / 6) * 100;
+  const progress = (filled / FIELDS.length) * 100;
+  const totalSteps = FIELDS.length;
 
-  const onSubmit = () => {
-    const qs = new URLSearchParams(
+  const buildQs = () =>
+    new URLSearchParams(
       Object.entries(values)
         .filter(([, v]) => v)
         .map(([k, v]) => [k, v!]),
     ).toString();
+
+  const onSubmit = () => {
+    const qs = buildQs();
     router.push(qs ? `/diagnose?${qs}` : "/diagnose");
   };
+
+  // 모바일 wizard: 옵션 선택 시 값 저장 + 다음 step
+  const onPick = (key: FieldKey, value: string) => {
+    setValues((prev) => ({ ...prev, [key]: value }));
+    if (step < totalSteps) {
+      setStep(step + 1);
+    }
+  };
+
+  const onBack = () => {
+    if (step > 0) setStep(step - 1);
+  };
+
+  const onSkip = () => {
+    if (step < totalSteps) setStep(step + 1);
+  };
+
+  const currentField = step < totalSteps ? FIELDS[step] : null;
+  const isComplete = step >= totalSteps;
 
   return (
     <section id="diagnose" className="bg-navy-900 text-cream-100">
@@ -171,7 +195,7 @@ export default function DiagnoseCTA() {
         </div>
 
         <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12">
-          {/* 좌측: 공감 패널 (Q + A 풀어 쓰기) */}
+          {/* 좌측: 공감 패널 */}
           <aside className="rounded-3xl border border-cream-100/15 bg-navy-800/40 p-7 backdrop-blur-sm sm:p-9">
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("concernHeading")}
@@ -196,7 +220,7 @@ export default function DiagnoseCTA() {
             </p>
           </aside>
 
-          {/* 우측: 진단 폼 */}
+          {/* 우측: 진단 폼 (모바일 wizard + sm+ grid) */}
           <div className="rounded-3xl bg-white p-6 text-ink-900 shadow-xl sm:p-9">
             <div className="flex items-center gap-3">
               <span className="flex size-9 items-center justify-center rounded-full bg-gold-600 text-base font-bold text-white">
@@ -216,7 +240,7 @@ export default function DiagnoseCTA() {
                 role="progressbar"
                 aria-valuenow={filled}
                 aria-valuemin={0}
-                aria-valuemax={6}
+                aria-valuemax={totalSteps}
               >
                 <div
                   className="h-full rounded-full bg-gold-600 transition-all duration-300"
@@ -224,11 +248,91 @@ export default function DiagnoseCTA() {
                 />
               </div>
               <span className="text-sm font-bold tabular-nums text-navy-900">
-                {filled} / 6
+                {filled} / {totalSteps}
               </span>
             </div>
 
-            <div className="mt-7 grid gap-5 sm:grid-cols-2">
+            {/* ─── 모바일 wizard (sm 미만) ─── */}
+            <div className="sm:hidden">
+              {!isComplete && currentField && (
+                <div className="mt-7">
+                  <p className="text-xs font-semibold text-gold-600">
+                    {step + 1} / {totalSteps}
+                  </p>
+                  <label className="mt-2 flex items-center gap-2 text-base font-bold text-navy-900">
+                    <span aria-hidden>{currentField.icon}</span>
+                    {t(currentField.labelKey)}
+                  </label>
+                  {currentField.hintKey && (
+                    <p className="mt-1.5 text-xs text-ink-500">
+                      {t(currentField.hintKey)}
+                    </p>
+                  )}
+                  <p className="mt-1 text-[10px] text-ink-500">
+                    {t("wizardSelectHint")}
+                  </p>
+
+                  <div className="mt-4 grid grid-cols-1 gap-2">
+                    {currentField.options.map((opt) => {
+                      const selected = values[currentField.key] === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => onPick(currentField.key, opt.value)}
+                          className={`w-full rounded-xl border-2 px-4 py-3.5 text-left text-sm font-semibold transition active:scale-[0.98] ${
+                            selected
+                              ? "border-gold-600 bg-gold-600/10 text-navy-900"
+                              : "border-cream-300 bg-cream-100 text-navy-900 hover:border-gold-500"
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-5 flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={onBack}
+                      disabled={step === 0}
+                      className="rounded-lg px-3 py-2 text-sm font-semibold text-navy-700 disabled:opacity-30"
+                    >
+                      ← {t("wizardBack")}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={onSkip}
+                      className="text-xs text-ink-500 underline"
+                    >
+                      {t("wizardSkip")}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {isComplete && (
+                <div className="mt-7 rounded-2xl border-2 border-gold-600 bg-gold-600/5 p-5 text-center">
+                  <p className="text-sm font-bold text-navy-900">
+                    🎉 입력 끝났습니다
+                  </p>
+                  <p className="mt-1 text-xs text-ink-500">
+                    {filled} / {totalSteps} 항목 — 7장 리포트로 보여드릴게요
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setStep(0)}
+                    className="mt-3 text-[11px] text-navy-700 underline"
+                  >
+                    ↩ 다시 보기·수정
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* ─── PC grid (sm 이상) ─── */}
+            <div className="mt-7 hidden gap-5 sm:grid sm:grid-cols-2">
               {FIELDS.map((f) => (
                 <div key={f.key}>
                   <label

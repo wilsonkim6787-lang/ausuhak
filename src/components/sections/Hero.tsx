@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export default function Hero() {
@@ -38,12 +37,12 @@ export default function Hero() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <Link
-                href="/diagnose"
+              <a
+                href="#diagnose"
                 className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-7 py-4 text-base font-semibold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
               >
                 {t("ctaDiagnose")} <span aria-hidden>→</span>
-              </Link>
+              </a>
               <a
                 href="https://pf.kakao.com/_GadTX"
                 target="_blank"

@@ -11,7 +11,8 @@ import type {
 
 // ─── helpers ────────────────────────────────────────────────────
 
-function ageRange(age: number): AgeRange {
+function ageRange(age: number | undefined): AgeRange | null {
+  if (age == null) return null;
   if (age < 18) return "18미만";
   if (age <= 24) return "18-24";
   if (age <= 32) return "25-32";
@@ -216,8 +217,8 @@ export function stage4_alerts(input: DiagnoseInput): AppliedAlert[] {
     const reqEdu = (c.education as string) ?? null;
     const reqIeltsMax = (c.ielts_max as number) ?? null;
 
-    if (ageMin != null && age < ageMin) continue;
-    if (ageMax != null && age > ageMax) continue;
+    if (ageMin != null && (age == null || age < ageMin)) continue;
+    if (ageMax != null && (age == null || age > ageMax)) continue;
     if (reqMajor && reqMajor !== input.major) continue;
     if (reqEdu && reqEdu !== input.education) continue;
     if (reqIeltsMax != null && ielts > reqIeltsMax) continue;
