@@ -162,7 +162,11 @@ export default async function AdminOffersPage({
           {!editing && !sp.new ? (
             <p className="text-sm text-ink-500">← 카드 선택 또는 + 신규 업로드</p>
           ) : (
-            <OfferForm editing={editing} bucketUrl={bucketUrl} />
+            <OfferForm
+              key={editing?.id ?? "new"}
+              editing={editing}
+              bucketUrl={bucketUrl}
+            />
           )}
         </section>
       </div>

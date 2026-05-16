@@ -181,7 +181,10 @@ async function InternalSection({
         {!editingRow ? (
           <p className="text-sm text-ink-500">← 항목 선택 시 편집 (question · card_text · internal_data · wilson_note 4 필드. matching arrays 등 고급 필드는 Supabase 대시보드에서 직접).</p>
         ) : (
-          <InternalEditForm row={editingRow as Record<string, string | null>} />
+          <InternalEditForm
+            key={String(editingRow.id ?? "new")}
+            row={editingRow as Record<string, string | null>}
+          />
         )}
       </section>
     </div>
@@ -404,7 +407,11 @@ async function StaffSection({
         {!editing && !showNew ? (
           <p className="text-sm text-ink-500">← 항목 선택 시 편집 / 또는 우상단 "+ 신규" 클릭</p>
         ) : (
-          <StaffManualForm row={(editing ?? null) as Record<string, string | number | null> | null} sortedCats={sortedCats} />
+          <StaffManualForm
+            key={editing ? String(editing.id) : "new"}
+            row={(editing ?? null) as Record<string, string | number | null> | null}
+            sortedCats={sortedCats}
+          />
         )}
       </section>
     </div>
