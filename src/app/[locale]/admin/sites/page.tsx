@@ -1,10 +1,16 @@
-// /admin/sites — Wilson 정리 자료 사이트 모음 검색·열람.
-// admin/layout 이 super_admin 가드. 현 라운드 = 읽기 전용 (CRUD 향후).
-// 데이터 = monitoring_sites 테이블 (xlsx v2 / 11 시트 · ~411 사이트).
+// /admin/sites — Wilson 자료 사이트 모음 검색·열람·편집 (super_admin).
+// admin/layout 이 super_admin 가드.
+// 데이터 = monitoring_sites 테이블 (xlsx v2 / 11 시트 · 411+ 사이트).
 
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Pencil } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { Button } from "@/components/ui/Button";
+import {
+  upsertMonitoringSiteAction,
+  deleteMonitoringSiteAction,
+} from "./actions";
 
 type Site = {
   id: string;
@@ -17,50 +23,75 @@ type Site = {
   display_order: number;
 };
 
-const SHEET_LABEL: Record<string, string> = {
-  "1.호주 한인사이트": "🇰🇷 한인",
-  "2.호주 대학교": "🎓 대학교",
-  "3.대학부속 컬리지": "🏫 대학부속",
-  "4.사립 컬리지": "📚 사립",
-  "5.호주 관광청": "🌏 관광청",
-  "6.생활정보": "🏠 생활",
-  "7.연봉정보": "💼 연봉",
-  "8.구직사이트": "🔍 구직",
-  "9.이력서·면접": "📝 이력서",
-  "10.PR·취업비자": "🛂 PR·비자",
-  "11.실용팁": "🌟 실용팁",
-};
+const SHEETS: Array<[string, string]> = [
+  ["1.호주 한인사이트", "🇰🇷 한인"],
+  ["2.호주 대학교", "🎓 대학교"],
+  ["3.대학부속 컬리지", "🏫 대학부속"],
+  ["4.사립 컬리지", "📚 사립"],
+  ["5.호주 관광청", "🌏 관광청"],
+  ["6.생활정보", "🏠 생활"],
+  ["7.연봉정보", "💼 연봉"],
+  ["8.구직사이트", "🔍 구직"],
+  ["9.이력서·면접", "📝 이력서"],
+  ["10.PR·취업비자", "🛂 PR·비자"],
+  ["11.실용팁", "🌟 실용팁"],
+];
+const SHEET_LABEL: Record<string, string> = Object.fromEntries(SHEETS);
 
 export default async function AdminSitesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ sheet?: string; q?: string; cat?: string }>;
+  searchParams: Promise<{
+    sheet?: string;
+    q?: string;
+    cat?: string;
+    edit?: string;
+    new?: string;
+    err?: string;
+    ok?: string;
+  }>;
 }) {
   const sp = await searchParams;
   const supabase = await createClient();
   const search = (sp.q ?? "").trim();
+  const showForm = sp.edit || sp.new === "1";
 
-  // 1) 전체 시트별 카운트 (탭 표시용)
-  const sheetCountsRes = await supabase
-    .from("monitoring_sites")
-    .select("sheet");
+  // 1) 전체 시트별 카운트 (탭) + 전체 카테고리 list (datalist 용) — 병렬
+  // 2) 편집 대상 (있으면) — 병렬
+  const [sheetCountsRes, allCatsRes, editRes] = await Promise.all([
+    supabase.from("monitoring_sites").select("sheet"),
+    supabase.from("monitoring_sites").select("category").not("category", "is", null),
+    sp.edit
+      ? supabase.from("monitoring_sites").select("*").eq("id", sp.edit).single()
+      : Promise.resolve({ data: null, error: null }),
+  ]);
 
   const sheetCounts = new Map<string, number>();
   for (const r of (sheetCountsRes.data ?? []) as { sheet: string }[]) {
     sheetCounts.set(r.sheet, (sheetCounts.get(r.sheet) ?? 0) + 1);
   }
-  const sortedSheets = [...sheetCounts.entries()].sort((a, b) => {
-    const na = parseInt(a[0].split(".")[0], 10);
-    const nb = parseInt(b[0].split(".")[0], 10);
-    return na - nb;
-  });
   const totalCount = [...sheetCounts.values()].reduce((s, n) => s + n, 0);
+  const sortedSheets = SHEETS.filter(([s]) => sheetCounts.has(s)).map(
+    ([s, l]) => [s, l, sheetCounts.get(s)!] as const,
+  );
 
-  // 2) 선택된 시트 (없으면 검색 모드 = 전체)
+  const allCategories = [
+    ...new Set(
+      ((allCatsRes.data ?? []) as { category: string | null }[])
+        .map((r) => r.category)
+        .filter((c): c is string => !!c),
+    ),
+  ].sort();
+
+  let editing: Site | null = null;
+  if (sp.edit) {
+    if (!editRes.data) notFound();
+    editing = editRes.data as Site;
+  }
+
+  // 3) 카테고리 카운트 (선택 시트 내)
   const activeSheet = sp.sheet ?? "";
   const isAll = !activeSheet;
-
-  // 3) 카테고리 카운트 (선택 시트 내) — 전체 모드면 skip
   let catCounts: Array<[string, number]> = [];
   if (!isAll) {
     const catRes = await supabase
@@ -75,7 +106,7 @@ export default async function AdminSitesPage({
     catCounts = [...map.entries()].sort((a, b) => b[1] - a[1]);
   }
 
-  // 4) 메인 리스트 쿼리
+  // 4) 메인 리스트
   let listQuery = supabase
     .from("monitoring_sites")
     .select("id, sheet, section, category, name, url, description, display_order")
@@ -91,7 +122,6 @@ export default async function AdminSitesPage({
   }
   const { data: sites, error } = await listQuery.limit(500);
 
-  // 5) section 별 그룹화 (선택 시트 내에서만)
   const grouped = new Map<string, Site[]>();
   for (const s of (sites ?? []) as Site[]) {
     const key = isAll ? s.sheet : (s.section ?? "—");
@@ -100,17 +130,60 @@ export default async function AdminSitesPage({
     grouped.set(key, arr);
   }
 
+  // 신규 폼 기본값 = 현재 활성 시트
+  const newDefaultSheet = activeSheet || SHEETS[0][0];
+
   return (
     <div className="flex flex-col gap-5">
-      <header>
-        <h1 className="font-display text-3xl font-bold text-navy-900">
-          🔗 자료 사이트
-        </h1>
-        <p className="mt-1 text-sm text-ink-500">
-          Wilson 정리 호주 유학·생활·취업 사이트 모음. 카톡 응대 출처 검색 + FAQ·매뉴얼 출처 인용용.
-          총 <span className="font-bold text-navy-900">{totalCount}</span>개.
-        </p>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-navy-900">
+            🔗 자료 사이트
+          </h1>
+          <p className="mt-1 text-sm text-ink-500">
+            Wilson 정리 호주 유학·생활·취업 사이트. 카톡 응대 출처 검색 + FAQ·매뉴얼 출처 인용용.
+            총 <span className="font-bold text-navy-900">{totalCount}</span>개.
+          </p>
+        </div>
+        {!showForm && (
+          <Link
+            href="/admin/sites?new=1"
+            className="rounded-full bg-gold-600 px-4 py-2 text-xs font-semibold text-white hover:bg-gold-500"
+          >
+            + 신규 사이트
+          </Link>
+        )}
       </header>
+
+      {sp.err && (
+        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">⚠️ {sp.err}</p>
+      )}
+      {sp.ok && (
+        <p className="rounded-lg bg-success/10 px-3 py-2 text-sm text-success">✅ 저장됨</p>
+      )}
+
+      {/* 폼 (편집 또는 신규) */}
+      {showForm && (
+        <section className="rounded-2xl border border-gold-600/40 bg-white p-5 shadow-sm ring-2 ring-gold-600/20">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-display text-lg font-bold text-navy-900">
+              {editing ? `✏️ 편집: ${editing.name}` : "+ 신규 사이트 추가"}
+            </h2>
+            <Link
+              href="/admin/sites"
+              className="text-xs text-ink-500 hover:underline"
+            >
+              취소 / 닫기
+            </Link>
+          </div>
+          <SiteForm
+            key={editing?.id ?? "new"}
+            editing={editing}
+            defaultSheet={newDefaultSheet}
+            allCategories={allCategories}
+          />
+        </section>
+      )}
 
       {/* 검색 + 시트 탭 */}
       <section className="rounded-2xl border border-cream-300 bg-white p-4 shadow-sm">
@@ -150,9 +223,8 @@ export default async function AdminSitesPage({
           >
             전체 {totalCount}
           </Link>
-          {sortedSheets.map(([sheet, n]) => {
+          {sortedSheets.map(([sheet, label, n]) => {
             const active = activeSheet === sheet;
-            const label = SHEET_LABEL[sheet] ?? sheet;
             const qs = new URLSearchParams();
             qs.set("sheet", sheet);
             if (search) qs.set("q", search);
@@ -172,7 +244,6 @@ export default async function AdminSitesPage({
           })}
         </nav>
 
-        {/* 카테고리 필터 (선택 시트 안에서만) */}
         {!isAll && catCounts.length > 1 && (
           <nav className="mt-2 flex flex-wrap gap-1 border-t border-cream-200 pt-2">
             <Link
@@ -202,7 +273,6 @@ export default async function AdminSitesPage({
         )}
       </section>
 
-      {/* 결과 */}
       {error && (
         <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
           ⚠️ {error.message}
@@ -234,42 +304,186 @@ export default async function AdminSitesPage({
               </span>
             </h2>
             <ul className="mt-2 divide-y divide-cream-200">
-              {items.map((s) => (
-                <li key={s.id} className="py-2.5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        {s.category && (
-                          <span className="rounded bg-cream-200 px-1.5 py-0.5 text-[9px] font-medium text-ink-700">
-                            {s.category}
-                          </span>
+              {items.map((s) => {
+                const isEditing = sp.edit === s.id;
+                return (
+                  <li
+                    key={s.id}
+                    className={`py-2.5 ${isEditing ? "bg-gold-100/40 -mx-2 px-2 rounded" : ""}`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {s.category && (
+                            <span className="rounded bg-cream-200 px-1.5 py-0.5 text-[9px] font-medium text-ink-700">
+                              {s.category}
+                            </span>
+                          )}
+                          <a
+                            href={s.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-semibold text-navy-900 hover:text-gold-600 hover:underline"
+                          >
+                            {s.name}
+                          </a>
+                          <ExternalLink className="size-3 text-ink-300" aria-hidden />
+                        </div>
+                        {s.description && (
+                          <p className="mt-0.5 text-xs leading-relaxed text-ink-700">
+                            {s.description}
+                          </p>
                         )}
-                        <a
-                          href={s.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm font-semibold text-navy-900 hover:text-gold-600 hover:underline"
-                        >
-                          {s.name}
-                        </a>
-                        <ExternalLink className="size-3 text-ink-300" aria-hidden />
-                      </div>
-                      {s.description && (
-                        <p className="mt-0.5 text-xs leading-relaxed text-ink-700">
-                          {s.description}
+                        <p className="mt-0.5 truncate text-[10px] text-ink-500">
+                          {s.url}
                         </p>
-                      )}
-                      <p className="mt-0.5 truncate text-[10px] text-ink-500">
-                        {s.url}
-                      </p>
+                      </div>
+                      <Link
+                        href={`/admin/sites?edit=${s.id}`}
+                        className="shrink-0 rounded-md border border-cream-300 px-2 py-1 text-[10px] text-navy-700 hover:bg-cream-100"
+                        aria-label="편집"
+                      >
+                        <Pencil className="size-3" />
+                      </Link>
                     </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
           </section>
         ))}
       </div>
+    </div>
+  );
+}
+
+function SiteForm({
+  editing,
+  defaultSheet,
+  allCategories,
+}: {
+  editing: Site | null;
+  defaultSheet: string;
+  allCategories: string[];
+}) {
+  const isNew = !editing;
+  return (
+    <div className="flex flex-col gap-3">
+      <form action={upsertMonitoringSiteAction} className="flex flex-col gap-3">
+        {editing && <input type="hidden" name="id" value={editing.id} />}
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="flex flex-col gap-1">
+            <span className="text-xs font-semibold text-navy-900">시트 *</span>
+            <select
+              name="sheet"
+              defaultValue={editing?.sheet ?? defaultSheet}
+              required
+              className="rounded-md border border-cream-300 bg-white px-2 py-1 text-sm"
+            >
+              {SHEETS.map(([key, label]) => (
+                <option key={key} value={key}>
+                  {label} — {key}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-xs font-semibold text-navy-900">
+              섹션 (선택 / 시트 내 그룹)
+            </span>
+            <input
+              name="section"
+              defaultValue={editing?.section ?? ""}
+              placeholder="종합 한인 커뮤니티 / Group of Eight (G8)"
+              className="rounded-md border border-cream-300 px-2 py-1 text-sm"
+            />
+          </label>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="flex flex-col gap-1">
+            <span className="text-xs font-semibold text-navy-900">
+              카테고리 (선택 / 태그)
+            </span>
+            <input
+              name="category"
+              defaultValue={editing?.category ?? ""}
+              list="site-cat-list"
+              placeholder="NSW / 종합 커뮤니티 / 485"
+              className="rounded-md border border-cream-300 px-2 py-1 text-sm"
+            />
+            <datalist id="site-cat-list">
+              {allCategories.map((c) => (
+                <option key={c} value={c} />
+              ))}
+            </datalist>
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-xs font-semibold text-navy-900">
+              정렬 (작을수록 먼저 / 비우면 자동)
+            </span>
+            <input
+              name="display_order"
+              type="number"
+              defaultValue={editing?.display_order != null ? String(editing.display_order) : ""}
+              placeholder="자동"
+              className="rounded-md border border-cream-300 px-2 py-1 text-sm"
+            />
+          </label>
+        </div>
+
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-semibold text-navy-900">사이트명 *</span>
+          <input
+            name="name"
+            defaultValue={editing?.name ?? ""}
+            required
+            placeholder="호주나라 (HojuNara)"
+            className="rounded-md border border-cream-300 px-2 py-1 text-sm"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-semibold text-navy-900">URL *</span>
+          <input
+            name="url"
+            type="url"
+            defaultValue={editing?.url ?? ""}
+            required
+            placeholder="https://www.example.com"
+            className="rounded-md border border-cream-300 px-2 py-1 text-sm font-mono"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-semibold text-navy-900">설명 (한 줄)</span>
+          <input
+            name="description"
+            defaultValue={editing?.description ?? ""}
+            placeholder="호주 최대 한인 커뮤니티. 구인구직, 부동산, 중고거래, 생활정보"
+            className="rounded-md border border-cream-300 px-2 py-1 text-sm"
+          />
+        </label>
+
+        <div className="flex justify-end">
+          <Button type="submit" size="sm">
+            {isNew ? "+ 추가" : "저장"}
+          </Button>
+        </div>
+      </form>
+
+      {!isNew && editing && (
+        <form
+          action={deleteMonitoringSiteAction}
+          className="flex justify-end pt-2 border-t border-cream-200"
+        >
+          <input type="hidden" name="id" value={editing.id} />
+          <button type="submit" className="text-[11px] text-error hover:underline">
+            🗑️ 이 사이트 삭제
+          </button>
+        </form>
+      )}
     </div>
   );
 }
