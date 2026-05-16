@@ -237,7 +237,26 @@ export async function deleteApplicationAction(formData: FormData): Promise<void>
 // 8 doc_type 고정 (PART D-3 문서):
 //   passport / transcript / english_score / financial /
 //   gs_statement / recommendation / personal_statement / other
-export async function upsertDocumentAction(formData: FormData): Promise<void> {
+//
+// Migration 024 (2026-05-16): file_url 외부 링크 → Supabase Storage 업로드 전환.
+// file_url 컬럼은 기존 row 백워드 호환용으로 유지.
+
+const DOC_MAX_BYTES = 5 * 1024 * 1024; // 5MB
+const DOC_ALLOWED_MIME = new Set([
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+]);
+const DOC_BUCKET = "student-documents";
+
+function extOf(filename: string): string {
+  const dot = filename.lastIndexOf(".");
+  if (dot < 0 || dot === filename.length - 1) return "bin";
+  return filename.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+export async function uploadDocumentAction(formData: FormData): Promise<void> {
   const user = await getCurrentUser();
   if (!user || user.role !== "super_admin") return;
 
@@ -245,30 +264,132 @@ export async function upsertDocumentAction(formData: FormData): Promise<void> {
   const docType = String(formData.get("doc_type") ?? "");
   const docId = nullify(formData.get("doc_id"));
   const status = nullify(formData.get("status")) ?? "pending";
-  const fileUrl = nullify(formData.get("file_url"));
   const note = nullify(formData.get("note"));
+  const file = formData.get("file") as File | null;
   if (!studentId || !docType) return;
 
   const supabase = await createClient();
+
+  // 기존 row 의 storage_path 조회 (재업로드 시 옛 파일 정리)
+  let existingStoragePath: string | null = null;
   if (docId) {
-    // 기존 행 update
-    const payload: Record<string, string | null> = { status, file_url: fileUrl, note };
+    const { data: existing } = await supabase
+      .from("documents")
+      .select("storage_path")
+      .eq("id", docId)
+      .single();
+    existingStoragePath = existing?.storage_path ?? null;
+  }
+
+  let newStoragePath: string | null = null;
+  let newMimeType: string | null = null;
+  let newSizeBytes: number | null = null;
+  let newOriginalFilename: string | null = null;
+
+  const hasFile = file && file.size > 0;
+  if (hasFile) {
+    if (file.size > DOC_MAX_BYTES) return; // 5MB 초과 → silent reject
+    if (!DOC_ALLOWED_MIME.has(file.type)) return; // 허용 mime 외 → silent reject
+
+    // 기존 파일 정리
+    if (existingStoragePath) {
+      await supabase.storage.from(DOC_BUCKET).remove([existingStoragePath]);
+    }
+
+    const path = `${studentId}/${docType}-${Date.now()}.${extOf(file.name)}`;
+    const buffer = await file.arrayBuffer();
+    const { error: uploadError } = await supabase.storage
+      .from(DOC_BUCKET)
+      .upload(path, buffer, { contentType: file.type, upsert: false });
+    if (uploadError) return;
+
+    newStoragePath = path;
+    newMimeType = file.type;
+    newSizeBytes = file.size;
+    newOriginalFilename = file.name;
+  }
+
+  if (docId) {
+    const payload: Record<string, string | number | null> = { status, note };
+    if (hasFile) {
+      payload.storage_path = newStoragePath;
+      payload.mime_type = newMimeType;
+      payload.size_bytes = newSizeBytes;
+      payload.original_filename = newOriginalFilename;
+      payload.file_url = null;
+    }
     if (status === "verified" || status === "received") {
       payload.checked_by = user.id;
     }
     await supabase.from("documents").update(payload).eq("id", docId);
   } else {
-    // 신규 insert
     await supabase.from("documents").insert({
       student_id: studentId,
       doc_type: docType,
       status,
-      file_url: fileUrl,
+      storage_path: newStoragePath,
+      mime_type: newMimeType,
+      size_bytes: newSizeBytes,
+      original_filename: newOriginalFilename,
       uploaded_by: user.id,
       checked_by: status === "verified" || status === "received" ? user.id : null,
       note,
     });
   }
+
+  revalidatePath(`/admin/students/${studentId}/documents`);
+}
+
+export async function getDocumentDownloadUrl(
+  documentId: string,
+): Promise<{ url?: string; error?: string }> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") return { error: "권한 없음" };
+
+  const supabase = await createClient();
+  const { data: doc, error } = await supabase
+    .from("documents")
+    .select("storage_path")
+    .eq("id", documentId)
+    .single();
+  if (error || !doc?.storage_path) return { error: "파일 없음" };
+
+  const { data, error: urlError } = await supabase.storage
+    .from(DOC_BUCKET)
+    .createSignedUrl(doc.storage_path, 300); // 5분
+  if (urlError || !data) return { error: "URL 생성 실패" };
+  return { url: data.signedUrl };
+}
+
+export async function deleteDocumentFileAction(formData: FormData): Promise<void> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") return;
+
+  const docId = String(formData.get("doc_id") ?? "");
+  const studentId = String(formData.get("student_id") ?? "");
+  if (!docId) return;
+
+  const supabase = await createClient();
+  const { data: doc } = await supabase
+    .from("documents")
+    .select("storage_path")
+    .eq("id", docId)
+    .single();
+
+  if (doc?.storage_path) {
+    await supabase.storage.from(DOC_BUCKET).remove([doc.storage_path]);
+  }
+
+  await supabase
+    .from("documents")
+    .update({
+      storage_path: null,
+      mime_type: null,
+      size_bytes: null,
+      original_filename: null,
+      file_url: null,
+    })
+    .eq("id", docId);
 
   revalidatePath(`/admin/students/${studentId}/documents`);
 }

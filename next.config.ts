@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
   // typed routes는 file system 기반 검증이라 root에 page.tsx 없음을 에러로 처리 → 충돌.
   // next-intl의 middleware/proxy가 routing을 책임지므로 typed routes 없이 동작 OK.
   typedRoutes: false,
+  // 서버 액션 본문 크기 — admin documents 5MB 파일 업로드 (Migration 024)
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "5mb",
+    },
+  },
 };
 
 export default withNextIntl(nextConfig);

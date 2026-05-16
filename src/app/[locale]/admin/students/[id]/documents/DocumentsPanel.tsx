@@ -1,13 +1,19 @@
-// 서류 체크리스트 — PART D-3: 8 doc_types 고정.
-// 각 유형: pending / received / verified / rejected.
-// Phase 1 = file_url은 텍스트 입력 (S3/Storage 업로드는 Phase 2).
+// 서류 체크리스트 — PART D-3 / Migration 024.
+// 8 doc_types 고정. 각 유형: pending / received / verified / rejected.
+// Supabase Storage 업로드 (5MB / PDF·JPG·PNG·DOCX). file_url 외부 링크는 백워드 호환.
+
 import { Button } from "@/components/ui/Button";
-import { upsertDocumentAction } from "../actions";
+import { uploadDocumentAction, deleteDocumentFileAction } from "../actions";
+import DownloadButton from "./DownloadButton";
 
 export type DocRow = {
   id: string;
   doc_type: string;
   file_url: string | null;
+  storage_path: string | null;
+  mime_type: string | null;
+  size_bytes: number | null;
+  original_filename: string | null;
   status: string | null;
   note: string | null;
   created_at: string;
@@ -30,6 +36,15 @@ const STATUSES: [string, string][] = [
   ["verified", "✅ verified"],
   ["rejected", "❌ rejected"],
 ];
+
+const ACCEPT_MIME = "application/pdf,image/jpeg,image/png,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.jpg,.jpeg,.png,.docx";
+
+function formatBytes(bytes: number | null): string {
+  if (!bytes || bytes <= 0) return "";
+  if (bytes < 1024) return `${bytes}B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)}MB`;
+}
 
 export default function DocumentsPanel({
   studentId,
@@ -62,15 +77,18 @@ export default function DocumentsPanel({
           </div>
         </div>
         <p className="mt-1 text-xs text-ink-500">
-          파일 URL = Phase 2 = Supabase Storage 업로드. 지금은 외부 URL/메모 입력 가능.
+          5MB 이하 PDF · JPG · PNG · DOCX 업로드. 다운로드 링크는 5분 유효.
         </p>
 
         <ul className="mt-5 flex flex-col gap-3">
           {DOC_TYPES.map((t) => {
             const row = byType.get(t.key);
+            const hasUpload = Boolean(row?.storage_path);
+            const hasLegacyUrl = Boolean(row?.file_url) && !hasUpload;
+
             return (
               <li key={t.key} className="rounded-xl border border-cream-300 bg-cream-100/50 p-4">
-                <form action={upsertDocumentAction} className="flex flex-col gap-3">
+                <form action={uploadDocumentAction} className="flex flex-col gap-3">
                   <input type="hidden" name="student_id" value={studentId} />
                   <input type="hidden" name="doc_type" value={t.key} />
                   {row?.id && <input type="hidden" name="doc_id" value={row.id} />}
@@ -93,15 +111,40 @@ export default function DocumentsPanel({
                     </select>
                   </div>
 
+                  {/* 현재 업로드 상태 표시 */}
+                  {hasUpload && row && (
+                    <div className="flex flex-wrap items-center gap-2 rounded-md border border-success/30 bg-success/5 px-3 py-2 text-xs">
+                      <span className="font-semibold text-navy-900">📎 {row.original_filename ?? "파일"}</span>
+                      <span className="text-ink-500">{formatBytes(row.size_bytes)}</span>
+                      <span className="ml-auto flex gap-1.5">
+                        <DownloadButton documentId={row.id} />
+                      </span>
+                    </div>
+                  )}
+                  {hasLegacyUrl && row?.file_url && (
+                    <div className="flex flex-wrap items-center gap-2 rounded-md border border-warning/30 bg-warning/5 px-3 py-2 text-xs">
+                      <span className="font-semibold text-navy-900">🔗 외부 링크 (legacy)</span>
+                      <a
+                        href={row.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-auto truncate text-navy-700 underline hover:text-gold-600"
+                      >
+                        열기
+                      </a>
+                    </div>
+                  )}
+
                   <div className="grid gap-3 sm:grid-cols-2">
                     <label className="flex flex-col gap-1">
-                      <span className="text-[11px] text-ink-500">파일 URL</span>
+                      <span className="text-[11px] text-ink-500">
+                        {hasUpload ? "새 파일 (교체)" : "파일 업로드"}
+                      </span>
                       <input
-                        type="url"
-                        name="file_url"
-                        defaultValue={row?.file_url ?? ""}
-                        placeholder="https://... (Phase 1 외부 링크)"
-                        className="rounded-md border border-cream-300 bg-white px-2 py-1 text-xs text-navy-900 outline-none focus:border-gold-500"
+                        type="file"
+                        name="file"
+                        accept={ACCEPT_MIME}
+                        className="rounded-md border border-cream-300 bg-white px-2 py-1 text-xs text-navy-900 file:mr-2 file:rounded file:border-0 file:bg-navy-900 file:px-2 file:py-1 file:text-xs file:font-semibold file:text-gold-400 hover:file:bg-navy-800"
                       />
                     </label>
                     <label className="flex flex-col gap-1">
@@ -116,12 +159,26 @@ export default function DocumentsPanel({
                     </label>
                   </div>
 
-                  <div className="flex justify-end">
+                  <div className="flex justify-end gap-2">
                     <Button type="submit" size="sm" variant="secondary">
-                      {row ? "저장" : "+ 추가·저장"}
+                      저장
                     </Button>
                   </div>
                 </form>
+
+                {/* 삭제 (별도 form — 다른 action) */}
+                {row && (hasUpload || hasLegacyUrl) && (
+                  <form action={deleteDocumentFileAction} className="mt-2 flex justify-end">
+                    <input type="hidden" name="doc_id" value={row.id} />
+                    <input type="hidden" name="student_id" value={studentId} />
+                    <button
+                      type="submit"
+                      className="text-[11px] text-error hover:underline"
+                    >
+                      파일 삭제
+                    </button>
+                  </form>
+                )}
               </li>
             );
           })}

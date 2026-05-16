@@ -15,7 +15,7 @@ export default async function DocumentsPage({
     supabase.from("students").select("id").eq("id", id).single(),
     supabase
       .from("documents")
-      .select("id, doc_type, file_url, status, note, created_at")
+      .select("id, doc_type, file_url, storage_path, mime_type, size_bytes, original_filename, status, note, created_at")
       .eq("student_id", id)
       .order("created_at", { ascending: false }),
   ]);
