@@ -15,6 +15,7 @@ type Offer = {
   student_alias: string | null;
   image_path: string | null;
   note: string | null;
+  story: string | null;
   display_order: number;
   status: string;
   created_at: string;
@@ -38,7 +39,7 @@ export default async function AdminOffersPage({
 
   const { data: offers, error } = await supabase
     .from("offers")
-    .select("id, school, program, year, student_alias, image_path, note, display_order, status, created_at")
+    .select("id, school, program, year, student_alias, image_path, note, story, display_order, status, created_at")
     .order("display_order")
     .order("year", { ascending: false });
 
@@ -234,12 +235,23 @@ function OfferForm({
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="text-xs font-semibold text-navy-900">Wilson 한줄 메모 (선택)</span>
+          <span className="text-xs font-semibold text-navy-900">Wilson 한줄 메모 (선택 / 카드 하단)</span>
           <input
             name="note"
             defaultValue={editing?.note ?? ""}
             placeholder="ATAR 99+ / IELTS 7.5"
             className="rounded-md border border-cream-300 px-2 py-1 text-sm"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-semibold text-navy-900">학생 후기·합격 과정 (markdown / 상세 페이지)</span>
+          <textarea
+            name="story"
+            defaultValue={editing?.story ?? ""}
+            rows={10}
+            placeholder={"## 학생 배경\n- 검정고시 / 19세 / IELTS 6.5\n\n## 지원 과정\n1. Wilson 1:1 상담 (2024.04)\n2. Foundation 6개월 ...\n\n## Wilson 노하우\n- ..."}
+            className="rounded-md border border-cream-300 px-2 py-1 text-sm font-mono"
           />
         </label>
 

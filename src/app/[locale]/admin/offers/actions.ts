@@ -42,6 +42,7 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
   const yearRaw = nullify(formData.get("year"));
   const studentAlias = nullify(formData.get("student_alias"));
   const note = nullify(formData.get("note"));
+  const story = nullify(formData.get("story"));
   const status = nullify(formData.get("status")) ?? "published";
   const orderRaw = nullify(formData.get("display_order"));
   const file = formData.get("file") as File | null;
@@ -94,6 +95,7 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
     student_alias: studentAlias,
     image_path: newImagePath,
     note,
+    story,
     display_order: displayOrder,
     status,
   };
