@@ -7,6 +7,7 @@ import {
   BlocksBanner, Card1Schools, Card2Region, Card3Pathway,
   Card4Major, Card5Visa, Card6Wilson, Card7Next,
 } from "@/components/diagnose/Cards";
+import DiagnoseCompleteTracker from "@/components/diagnose/DiagnoseCompleteTracker";
 import { matchDiagnose } from "@/lib/matching";
 import type {
   DiagnoseInput, Education, EnglishLevel, Region, Major, BudgetRange,
@@ -91,6 +92,14 @@ export default async function DiagnosePage({
   return (
     <>
       <Header />
+      <DiagnoseCompleteTracker
+        education={input.education}
+        english_level={input.english_level}
+        preferred_region={input.preferred_region}
+        major={input.major}
+        budget_range={input.budget_range}
+        is_medical={result.is_medical}
+      />
       <main className="flex-1 bg-cream-100">
         <section className="container mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
           <div className="mb-8">

@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/Button";
 import OAuthButtons from "@/components/auth/OAuthButtons";
 import { signupAction, type SignupState } from "./actions";
@@ -9,6 +10,12 @@ const initial: SignupState = {};
 
 export default function SignupForm() {
   const [state, formAction, pending] = useActionState(signupAction, initial);
+
+  useEffect(() => {
+    if (state.notice && !state.error) {
+      track("signup", { method: "email", pending_email_confirm: true });
+    }
+  }, [state.notice, state.error]);
 
   return (
     <div className="flex flex-col gap-5">

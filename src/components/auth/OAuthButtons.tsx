@@ -1,6 +1,9 @@
+"use client";
+
 // 소셜 로그인 버튼 (카카오·구글) — /login + /signup 공용.
 // Supabase Auth OAuth provider 활성화 후 작동.
 
+import { track } from "@vercel/analytics";
 import { signInWithOAuthAction } from "@/app/[locale]/login/actions";
 
 export default function OAuthButtons({ label = "로그인" }: { label?: string }) {
@@ -11,6 +14,7 @@ export default function OAuthButtons({ label = "로그인" }: { label?: string }
         <input type="hidden" name="provider" value="kakao" />
         <button
           type="submit"
+          onClick={() => track("oauth_click", { provider: "kakao", label })}
           className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#FEE500] px-4 py-3 text-sm font-bold text-[#3C1E1E] transition hover:scale-[1.01]"
         >
           <span aria-hidden>{"\u{1F4AC}"}</span>
@@ -23,6 +27,7 @@ export default function OAuthButtons({ label = "로그인" }: { label?: string }
         <input type="hidden" name="provider" value="google" />
         <button
           type="submit"
+          onClick={() => track("oauth_click", { provider: "google", label })}
           className="flex w-full items-center justify-center gap-2 rounded-lg border border-cream-300 bg-white px-4 py-3 text-sm font-semibold text-navy-900 transition hover:bg-cream-100"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
