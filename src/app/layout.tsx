@@ -1,5 +1,5 @@
 import { Playfair_Display } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 import AnalyticsTracker from "@/components/analytics/AnalyticsTracker";
 import "./globals.css";
 
