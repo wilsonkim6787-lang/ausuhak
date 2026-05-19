@@ -313,7 +313,10 @@ def faq_id_for(rel: PurePosixPath):
     if top == "03_지역_모듈":
         return f"region_{name}", "region", ""
     if top == "04_전공_모듈":
-        return f"major_{name}", "major", ""
+        # major 정규화 — stages.ts 의 DiagnoseInput.major enum 과 매칭되도록.
+        # 예: "요리호텔.md" → "major_요리·호텔", "미정_추천.md" → "major_미정".
+        norm_name = MAJOR_NORMALIZE.get(name, name)
+        return f"major_{norm_name}", "major", ""
     if top == "05_비자PR_모듈":
         return f"visa_pr_{name}", "visa_pr", ""
     return "", "", ""

@@ -133,9 +133,39 @@ const PATHWAY_TEMPLATES: Record<string, PathwayPlan> = {
     steps: ["Bridge 코스 (필요시)", "Vocational/TAFE Diploma", "학사 편입 (선택)"],
     duration_years_min: 2, duration_years_max: 5,
   },
+
+  // 요리·호텔·Trade = vocational 트랙. 학점 transfer·Foundation·학사 직진 X — Cert III 부터 시작.
+  // education (검정고시/고졸/대학재학/대졸/워홀러) 무관하게 동일 트랙 — Wilson 명시 2026-05-19.
+  "요리·호텔→Vocational": {
+    pathway: "요리·호텔 → Cert III → Diploma → (Bachelor 선택)",
+    steps: [
+      "(필요시) ELICOS 또는 한국에서 IELTS 6.0 확보",
+      "Cert III in Commercial Cookery 1-1.5년 — Chef·Cook 기초",
+      "Cert IV in Kitchen Management 0.5년 — Sous Chef 진입 (선택)",
+      "Diploma of Hospitality Management 1-2년 — Restaurant·Hotel Manager (선택)",
+      "Bachelor of Culinary/Hotel Mgmt 2-3년 — William Angliss·BMIHMS·ICHM (선택)",
+    ],
+    duration_years_min: 1, duration_years_max: 5,
+  },
+  "Trade→Vocational": {
+    pathway: "Trade → Cert III + Apprenticeship",
+    steps: [
+      "(필요시) ELICOS 또는 IELTS 5.5 확보 — Trade 는 영어 요건 낮음",
+      "Cert III in Trade (Carpentry/Electrical/Plumbing) 1.5-2년",
+      "Apprenticeship 호주 현장 실습 1-2년 (임금 받음)",
+      "Cert IV / Diploma 진입 — Site Supervisor 트랙 (선택)",
+      "TRA 직업평가 → 485 → 189/190 PR 진입",
+    ],
+    duration_years_min: 2, duration_years_max: 4,
+  },
 };
 
 export function stage2_pathway(input: DiagnoseInput): PathwayPlan {
+  // (1) Vocational major override — education 무관 (Wilson 명시 2026-05-19)
+  if (input.major === "요리·호텔") return PATHWAY_TEMPLATES["요리·호텔→Vocational"];
+  if (input.major === "Trade") return PATHWAY_TEMPLATES["Trade→Vocational"];
+
+  // (2) 그 외 학문 전공 = education 기반 분기
   const e = input.english_level;
   const hasHighEng = e === "6.5" || e === "7.0+";
   if (input.education === "검정고시") {
