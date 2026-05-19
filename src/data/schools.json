@@ -1,14 +1,12 @@
 [
 {
-"id": "acap_australian_college_of_applied_professions",
-"name": "ACAP (Australian College of Applied Professions)",
-"alts": [
-"Australian College of Applied Professions"
-],
-"type": "university",
-"city": null,
+"id": "acap",
+"name": "ACAP",
+"alts": [],
+"type": "vocational_private",
+"city": "Sydney",
 "state": null,
-"campus": null,
+"campus": "Sydney CBD / Melbourne CBD / Brisbane CBD / Adelaide CBD (Cat 2)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -34,10 +32,10 @@
 "id": "acu_foundation",
 "name": "ACU Foundation",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "foundation",
+"city": "North",
 "state": null,
-"campus": null,
+"campus": "North Sydney + Strathfield + Melbourne + Brisbane",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -60,15 +58,13 @@
 ]
 },
 {
-"id": "aib_australian_institute_of_business",
-"name": "AIB (Australian Institute of Business)",
-"alts": [
-"Australian Institute of Business"
-],
-"type": "university",
-"city": null,
+"id": "aib",
+"name": "AIB",
+"alts": [],
+"type": "vocational_private",
+"city": "Adelaide",
 "state": null,
-"campus": null,
+"campus": "Adelaide (SA Cat 2 +5/+15) + 온라인",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -104,15 +100,13 @@
 ]
 },
 {
-"id": "aipc_australian_institute_of_professional_counsellors",
-"name": "AIPC (Australian Institute of Professional Counsellors)",
-"alts": [
-"Australian Institute of Professional Counsellors"
-],
-"type": "university",
-"city": null,
+"id": "aipc",
+"name": "AIPC",
+"alts": [],
+"type": "vocational_private",
+"city": "전국",
 "state": null,
-"campus": null,
+"campus": "전국 다중 캠퍼스 (Sydney/Melbourne/Brisbane/Adelaide/Perth + 온라인)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -148,16 +142,43 @@
 ]
 },
 {
-"id": "apic_asia_pacific_international_college_-_eca",
-"name": "APIC (Asia Pacific International College) - ECA 그룹",
-"alts": [
-"Asia Pacific International College"
-],
-"type": "university",
-"city": null,
+"id": "alg",
+"name": "ALG",
+"alts": [],
+"type": "vocational_private",
+"city": "Sydney",
 "state": null,
-"campus": null,
+"campus": "Sydney / Melbourne / Brisbane",
 "cricos": null,
+"anmac": true,
+"qs": null,
+"founded": null,
+"operator": null,
+"programs": [
+{
+"id": "MAJ-1350",
+"name": "Diploma of Nursing (HLT54121)",
+"level": "Diploma",
+"duration": "1~2년",
+"tuition": "약 $28,000 AUD",
+"ielts": "7.0 (NMBA 표준 / EN 등록)",
+"entry": "Year 12 / 검정고시 OK",
+"pr_cat": "Cat 1",
+"pr_grade": "STSOL → MLTSSL",
+"campus": "Sydney / Melbourne / Brisbane",
+"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL) 사립 RTO."
+}
+]
+},
+{
+"id": "apic",
+"name": "APIC",
+"alts": [],
+"type": "vocational_private",
+"city": "Sydney",
+"state": null,
+"campus": "Sydney CBD + Melbourne CBD + Brisbane CBD",
+"cricos": "확인필요",
 "anmac": null,
 "qs": null,
 "founded": null,
@@ -201,6 +222,87 @@
 "pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
 "campus": "Sydney CBD + Melbourne CBD + Brisbane CBD",
 "note": ""
+}
+]
+},
+{
+"id": "adelaide_university",
+"name": "Adelaide University",
+"alts": [],
+"type": "university",
+"city": "North",
+"state": null,
+"campus": "North Terrace (Adelaide CBD) Cat 2 +15 (Regional)",
+"cricos": "00123M",
+"anmac": null,
+"qs": 82,
+"founded": 1874,
+"operator": "연방 정부 / 주 정부",
+"programs": [
+{
+"id": "MAJ-0350",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1.5년",
+"tuition": "$58,000~$65,000/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Bachelor + work experience",
+"pr_cat": "Cat 2",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "Adelaide CBD (SA 전체 Cat 2 +5/+15)",
+"note": "2026.01 통합 신규. AACSB. SA 전체 지방 = PR 가산점 ⭐."
+},
+{
+"id": "MAJ-1241",
+"name": "Bachelor of Physiotherapy (Honours) — 4년 Direct Entry",
+"level": "Bachelor",
+"duration": "4년 (Honours)",
+"tuition": "$46,000/년",
+"ielts": "7.0 (각 7.0) — AHPRA Physiotherapy Board 표준",
+"entry": "Year 12 + ATAR + Chemistry/Biology",
+"pr_cat": "Cat 2",
+"pr_grade": "MLTSSL — Physiotherapist 252511",
+"campus": "Adelaide CBD (SA Cat 2 +5/+15)",
+"note": "2026.01 통합. SA 지방 ⭐. AHPRA Physiotherapy Board 등록 자격."
+},
+{
+"id": "MAJ-1252",
+"name": "Occupational Therapy (Bachelor OT 4년 2026)",
+"level": "Bachelor",
+"duration": "4년",
+"tuition": "$44,800/년",
+"ielts": "7.0 (AHPRA 의료 표준)",
+"entry": "UniSA: $44,800/년 / Cat 2 +15",
+"pr_cat": "Cat 2 (SA 전체 +5/+15)",
+"pr_grade": "MLTSSL",
+"campus": "Adelaide CBD (SA 전체 Cat 2 +5/+15)",
+"note": "Occupational Therapist 252411 (MLTSSL) / Cat 2 +15"
+},
+{
+"id": "MAJ-1271",
+"name": "Radiography (Bachelor Medical Imaging 4년 20)",
+"level": "Bachelor",
+"duration": "4년",
+"tuition": "$44,800/년",
+"ielts": "7.0 (각 7.0) — AHPRA 의료 직군 표준 (Pharmacy Writing 6.5 가능)",
+"entry": "UniSA: $44,800/년 / Cat 2 +15",
+"pr_cat": "Cat 2 (SA 전체 +5/+15)",
+"pr_grade": "MLTSSL",
+"campus": "Adelaide CBD (SA 전체 Cat 2 +5/+15)",
+"note": "Medical Radiation Therapist 251214 (MLTSSL) / Cat 2 +15"
+},
+{
+"id": "MAJ-1423",
+"name": "Master of Professional Accounting",
+"level": "Master",
+"duration": "1.5~2년",
+"tuition": "$40,000~$43,000/년 추정",
+"ielts": "6.5 (각 6.0)",
+"entry": "Bachelor 졸업",
+"pr_cat": "Cat 2",
+"pr_grade": "MLTSSL — Accountant 221111 / Auditor 221213",
+"campus": "Adelaide CBD (SA 전체 = Cat 2 지방 +5/+15)",
+"note": "CPA + CAANZ 인증. 2026.01 합병 후 Adelaide University 산하. SA 전체 지방. ⚠️ PY 회계 2026.5.1 종료."
 }
 ]
 },
@@ -912,37 +1014,6 @@
 ]
 },
 {
-"id": "adelaide_university_uoa_unisa_adelaide_business_school",
-"name": "Adelaide University (UoA + UniSA 통합) — Adelaide Business School",
-"alts": [
-"UoA + UniSA 통합"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0350",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1.5년",
-"tuition": "$58,000~$65,000/년",
-"ielts": "6.5 (각 6.0)",
-"entry": "Bachelor + work experience",
-"pr_cat": "Cat 2",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "Adelaide CBD (SA 전체 Cat 2 +5/+15)",
-"note": "2026.01 통합 신규. AACSB. SA 전체 지방 = PR 가산점 ⭐."
-}
-]
-},
-{
 "id": "australian_catholic_university_acu",
 "name": "Australian Catholic University (ACU)",
 "alts": [
@@ -1256,37 +1327,6 @@
 "pr_grade": "MLTSSL — Registered Nurse 254418",
 "campus": "North Sydney / Strathfield / Melbourne / Brisbane / Canberra (대부분 Cat 1 도시)",
 "note": "ANMAC 인증. 1,000+ 임상 시간. 사립이라 정원 제한적 (소수 정예). Bachelor 트랙이라 비전공자 학점 인정 시 단축 가능."
-}
-]
-},
-{
-"id": "australian_learning_group_alg",
-"name": "Australian Learning Group (ALG)",
-"alts": [
-"ALG"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-1350",
-"name": "Diploma of Nursing (HLT54121)",
-"level": "Diploma",
-"duration": "1~2년",
-"tuition": "약 $28,000 AUD",
-"ielts": "7.0 (NMBA 표준 / EN 등록)",
-"entry": "Year 12 / 검정고시 OK",
-"pr_cat": "Cat 1",
-"pr_grade": "STSOL → MLTSSL",
-"campus": "Sydney / Melbourne / Brisbane",
-"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL) 사립 RTO."
 }
 ]
 },
@@ -1907,6 +1947,48 @@
 ]
 },
 {
+"id": "australian_pacific_college",
+"name": "Australian Pacific College",
+"alts": [],
+"type": "vocational_private",
+"city": "Sydney",
+"state": null,
+"campus": "Sydney CBD + Melbourne CBD",
+"cricos": "확인필요",
+"anmac": null,
+"qs": null,
+"founded": null,
+"operator": null,
+"programs": [
+{
+"id": "MAJ-1500",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$16,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Sydney / Melbourne",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Sydney CBD + Melbourne CBD",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1501",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$18,000~$25,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Sydney / Melbourne",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Sydney CBD + Melbourne CBD",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
+}
+]
+},
+{
 "id": "avondale_university",
 "name": "Avondale University",
 "alts": [],
@@ -2105,16 +2187,14 @@
 ]
 },
 {
-"id": "bmihms_by_torrens_blue_mountains_international_hotel_managem",
-"name": "BMIHMS by Torrens (Blue Mountains International Hotel Management School)",
-"alts": [
-"Blue Mountains International Hotel Management School"
-],
-"type": "university",
-"city": null,
+"id": "bmihms_by_torrens",
+"name": "BMIHMS by Torrens",
+"alts": [],
+"type": "vocational_private",
+"city": "Adelaide",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Adelaide / Sydney / Leura Blue Mountains",
+"cricos": "확인필요",
 "anmac": null,
 "qs": null,
 "founded": null,
@@ -2132,6 +2212,19 @@
 "pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
 "campus": "Adelaide / Sydney / Leura Blue Mountains",
 "note": "QS Hospitality & Leisure Management Schools 호주 #1, 세계 #21 (2026-2027). 96% 졸업생 6개월 내 정규직. 600시간 임상 placement."
+},
+{
+"id": "MAJ-1495",
+"name": "Diploma of Business in International Hotel Management (BMIHMS Pathway)",
+"level": "Diploma",
+"duration": "1년",
+"tuition": "$32,000~$40,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Sydney / Cat 3 Leura (Regional)",
+"pr_grade": "Hotel Service Manager 141311 (CSOL)",
+"campus": "Sydney (Hyde Park) + Leura (Blue Mountains)",
+"note": "BMIHMS Bachelor of Business 1학년 인정 트랙."
 }
 ]
 },
@@ -2321,14 +2414,14 @@
 ]
 },
 {
-"id": "box_hill_institute_vic",
-"name": "Box Hill Institute VIC",
+"id": "box_hill_institute",
+"name": "Box Hill Institute",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "tafe",
+"city": "Box",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Box Hill Melbourne (Cat 1)",
+"cricos": "확인필요",
 "anmac": true,
 "qs": null,
 "founded": null,
@@ -2346,6 +2439,45 @@
 "pr_grade": "STSOL → MLTSSL",
 "campus": "Box Hill Melbourne (Cat 1)",
 "note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL)"
+},
+{
+"id": "MAJ-1476",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Melbourne (Box Hill / Lilydale / Nelson)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1477",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "Melbourne (Box Hill / Lilydale / Nelson)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1478",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Melbourne (Box Hill / Lilydale / Nelson)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -2354,9 +2486,9 @@
 "name": "Bradford College",
 "alts": [],
 "type": "university",
-"city": "확인필요",
+"city": "Adelaide",
 "state": null,
-"campus": "확인필요",
+"campus": "Adelaide CBD (Adelaide University pathway, SA Cat 2 +5/+15)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -2392,18 +2524,18 @@
 ]
 },
 {
-"id": "cdu_tafe_nt",
-"name": "CDU TAFE NT",
+"id": "cdu_tafe",
+"name": "CDU TAFE",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "tafe",
+"city": "NT",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "NT - Casuarina (Darwin Main) / Palmerston / Alice Springs",
+"cricos": "검증 필요",
 "anmac": true,
 "qs": null,
 "founded": null,
-"operator": null,
+"operator": "Charles Darwin University (CDU) - Dual-sector",
 "programs": [
 {
 "id": "MAJ-1348",
@@ -2417,17 +2549,56 @@
 "pr_grade": "STSOL → MLTSSL",
 "campus": "Darwin / Alice Springs (NT 전체 Cat 3 +5/+15)",
 "note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL)"
+},
+{
+"id": "MAJ-1470",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 3 Regional (Darwin)",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "NT (Darwin / Casuarina / Palmerston)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1471",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 3 Regional (Darwin)",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "NT (Darwin / Casuarina / Palmerston)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1472",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 3 Regional (Darwin)",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "NT (Darwin / Casuarina / Palmerston)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
 {
-"id": "cquniversity_australia",
-"name": "CQUniversity Australia",
+"id": "cquniversity",
+"name": "CQUniversity",
 "alts": [],
 "type": "university",
-"city": null,
+"city": "Rockhampton",
 "state": null,
-"campus": null,
+"campus": "Rockhampton (Cat 2 QLD 지방)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -2692,10 +2863,10 @@
 "id": "charles_darwin_university_pathway_college",
 "name": "Charles Darwin University Pathway College",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "pathway_college",
+"city": "Darwin",
 "state": null,
-"campus": null,
+"campus": "Darwin (Cat 3 +5/+15)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -3048,13 +3219,13 @@
 ]
 },
 {
-"id": "chisholm_institute_vic",
-"name": "Chisholm Institute VIC",
+"id": "chisholm_institute",
+"name": "Chisholm Institute",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "tafe",
+"city": "Dandenong/Frankston",
 "state": null,
-"campus": null,
+"campus": "Dandenong/Frankston Melbourne (Cat 1)",
 "cricos": null,
 "anmac": true,
 "qs": null,
@@ -3073,6 +3244,45 @@
 "pr_grade": "STSOL → MLTSSL",
 "campus": "Dandenong/Frankston Melbourne (Cat 1)",
 "note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL)"
+},
+{
+"id": "MAJ-1479",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Melbourne (Dandenong / Frankston / Cranbourne / Mornington)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1480",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "Melbourne (Dandenong / Frankston / Cranbourne / Mornington)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1481",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Melbourne (Dandenong / Frankston / Cranbourne / Mornington)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -3081,9 +3291,9 @@
 "name": "Curtin College",
 "alts": [],
 "type": "university",
-"city": "확인필요",
+"city": "Bentley",
 "state": null,
-"campus": "확인필요",
+"campus": "Bentley Perth (Curtin 캠퍼스 내, Greater Perth Cat 2 +5/+15)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -3918,10 +4128,10 @@
 "id": "deakin_college",
 "name": "Deakin College",
 "alts": [],
-"type": "university",
-"city": "확인필요",
+"type": "pathway_college",
+"city": "Burwood",
 "state": null,
-"campus": "확인필요",
+"campus": "Burwood Melbourne (Deakin 캠퍼스 인접)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -4207,16 +4417,14 @@
 ]
 },
 {
-"id": "ecc_edith_cowan_college_pibt",
-"name": "ECC (Edith Cowan College, 구 PIBT)",
-"alts": [
-"Edith Cowan College, 구 PIBT"
-],
-"type": "university",
-"city": null,
+"id": "edith_cowan_college",
+"name": "Edith Cowan College",
+"alts": [],
+"type": "pathway_college",
+"city": "Joondalup",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Joondalup Perth (ECU 캠퍼스 내, Greater Perth Cat 2 +5/+15)",
+"cricos": "확인필요",
 "anmac": null,
 "qs": null,
 "founded": null,
@@ -4532,10 +4740,10 @@
 "id": "federation_pathway_college",
 "name": "Federation Pathway College",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "pathway_college",
+"city": "Mt",
 "state": null,
-"campus": null,
+"campus": "Mt Helen Ballarat (Federation 캠퍼스, Cat 2 +5/+15)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -4886,42 +5094,13 @@
 ]
 },
 {
-"id": "flinders_university",
-"name": "Flinders University",
+"id": "flinders_foundation",
+"name": "Flinders Foundation",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "foundation",
+"city": "Adelaide",
 "state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-1446",
-"name": "Bachelor of Nursing (Graduate Entry)",
-"level": "Bachelor",
-"duration": "2년",
-"tuition": "$40,200/년",
-"ielts": "7.0 (각 7.0) / NMBA 표준",
-"entry": "Bachelor 졸업 (비전공)",
-"pr_cat": "Cat 2",
-"pr_grade": "MLTSSL — Registered Nurse 254418",
-"campus": "Adelaide (Bedford Park) — SA 전체 Cat 2 +5/+15",
-"note": "ANMAC 인증 (2030.07까지). NMBA 등록 자격. Caring Futures Institute 연계. 한국 학생 인기."
-}
-]
-},
-{
-"id": "flinders_university_foundation_studies",
-"name": "Flinders University Foundation Studies",
-"alts": [],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
+"campus": "Adelaide Bedford Park (Cat 2 +5/+15)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -4944,15 +5123,42 @@
 ]
 },
 {
-"id": "griffith_college_pathway_college",
-"name": "Griffith College (Pathway College)",
-"alts": [
-"Pathway College"
-],
+"id": "flinders_university",
+"name": "Flinders University",
+"alts": [],
 "type": "university",
-"city": null,
+"city": "Adelaide",
 "state": null,
-"campus": null,
+"campus": "Adelaide (Bedford Park) — SA 전체 Cat 2 +5/+15",
+"cricos": null,
+"anmac": true,
+"qs": null,
+"founded": null,
+"operator": null,
+"programs": [
+{
+"id": "MAJ-1446",
+"name": "Bachelor of Nursing (Graduate Entry)",
+"level": "Bachelor",
+"duration": "2년",
+"tuition": "$40,200/년",
+"ielts": "7.0 (각 7.0) / NMBA 표준",
+"entry": "Bachelor 졸업 (비전공)",
+"pr_cat": "Cat 2",
+"pr_grade": "MLTSSL — Registered Nurse 254418",
+"campus": "Adelaide (Bedford Park) — SA 전체 Cat 2 +5/+15",
+"note": "ANMAC 인증 (2030.07까지). NMBA 등록 자격. Caring Futures Institute 연계. 한국 학생 인기."
+}
+]
+},
+{
+"id": "griffith_college",
+"name": "Griffith College",
+"alts": [],
+"type": "pathway_college",
+"city": "Mt",
+"state": null,
+"campus": "Mt Gravatt Brisbane / Gold Coast (Cat 2)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -5436,14 +5642,14 @@
 ]
 },
 {
-"id": "holmesglen_tafe_vic",
-"name": "Holmesglen TAFE VIC",
+"id": "holmesglen_tafe",
+"name": "Holmesglen TAFE",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "tafe",
+"city": "VIC",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "VIC 다중 캠퍼스 (Melbourne CBD Cat 1 / Geelong/Bendigo/Ballarat Cat 2)",
+"cricos": "확인필요",
 "anmac": true,
 "qs": null,
 "founded": null,
@@ -5461,6 +5667,45 @@
 "pr_grade": "STSOL → MLTSSL",
 "campus": "VIC 다중 캠퍼스 (Melbourne CBD Cat 1 / Geelong/Bendigo/Ballarat Cat 2)",
 "note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL)"
+},
+{
+"id": "MAJ-1473",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Melbourne (Chadstone / Moorabbin / Glen Waverley / City)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1474",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "Melbourne (Chadstone / Moorabbin / Glen Waverley / City)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1475",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Melbourne (Chadstone / Moorabbin / Glen Waverley / City)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -5471,9 +5716,9 @@
 "Institute of Health and Nursing Australia"
 ],
 "type": "university",
-"city": "확인필요",
+"city": "Sydney",
 "state": null,
-"campus": "확인필요",
+"campus": "Sydney / Melbourne / Perth (Cat 1~Cat 2 캠퍼스별)",
 "cricos": "확인필요",
 "anmac": true,
 "qs": null,
@@ -5502,10 +5747,10 @@
 "Pathway"
 ],
 "type": "university",
-"city": null,
+"city": "Townsville",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Townsville / Cairns (Cat 3 +5/+15)",
+"cricos": "확인필요",
 "anmac": null,
 "qs": null,
 "founded": null,
@@ -5553,15 +5798,57 @@
 ]
 },
 {
+"id": "imagine_education_australia",
+"name": "Imagine Education Australia",
+"alts": [],
+"type": "vocational_private",
+"city": "Gold",
+"state": null,
+"campus": "Gold Coast (Southport) + Brisbane + Sydney",
+"cricos": "확인필요",
+"anmac": null,
+"qs": null,
+"founded": null,
+"operator": null,
+"programs": [
+{
+"id": "MAJ-1498",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$16,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Gold Coast / Cat 1 Sydney·Brisbane",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Gold Coast (Southport) + Brisbane + Sydney",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1499",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$18,000~$25,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Gold Coast / Cat 1 Sydney·Brisbane",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Gold Coast (Southport) + Brisbane + Sydney",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
+}
+]
+},
+{
 "id": "international_college_of_hotel_management_ichm",
 "name": "International College of Hotel Management (ICHM)",
 "alts": [
 "ICHM"
 ],
 "type": "university",
-"city": "확인필요",
+"city": "Adelaide",
 "state": null,
-"campus": "확인필요",
+"campus": "Adelaide CBD Currie St (SA 전체 = Cat 2 +5/+15)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -5580,6 +5867,32 @@
 "pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
 "campus": "Adelaide CBD Currie St (SA 전체 = Cat 2 +5/+15)",
 "note": "1992 설립 (SA 정부 + Swiss Hotel Association + Lipman 가족). 87% 졸업생 즉시 취업. Swiss Hotel Lausanne 1세기 모델. Currie St 신축 캠퍼스. SA 지방 = PR 가산점. Bachelor + Master 모두 운영."
+},
+{
+"id": "MAJ-1493",
+"name": "Bachelor of Business (International Hotel Management)",
+"level": "Bachelor",
+"duration": "3년",
+"tuition": "$35,000~$42,000/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Year 12 + ATAR 65 + IELTS 6.5 각 6.0",
+"pr_cat": "Cat 2 Adelaide",
+"pr_grade": "Hotel Service Manager 141311 (CSOL)",
+"campus": "Adelaide (37 Sturt St)",
+"note": "Hotel management 학사. ICHM / Le Cordon Bleu / BMIHMS 등 specialist brand."
+},
+{
+"id": "MAJ-1494",
+"name": "Diploma of Travel and Tourism (SIT50122) / Tourism and Hospitality Management",
+"level": "Diploma",
+"duration": "1.5-2년",
+"tuition": "$32,000~$40,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Adelaide",
+"pr_grade": "Travel Consultant 451611 (CSOL) / Tour Guide 451612 (CSOL)",
+"campus": "Adelaide (37 Sturt St)",
+"note": "Tourism 트랙. 관광청·여행사 진입."
 }
 ]
 },
@@ -5894,9 +6207,9 @@
 "KBS"
 ],
 "type": "university",
-"city": "확인필요",
+"city": "Sydney/Melbourne/Brisbane/Gold",
 "state": null,
-"campus": "확인필요",
+"campus": "Sydney/Melbourne/Brisbane/Gold Coast (Cat 2)/Adelaide (Cat 2)/Perth (Cat 2)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -5951,9 +6264,9 @@
 "KOI"
 ],
 "type": "university",
-"city": "확인필요",
+"city": "Sydney",
 "state": null,
-"campus": "확인필요",
+"campus": "Sydney CBD",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -6018,10 +6331,10 @@
 "id": "la_trobe_college_australia",
 "name": "La Trobe College Australia",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "pathway_college",
+"city": "Bundoora",
 "state": null,
-"campus": null,
+"campus": "Bundoora Melbourne (La Trobe 캠퍼스 내)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -6351,15 +6664,15 @@
 "alts": [
 "Adelaide"
 ],
-"type": "university",
-"city": null,
+"type": "vocational_private",
+"city": "Adelaide",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Adelaide + Sydney + Brisbane",
+"cricos": "검증 필요",
 "anmac": null,
 "qs": null,
 "founded": null,
-"operator": null,
+"operator": "Le Cordon Bleu (프랑스 본사 / 1895년)",
 "programs": [
 {
 "id": "MAJ-1438",
@@ -6373,6 +6686,113 @@
 "pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
 "campus": "Adelaide CBD (SA 전체 = Cat 2 +5/+15)",
 "note": "글로벌 culinary 명문 (1895 Paris 설립). Adelaide 본 캠퍼스 + Hospitality Management 학위. SA 전체 지방 = PR 가산점."
+},
+{
+"id": "MAJ-1488",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$28,000~$36,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Adelaide / Cat 1 Sydney·Brisbane",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Adelaide (Days Rd Regency Park) + Sydney + Brisbane",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1489",
+"name": "Certificate III in Patisserie (SIT31021)",
+"level": "Certificate III",
+"duration": "1년 (52주)",
+"tuition": "$28,000~$36,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Adelaide / Cat 1 Sydney·Brisbane",
+"pr_grade": "Pastrycook 351112 (MLTSSL)",
+"campus": "Adelaide (Days Rd Regency Park) + Sydney + Brisbane",
+"note": "프랑스 culinary 세부 트랙. Le Cordon Bleu 등 specialist 강점."
+},
+{
+"id": "MAJ-1490",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$30,000~$38,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 2 Adelaide / Cat 1 Sydney·Brisbane",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "Adelaide (Days Rd Regency Park) + Sydney + Brisbane",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1491",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$32,000~$40,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Adelaide / Cat 1 Sydney·Brisbane",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Adelaide (Days Rd Regency Park) + Sydney + Brisbane",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
+},
+{
+"id": "MAJ-1492",
+"name": "Bachelor of Business (International Hotel Management)",
+"level": "Bachelor",
+"duration": "3년",
+"tuition": "$35,000~$42,000/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Year 12 + ATAR 65 + IELTS 6.5 각 6.0",
+"pr_cat": "Cat 2 Adelaide / Cat 1 Sydney·Brisbane",
+"pr_grade": "Hotel Service Manager 141311 (CSOL)",
+"campus": "Adelaide (Days Rd Regency Park) + Sydney + Brisbane",
+"note": "Hotel management 학사. ICHM / Le Cordon Bleu / BMIHMS 등 specialist brand."
+}
+]
+},
+{
+"id": "lonsdale_institute",
+"name": "Lonsdale Institute",
+"alts": [],
+"type": "elicos",
+"city": "Sydney,",
+"state": null,
+"campus": "Sydney, Melbourne",
+"cricos": "X (운영 중단)",
+"anmac": null,
+"qs": null,
+"founded": null,
+"operator": null,
+"programs": [
+{
+"id": "MAJ-1502",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$16,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne / Sydney",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Melbourne CBD + Sydney CBD",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1503",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$18,000~$25,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne / Sydney",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Melbourne CBD + Sydney CBD",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -6383,9 +6803,9 @@
 "Melbourne Institute of Technology"
 ],
 "type": "university",
-"city": "확인필요",
+"city": "Melbourne",
 "state": null,
-"campus": "확인필요",
+"campus": "Melbourne CBD",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -6773,6 +7193,19 @@
 "note": "Macquarie"
 },
 {
+"id": "MAJ-0496",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1.5~2년",
+"tuition": "$58,500~$61,100/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Bachelor + 2년+ work experience",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "North Ryde Sydney",
+"note": "AACSB + EQUIS + AMBA Triple Crown. Macquarie Business School."
+},
+{
 "id": "MAJ-0497",
 "name": "Master of Applied Finance",
 "level": "Master",
@@ -7126,42 +7559,13 @@
 ]
 },
 {
-"id": "macquarie_university_macquarie_business_school",
-"name": "Macquarie University — Macquarie Business School",
+"id": "monash_college",
+"name": "Monash College",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "pathway_college",
+"city": "Caulfield",
 "state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0496",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1.5~2년",
-"tuition": "$58,500~$61,100/년",
-"ielts": "6.5 (각 6.0)",
-"entry": "Bachelor + 2년+ work experience",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "North Ryde Sydney",
-"note": "AACSB + EQUIS + AMBA Triple Crown. Macquarie Business School."
-}
-]
-},
-{
-"id": "monash_college_diploma",
-"name": "Monash College Diploma",
-"alts": [],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
+"campus": "Caulfield Melbourne (Monash 캠퍼스 인접)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -7508,6 +7912,19 @@
 "pr_grade": "STSOL — 분야별 (Graphic Designer 232411 등 직업평가 까다로움)",
 "campus": "Clayton Melbourne",
 "note": "XXX"
+},
+{
+"id": "MAJ-0208",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1~2년",
+"tuition": "$58,000~$65,400/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Bachelor + work experience + GMAT/GRE 권장",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "Caulfield Melbourne",
+"note": "Go8. AACSB + EQUIS Triple Crown. Monash Business School."
 },
 {
 "id": "MAJ-0209",
@@ -7967,42 +8384,13 @@
 ]
 },
 {
-"id": "monash_university_monash_business_school",
-"name": "Monash University — Monash Business School",
-"alts": [],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0208",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1~2년",
-"tuition": "$58,000~$65,400/년",
-"ielts": "6.5 (각 6.0)",
-"entry": "Bachelor + work experience + GMAT/GRE 권장",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "Caulfield Melbourne",
-"note": "Go8. AACSB + EQUIS Triple Crown. Monash Business School."
-}
-]
-},
-{
 "id": "murdoch_college",
 "name": "Murdoch College",
 "alts": [],
 "type": "university",
-"city": "확인필요",
+"city": "Perth",
 "state": null,
-"campus": "확인필요",
+"campus": "Perth (Murdoch 캠퍼스 내, Cat 2 +5/+15)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -8518,9 +8906,9 @@
 "name": "RMIT Training",
 "alts": [],
 "type": "university",
-"city": "확인필요",
+"city": "Melbourne",
 "state": null,
-"campus": "확인필요",
+"campus": "Melbourne CBD (RMIT 캠퍼스 인접)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -9313,13 +9701,13 @@
 ]
 },
 {
-"id": "saibt_south_australian_institute_of_business_and",
-"name": "SAIBT (South Australian Institute of Business and",
+"id": "saibt",
+"name": "SAIBT",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "vocational_private",
+"city": "Adelaide",
 "state": null,
-"campus": null,
+"campus": "Adelaide (UniSA 캠퍼스 내, SA Cat 2 +5/+15)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -9374,10 +9762,10 @@
 "Sydney Institute of Business and Technology"
 ],
 "type": "university",
-"city": null,
+"city": "Macquarie",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Macquarie Park Sydney (Macquarie University 캠퍼스 내)",
+"cricos": "확인필요",
 "anmac": null,
 "qs": null,
 "founded": null,
@@ -9425,15 +9813,13 @@
 ]
 },
 {
-"id": "southern_cross_university_scu",
-"name": "Southern Cross University (SCU)",
-"alts": [
-"SCU"
-],
+"id": "southern_cross_university",
+"name": "Southern Cross University",
+"alts": [],
 "type": "university",
-"city": null,
+"city": "Lismore",
 "state": null,
-"campus": null,
+"campus": "Lismore (NSW Cat 2 +5/+15) / Gold Coast (Cat 2)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -9459,10 +9845,10 @@
 "id": "stott_s_college",
 "name": "Stott's College",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "vocational_private",
+"city": "Melbourne",
 "state": null,
-"campus": null,
+"campus": "Melbourne CBD",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -9686,10 +10072,10 @@
 "id": "tafe_nsw",
 "name": "TAFE NSW",
 "alts": [],
-"type": "university",
-"city": "확인필요",
+"type": "tafe",
+"city": "NSW",
 "state": null,
-"campus": "확인필요",
+"campus": "NSW 다중 캠퍼스 (Sydney CBD/Ultimo/Granville/Newcastle Cat 2/etc)",
 "cricos": "확인필요",
 "anmac": true,
 "qs": null,
@@ -9747,6 +10133,45 @@
 "pr_grade": "CSOL",
 "campus": "NSW 다중 캠퍼스 (Sydney CBD/Ultimo/Granville/Newcastle Cat 2/etc)",
 "note": "Beauty Therapist 451815 (CSOL) / Diploma Beauty Therapy (SHB50121-01)"
+},
+{
+"id": "MAJ-1452",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Sydney / Cat 2 Newcastle·Wollongong",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "NSW 다중 캠퍼스 (Sydney CBD Ultimo / Kingscliff / Newcastle / Wollongong / Liverpool)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1453",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Sydney / Cat 2 Newcastle·Wollongong",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "NSW 다중 캠퍼스 (Sydney CBD Ultimo / Kingscliff / Newcastle / Wollongong / Liverpool)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1454",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Sydney / Cat 2 Newcastle·Wollongong",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "NSW 다중 캠퍼스 (Sydney CBD Ultimo / Kingscliff / Newcastle / Wollongong / Liverpool)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -9754,15 +10179,15 @@
 "id": "tafe_qld",
 "name": "TAFE QLD",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "tafe",
+"city": "QLD",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "QLD - Brisbane (South Bank / Mount Gravatt / Gold Coast (Southport / Ash",
+"cricos": "03020E",
 "anmac": true,
 "qs": null,
 "founded": null,
-"operator": null,
+"operator": "Queensland Government Department of Education",
 "programs": [
 {
 "id": "MAJ-1311",
@@ -9776,6 +10201,19 @@
 "pr_grade": "MLTSSL",
 "campus": "QLD 다중 캠퍼스 (Brisbane Cat 1 / Gold Coast Cat 2 / Cairns/Townsville Cat 3)",
 "note": "Aged or Disabled Carer 423111 (MLTSSL)"
+},
+{
+"id": "MAJ-1317",
+"name": "Bachelor of Nursing (Direct 3년)",
+"level": "Bachelor",
+"duration": "3년 (NMBA 800시간 임상)",
+"tuition": "$31,000/년",
+"ielts": "7.0 (NMBA 표준)",
+"entry": "Cat 2 +15",
+"pr_cat": "Cat 1 Brisbane / Cat 2 Gold Coast / Cat 3 북부 QLD",
+"pr_grade": "MLTSSL",
+"campus": "QLD 다중 캠퍼스 (Brisbane Cat 1 / Gold Coast Cat 2 / Cairns/Townsville Cat 3)",
+"note": "Registered Nurse 254418 (MLTSSL) / $31,000/년 / Brisbane Cat 2 +15 PR (TAFE 자체 Bachelor)"
 },
 {
 "id": "MAJ-1339",
@@ -9815,35 +10253,45 @@
 "pr_grade": "CSOL",
 "campus": "QLD 다중 캠퍼스 (Brisbane Cat 1 / Gold Coast Cat 2 / Cairns/Townsville Cat 3)",
 "note": "Beauty Therapist 451815 (CSOL) / SHB50121 / 111236A"
-}
-]
 },
 {
-"id": "tafe_qld_bachelor_nursing",
-"name": "TAFE QLD Bachelor Nursing",
-"alts": [],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-1317",
-"name": "Bachelor of Nursing (Direct 3년)",
-"level": "Bachelor",
-"duration": "3년 (NMBA 800시간 임상)",
-"tuition": "$31,000/년",
-"ielts": "7.0 (NMBA 표준)",
-"entry": "Cat 2 +15",
+"id": "MAJ-1455",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
 "pr_cat": "Cat 1 Brisbane / Cat 2 Gold Coast / Cat 3 북부 QLD",
-"pr_grade": "MLTSSL",
-"campus": "QLD 다중 캠퍼스 (Brisbane Cat 1 / Gold Coast Cat 2 / Cairns/Townsville Cat 3)",
-"note": "Registered Nurse 254418 (MLTSSL) / $31,000/년 / Brisbane Cat 2 +15 PR (TAFE 자체 Bachelor)"
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "QLD 다중 캠퍼스 (Brisbane / Gold Coast / Cairns / Townsville / Sunshine Coast)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1456",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Brisbane / Cat 2 Gold Coast / Cat 3 북부 QLD",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "QLD 다중 캠퍼스 (Brisbane / Gold Coast / Cairns / Townsville / Sunshine Coast)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1457",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Brisbane / Cat 2 Gold Coast / Cat 3 북부 QLD",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "QLD 다중 캠퍼스 (Brisbane / Gold Coast / Cairns / Townsville / Sunshine Coast)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -9851,10 +10299,10 @@
 "id": "tafe_sa",
 "name": "TAFE SA",
 "alts": [],
-"type": "university",
-"city": "확인필요",
+"type": "tafe",
+"city": "Adelaide",
 "state": null,
-"campus": "확인필요",
+"campus": "Adelaide CBD + 지방 (SA 전체 Cat 2 +5/+15)",
 "cricos": "확인필요",
 "anmac": true,
 "qs": null,
@@ -9912,6 +10360,45 @@
 "pr_grade": "CSOL",
 "campus": "Adelaide CBD + 지방 (SA 전체 Cat 2 +5/+15)",
 "note": "Beauty Therapist 451815 (CSOL) / Diploma Beauty Therapy"
+},
+{
+"id": "MAJ-1458",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Adelaide (전 지역)",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "SA 다중 캠퍼스 (Adelaide Regency / Tonsley / Tea Tree Gully)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1459",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 2 Adelaide (전 지역)",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "SA 다중 캠퍼스 (Adelaide Regency / Tonsley / Tea Tree Gully)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1460",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Adelaide (전 지역)",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "SA 다중 캠퍼스 (Adelaide Regency / Tonsley / Tea Tree Gully)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -9919,15 +10406,15 @@
 "id": "tafe_vic",
 "name": "TAFE VIC",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "tafe",
+"city": "VIC",
 "state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
+"campus": "VIC -",
+"cricos": "검증 필요",
+"anmac": true,
 "qs": null,
 "founded": null,
-"operator": null,
+"operator": "VIC State Government (TAFE 12개 + Dual-sector 4개)",
 "programs": [
 {
 "id": "MAJ-1315",
@@ -9941,6 +10428,19 @@
 "pr_grade": "MLTSSL",
 "campus": "VIC 다중 캠퍼스 (Melbourne CBD Cat 1 / Geelong/Bendigo/Ballarat Cat 2)",
 "note": "Aged or Disabled Carer 423111 (MLTSSL)"
+},
+{
+"id": "MAJ-1342",
+"name": "Diploma of Nursing (HLT54121)",
+"level": "Diploma",
+"duration": "2년",
+"tuition": "약 $28,000-32,000 AUD (RMIT 국제)",
+"ielts": "7.0 (NMBA 표준 / EN 등록)",
+"entry": "Year 12 / 검정고시 OK",
+"pr_cat": "Cat 1",
+"pr_grade": "STSOL → MLTSSL",
+"campus": "Melbourne CBD",
+"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL) RMIT 산하 TAFE."
 },
 {
 "id": "MAJ-1354",
@@ -9967,37 +10467,45 @@
 "pr_grade": "CSOL",
 "campus": "VIC 다중 캠퍼스 (Melbourne CBD Cat 1 / Geelong/Bendigo/Ballarat Cat 2)",
 "note": "Beauty Therapist 451815 (CSOL) / RMIT / Holmesglen / Bendigo Diploma Beauty"
-}
-]
 },
 {
-"id": "tafe_victoria_rmit_tafe",
-"name": "TAFE Victoria (RMIT TAFE)",
-"alts": [
-"RMIT TAFE"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
+"id": "MAJ-1461",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "VIC (Melbourne 중심)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
 {
-"id": "MAJ-1342",
-"name": "Diploma of Nursing (HLT54121)",
+"id": "MAJ-1462",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "VIC (Melbourne 중심)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1463",
+"name": "Diploma of Hospitality Management (SIT50422)",
 "level": "Diploma",
-"duration": "2년",
-"tuition": "약 $28,000-32,000 AUD (RMIT 국제)",
-"ielts": "7.0 (NMBA 표준 / EN 등록)",
-"entry": "Year 12 / 검정고시 OK",
-"pr_cat": "Cat 1",
-"pr_grade": "STSOL → MLTSSL",
-"campus": "Melbourne CBD",
-"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL) RMIT 산하 TAFE."
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "VIC (Melbourne 중심)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -10005,12 +10513,12 @@
 "id": "tafe_wa",
 "name": "TAFE WA",
 "alts": [],
-"type": "university",
-"city": "확인필요",
+"type": "tafe",
+"city": "Perth",
 "state": null,
-"campus": "확인필요",
+"campus": "Perth + 지방 (Greater Perth Cat 2 +5/+15)",
 "cricos": "확인필요",
-"anmac": null,
+"anmac": true,
 "qs": null,
 "founded": null,
 "operator": null,
@@ -10027,6 +10535,19 @@
 "pr_grade": "MLTSSL",
 "campus": "Perth + 지방 (Greater Perth Cat 2 +5/+15)",
 "note": "Aged or Disabled Carer 423111 (MLTSSL) / Cat 2 +15"
+},
+{
+"id": "MAJ-1341",
+"name": "Diploma of Nursing (HLT54121)",
+"level": "Diploma",
+"duration": "2년",
+"tuition": "약 $25,000-30,000 AUD (TIWA 운영)",
+"ielts": "7.0 (NMBA 표준 / EN 등록)",
+"entry": "Year 12 / 검정고시 OK",
+"pr_cat": "Cat 2 (Greater Perth)",
+"pr_grade": "STSOL → MLTSSL",
+"campus": "Perth + 지방 (Greater Perth Cat 2 +5/+15)",
+"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL) TIWA = Tertiary Institutions in Western Australia."
 },
 {
 "id": "MAJ-1355",
@@ -10053,49 +10574,57 @@
 "pr_grade": "CSOL",
 "campus": "Perth + 지방 (Greater Perth Cat 2 +5/+15)",
 "note": "Beauty Therapist 451815 (CSOL) / North Metropolitan TAFE Diploma Beauty"
-}
-]
 },
 {
-"id": "tafe_wa_tiwa",
-"name": "TAFE WA (TIWA)",
-"alts": [
-"TIWA"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
+"id": "MAJ-1464",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Perth (전 지역)",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "WA 다중 캠퍼스 (Perth / Joondalup / Fremantle / Bentley)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
 {
-"id": "MAJ-1341",
-"name": "Diploma of Nursing (HLT54121)",
+"id": "MAJ-1465",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 2 Perth (전 지역)",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "WA 다중 캠퍼스 (Perth / Joondalup / Fremantle / Bentley)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1466",
+"name": "Diploma of Hospitality Management (SIT50422)",
 "level": "Diploma",
-"duration": "2년",
-"tuition": "약 $25,000-30,000 AUD (TIWA 운영)",
-"ielts": "7.0 (NMBA 표준 / EN 등록)",
-"entry": "Year 12 / 검정고시 OK",
-"pr_cat": "Cat 2 (Greater Perth)",
-"pr_grade": "STSOL → MLTSSL",
-"campus": "Perth + 지방 (Greater Perth Cat 2 +5/+15)",
-"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL) TIWA = Tertiary Institutions in Western Australia."
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 2 Perth (전 지역)",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "WA 다중 캠퍼스 (Perth / Joondalup / Fremantle / Bentley)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
 {
-"id": "tastafe_tas",
-"name": "TasTAFE TAS",
+"id": "tastafe",
+"name": "TasTAFE",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "tafe",
+"city": "Hobart",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Hobart / Launceston / Burnie (TAS 전체 Cat 2 +5/+15)",
+"cricos": "확인필요",
 "anmac": true,
 "qs": null,
 "founded": null,
@@ -10113,6 +10642,45 @@
 "pr_grade": "STSOL → MLTSSL",
 "campus": "Hobart / Launceston / Burnie (TAS 전체 Cat 2 +5/+15)",
 "note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL)"
+},
+{
+"id": "MAJ-1467",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 3 Regional (전 지역)",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "TAS (Hobart / Launceston / Burnie)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1468",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 3 Regional (전 지역)",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "TAS (Hobart / Launceston / Burnie)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1469",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 3 Regional (전 지역)",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "TAS (Hobart / Launceston / Burnie)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
@@ -10121,9 +10689,9 @@
 "name": "Taylors College Perth",
 "alts": [],
 "type": "university",
-"city": "확인필요",
+"city": "Perth",
 "state": null,
-"campus": "확인필요",
+"campus": "Perth CBD (UWA Foundation pathway, Cat 2)",
 "cricos": "확인필요",
 "anmac": null,
 "qs": null,
@@ -10311,14 +10879,14 @@
 "BMIHMS by Torrens"
 ],
 "type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
+"city": "Adelaide",
+"state": "SA",
+"campus": "Adelaide Wakefield Street (SA) Cat 2 +15 (Regional)",
+"cricos": "03389E",
 "anmac": null,
 "qs": null,
-"founded": null,
-"operator": null,
+"founded": 2011,
+"operator": "연방 정부 / 주 정부",
 "programs": [
 {
 "id": "MAJ-0903",
@@ -10352,10 +10920,10 @@
 "id": "uc_college_foundation",
 "name": "UC College Foundation",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "foundation",
+"city": "Canberra",
 "state": null,
-"campus": null,
+"campus": "Canberra (UC 캠퍼스 내, Cat 2 +5/+15)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -10391,31 +10959,44 @@
 ]
 },
 {
-"id": "umelb_umelbourne",
-"name": "UMelb UMelbourne",
+"id": "uncie",
+"name": "UNCIE",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "pathway_college",
+"city": "Callaghan",
 "state": null,
-"campus": null,
+"campus": "Callaghan (Cat 2 NSW)",
 "cricos": null,
-"anmac": true,
+"anmac": null,
 "qs": null,
 "founded": null,
 "operator": null,
 "programs": [
 {
-"id": "MAJ-1326",
-"name": "Bachelor of Nursing (Direct 3년)",
-"level": "Bachelor",
-"duration": "3년 (NMBA 800시간 임상)",
-"tuition": "$51,776/년",
-"ielts": "7.0 (NMBA 표준)",
-"entry": "Cat 1",
-"pr_cat": "Cat 1",
-"pr_grade": "MLTSSL",
-"campus": "Parkville Melbourne",
-"note": "Registered Nurse 254418 (MLTSSL) / $51,776/년 (Master Direct) / Melbourne Cat 1"
+"id": "MAJ-0988",
+"name": "Foundation (2-3 Trimesters)",
+"level": "Foundation",
+"duration": "Foundation 8-12개월 / Diploma 1년 → UoN 학사 2학년",
+"tuition": "Foundation $29,880 (2026 공식 - IDP 확인) / Diploma $32,000-$38,000",
+"ielts": "Foundation 5.5 / Diploma 6.0",
+"entry": "고2/고3/검정고시 OK",
+"pr_cat": "Cat 2 (ACT)",
+"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
+"campus": "Callaghan (Cat 2 NSW)",
+"note": "→ University of Newcastle (UoN) 학사 2학년 직진"
+},
+{
+"id": "MAJ-0989",
+"name": "Diploma of Business / Engineering / IT",
+"level": "Diploma",
+"duration": "Foundation 8-12개월 / Diploma 1년 → UoN 학사 2학년",
+"tuition": "Foundation $29,880 (2026 공식 - IDP 확인) / Diploma $32,000-$38,000",
+"ielts": "Foundation 5.5 / Diploma 6.0",
+"entry": "고2/고3/검정고시 OK",
+"pr_cat": "Cat 2 (ACT)",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
+"campus": "Callaghan (Cat 2 NSW)",
+"note": "→ University of Newcastle (UoN) 학사 2학년 직진"
 }
 ]
 },
@@ -10718,6 +11299,19 @@
 "pr_grade": "STSOL — 분야별 (Graphic Designer 232411 등 직업평가 까다로움)",
 "campus": "Kensington Sydney",
 "note": "XXX"
+},
+{
+"id": "MAJ-0114",
+"name": "Master of Business Administration (MBA) — AGSM",
+"level": "Master",
+"duration": "1.5~2년",
+"tuition": "$84,500~$87,500/년",
+"ielts": "7.0 (각 6.5)",
+"entry": "Bachelor + 7년+ work experience + GMAT 600+ + 인터뷰",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "Kensington Sydney",
+"note": "Go8. AACSB + EQUIS + AMBA Triple Crown. AGSM = 호주 톱 MBA. Executive MBA 트랙 별도."
 },
 {
 "id": "MAJ-0115",
@@ -11112,44 +11706,13 @@
 ]
 },
 {
-"id": "unsw_sydney_agsm_australian_graduate_school_of_management",
-"name": "UNSW Sydney — AGSM (Australian Graduate School of Management)",
-"alts": [
-"Australian Graduate School of Management"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0114",
-"name": "Master of Business Administration (MBA) — AGSM",
-"level": "Master",
-"duration": "1.5~2년",
-"tuition": "$84,500~$87,500/년",
-"ielts": "7.0 (각 6.5)",
-"entry": "Bachelor + 7년+ work experience + GMAT 600+ + 인터뷰",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "Kensington Sydney",
-"note": "Go8. AACSB + EQUIS + AMBA Triple Crown. AGSM = 호주 톱 MBA. Executive MBA 트랙 별도."
-}
-]
-},
-{
 "id": "utas_college",
 "name": "UTAS College",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "pathway_college",
+"city": "Hobart",
 "state": null,
-"campus": null,
+"campus": "Hobart / Launceston (TAS 전체 Cat 2 +5/+15)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -11188,10 +11751,10 @@
 "id": "uts_college",
 "name": "UTS College",
 "alts": [],
-"type": "university",
-"city": null,
+"type": "pathway_college",
+"city": "Ultimo",
 "state": null,
-"campus": null,
+"campus": "Ultimo Sydney (UTS 캠퍼스 인접)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -11444,14 +12007,14 @@
 "name": "University of Melbourne",
 "alts": [],
 "type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
+"city": "Melbourne",
+"state": "VIC",
+"campus": "Melbourne (VIC) Cat 1 (Metro / 가산점 0)",
+"cricos": "00116K",
 "anmac": null,
-"qs": null,
+"qs": 13,
 "founded": null,
-"operator": null,
+"operator": "연방 정부 / 주 정부",
 "programs": [
 {
 "id": "MAJ-1278",
@@ -11639,6 +12202,19 @@
 "pr_grade": "-",
 "campus": "Parkville Melbourne",
 "note": "Southbank 캠퍼스"
+},
+{
+"id": "MAJ-0010",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1~2년 (full-time/part-time)",
+"tuition": "$99,000~$110,000/년",
+"ielts": "7.0 (각 6.5)",
+"entry": "Bachelor 졸업 + 5년+ work experience + GMAT/GRE 권장 + 인터뷰",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113",
+"campus": "Carlton Melbourne",
+"note": "Go8. AACSB + EQUIS + AMBA Triple Crown. MBS = Asia 톱 비즈니스 스쿨. 호주 MBA 가장 비쌈. PR 목적이면 specialise 필수."
 },
 {
 "id": "MAJ-0011",
@@ -12003,37 +12579,19 @@
 "pr_grade": "MLTSSL — Physiotherapist 252511",
 "campus": "Parkville Melbourne",
 "note": "Go8. AHPRA 인증. AHPRA Physiotherapy Board 등록 자격."
-}
-]
 },
 {
-"id": "university_of_melbourne_umelb_melbourne_business_school_mbs",
-"name": "University of Melbourne (UMelb) — Melbourne Business School (MBS)",
-"alts": [
-"UMelb"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0010",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1~2년 (full-time/part-time)",
-"tuition": "$99,000~$110,000/년",
-"ielts": "7.0 (각 6.5)",
-"entry": "Bachelor 졸업 + 5년+ work experience + GMAT/GRE 권장 + 인터뷰",
+"id": "MAJ-1326",
+"name": "Bachelor of Nursing (Direct 3년)",
+"level": "Bachelor",
+"duration": "3년 (NMBA 800시간 임상)",
+"tuition": "$51,776/년",
+"ielts": "7.0 (NMBA 표준)",
+"entry": "Cat 1",
 "pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113",
-"campus": "Carlton Melbourne",
-"note": "Go8. AACSB + EQUIS + AMBA Triple Crown. MBS = Asia 톱 비즈니스 스쿨. 호주 MBA 가장 비쌈. PR 목적이면 specialise 필수."
+"pr_grade": "MLTSSL",
+"campus": "Parkville Melbourne",
+"note": "Registered Nurse 254418 (MLTSSL) / $51,776/년 (Master Direct) / Melbourne Cat 1"
 }
 ]
 },
@@ -12527,64 +13085,20 @@
 ]
 },
 {
-"id": "university_of_newcastle_college_of_international_education_u",
-"name": "University of Newcastle College of International Education (UNCIE)",
-"alts": [
-"UNCIE"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0988",
-"name": "Foundation (2-3 Trimesters)",
-"level": "Foundation",
-"duration": "Foundation 8-12개월 / Diploma 1년 → UoN 학사 2학년",
-"tuition": "Foundation $29,880 (2026 공식 - IDP 확인) / Diploma $32,000-$38,000",
-"ielts": "Foundation 5.5 / Diploma 6.0",
-"entry": "고2/고3/검정고시 OK",
-"pr_cat": "Cat 2 (ACT)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "Callaghan (Cat 2 NSW)",
-"note": "→ University of Newcastle (UoN) 학사 2학년 직진"
-},
-{
-"id": "MAJ-0989",
-"name": "Diploma of Business / Engineering / IT",
-"level": "Diploma",
-"duration": "Foundation 8-12개월 / Diploma 1년 → UoN 학사 2학년",
-"tuition": "Foundation $29,880 (2026 공식 - IDP 확인) / Diploma $32,000-$38,000",
-"ielts": "Foundation 5.5 / Diploma 6.0",
-"entry": "고2/고3/검정고시 OK",
-"pr_cat": "Cat 2 (ACT)",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
-"campus": "Callaghan (Cat 2 NSW)",
-"note": "→ University of Newcastle (UoN) 학사 2학년 직진"
-}
-]
-},
-{
 "id": "university_of_notre_dame_australia_notre_dame",
 "name": "University of Notre Dame Australia (Notre Dame)",
 "alts": [
 "Notre Dame"
 ],
 "type": "university",
-"city": null,
+"city": "Fremantle",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Fremantle (Perth West End / 19세기 heritage 건물) Cat 2 +15 (Regional)",
+"cricos": "01032F",
 "anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
+"qs": 750,
+"founded": 1989,
+"operator": "연방 정부 / 주 정부",
 "programs": [
 {
 "id": "MAJ-1212",
@@ -13130,6 +13644,19 @@
 "note": "Gatton 캠퍼스"
 },
 {
+"id": "MAJ-0257",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1년 가속 / 1.5~2년 풀타임",
+"tuition": "$69,112/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Bachelor + work experience + GMAT/GRE 권장",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "Brisbane (Cat 1 변경 2024.01)",
+"note": "Go8. AACSB + EQUIS + AMBA Triple Crown. Brisbane 2024.01부터 Cat 1."
+},
+{
 "id": "MAJ-0258",
 "name": "Master of Business",
 "level": "Master",
@@ -13557,107 +14084,6 @@
 "pr_grade": "MLTSSL",
 "campus": "Brisbane St Lucia (Cat 1 변경 2024.01)",
 "note": "Registered Nurse 254418 (MLTSSL) / $45,792/년 / Brisbane Cat 2 +15 PR / IELTS 7.0 / Go8 명문"
-}
-]
-},
-{
-"id": "university_of_queensland_uq_uq_business_school",
-"name": "University of Queensland (UQ) — UQ Business School",
-"alts": [
-"UQ"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0257",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1년 가속 / 1.5~2년 풀타임",
-"tuition": "$69,112/년",
-"ielts": "6.5 (각 6.0)",
-"entry": "Bachelor + work experience + GMAT/GRE 권장",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "Brisbane (Cat 1 변경 2024.01)",
-"note": "Go8. AACSB + EQUIS + AMBA Triple Crown. Brisbane 2024.01부터 Cat 1."
-}
-]
-},
-{
-"id": "university_of_south_australia_unisa_adelaide_university",
-"name": "University of South Australia (UniSA → Adelaide University 통합)",
-"alts": [
-"UniSA → Adelaide University 통합"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-1241",
-"name": "Bachelor of Physiotherapy (Honours) — 4년 Direct Entry",
-"level": "Bachelor",
-"duration": "4년 (Honours)",
-"tuition": "$46,000/년",
-"ielts": "7.0 (각 7.0) — AHPRA Physiotherapy Board 표준",
-"entry": "Year 12 + ATAR + Chemistry/Biology",
-"pr_cat": "Cat 2",
-"pr_grade": "MLTSSL — Physiotherapist 252511",
-"campus": "Adelaide CBD (SA Cat 2 +5/+15)",
-"note": "2026.01 통합. SA 지방 ⭐. AHPRA Physiotherapy Board 등록 자격."
-},
-{
-"id": "MAJ-1252",
-"name": "Occupational Therapy (Bachelor OT 4년 2026)",
-"level": "Bachelor",
-"duration": "4년",
-"tuition": "$44,800/년",
-"ielts": "7.0 (AHPRA 의료 표준)",
-"entry": "UniSA: $44,800/년 / Cat 2 +15",
-"pr_cat": "Cat 2 (SA 전체 +5/+15)",
-"pr_grade": "MLTSSL",
-"campus": "Adelaide CBD (SA 전체 Cat 2 +5/+15)",
-"note": "Occupational Therapist 252411 (MLTSSL) / Cat 2 +15"
-},
-{
-"id": "MAJ-1271",
-"name": "Radiography (Bachelor Medical Imaging 4년 20)",
-"level": "Bachelor",
-"duration": "4년",
-"tuition": "$44,800/년",
-"ielts": "7.0 (각 7.0) — AHPRA 의료 직군 표준 (Pharmacy Writing 6.5 가능)",
-"entry": "UniSA: $44,800/년 / Cat 2 +15",
-"pr_cat": "Cat 2 (SA 전체 +5/+15)",
-"pr_grade": "MLTSSL",
-"campus": "Adelaide CBD (SA 전체 Cat 2 +5/+15)",
-"note": "Medical Radiation Therapist 251214 (MLTSSL) / Cat 2 +15"
-},
-{
-"id": "MAJ-1423",
-"name": "Master of Professional Accounting",
-"level": "Master",
-"duration": "1.5~2년",
-"tuition": "$40,000~$43,000/년 추정",
-"ielts": "6.5 (각 6.0)",
-"entry": "Bachelor 졸업",
-"pr_cat": "Cat 2",
-"pr_grade": "MLTSSL — Accountant 221111 / Auditor 221213",
-"campus": "Adelaide CBD (SA 전체 = Cat 2 지방 +5/+15)",
-"note": "CPA + CAANZ 인증. 2026.01 합병 후 Adelaide University 산하. SA 전체 지방. ⚠️ PY 회계 2026.5.1 종료."
 }
 ]
 },
@@ -14203,6 +14629,19 @@
 "note": "XXX"
 },
 {
+"id": "MAJ-0063",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1.5년",
+"tuition": "$90,000~$93,500/년",
+"ielts": "7.0 (각 6.5)",
+"entry": "Bachelor + 5년+ work experience + GMAT 권장 + 인터뷰",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "Camperdown Sydney",
+"note": "Go8. AACSB + EQUIS Triple Crown. USyd Business School. PR 목적이면 specialise 필수."
+},
+{
 "id": "MAJ-0064",
 "name": "Master of Commerce",
 "level": "Master",
@@ -14734,37 +15173,6 @@
 "pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
 "campus": "Camperdown Sydney",
 "note": "AACSB + EQUIS. Go8. USyd Business School. Commerce 학위 내 Business Analytics 전공."
-}
-]
-},
-{
-"id": "university_of_sydney_usyd_usyd_business_school",
-"name": "University of Sydney (USyd) — USyd Business School",
-"alts": [
-"USyd"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0063",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1.5년",
-"tuition": "$90,000~$93,500/년",
-"ielts": "7.0 (각 6.5)",
-"entry": "Bachelor + 5년+ work experience + GMAT 권장 + 인터뷰",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "Camperdown Sydney",
-"note": "Go8. AACSB + EQUIS Triple Crown. USyd Business School. PR 목적이면 specialise 필수."
 }
 ]
 },
@@ -15336,6 +15744,19 @@
 "note": "UTS 강세"
 },
 {
+"id": "MAJ-0399",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1.5~2년",
+"tuition": "$52,000~$58,000/년",
+"ielts": "6.5 (Writing 6.0)",
+"entry": "Bachelor + work experience",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "Ultimo Sydney",
+"note": "AACSB + EQUIS Triple Crown. UTS Business School."
+},
+{
 "id": "MAJ-0400",
 "name": "Executive MBA",
 "level": "Master",
@@ -15702,37 +16123,6 @@
 ]
 },
 {
-"id": "university_of_technology_sydney_uts_uts_business_school",
-"name": "University of Technology Sydney (UTS) — UTS Business School",
-"alts": [
-"UTS"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0399",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1.5~2년",
-"tuition": "$52,000~$58,000/년",
-"ielts": "6.5 (Writing 6.0)",
-"entry": "Bachelor + work experience",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "Ultimo Sydney",
-"note": "AACSB + EQUIS Triple Crown. UTS Business School."
-}
-]
-},
-{
 "id": "university_of_western_australia_uwa",
 "name": "University of Western Australia (UWA)",
 "alts": [
@@ -16007,6 +16397,19 @@
 "pr_grade": "STSOL — 분야별 (Graphic Designer 232411 등 직업평가 까다로움)",
 "campus": "Crawley Perth (Cat 2 +5/+15)",
 "note": "XXX"
+},
+{
+"id": "MAJ-0303",
+"name": "Master of Business Administration (MBA)",
+"level": "Master",
+"duration": "1.5년",
+"tuition": "$58,000~$65,000/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Bachelor + work experience",
+"pr_cat": "Cat 2",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
+"campus": "Crawley Perth (Cat 2 +5/+15)",
+"note": "Go8. AACSB + EQUIS. Greater Perth Cat 2 ⭐ — MBA + PR 가산점 결합."
 },
 {
 "id": "MAJ-0304",
@@ -16336,37 +16739,6 @@
 ]
 },
 {
-"id": "university_of_western_australia_uwa_uwa_business_school",
-"name": "University of Western Australia (UWA) — UWA Business School",
-"alts": [
-"UWA"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": null,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0303",
-"name": "Master of Business Administration (MBA)",
-"level": "Master",
-"duration": "1.5년",
-"tuition": "$58,000~$65,000/년",
-"ielts": "6.5 (각 6.0)",
-"entry": "Bachelor + work experience",
-"pr_cat": "Cat 2",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X",
-"campus": "Crawley Perth (Cat 2 +5/+15)",
-"note": "Go8. AACSB + EQUIS. Greater Perth Cat 2 ⭐ — MBA + PR 가산점 결합."
-}
-]
-},
-{
 "id": "university_of_wollongong_uow",
 "name": "University of Wollongong (UoW)",
 "alts": [
@@ -16586,14 +16958,14 @@
 "USC"
 ],
 "type": "university",
-"city": null,
+"city": "Sippy",
 "state": null,
-"campus": null,
-"cricos": null,
+"campus": "Sippy Downs (Sunshine Coast / Brisbane 차 90분 / 100 ha 야생동물 보호구) Cat 2 +15 (Regional)",
+"cricos": "01595D",
 "anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
+"qs": 800,
+"founded": 1996,
+"operator": "연방 정부 / 주 정부",
 "programs": [
 {
 "id": "MAJ-1205",
@@ -16824,35 +17196,6 @@
 ]
 },
 {
-"id": "victoria_univ_polytechnic_vic",
-"name": "Victoria Univ Polytechnic VIC",
-"alts": [],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-1346",
-"name": "Diploma of Nursing (HLT54121)",
-"level": "Diploma",
-"duration": "2년",
-"tuition": "약 $28,000 AUD",
-"ielts": "7.0 (NMBA 표준 / EN 등록)",
-"entry": "Year 12 / 검정고시 OK",
-"pr_cat": "Cat 1",
-"pr_grade": "STSOL → MLTSSL",
-"campus": "Footscray Park Melbourne (Cat 1)",
-"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL)"
-}
-]
-},
-{
 "id": "victoria_university",
 "name": "Victoria University",
 "alts": [],
@@ -17060,6 +17403,116 @@
 "pr_grade": "MLTSSL",
 "campus": "Footscray Park Melbourne",
 "note": "Ambulance Officer 411111 (MLTSSL) / Cat 1"
+}
+]
+},
+{
+"id": "victoria_university_polytechnic",
+"name": "Victoria University Polytechnic",
+"alts": [],
+"type": "tafe",
+"city": "Footscray",
+"state": null,
+"campus": "Footscray Park Melbourne (Cat 1)",
+"cricos": null,
+"anmac": true,
+"qs": null,
+"founded": null,
+"operator": null,
+"programs": [
+{
+"id": "MAJ-1346",
+"name": "Diploma of Nursing (HLT54121)",
+"level": "Diploma",
+"duration": "2년",
+"tuition": "약 $28,000 AUD",
+"ielts": "7.0 (NMBA 표준 / EN 등록)",
+"entry": "Year 12 / 검정고시 OK",
+"pr_cat": "Cat 1",
+"pr_grade": "STSOL → MLTSSL",
+"campus": "Footscray Park Melbourne (Cat 1)",
+"note": "Enrolled Nurse 411411 (STSOL) → Bachelor 1년 면제 → RN 254418 (MLTSSL)"
+},
+{
+"id": "MAJ-1482",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$17,000~$22,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Melbourne (Footscray Park / City Flinders / Sunshine / Werribee)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1483",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$18,000~$24,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "Melbourne (Footscray Park / City Flinders / Sunshine / Werribee)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1484",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$20,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Melbourne (Footscray Park / City Flinders / Sunshine / Werribee)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
+}
+]
+},
+{
+"id": "wsu_college",
+"name": "WSU College",
+"alts": [],
+"type": "pathway_college",
+"city": "Penrith",
+"state": null,
+"campus": "Penrith / Parramatta Sydney 외곽",
+"cricos": null,
+"anmac": true,
+"qs": null,
+"founded": null,
+"operator": null,
+"programs": [
+{
+"id": "MAJ-0986",
+"name": "Foundation",
+"level": "Foundation",
+"duration": "Foundation 1년 / Diploma 1년 → WSU 학사 2학년",
+"tuition": "Foundation $26,000-$30,000 / Diploma $28,000-$32,000",
+"ielts": "Foundation 5.5 / Diploma 5.5-6",
+"entry": "고2/고3/검정고시 OK",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
+"campus": "Penrith / Parramatta Sydney 외곽",
+"note": "→ Western Sydney University (WSU 학사 2학년 직진"
+},
+{
+"id": "MAJ-0987",
+"name": "Diploma of Business / IT / Engineering / Nursing",
+"level": "Diploma",
+"duration": "Foundation 1년 / Diploma 1년 → WSU 학사 2학년",
+"tuition": "Foundation $26,000-$30,000 / Diploma $28,000-$32,000",
+"ielts": "7.0 (각 7.0) — AHPRA 의료 직군 표준 (Pharmacy Writing 6.5 가능)",
+"entry": "고2/고3/검정고시 OK",
+"pr_cat": "Cat 1",
+"pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
+"campus": "Penrith / Parramatta Sydney 외곽",
+"note": "→ Western Sydney University (WSU 학사 2학년 직진"
 }
 ]
 },
@@ -17329,50 +17782,6 @@
 ]
 },
 {
-"id": "western_sydney_university_-_the_college_wsu_college",
-"name": "Western Sydney University - The College (WSU College)",
-"alts": [
-"WSU College"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-0986",
-"name": "Foundation",
-"level": "Foundation",
-"duration": "Foundation 1년 / Diploma 1년 → WSU 학사 2학년",
-"tuition": "Foundation $26,000-$30,000 / Diploma $28,000-$32,000",
-"ielts": "Foundation 5.5 / Diploma 5.5-6",
-"entry": "고2/고3/검정고시 OK",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "Penrith / Parramatta Sydney 외곽",
-"note": "→ Western Sydney University (WSU 학사 2학년 직진"
-},
-{
-"id": "MAJ-0987",
-"name": "Diploma of Business / IT / Engineering / Nursing",
-"level": "Diploma",
-"duration": "Foundation 1년 / Diploma 1년 → WSU 학사 2학년",
-"tuition": "Foundation $26,000-$30,000 / Diploma $28,000-$32,000",
-"ielts": "7.0 (각 7.0) — AHPRA 의료 직군 표준 (Pharmacy Writing 6.5 가능)",
-"entry": "고2/고3/검정고시 OK",
-"pr_cat": "Cat 1",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
-"campus": "Penrith / Parramatta Sydney 외곽",
-"note": "→ Western Sydney University (WSU 학사 2학년 직진"
-}
-]
-},
-{
 "id": "william_angliss_institute",
 "name": "William Angliss Institute",
 "alts": [],
@@ -17541,141 +17950,56 @@
 "pr_grade": "⚠️ Film 일반 PR Direct X. Film Producer 212312 STSOL",
 "campus": "Melbourne 555 La Trobe St (+ Sydney)",
 "note": "1.5년 / $32K"
+},
+{
+"id": "MAJ-1485",
+"name": "Certificate III in Commercial Cookery (SIT30821)",
+"level": "Certificate III",
+"duration": "1-1.5년 (52주 standard)",
+"tuition": "$22,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 (한국 고졸 / 검정고시) + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne / Sydney",
+"pr_grade": "Chef 351311 / Cook 351411 (MLTSSL)",
+"campus": "Melbourne (555 La Trobe St) + Sydney (Pyrmont)",
+"note": "TRA 직업평가 가능. Cookery 트랙 진입 코스 — Cert III + 1년 호주 직장경력 → 485 → 189/190 PR."
+},
+{
+"id": "MAJ-1486",
+"name": "Certificate IV in Kitchen Management (SIT40521) — Cookery 연장",
+"level": "Certificate IV",
+"duration": "1.5-2년 (Cert III + 6개월 연장)",
+"tuition": "$23,000~$28,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Cert III in Commercial Cookery 수료 (또는 동등) + IELTS 6.0",
+"pr_cat": "Cat 1 Melbourne / Sydney",
+"pr_grade": "Chef 351311 (MLTSSL)",
+"campus": "Melbourne (555 La Trobe St) + Sydney (Pyrmont)",
+"note": "Sous Chef / Head Chef 진입 코스. 일부 학생은 Cert III + Cert IV 패키지로 처음부터 등록."
+},
+{
+"id": "MAJ-1487",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$25,000~$32,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Melbourne / Sydney",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Melbourne (555 La Trobe St) + Sydney (Pyrmont)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },
 {
-"id": "pr_tafe",
-"name": "⚪ 공통 PR (다중 TAFE)",
-"alts": [
-"다중 TAFE"
-],
-"type": "university",
-"city": null,
+"id": "william_blue_college",
+"name": "William Blue College",
+"alts": [],
+"type": "vocational_private",
+"city": "Sydney",
 "state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-1116",
-"name": "1 IT Cyber Security",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "1 IT Cyber Security",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — ICT Security Specialist 262112",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 262112 (ICT Security Specialist) / 261313 (Software Engineer) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1117",
-"name": "Hospitality Management Cert IV + Diploma 트랙 (Diploma of Hospitality Management) - 다중 TAFE/사립",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "2 Hospitality Management",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — Cafe/Restaurant Manager 141111 / Hotel Manager 141311",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "PR 트랙 Cafe/Restaurant Manager 141111 / Hotel Manager 141311. Cert IV Kitchen Mgmt + Diploma Hospitality. 다중 TAFE + William Angliss + ICHM. 2년 코스워크."
-},
-{
-"id": "MAJ-1118",
-"name": "3 Construction Management",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "3 Construction Management",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ Business 일반 MLTSSL Direct X. specialise 시 Mgmt Consultant 224711 / Marketing Specialist 225113 / Accountant 221111 가능",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 133111 (Construction Project Manager) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1119",
-"name": "4 Accounting",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "4 Accounting",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — Accountant General 221111 / Auditor 221213",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 221111 (Accountant General) / 221112 (Management) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1120",
-"name": "5 Engineering Trades",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "5 Engineering Trades",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — Engineer 233xxx (Civil 233211 / Mechanical 233512 / Electrical 233311 / Software 233111)",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 다양 (322111 Sheetmetal / 322113 Engineer Production) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1121",
-"name": "Veterinary Nurse (동물간호사) Cert IV + Diploma 트랙 - 다중 TAFE",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "7.0 (각 7.0) — AHPRA 의료 직군 표준 (Pharmacy Writing 6.5 가능)",
-"entry": "6 Veterinary Nurse 동물간호",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — Veterinarian 234711",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "⚠️ 수의사 (Veterinarian 234711) X. PR 트랙 Veterinary Nurse 361311 (MLTSSL). TAFE Cert IV + Diploma. 동물병원 보조 직군. 한국 학생 PR 트랙 가능."
-},
-{
-"id": "MAJ-1122",
-"name": "7 Marine Boat Building 해양/조선",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "7 Marine Boat Building 해양/조선",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 323411 (Boat Builder/Repairer) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1123",
-"name": "8 Aviation 항공",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "8 Aviation 항공",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — Aircraft Maintenance Engineer 323xxx / Pilot 231114",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 231114 (Pilot) / 323311 (Aircraft Maintenance Engineer) | | 연봉 | 주요 운영 TAFE:"
-}
-]
-},
-{
-"id": "pr_tafe",
-"name": "🔵 남자 PR (다중 TAFE)",
-"alts": [
-"다중 TAFE"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
+"campus": "Sydney CBD (Surry Hills)",
 "cricos": null,
 "anmac": null,
 "qs": null,
@@ -17683,230 +18007,30 @@
 "operator": null,
 "programs": [
 {
-"id": "MAJ-1100",
-"name": "1 Electrician 전기",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "1 Electrician 전기",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 341111 (Electrician General) | | 연봉 | 주요 운영 TAFE:"
+"id": "MAJ-1496",
+"name": "Bachelor of Business (Hospitality Management)",
+"level": "Bachelor",
+"duration": "3년",
+"tuition": "$28,000~$35,000/년",
+"ielts": "6.5 (각 6.0)",
+"entry": "Year 12 + ATAR 65 (또는 동등) + IELTS 6.5 각 6.0",
+"pr_cat": "Cat 1 Sydney",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL)",
+"campus": "Sydney CBD (Surry Hills)",
+"note": "Hospitality 학사 트랙. 사립 specialist 의 brand value 활용."
 },
 {
-"id": "MAJ-1101",
-"name": "2 Plumber 배관",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "2 Plumber 배관",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 334111 (Plumber General) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1102",
-"name": "3 Carpenter 목수",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "3 Carpenter 목수",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 331212 (Carpenter) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1103",
-"name": "4 Welder 용접",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "4 Welder 용접",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 322311 (Metal Fabricator) / 322312 (Pressure Welder) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1104",
-"name": "5 Diesel Mechanic 디젤 정비",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "5 Diesel Mechanic 디젤 정비",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 321212 (Diesel Motor Mechanic) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1105",
-"name": "6 Automotive Mechanic 자동차",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "6 Automotive Mechanic 자동차",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 321211 (Motor Mechanic General) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1106",
-"name": "7 Bricklayer 벽돌공",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "7 Bricklayer 벽돌공",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 331111 (Bricklayer) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1107",
-"name": "Chef (요리사) Cert IV + Diploma 트랙 (Diploma of Hospitality Management) - 다중 TAFE/사립",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "8 Chef 요리사",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — Chef 351311 (Wilson 한국 학생 PR 트랙 강세 직군)",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "PR 트랙 Chef 351311. Cert III Commercial Cookery (1년) → Cert IV Kitchen Management (1년) → Diploma Hospitality Management (1.5년) = 총 3.5년. TAFE NSW/QLD/VIC + William Angliss + LCB 등 다중 학교. ⚠️ Free TAFE는 도메스틱만 (국제학생 X)."
-}
-]
-},
-{
-"id": "pr_tafe",
-"name": "🟣 여자 PR (다중 TAFE)",
-"alts": [
-"다중 TAFE"
-],
-"type": "university",
-"city": null,
-"state": null,
-"campus": null,
-"cricos": null,
-"anmac": true,
-"qs": null,
-"founded": null,
-"operator": null,
-"programs": [
-{
-"id": "MAJ-1108",
-"name": "1 Registered Nurse 등록간호사",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "7.0 (각 7.0) — AHPRA 의료 직군 표준 (Pharmacy Writing 6.5 가능)",
-"entry": "1 Registered Nurse 등록간호사",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 254418 (Registered Nurse - Surgical) / 254499 (Other) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1109",
-"name": "2 Early Childhood Educator 유아교육",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "2 Early Childhood Educator 유아교육",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "MLTSSL — Early Childhood Teacher 241111 (ACECQA 인증 필요)",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 241111 (Early Childhood Teacher) / 421111 (Child Care Worker) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1110",
-"name": "3 Aged Care 노인돌봄",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "3 Aged Care 노인돌봄",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 423111 (Aged or Disabled Carer) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1111",
-"name": "4 Hairdresser 헤어디자이너",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "4 Hairdresser 헤어디자이너",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 391111 (Hairdresser) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1112",
-"name": "5 Beauty Therapist 미용/스킨케어",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "5 Beauty Therapist 미용/스킨케어",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 451815 (Beauty Therapist) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1113",
-"name": "6 Massage Therapist 마사지치료",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "6 Massage Therapist 마사지치료",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 411611 (Massage Therapist) | | 연봉 | 주요 운영 TAFE:"
-},
-{
-"id": "MAJ-1114",
-"name": "Patissier (제과제빵) Cert IV + Diploma 트랙 - 다중 TAFE/사립",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "7 Patisserie 파티시에/제과제빵",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "PR 트랙 Pastrycook 351112. Cert III Patisserie → Cert IV Patisserie → Diploma. TAFE/William Angliss/LCB 등. 한국 여자 학생 PR 트랙 인기."
-},
-{
-"id": "MAJ-1115",
-"name": "8 Florist 플로리스트",
-"level": "Cert III/IV / Diploma",
-"duration": "1-3년",
-"tuition": "Cert III $12,000~$18,000/년 / Cert IV $15,000~$22,000/년 / Diploma $18,000~$25,000/년",
-"ielts": "5.5-6.0",
-"entry": "8 Florist 플로리스트",
-"pr_cat": "주별 상이 (Cat 1 도시 / Cat 2~3 지방)",
-"pr_grade": "⚠️ PR 직군 학과별 상이 — 1:1 상담 필요",
-"campus": "다중 TAFE 캠퍼스 (NSW/QLD/VIC/SA/WA — 학생이 거주 주 선택)",
-"note": "ANZSCO 639911 (Florist) | | 연봉 | 주요 운영 TAFE:"
+"id": "MAJ-1497",
+"name": "Diploma of Hospitality Management (SIT50422)",
+"level": "Diploma",
+"duration": "2년 (104주)",
+"tuition": "$25,000~$32,000/년",
+"ielts": "6.0 (각 5.5)",
+"entry": "Year 12 + IELTS 6.0 각 5.5",
+"pr_cat": "Cat 1 Sydney",
+"pr_grade": "Restaurant Manager 141111 (MLTSSL) / Hotel Service Manager 141311 (CSOL)",
+"campus": "Sydney CBD (Surry Hills)",
+"note": "Hospitality·Hotel manager 트랙. Bachelor 편입 가능 (1-1.5년 인정)."
 }
 ]
 },

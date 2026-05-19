@@ -47,7 +47,134 @@ def slugify(name: str) -> str:
     return s[:60] or "unknown"
 
 
-def classify_type(meta: dict) -> str:
+# 정규화 매칭 키 — master.schools 의 학교명과 majors.all_majors 의 school_name 이
+# 다르게 적혀 있어 단순 string match 가 실패하는 케이스 해소용.
+# 괄호 안 한글/지역명 제거 + 주 이름 약어화 (Queensland → QLD) + 소문자.
+_STATE_LONG_TO_ABBR = {
+    "Queensland": "QLD", "Victoria": "VIC", "New South Wales": "NSW",
+    "South Australia": "SA", "Western Australia": "WA",
+    "Tasmania": "TAS", "Northern Territory": "NT", "Australian Capital Territory": "ACT",
+}
+
+
+def normalize_school_key(name: str) -> str:
+    if not name:
+        return ""
+    s = re.sub(r"\([^)]*\)", "", name)              # (괄호 안) 제거
+    s = re.sub(r"[^\x00-\x7F]+", "", s)             # 한글·이모지 제거
+    for full, abbr in _STATE_LONG_TO_ABBR.items():
+        s = re.sub(rf"\b{full}\b", abbr, s, flags=re.I)
+    s = re.sub(r"[/\-_,]", " ", s)
+    s = re.sub(r"\s+", " ", s).strip().lower()
+    return s
+
+
+# all_majors 의 학교명 → (canonical_name, type) 명시 매핑.
+# 정규화 키로도 매칭 못 잡히는 44개 케이스 + Wilson 정정 (Business School 분리 학교 → 부모 대학으로 통합 등).
+NAME_TYPE_OVERRIDES = {
+    # ── TAFE 변형 (정규 TAFE 8 + 분교/주별) ─────────────────────────
+    "TAFE NSW":                    ("TAFE NSW", "tafe"),
+    "TAFE QLD":                    ("TAFE QLD", "tafe"),
+    "TAFE QLD Bachelor Nursing":   ("TAFE QLD", "tafe"),       # bachelor of nursing 별도 표기 → 통합
+    "TAFE SA":                     ("TAFE SA", "tafe"),
+    "TAFE VIC":                    ("TAFE VIC", "tafe"),
+    "TAFE Victoria (RMIT TAFE)":   ("TAFE VIC", "tafe"),       # RMIT TAFE = VIC 일부
+    "TAFE WA":                     ("TAFE WA", "tafe"),
+    "TAFE WA (TIWA)":              ("TAFE WA", "tafe"),
+    "TasTAFE TAS":                 ("TasTAFE", "tafe"),
+    "CDU TAFE NT":                 ("CDU TAFE", "tafe"),
+    "Holmesglen TAFE VIC":         ("Holmesglen TAFE", "tafe"),
+    "Box Hill Institute VIC":      ("Box Hill Institute", "tafe"),       # VIC state TAFE
+    "Chisholm Institute VIC":      ("Chisholm Institute", "tafe"),       # VIC state TAFE
+    "Victoria Univ Polytechnic VIC": ("Victoria University Polytechnic", "tafe"),
+
+    # ── Pathway College (대학 부속 진학 College) ─────────────────────
+    "Charles Darwin University Pathway College": ("Charles Darwin University Pathway College", "pathway_college"),
+    "Federation Pathway College":                ("Federation Pathway College", "pathway_college"),
+    "Griffith College (Pathway College)":        ("Griffith College", "pathway_college"),
+    "La Trobe College Australia":                ("La Trobe College Australia", "pathway_college"),
+    "Monash College Diploma":                    ("Monash College", "pathway_college"),
+    "UTAS College":                              ("UTAS College", "pathway_college"),
+    "UTS College":                               ("UTS College", "pathway_college"),
+    "Western Sydney University - The College (WSU College)": ("WSU College", "pathway_college"),
+    "ECC (Edith Cowan College, 구 PIBT)":        ("Edith Cowan College", "pathway_college"),
+    "University of Newcastle College of International Education (UNCIE)": ("UNCIE", "pathway_college"),
+
+    # ── Foundation 변형 ─────────────────────────────────────────────
+    "ACU Foundation":                       ("ACU Foundation", "foundation"),
+    "UC College Foundation":                ("UC College Foundation", "foundation"),
+    "Flinders University Foundation Studies": ("Flinders Foundation", "foundation"),
+
+    # ── 독립 대학 (universities_39 누락) ───────────────────────────
+    "CQUniversity Australia":          ("CQUniversity", "university"),
+    "Flinders University":             ("Flinders University", "university"),
+    "Southern Cross University (SCU)": ("Southern Cross University", "university"),
+
+    # ── Business School 분리 표기 → 부모 대학으로 통합 ───────────────
+    "Adelaide University (UoA + UniSA 통합) — Adelaide Business School": ("Adelaide University", "university"),
+    "Macquarie University — Macquarie Business School":                  ("Macquarie University", "university"),
+    "Monash University — Monash Business School":                        ("Monash University", "university"),
+    "University of Melbourne (UMelb) — Melbourne Business School (MBS)": ("University of Melbourne (UMelb)", "university"),
+    "UMelb UMelbourne":                                                  ("University of Melbourne (UMelb)", "university"),
+    "UNSW Sydney — AGSM (Australian Graduate School of Management)":     ("UNSW Sydney", "university"),
+    "University of Queensland (UQ) — UQ Business School":                ("University of Queensland (UQ)", "university"),
+    "University of South Australia (UniSA → Adelaide University 통합)":  ("Adelaide University", "university"),
+    "University of Sydney (USyd) — USyd Business School":                ("University of Sydney (USyd)", "university"),
+    "University of Technology Sydney (UTS) — UTS Business School":       ("University of Technology Sydney (UTS)", "university"),
+    "University of Western Australia (UWA) — UWA Business School":       ("University of Western Australia (UWA)", "university"),
+
+    # ── Vocational / Private institute ─────────────────────────────
+    "ACAP (Australian College of Applied Professions)":     ("ACAP", "vocational_private"),
+    "AIB (Australian Institute of Business)":               ("AIB", "vocational_private"),
+    "AIPC (Australian Institute of Professional Counsellors)": ("AIPC", "vocational_private"),
+    "APIC (Asia Pacific International College) - ECA 그룹": ("APIC", "vocational_private"),
+    "Australian Learning Group (ALG)":                      ("ALG", "vocational_private"),
+    "SAIBT (South Australian Institute of Business and":    ("SAIBT", "vocational_private"),  # 정본에 잘린 문자열
+    "Stott's College":                                      ("Stott's College", "vocational_private"),
+
+    # ── Phase 2 사립 specialist cookery·hospitality ─────────────────
+    "BMIHMS by Torrens (Blue Mountains International Hotel Management School)": ("BMIHMS by Torrens", "vocational_private"),
+    "William Blue College of Hospitality (Torrens)":        ("William Blue College", "vocational_private"),
+    "Imagine Education Australia":                          ("Imagine Education Australia", "vocational_private"),
+    "Australian Pacific College (APC)":                     ("Australian Pacific College", "vocational_private"),
+    "Lonsdale Institute":                                   ("Lonsdale Institute", "vocational_private"),  # master 의 elicos_closed_18 라벨 오버라이드
+
+    # ── pseudo-school (PR 트랙 묶음 — 실제 학교 X) ───────────────────
+    "⚪ 공통 PR (다중 TAFE)": ("⚪ 공통 PR (다중 TAFE)", "pseudo"),
+    "🔵 남자 PR (다중 TAFE)": ("🔵 남자 PR (다중 TAFE)", "pseudo"),
+    "🟣 여자 PR (다중 TAFE)": ("🟣 여자 PR (다중 TAFE)", "pseudo"),
+}
+
+
+def infer_type_from_name(name: str) -> str | None:
+    """NAME_TYPE_OVERRIDES 에 없는 미지의 학교명 type 휴리스틱 추론."""
+    if not name:
+        return None
+    s = name.lower()
+    if name.startswith(("🟣", "🔵", "⚪", "🟠", "🟡", "🟢")):
+        return "pseudo"
+    if "tafe" in s or "polytechnic" in s:
+        return "tafe"
+    if "foundation" in s:
+        return "foundation"
+    if "pathway" in s and "college" in s:
+        return "pathway_college"
+    if " college" in s and any(uni_kw in s for uni_kw in ("uts", "utas", "monash", "adelaide", "deakin", "griffith", "la trobe", "swinburne")):
+        return "pathway_college"
+    return None
+
+
+def canonicalize_school_name(raw_name: str) -> tuple[str, str | None]:
+    """all_majors 의 school_name → (정규 학교명, type override).
+    NAME_TYPE_OVERRIDES 우선 → infer_type_from_name fallback → 원본 그대로."""
+    override = NAME_TYPE_OVERRIDES.get(raw_name)
+    if override:
+        return override
+    inferred = infer_type_from_name(raw_name)
+    return (raw_name, inferred)
+
+
+def classify_type(meta: dict, fallback_type: str | None = None) -> str:
     cat = (meta or {}).get("_source_category", "")
     if "universities" in cat: return "university"
     if "foundation" in cat: return "foundation"
@@ -57,6 +184,7 @@ def classify_type(meta: dict) -> str:
     if "elicos" in cat: return "elicos"
     if "under18" in cat: return "under18"
     if "hsp" in cat: return "hsp"
+    if fallback_type: return fallback_type
     return "university"
 
 
@@ -239,27 +367,57 @@ def main():
         data = json.load(f)
 
     # ─── schools ───
+    # all_majors 학교명 → canonical name + 추론 type 매핑 적용.
+    # 매핑된 결과를 그룹핑하니까 "TAFE QLD" + "TAFE QLD Bachelor Nursing" 등 변형이 한 학교로 통합됨.
     majors = data["majors"]["all_majors"]
     schools_by_name = defaultdict(list)
+    inferred_type_for_canon: dict[str, str | None] = {}
+    pseudo_dropped = 0
     for m in majors:
         n = m.get("school_name")
         if not n: continue
-        schools_by_name[n].append(m)
+        canon, inferred = canonicalize_school_name(n)
+        if inferred == "pseudo":
+            pseudo_dropped += 1
+            continue
+        schools_by_name[canon].append(m)
+        if inferred and canon not in inferred_type_for_canon:
+            inferred_type_for_canon[canon] = inferred
 
+    # meta_by_name 인덱스 = (a) original 이름 (b) normalize_school_key 결과 두 가지 키로 등록.
+    # 두 set 이름이 다른 (e.g. "TAFE NSW" vs "TAFE NSW (시드니)") 케이스도 정상 join.
     meta_by_name = {}
+    meta_by_key = {}
     for cat_key, items in data["schools"].items():
         if cat_key.startswith("_") or not isinstance(items, list): continue
         for it in items:
             if not isinstance(it, dict): continue
             n = it.get("school_name") or it.get("name")
-            if n and n not in meta_by_name:
+            if not n: continue
+            if n not in meta_by_name:
                 meta_by_name[n] = {**it, "_source_category": cat_key}
+            k = normalize_school_key(n)
+            if k and k not in meta_by_key:
+                meta_by_key[k] = {**it, "_source_category": cat_key}
 
     schools_out = []
     for name in sorted(schools_by_name.keys()):
-        meta = meta_by_name.get(name, {})
+        # 메타 조회: original 이름 → 정규화 키 fallback
+        meta = meta_by_name.get(name)
+        if not meta:
+            meta = meta_by_key.get(normalize_school_key(name), {})
         progs = schools_by_name[name]
-        campus = meta.get("campus", "")
+        # campus: meta 의 campus 가 비어있거나 "확인필요" 이면 program 들의 campus 합집합으로 보강.
+        meta_campus = (meta.get("campus") or "").strip()
+        if not meta_campus or meta_campus == "확인필요":
+            prog_campuses = []
+            for p in progs:
+                pc = (p.get("campus") or "").strip()
+                if pc and pc != "확인필요" and pc not in prog_campuses:
+                    prog_campuses.append(pc)
+            campus = prog_campuses[0] if prog_campuses else meta_campus
+        else:
+            campus = meta_campus
         st_match = re.search(r"\((NSW|VIC|QLD|WA|SA|TAS|NT|ACT)\)", campus)
         city_match = re.match(r"([^(]+)", campus)
         city = (city_match.group(1).strip().split()[0] if city_match and city_match.group(1).strip() else None)
@@ -295,7 +453,7 @@ def main():
             "id": slugify(name),
             "name": name,
             "alts": build_alts(name),
-            "type": classify_type(meta),
+            "type": classify_type(meta, inferred_type_for_canon.get(name)),
             "city": city,
             "state": st_match.group(1) if st_match else None,
             "campus": campus or None,
@@ -389,7 +547,12 @@ def main():
         })
 
     (OUT / "schools.json").write_text(json.dumps(schools_out, ensure_ascii=False, indent=0), encoding="utf-8")
-    print(f"  schools: {len(schools_out)} (university + foundation + diploma)")
+    type_counts = defaultdict(int)
+    for s in schools_out:
+        type_counts[s["type"]] += 1
+    print(f"  schools: {len(schools_out)} (pseudo dropped: {pseudo_dropped})")
+    for t, n in sorted(type_counts.items(), key=lambda x: -x[1]):
+        print(f"    {t}: {n}")
 
     # ─── blocking_rules ───
     blocking_out = []

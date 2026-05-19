@@ -48,16 +48,17 @@ function regionToCity(r: DiagnoseInput["preferred_region"]): string | null {
 
 // 지역별 캠퍼스 매칭 패턴 (PART J / Wilson 검수)
 // 매칭 우선순위: campus full string → 학교 이름.
-// 본 캠퍼스가 해당 지역인 학교만 포함 (e.g. UNE Armidale은 "Sydney 6시간" 표기지만 시드니 X).
+// `\bCity\b(?!\s*차)` 패턴은 "Sydney 차 6시간" 같은 distance suffix 배제.
+// 본 캠퍼스 검사는 isSchoolInRegion 에서 campus split + primary 만.
 const REGION_PATTERNS: Record<string, RegExp> = {
-  "시드니":     /Sydney(\s*\(NSW\)|\s*CBD)|^Sydney\b|\bUltimo\b|\bParramatta\b|\bWallumattagal\b|Macquarie Park|\bPenrith\b/i,
-  "멜번":       /Melbourne(\s*\(VIC\)|\s*CBD|\s*Burwood|\s*Bundoora)?|^Melbourne\b|\bClayton\b|\bHawthorn\b|\bFootscray\b/i,
-  "브리즈번":   /^Brisbane\b|Brisbane\s*\(QLD\)|Brisbane\s*CBD|\bSt Lucia\b|Gardens Point|Kelvin Grove|\bNathan\b/i,
+  "시드니":     /\bSydney\b(?!\s*차)|\bUltimo\b|\bParramatta\b|\bWallumattagal\b|Macquarie Park|\bPenrith\b|\bSurry Hills\b|\bPyrmont\b|\bHyde Park\b/i,
+  "멜번":       /\bMelbourne\b(?!\s*차)|\bClayton\b|\bHawthorn\b|\bFootscray\b|\bBox Hill\b|\bChadstone\b|\bDandenong\b|\bFrankston\b|\bSunshine\b/i,
+  "브리즈번":   /\bBrisbane\b(?!\s*차)|\bSt Lucia\b|Gardens Point|Kelvin Grove|\bNathan\b|South Bank/i,
   "골드코스트": /Gold Coast|\bRobina\b|\bSouthport\b|\bMt Gravatt\b/i,
-  "퍼스":       /^Perth\b|Perth\s*CBD|\bBentley\b|\bJoondalup\b|\bMurdoch\b|\bCrawley\b|\bFremantle\b/i,
-  "애들레이드": /^Adelaide\b|Adelaide\s*(CBD|Wakefield|North Terrace)|North Terrace|\bMagill\b/i,
-  "호바트":     /^Hobart\b|Hobart\s*(CBD|Sandy Bay)|Sandy Bay/i,
-  "캔버라":     /^Canberra\b|Canberra\s*\(ACT\)|\bBruce\b|\bActon\b/i,
+  "퍼스":       /\bPerth\b(?!\s*차)|\bBentley\b|\bJoondalup\b|\bMurdoch\b|\bCrawley\b|\bFremantle\b/i,
+  "애들레이드": /\bAdelaide\b(?!\s*차)|North Terrace|\bMagill\b|Days Rd|Sturt St|Regency|Tonsley/i,
+  "호바트":     /\bHobart\b|Sandy Bay|Launceston|Burnie/i,
+  "캔버라":     /\bCanberra\b|\bBruce\b|\bActon\b/i,
 };
 
 function isSchoolInRegion(s: School, region: DiagnoseInput["preferred_region"]): boolean {
@@ -349,17 +350,34 @@ function topSchoolsFor(input: DiagnoseInput): School[] {
   };
   const re = majorKeywords[input.major] ?? /.*/;
 
-  // (1) university만 (Foundation/Diploma는 pathwaySchoolsFor에서) → (2) 전공 필터 → (3) override 차단 → (4) 지역 strict → (5) 정렬 → (6) top 3
+  // 요리·호텔·Trade 는 vocational 트랙이 핵심이라 university 외에도 TAFE / 사립 specialist / pathway_college 포함.
+  // 그 외 전공 (간호·IT·비즈니스 등) 은 기존대로 university only (Foundation/Diploma 는 pathwaySchoolsFor 에서 처리).
+  const vocationalMajor = input.major === "요리·호텔" || input.major === "Trade";
+  const allowedTypes: string[] = vocationalMajor
+    ? ["university", "tafe", "vocational_private", "pathway_college"]
+    : ["university"];
+
+  // 학교 등급 score: 사립 specialist (요리·호텔에선 브랜드 가치 큼) > TAFE > university (QS) > pathway_college.
+  // 일반 university 전공에선 QS 우선.
   const scored = schools
-    .filter((s) => s.type === "university")
+    .filter((s) => allowedTypes.includes(s.type))
     .filter((s) => s.programs.some((p) => re.test(p.name ?? "")))
     .filter((s) => !isSchoolMajorExcluded(s.name, input.major))
     .filter((s) => isSchoolInRegion(s, input.preferred_region))
     .map((s) => {
       let score = 0;
-      if (s.qs && s.qs <= 100) score += 3;
-      else if (s.qs && s.qs <= 300) score += 2;
-      if (s.type === "university") score += 1;
+      if (vocationalMajor) {
+        // 요리·호텔·Trade: specialist 우선
+        if (s.type === "vocational_private") score += 4;
+        else if (s.type === "tafe") score += 3;
+        else if (s.type === "university") score += 2;
+        else if (s.type === "pathway_college") score += 1;
+      } else {
+        // 일반 전공: QS 우선
+        if (s.qs && s.qs <= 100) score += 3;
+        else if (s.qs && s.qs <= 300) score += 2;
+        if (s.type === "university") score += 1;
+      }
       return { s, score };
     })
     .sort((a, b) => b.score - a.score)
@@ -375,10 +393,10 @@ function schoolToPick(s: School, input: DiagnoseInput): SchoolPick {
     input.major === "IT" ? "information|computing|IT|software" :
     input.major === "비즈니스" ? "business|commerce|account" :
     input.major === "공학" ? "engineering" :
-    input.major === "요리·호텔" ? "cookery|hospitality" :
+    input.major === "요리·호텔" ? "cookery|hospitality|culinary|patisserie|kitchen|hotel|tourism" :
     input.major === "유아교육" ? "early childhood|education" :
     input.major === "디자인" ? "design" :
-    input.major === "Trade" ? "trade" :
+    input.major === "Trade" ? "trade|carpentry|electrician|plumb|welder" :
     input.major === "의료" ? "medic" : ".*",
     "i"
   );
