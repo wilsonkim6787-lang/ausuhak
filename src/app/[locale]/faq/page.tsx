@@ -6,6 +6,7 @@ import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import FaqAccordion from "@/components/faq/FaqAccordion";
+import RelatedSitesSection from "@/components/faq/RelatedSitesSection";
 import { FAQ_CATEGORIES, getTotalCount } from "@/data/faqs";
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
@@ -189,6 +190,7 @@ export default async function FaqPage({
 
         <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
           <FaqAccordion items={activeCat.items} />
+          <RelatedSitesSection categoryIdx={idx} />
         </div>
 
         <section className="bg-cream-200">
