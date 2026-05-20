@@ -138,7 +138,7 @@ export default function FAQPreviewClient({ categories, total, labels }: Props) {
                           isActive ? "text-cream-100/80" : "text-ink-500"
                         }`}
                       >
-                        {c.items.length}개 미리보기
+                        {c.items.length}개
                       </span>
                     </button>
                   </li>

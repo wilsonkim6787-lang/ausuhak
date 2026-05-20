@@ -1,15 +1,14 @@
 import { getTranslations } from "next-intl/server";
-import { getCategoryPreview, getTotalCount } from "@/data/faqs";
+import { FAQ_CATEGORIES, getTotalCount } from "@/data/faqs";
 import FAQPreviewClient from "./FAQPreviewClient";
 
 export default async function FAQPreview() {
   const t = await getTranslations("FAQPreview");
-  const categories = getCategoryPreview(8);
   const total = getTotalCount();
 
   return (
     <FAQPreviewClient
-      categories={categories}
+      categories={FAQ_CATEGORIES}
       total={total}
       labels={{
         eyebrow: t("eyebrow"),
