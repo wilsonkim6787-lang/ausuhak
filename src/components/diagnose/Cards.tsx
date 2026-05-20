@@ -1,7 +1,7 @@
-// 카드 7장 (PART F-3)
-// 1=학교 / 2=지역 / 3=경로 / 4=전공 / 5=비자&PR / 6=Wilson 추천 / 7=다음 액션
+// 카드 5장 (Wilson 정본 2026-05-20)
+// 1=학교 / 2=경로 / 3=비자&PR / 4=학비&상담 / 5=다음 액션
 
-import type { Cards as CardsT, AppliedBlock } from "@/lib/matching";
+import type { Cards as CardsT, AppliedBlock, SchoolPick, Education } from "@/lib/matching";
 
 function CardShell({ num, title, children }: { num: number; title: string; children: React.ReactNode }) {
   return (
@@ -71,18 +71,6 @@ function SchoolRow({ s }: { s: import("@/lib/matching").SchoolPick }) {
         </div>
       </div>
       <p className="mt-1 text-xs text-gold-600">{s.reason}</p>
-      {s.programs.length > 0 && (
-        <ul className="mt-2 space-y-1 text-xs text-ink-700">
-          {s.programs.map((p, idx) => (
-            <li key={idx} className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-              <span className="font-medium text-navy-900">· {p.name}</span>
-              {p.ielts != null && <span>IELTS {String(p.ielts)}</span>}
-              {p.tuition != null && <span>· {String(p.tuition)}</span>}
-              {p.pr_cat && <span className="rounded bg-success/10 px-1 text-success">PR: {p.pr_cat}</span>}
-            </li>
-          ))}
-        </ul>
-      )}
     </li>
   );
 }
@@ -111,17 +99,17 @@ export function Card1Schools({ data }: { data: CardsT["card1_schools"] }) {
             ⚠️ 이 지역 학교 적음
           </p>
           <p className="text-ink-700">
-            {data.empty_message ?? "선호 지역에서 해당 전공 코스를 운영하는 정본 학교가 적습니다. 1:1 카톡 상담에서 다른 지역 옵션을 함께 검토해드립니다."}
+            {data.empty_message ?? "선호 지역에서 해당 전공 코스를 운영하는 정본 학교가 적습니다. 1:1 정밀 상담(유료)에서 다른 지역 옵션을 함께 검토해드립니다."}
           </p>
         </div>
       ) : (
         <div className="space-y-5">
-          {/* 경로 A: 학사 직접 입학 */}
+          {/* A: 최종 학위 목표 학교 (검정고시·고졸은 Pathway 졸업 후 편입) */}
           <div>
-            {dual && <PathHeader label="A" sub="학사 직접 입학 (내신 상위 + 영어 충족)" />}
+            {dual && <PathHeader label="A" sub="최종 학위 목표 학교 (Pathway 졸업 후 편입)" />}
             {directEmpty ? (
               <p className="rounded-lg border border-cream-200 bg-cream-100/40 px-3 py-2 text-xs text-ink-500">
-                이 지역 + 전공 조합에 학사 직접 진학 가능한 정본 학교가 적습니다.
+                이 지역 + 전공 조합에 정본 학사 학교가 적습니다.
               </p>
             ) : (
               <ul className="space-y-3">
@@ -130,13 +118,13 @@ export function Card1Schools({ data }: { data: CardsT["card1_schools"] }) {
             )}
           </div>
 
-          {/* 경로 B: Pathway 경유 (Foundation/Diploma) — 고졸/검정고시만 */}
+          {/* B: Pathway 진입 학교 (Foundation/Diploma/TAFE) — 검정고시·고졸만 */}
           {dual && (
             <div className="border-t border-cream-300 pt-5">
-              <PathHeader label="B" sub="Pathway 경유 (Foundation/Diploma → 학사)" />
+              <PathHeader label="B" sub="Pathway 진입 학교 (Foundation/Diploma/TAFE)" />
               {pathwayEmpty ? (
                 <p className="rounded-lg border border-cream-200 bg-cream-100/40 px-3 py-2 text-xs text-ink-500">
-                  이 지역에 Foundation/Diploma 정본 학교가 적습니다.
+                  이 지역에 Pathway 진입 정본 학교가 적습니다.
                 </p>
               ) : (
                 <ul className="space-y-3">
@@ -176,7 +164,7 @@ export function Card2Region({ data }: { data: CardsT["card2_region"] }) {
 export function Card3Pathway({ data }: { data: CardsT["card3_pathway"] }) {
   const p = data.plan;
   return (
-    <CardShell num={3} title={data.title}>
+    <CardShell num={2} title={data.title}>
       <p className="mb-3 font-semibold text-navy-900">{p.pathway}</p>
       <ol className="mb-3 space-y-1.5">
         {p.steps.map((step, i) => (
@@ -212,7 +200,7 @@ export function Card4Major({ data }: { data: CardsT["card4_major"] }) {
 
 export function Card5Visa({ data }: { data: CardsT["card5_visa_pr"] }) {
   return (
-    <CardShell num={5} title={data.title}>
+    <CardShell num={3} title={data.title}>
       <p className="mb-2 font-semibold text-navy-900">{data.visa}</p>
       <p className="mb-2 text-xs font-bold tracking-wider text-gold-600">졸업 후 경로</p>
       <ul className="space-y-1">
@@ -247,9 +235,89 @@ export function Card6Wilson({ data }: { data: CardsT["card6_wilson"] }) {
   );
 }
 
+export function Card6Tuition({
+  directItems,
+  pathwayItems,
+  education,
+}: {
+  directItems: SchoolPick[];
+  pathwayItems?: SchoolPick[];
+  education: Education;
+}) {
+  const all = [...directItems, ...(pathwayItems ?? [])];
+  const rows = all.flatMap((s) =>
+    s.programs.slice(0, 2).map((p) => ({
+      schoolName: s.name,
+      progName: p.name ?? "",
+      tuition: p.tuition,
+    }))
+  ).slice(0, 6);
+
+  const isGED = education === "검정고시";
+
+  return (
+    <CardShell num={4} title="학비 & 상담">
+      <div className="space-y-4">
+        <div>
+          <p className="mb-2 text-xs font-bold tracking-wider text-gold-600">
+            📌 추천 학교 학비 (공식 기준)
+          </p>
+          {rows.length === 0 ? (
+            <p className="rounded-lg border border-cream-200 bg-cream-100/40 px-3 py-2 text-xs text-ink-500">
+              본인 케이스별 학비는 1:1 상담에서 안내드립니다.
+            </p>
+          ) : (
+            <ul className="space-y-2">
+              {rows.map((r, i) => (
+                <li key={i} className="rounded-lg border border-cream-200 bg-cream-100/40 px-3 py-2">
+                  <div className="font-medium text-navy-900">{r.schoolName}</div>
+                  <div className="mt-0.5 flex items-baseline justify-between gap-2 text-xs">
+                    <span className="text-ink-700">{r.progName}</span>
+                    <span className="font-semibold text-gold-600">
+                      {r.tuition != null && String(r.tuition).trim() !== ""
+                        ? String(r.tuition)
+                        : "상담 안내"}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="rounded-xl bg-gold-100 px-4 py-3 text-sm leading-relaxed text-navy-900">
+          {isGED ? (
+            <>
+              <p className="mb-2 font-semibold">
+                💡 학력 차별, 적응 걱정 없을까요? 잘 할 수 있을까요?
+              </p>
+              <p className="mb-2">
+                ausuhak.com 지난 10년 가장 많은 문의가 검정고시 루트입니다.
+              </p>
+              <p>
+                19년 컨설팅 + 호주 학교 교직원 경력으로 본 데이터를 1:1 카톡 상담에서 직접 정리해드립니다.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="mb-2 font-semibold">💡 위 학비는 학교 공식 기준입니다.</p>
+              <p className="mb-2">
+                장학금, 정확한 합격 가능성, 예산 케이스별 최적화, 환율·생활비, 실제 학비 부담 시나리오는 본인 케이스에 따라 달라집니다.
+              </p>
+              <p>
+                19년 컨설팅 + 호주 학교 교직원 경력으로 본 데이터를 1:1 카톡 상담에서 직접 정리해드립니다.
+              </p>
+            </>
+          )}
+        </div>
+      </div>
+    </CardShell>
+  );
+}
+
 export function Card7Next({ data, kakaoUrl }: { data: CardsT["card7_next"]; kakaoUrl: string }) {
   return (
-    <CardShell num={7} title={data.title}>
+    <CardShell num={5} title={data.title}>
       <div className="space-y-2.5">
         {data.actions.map((a, i) => {
           const isKakao = a.kind === "kakao";

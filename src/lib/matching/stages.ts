@@ -98,26 +98,6 @@ export function stage1_medicalBranch(input: DiagnoseInput): {
 // ─── 단계 2: 교육 → 경로 (PART F-3) ───────────────────────────────
 
 const PATHWAY_TEMPLATES: Record<string, PathwayPlan> = {
-  "검정고시→Foundation→학사": {
-    pathway: "검정고시 → Foundation → 학사",
-    steps: ["ELICOS (선택)", "Foundation 1년", "학사 3년"],
-    duration_years_min: 4, duration_years_max: 5,
-  },
-  "검정고시→Direct→학사": {
-    pathway: "검정고시 → Direct → 학사",
-    steps: ["IELTS 6.5 확보", "학사 3년 직접 진학"],
-    duration_years_min: 3, duration_years_max: 4,
-  },
-  "고졸→Foundation→학사": {
-    pathway: "고졸 → Foundation → 학사",
-    steps: ["ELICOS (필요시)", "Foundation 1년", "학사 3년"],
-    duration_years_min: 4, duration_years_max: 5,
-  },
-  "고졸→Diploma→학사2학년": {
-    pathway: "고졸 → Diploma → 학사 2학년 편입",
-    steps: ["Diploma 1년 (학사 1년 인정)", "학사 2년 (편입)"],
-    duration_years_min: 3, duration_years_max: 3,
-  },
   "대학재학→Transfer→학사": {
     pathway: "대학재학 → Credit Transfer → 학사",
     steps: ["학점 평가", "학사 편입 (2-3학년)"],
@@ -160,19 +140,132 @@ const PATHWAY_TEMPLATES: Record<string, PathwayPlan> = {
   },
 };
 
+// 의료 (MBBS/MD) 전용 pathway — stage1_medicalBranch 분기 결과별 1대1 매핑.
+// 의대는 일반 학사·석사 분류와 달리 ISAT/GAMSAT·MMI 등 별도 진학 시험·인터뷰 동선이 필수라
+// PATHWAY_TEMPLATES 와 분리. (Wilson 정본 / /medical sub-funnel 과 정합)
+const MEDICAL_PATHWAYS: Record<MedicalPathway, PathwayPlan> = {
+  direct: {
+    pathway: "의대 직진학 (MBBS/MD 6년 통합)",
+    steps: [
+      "ISAT 또는 UCAT 응시 (학교별 다름)",
+      "IELTS 7.0+ (각 영역 7.0)",
+      "MMI 인터뷰 통과",
+      "MBBS/MD 6년 (Adelaide BMD-MD · UQ Provisional · UNSW Med 등)",
+    ],
+    duration_years_min: 6, duration_years_max: 6,
+  },
+  graduate: {
+    pathway: "대졸 → GAMSAT → MD 4년 (Graduate Entry)",
+    steps: [
+      "Bachelor 학점 Distinction 이상 유지",
+      "GAMSAT (또는 MCAT) 응시 + IELTS 7.0",
+      "MMI 인터뷰 통과",
+      "MD 4년 (USyd · Melbourne · Monash · UQ Grad 등)",
+    ],
+    duration_years_min: 4, duration_years_max: 4,
+  },
+  transfer: {
+    pathway: "대학재학 → 의대 재진입 (학점 이전 거의 불가 / 재시작 케이스 다수)",
+    steps: [
+      "현 학점 평가 — 대부분 의대는 학점 이전 불인정",
+      "재학 단계에 따라 ISAT (학사 직진) 또는 GAMSAT (졸업 후 PG 대기)",
+      "IELTS 7.0+ · MMI",
+      "MBBS/MD 재시작 또는 GAMSAT 후 Graduate Entry MD",
+    ],
+    duration_years_min: 4, duration_years_max: 6,
+  },
+  converter: {
+    pathway: "워홀러 → 학력 인정 + GAMSAT → MD (long-shot)",
+    steps: [
+      "기존 학력 인정 평가 (학사 없으면 학사 선이수)",
+      "IELTS 7.0+ / GAMSAT",
+      "MD 4년 (Graduate Entry) 또는 MBBS 6년 (Direct)",
+    ],
+    duration_years_min: 4, duration_years_max: 8,
+  },
+  undergrad: {
+    pathway: "학사 진행 중 → 졸업 후 Graduate Entry MD 대기",
+    steps: [
+      "현 학사 졸업 (Distinction 이상 유지)",
+      "GAMSAT + IELTS 7.0",
+      "MD 4년 (Graduate Entry)",
+    ],
+    duration_years_min: 4, duration_years_max: 5,
+  },
+};
+
+// 검정고시·고졸 = Diploma/TAFE → 학사 2학년 편입 (또는 Foundation) — Wilson 정본 2026-05-20.
+// 호주 모든 학교가 검정고시·고졸 직진학 불가. 간호=IELTS 6.5 / 그 외=IELTS 6.0 임계점.
+// 간호는 Foundation 분기 금지 — Wilson 정본 (Foundation = 일반 학사 트랙이라 ANMAC 간호 진입 동선과 어긋남).
+// IELTS 부족하면 ELICOS → Diploma of Health Sciences (College) 또는 TAFE Diploma of Nursing (EN) → RN 편입.
+function buildPathwayForGedOrHighSchool(
+  education: "검정고시" | "고졸",
+  major: DiagnoseInput["major"],
+  englishIelts: number,
+): PathwayPlan {
+  if (major === "간호") {
+    if (englishIelts >= 6.5) {
+      return {
+        pathway: `${education} → Diploma of Health Sciences → 간호 학사 2학년 편입`,
+        steps: [
+          "IELTS 6.5 확보",
+          "Diploma of Health Sciences 1년 (Griffith/Deakin/QUT College 등)",
+          "Bachelor of Nursing 2학년 편입 (2년)",
+          "졸업 후 AHPRA 등록 IELTS 7.0 (각 영역) 필요",
+        ],
+        duration_years_min: 3, duration_years_max: 3,
+      };
+    }
+    return {
+      pathway: `${education} → ELICOS → TAFE Diploma of Nursing (EN) → RN Bachelor 편입`,
+      steps: [
+        "ELICOS 또는 한국에서 IELTS 6.5 확보",
+        "TAFE Diploma of Nursing 1.5-2년 (Enrolled Nurse)",
+        "EN 등록 → 485 졸업비자 → RN Bachelor 2학년 편입",
+        "RN 졸업 후 AHPRA 등록 IELTS 7.0 (각 영역) 필요",
+      ],
+      duration_years_min: 4, duration_years_max: 5,
+    };
+  }
+
+  const ieltsTarget = 6.0;
+  if (englishIelts >= ieltsTarget) {
+    return {
+      pathway: `${education} → Diploma/TAFE → 학사 2학년 편입`,
+      steps: [
+        "IELTS 6.0 확보",
+        "Diploma 1년 (College 또는 TAFE)",
+        "학사 2년 편입",
+      ],
+      duration_years_min: 3, duration_years_max: 3,
+    };
+  }
+  return {
+    pathway: `${education} → ELICOS → Foundation → 학사`,
+    steps: ["ELICOS (IELTS 5.5 도달)", "Foundation 1년", "학사 3년"],
+    duration_years_min: 4, duration_years_max: 5,
+  };
+}
+
 export function stage2_pathway(input: DiagnoseInput): PathwayPlan {
+  // (0) 의료 override — stage1_medicalBranch 와 동일 분류로 MEDICAL_PATHWAYS 매핑.
+  //     일반 학사·석사 트랙과 다른 ISAT/GAMSAT·MMI 동선이라 최상단 분기.
+  if (input.major === "의료") {
+    const med = stage1_medicalBranch(input);
+    return MEDICAL_PATHWAYS[med.medical_pathway ?? "direct"];
+  }
+
   // (1) Vocational major override — education 무관 (Wilson 명시 2026-05-19)
   if (input.major === "요리·호텔") return PATHWAY_TEMPLATES["요리·호텔→Vocational"];
   if (input.major === "Trade") return PATHWAY_TEMPLATES["Trade→Vocational"];
 
-  // (2) 그 외 학문 전공 = education 기반 분기
-  const e = input.english_level;
-  const hasHighEng = e === "6.5" || e === "7.0+";
-  if (input.education === "검정고시") {
-    return hasHighEng ? PATHWAY_TEMPLATES["검정고시→Direct→학사"] : PATHWAY_TEMPLATES["검정고시→Foundation→학사"];
-  }
-  if (input.education === "고졸") {
-    return hasHighEng ? PATHWAY_TEMPLATES["고졸→Diploma→학사2학년"] : PATHWAY_TEMPLATES["고졸→Foundation→학사"];
+  // (2) 검정고시·고졸 = 동일 처리, major 따라 IELTS 임계점 분기 (Wilson 2026-05-20)
+  if (input.education === "검정고시" || input.education === "고졸") {
+    return buildPathwayForGedOrHighSchool(
+      input.education,
+      input.major,
+      englishToIelts(input.english_level),
+    );
   }
   if (input.education === "대학재학") return PATHWAY_TEMPLATES["대학재학→Transfer→학사"];
   if (input.education === "대졸") return PATHWAY_TEMPLATES["대졸→PG→석사"];
@@ -417,6 +510,37 @@ function topSchoolsFor(input: DiagnoseInput): School[] {
   return scored;
 }
 
+// education → program level 우선순위. master_v2_clean.programs[].level 이 비어있거나 비표준이면
+// fallback 으로 programs[].name 도 검사 (Bachelor / Master / Diploma 키워드).
+function programLevelRank(p: { level?: string; name?: string }, education: DiagnoseInput["education"]): number {
+  const text = `${p.level ?? ""} ${p.name ?? ""}`.toLowerCase();
+  const isMaster = /\b(master|graduate entry|md|phd|pg|postgraduate)\b/.test(text);
+  const isBachelor = /\b(bachelor|honours)\b/.test(text) && !isMaster;
+  const isDipFound = /\b(diploma|foundation|cert|certificate)\b/.test(text);
+
+  if (education === "대졸") {
+    if (isMaster) return 3;
+    if (isBachelor) return 1; // 거의 무관, 후순위
+    return 2;
+  }
+  if (education === "대학재학") {
+    if (isBachelor) return 3;
+    if (isMaster) return 2;
+    return 1;
+  }
+  if (education === "검정고시" || education === "고졸") {
+    if (isBachelor) return 3;
+    if (isDipFound) return 2;
+    return 1;
+  }
+  if (education === "워홀러") {
+    if (isDipFound) return 3;
+    if (isBachelor) return 2;
+    return 1;
+  }
+  return 1;
+}
+
 function schoolToPick(s: School, input: DiagnoseInput): SchoolPick {
   const re = new RegExp(
     input.major === "간호" ? "nursing|간호" :
@@ -430,7 +554,11 @@ function schoolToPick(s: School, input: DiagnoseInput): SchoolPick {
     input.major === "의료" ? "medic" : ".*",
     "i"
   );
-  const progs = s.programs.filter((p) => re.test(p.name ?? "")).slice(0, 3);
+  // education 에 맞는 level 우선 정렬 후 상위 3개
+  const progs = s.programs
+    .filter((p) => re.test(p.name ?? ""))
+    .sort((a, b) => programLevelRank(b, input.education) - programLevelRank(a, input.education))
+    .slice(0, 3);
   const reasons: string[] = [];
   if (s.qs && s.qs <= 100) reasons.push("QS 100위 이내");
   if (isSchoolInRegion(s, input.preferred_region)) reasons.push(`${input.preferred_region} 위치`);
@@ -455,8 +583,13 @@ export function stage5_cards(
   const majorFaq = faqs.find((f) => f.type === "major" && f.id === `major_${input.major}`);
   const visaFaq = faqs.find((f) => f.id === "visa_pr_학생비자_500");
 
-  // 고졸/검정고시 = 2경로 (학사 직접 + Pathway 경유)
-  const showDualPath = input.education === "고졸" || input.education === "검정고시";
+  // 고졸/검정고시 = 2경로 (목표 학사 + Pathway 진입).
+  // 단 의료(Direct MBBS/MD), 요리·호텔·Trade(Cert III·Diploma vocational) 는 Pathway→학사 모델이 아니라 dual-path 부적합 → 단일 경로.
+  const standardEducationPath = !(
+    input.major === "의료" || input.major === "요리·호텔" || input.major === "Trade"
+  );
+  const showDualPath =
+    (input.education === "고졸" || input.education === "검정고시") && standardEducationPath;
   let pathwayPicks: SchoolPick[] = [];
   if (showDualPath) {
     if (input.major === "간호") {
@@ -477,17 +610,17 @@ export function stage5_cards(
   const directEmpty = schoolsPicks.length === 0;
   const pathwayEmpty = pathwayPicks.length === 0;
   const emptyMsg = directEmpty && (!showDualPath || pathwayEmpty)
-    ? `${input.preferred_region} 지역에 ${input.major} 코스를 운영하는 정본 학교가 적습니다. 다른 지역 추가 고려 또는 카톡 상담으로 케이스별 안내를 권장합니다.`
+    ? `${input.preferred_region} 지역에 ${input.major} 코스를 운영하는 정본 학교가 적습니다. 다른 지역 추가 고려 또는 1:1 정밀 상담(유료)으로 케이스별 안내를 받으실 수 있습니다.`
     : undefined;
 
+  // 검정고시·고졸 = 호주 학사 직진학 불가 (Wilson 정본). 'A' = 졸업 목표 학교 / 'B' = Pathway 진입 학교.
   const pathwayNote = showDualPath
     ? (input.major === "간호"
-        ? "내신 상위 + IELTS 6.5 → 학사 직접 진학. 그 외 = Diploma of Health Sciences → 학사 2학년 편입 (IELTS 6.5) 또는 TAFE Diploma of Nursing (Enrolled Nurse, IELTS 7.0 각 영역) → 485 → RN Bachelor 편입. Foundation은 간호 진학 경로로 비추천."
-        : "내신 상위 + 영어 충족 → 학사 직접 입학. 내신 부족하면 Foundation (1년) 또는 Diploma → 학사 2학년 편입. 두 트랙 다 최종 학위는 동일합니다.")
+        ? "한국 검정고시·고졸은 호주 간호 학사 직진학 불가. 모든 학생이 Diploma of Health Sciences (College) 또는 TAFE Diploma of Nursing (EN) 거친 후 RN 학사 편입. 'A' 학교 = 최종 RN 학위 목표, 'B' 학교 = Pathway 진입 학교입니다."
+        : "한국 검정고시·고졸은 호주 학사 직진학 불가. 모든 학생이 Foundation 또는 Diploma 1년 거친 후 학사 편입. 'A' 학교 = 최종 학사 학위 목표, 'B' 학교 = Pathway 진입 학교입니다.")
     : undefined;
-  const consultNote = showDualPath
-    ? "정확한 경로는 내신/영어 평가 후 1:1 카톡 상담에서 확정합니다."
-    : undefined;
+  const consultNote =
+    "정확한 학교 추천·합격 가능성·정밀 학비·IELTS 트랙은 1:1 정밀 상담(유료)에서 확정합니다.";
 
   // PR 정보 (간호/요리·호텔/IT 등은 PR 경로 있음)
   let prInfo: string | undefined;
@@ -509,7 +642,7 @@ export function stage5_cards(
     card2_region: {
       title: "지역 정보",
       region: input.preferred_region,
-      description: regionFaq?.card_text?.split("\n").slice(0, 6).join("\n") ?? `${input.preferred_region} 지역 학교를 우선 추천합니다.`,
+      description: regionFaq?.card_text ?? `${input.preferred_region} 지역 학교를 우선 추천합니다.`,
       faq_text: regionFaq?.card_text,
     },
     card3_pathway: {
@@ -521,7 +654,7 @@ export function stage5_cards(
     card4_major: {
       title: "전공",
       major: input.major,
-      description: majorFaq?.card_text?.split("\n").slice(0, 6).join("\n") ?? `${input.major} 전공 안내.`,
+      description: majorFaq?.card_text ?? `${input.major} 전공 안내.`,
       faq_text: majorFaq?.card_text,
       pr_info: prInfo,
     },
@@ -536,13 +669,13 @@ export function stage5_cards(
       quote: blocks.hard.length > 0
         ? "차단 룰이 적용된 케이스입니다. 대안 경로를 직접 확인해드릴게요."
         : "19년 컨설팅 + 호주 학교 교직원 경력으로 본 케이스, 진학 후 학교 케어까지 동선이 잡힙니다.",
-      recommendation: scenario?.wilson_note?.split("\n").slice(0, 8).join("\n")
-        ?? "1:1 카톡 상담에서 학비/장학금/세부 학교 비교까지 무료로 안내드립니다.",
+      recommendation: scenario?.wilson_note
+        ?? "정밀 상담에서는 학비·장학금·합격 가능성·IELTS 트랙·비자 일정을 본인 케이스로 잡아드립니다.",
     },
     card7_next: {
       title: "다음 액션",
       actions: [
-        { label: "💬 카톡 1:1 상담 (30분 무료)", kind: "kakao" },
+        { label: "💬 1:1 정밀 상담 신청 (유료)", kind: "kakao" },
         { label: "📩 결과를 이메일로 받기", kind: "form" },
         { label: "📋 학교 비교표 받기 (PDF)", kind: "form" },
       ],

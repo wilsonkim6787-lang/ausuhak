@@ -4,8 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import {
-  BlocksBanner, Card1Schools, Card2Region, Card3Pathway,
-  Card4Major, Card5Visa, Card6Wilson, Card7Next,
+  BlocksBanner, Card1Schools, Card3Pathway, Card5Visa, Card6Tuition, Card7Next,
 } from "@/components/diagnose/Cards";
 import DiagnoseCompleteTracker from "@/components/diagnose/DiagnoseCompleteTracker";
 import { matchDiagnose } from "@/lib/matching";
@@ -128,11 +127,13 @@ export default async function DiagnosePage({
 
           <div className="space-y-5">
             <Card1Schools data={result.cards.card1_schools} />
-            <Card2Region data={result.cards.card2_region} />
             <Card3Pathway data={result.cards.card3_pathway} />
-            <Card4Major data={result.cards.card4_major} />
             <Card5Visa data={result.cards.card5_visa_pr} />
-            <Card6Wilson data={result.cards.card6_wilson} />
+            <Card6Tuition
+              directItems={result.cards.card1_schools.items}
+              pathwayItems={result.cards.card1_schools.pathway_items}
+              education={input.education}
+            />
             <Card7Next data={result.cards.card7_next} kakaoUrl={KAKAO_URL} />
           </div>
 
