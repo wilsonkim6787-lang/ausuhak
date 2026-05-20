@@ -4,7 +4,7 @@ import FAQPreviewClient from "./FAQPreviewClient";
 
 export default async function FAQPreview() {
   const t = await getTranslations("FAQPreview");
-  const categories = getCategoryPreview(5);
+  const categories = getCategoryPreview(8);
   const total = getTotalCount();
 
   return (

@@ -5,82 +5,6 @@
       "name": "처음 시작할 때",
       "items": [
         {
-          "q": "검정고시로 호주 대학에 갈 수 있나요?",
-          "a": "네, 가능합니다. 검정고시는 호주 교육 체계에서 정식 고교 졸업(Year 12)과 동등 인정. 루트 3가지: ①**ELICOS 어학원 → EAP 10주 → 대학 조건부 입학**(영어 없어도 가능) ②**Foundation Program 1년**(Adelaide College·Trinity College 등) → Go8 대학 진학. 명문대 목표 시 최적 ③**Diploma 1~2년** → 대학 2학년 편입(학점 50% 인정). 실제 케이스: 검정고시 출신이 **Adelaide Go8 의대**, Melbourne 경영학, UNSW 공학 진학 다수. 호주는 검정고시 차별 없음. 검정고시 성적 낮아도 EAP·Foundation으로 보완 가능. 장점: ①고졸·검정고시 모두 동일 인정 ②Year 12 성적 불필요 ③호주 대학 입학 선발 GPA·영어 중심. 총 준비 기간 6~12개월."
-        },
-        {
-          "q": "영어 점수 없이 시작할 수 있나요?",
-          "a": "완전히 가능해요. 표준 루트: 어학원(ELICOS) 12~20주 → EAP 10주 → 대학 조건부 입학. 비용: ELICOS $280~$400/주, EAP $4,500~$6,500(10주). EAP 10주당 IELTS +0.5점 효과, 대학 GPA 평균 0.5~0.8점 상승. 영어 전무(왕초보)에서 대학 입학까지 총 6~8개월, 총 비용 $8K~$14K. IELTS 없이 입학 가능한 대학: CDU(다윈), JCU(타운즈빌), Federation(발라랏), Newcastle, Adelaide, Deakin, UTAS 등 대부분 Regional 대학. 영어 완전 초보 → 10개월 만에 IELTS 6.0 달성 케이스 다수."
-        },
-        {
-          "q": "한국 대학 재학 중인데 편입이 가능한가요?",
-          "a": "네, 매우 환영받아요. 한국 대학 학점을 **최대 50%까지 인정**받아 2~3학년 편입 가능. 간호·공학·경영·IT·교육·회계 분야가 가장 수월. 조건: ①한국에서 1년+ 이수 ②GPA 2.5 이상(3.0+ 유리) ③관련 전공 일치. 준비 기간: ①ELICOS 필요 시 8~12주 → ②EAP 10주 → ③학점 심사 → ④편입. 필요 서류: 한국 대학 성적표 영문(Course Description 포함), 졸업·재학증명서 영문. 추천 대학: Regional 대학(Newcastle·Adelaide·Deakin·JCU)이 편입 심사 유연. 장점: ①학비 절약(2년+ 단축) ②시간 절약 ③동일 전공 진로 유지 ④호주 학위 + 485비자 + PR 루트 가능. 한국 학비 이미 납부한 것 유지하며 해외 학위 추가."
-        },
-        {
-          "q": "나이 제한이 있나요? 30~40대도 가능한가요?",
-          "a": "호주 대학 입학 자체에는 **나이 제한 없어요**. 단, 비자와 영주권에는 영향 있음: ①**학생비자(500)**: 나이 제한 없음 ②**485 졸업비자**: **만 35세 이하**만 신청 가능(2024.11 개정) ③**기술이민 PR 점수**: 25~32세 30점(최고), 33~39세 25점, 40~44세 15점, 45세+ 0점. 실제 성공 케이스: **38세 은행원 Adelaide 재무 석사 → 485 → 190 PR**, **45세 주부 Deakin 유아교육 졸업 → Regional 취업 → PR**. 30대 이상의 장점: ①경력·성숙한 태도 입학 에세이 강점 ②명확한 목표로 학업 집중도 높음 ③전문직(의료·회계·IT)은 나이 제한 덜 영향. 40대+ 전략: Regional + MLTSSL 전공 + 491→191 루트. 가족 동반 이민도 30~40대 적합."
-        },
-        {
-          "q": "고등학교를 중퇴했어도 가능한가요?",
-          "a": "가능합니다. 3가지 루트: ①**검정고시 취득**(3~6개월 준비) - 호주에서 고졸 자격 완전 인정 → 어학원 → 대학 ②**Cert III/IV 직업과정** - Diploma 진학 → 대학 편입(간호·IT·회계 등) ③**경력 5년+ 보유 시 RPL**(Recognition of Prior Learning 선행학습인정) → Diploma 직행 가능. 호주는 **학벌보다 현재 능력·학습 의지**를 중시. 실제 케이스: 고등학교 중퇴 후 검정고시 → 2년 ELICOS+EAP → JCU 간호학 → AHPRA → 간호사 취업 → PR. Gap year 경력(창업·봉사)도 플러스. **주의**: 한국에서 중퇴 서류(전학기록·제적증명)는 호주 비자 신청 시 영향 없음. 중퇴 사유는 GS 진술서에 솔직하게 언급하되 성장 스토리로 풀어내면 긍정적 평가."
-        },
-        {
-          "q": "군대 전역 직후 바로 갈 수 있나요?",
-          "a": "네, 바로 가능해요. **군 복무 경력**이 입학 에세이·GS 진술서에서 **'성숙한 태도·책임감·리더십'** 강점으로 작용. 권장 준비: ①군 복무 중 **IELTS 공부 미리**(최소 5.0 목표 - 주말·저녁 활용) ②전역 후 1~2개월 내 출국 가능. 영어 없어도 어학원 → EAP → 대학 루트로 **10개월 내 입학** 가능. 예상 일정: 2월 전역 → 3월 상담·서류 → 5월 어학원 출국 → 12월 EAP 수료 → 다음해 2월 대학 입학. 전역 후 장점: ①PR 점수(30세 전후 30점 확보 여유) ②경력 강점 ③부모 지원 받기 쉬움. 한국 병역 완료는 호주 비자에 유리(귀국 의무 없음 증명). 추천 전공: 공학·IT·경영·교육(군 리더십 활용). 호주유학에서 전역 직후 맞춤 플랜 제공 - 여러 케이스 성공."
-        },
-        {
-          "q": "IELTS 없이 입학 가능한 대학이 있나요?",
-          "a": "대부분 Regional 대학은 **EAP 수료로 IELTS 면제** 가능. 대학부설 ELC(영어센터) 리스트: ①**JCU ELC**(Townsville) - 의·간호 ②**CDU English**(Darwin) - 최저비용 ③**Newcastle ELC/INTO** - 간호 강세 ④**Adelaide ELC** - Go8 ⑤**Deakin ELC** - IT·비즈니스 ⑥**Flinders ELC**(Adelaide) - 간호·교육 ⑦**UTAS ELC**(Hobart) - Regional ⑧**Federation ELC**(발라랏) - 초저비용 ⑨**UOW College**(Wollongong). EAP 10주 수료 시 → 해당 대학 **조건부 입학 확정**. 단, **의대·치대·법대·간호대·교육대는 IELTS 7.0+ 필수**(EAP 대체 불가). Go8 중 Adelaide·UWA는 EAP 대체 가능한 일반 과정 있음. 학비 EAP 10주 $4,500~$6,500. 영어 없으면 ELICOS 12~20주 → EAP 10주 조합."
-        },
-        {
-          "q": "한국에서 의대를 다니다 중간에 호주로 갈 수 있나요?",
-          "a": "가능해요. 단, 의학 전공 특성상 조건이 매우 까다로움. **3가지 루트**: ①**편입(Transfer)** - 한국 의대 1~2학년(예과) 이수 후 편입 심사 ②**Graduate Entry(MD 대학원)** - 한국 의대 학사 → GAMSAT → GEMSAS 통합지원 → Melbourne MD·UQ MD 등 4년 ③**한국 의사 면허 → AMC 시험**(MCQ + Clinical) → AHPRA 등록. **편입 조건**: ①한국 GPA 5.0/7.0+ ②**IELTS 7.0+** ③**UCAT ANZ (ucat.edu.au) 또는 GAMSAT (gamsat.acer.org)** ④**MMI 인터뷰 3개월+ 준비**. 경쟁 매우 치열. 국제학생 입학 가능: **JCU(접근성 높음), Adelaide, Melbourne, UQ, Monash, UNSW, Sydney, Flinders, Griffith, Deakin, ANU, Wollongong, UTAS**. 학비 연 $80K~$95K. **필수 공식 참고**: Medicine Admissions Guide (gemsas.edu.au/guides/medicine). 케이스별 전략 필수 - 호주유학 의대 상담 경험 풍부."
-        },
-        {
-          "q": "EAP가 뭔가요?",
-          "a": "**EAP(English for Academic Purposes)**는 대학 학술영어 준비 과정. 일반 영어(ELICOS)와 차원이 다름. **핵심 커리큘럼 5가지**: ①**학술 에세이 작성법**(서론-본론-결론, 논증 구조) ②**논문 인용법**(APA·Harvard 스타일, 표절 회피) ③**그룹 프로젝트**(팀워크·영문 협업) ④**프레젠테이션**(학술 발표·Q&A 대응) ⑤**비판적 사고**(Critical Thinking·데이터 분석). **효과**: 10주 수료 시 **IELTS 0.5~1.0점 상승** 효과, 대학 GPA 평균 **0.5~0.8점 상승**. **장점**: IELTS 점수 없이도 해당 대학 **조건부 입학 확정**. 학비 $4,500~$6,500/10주. **영어 점수 있어도 추천** - 학업 준비 차원. 대부분 Regional 대학 부설 ELC에서 제공. EAP는 시험 영어(IELTS)와 실제 대학 영어(에세이·토론)의 **결정적 격차**를 메워줘요."
-        },
-        {
-          "q": "IELTS 7.0이 있는데도 EAP를 들어야 하나요?",
-          "a": "**강력히 권장해요**. IELTS는 일상·업무 영어 테스트인 반면, 대학 학술영어는 차원이 다름. **실제 데이터**: EAP 수료자 vs 미수료자 **GPA 차이 평균 0.5~0.8점**. IELTS 7.0 받고도 첫 학기에 에세이 **D·Fail** 받는 케이스 다수. EAP에서 배우는 것: ①학술 에세이 구조(논증·인용) ②교수와 토론 방식 ③참고문헌 표기(APA·Harvard) ④**표절 회피**(Turnitin 시스템) ⑤비판적 분석·리서치 방법. **실리 계산**: 10주 EAP $5,000 투자 vs 첫 학기 재수강 $15K 방지. 장기적: ①GPA 유지 → 장학금 획득 ②대학원 진학 유리(Credit 이상 필요) ③연구·인턴십 기회. IELTS 7.0 있으면 일반 EAP 대신 **EAP Advanced** 또는 **Pre-sessional** 8주 추천. Cambridge CAE/CPE도 실력 향상에 매우 좋음."
-        },
-        {
-          "q": "어학원은 어떻게 고르나요?",
-          "a": "선택 기준 5가지: ①**목표 대학 연계 여부** - 부설 ELC가 EAP 수료 시 IELTS 면제 (가장 중요) ②**도시** - Regional은 생활비 저렴·한국인 적음·영어 환경 좋음 ③**비용** - $280~$400/주 ④**반 인원** - 소규모 15명 이하 효과적 ⑤**특화 과정** - IELTS·Cambridge·EAP·Business English. **목적별 추천**: ▶**간호학**→ INTO Newcastle ELC ▶**의대**→ JCU ELC, Adelaide ELC ▶**최저비용**→ CDU ELC(다윈) ▶**Go8**→ Adelaide ELC, Monash College ▶**브랜드**→ Kaplan, ILSC ▶**소규모**→ Lexis, Browns ▶**IELTS 특화**→ Greenwich. 사립 어학원 추천: ①**Lexis**(소규모·5개 도시) ②**Navitas**(Curtin 파트너) ③**Browns**(1975 전통) ④**Greenwich**(IELTS 특화) ⑤**Shafston**(기숙사 포함). 실제 선택: 대학 확정 → 부설 ELC, 미정 → 사립 어학원."
-        },
-        {
-          "q": "영어를 전혀 못해도 처음부터 갈 수 있나요?",
-          "a": "네. 영어 없이 시작해도 가능해요. 어학원 입문(Beginner) 반부터 시작하면 됩니다. 어학원 → EAP → 대학까지 대략 8~10개월. 호주유학에서 단계별 플랜을 잡아드립니다."
-        },
-        {
-          "q": "일본어·중국어로도 상담이 가능한가요?",
-          "a": "기본 상담은 한국어로 진행되며, 일본어·중국어 보조 지원이 가능합니다. 이 웹사이트는 한/영/일/중 4개 언어로 정보를 제공합니다."
-        },
-        {
-          "q": "영어 점수가 전혀 없는데 호주 유학 가능한가요?",
-          "a": "네, 가능해요. **2가지 루트** 중 선택: **① 필리핀 어학원 3개월 루트**: **IELTS 3.5 수준 학생이 3개월 만에 IELTS 6.0~6.5 도달** 가능(PTE 50~65 동등). 1:1 수업 집중 + 한국식 스파르타 교육의 힘. 학비·생활비 호주 대비 40~50% 저렴. **② 호주 현지 어학원 루트**: 필리핀이 맞지 않거나 싫은 학생은 **호주 대학 연계 어학원(ELICOS)**에서 영어 공부. 어학원 수료 → 해당 대학 바로 입학 **패키지 구성 가능**. **⚠️ 단, 일부 전공은 패키지 안 됨**: 의학·간호·물리치료 등 일부 전공은 별도 입학 요건(IELTS 7.0+ 공식 점수 등) 필요하여 패키지 대상에서 제외. **⚠️ 공통 주의사항 - EAP**: 어느 루트든 호주 대학 수업에 필요한 **학술 영어(에세이·발표·팀 프로젝트)**는 시험 영어와 다르므로 **EAP 과정 별도 추천**드려요. 이건 **IELTS 7.0~8.0 학생에게도 추천**하는 과정입니다. 카카오 studywilson 무료 상담으로 학생 맞춤 루트 확인."
-        },
-        {
-          "q": "필리핀 어학원 vs 호주 어학원, 뭐가 나은가요?",
-          "a": "각자 장단점 있어 **학생 상황에 따라 선택**: **🇵🇭 필리핀 어학원 장점**: ①**점수 향상 속도 빠름** - IELTS 3.5 학생이 3개월 만에 6.0~6.5 도달 가능 ②**1:1 수업 집중** - 한국식 스파르타 교육 ③**비용 저렴** - 호주 대비 40~50% 절약(월 $600~$1,100) ④**IELTS·PTE 시험 특화반** ⑤**단기 집중** - 직장인 휴직·학생 방학 활용. **주요 학교**: SMEAG, CPILS, CIA, EC, Cebu Blue Ocean 등(세부·바기오·클락). 호주유학도 EC를 포함한 여러 학교를 학생 성향에 맞춰 연결. **🇦🇺 호주 어학원 장점**: ①**대학 패키지 가능** - 어학원 수료 → 해당 대학 자동 입학 ②**현지 적응** - 호주 문화·생활 바로 체험 ③**IELTS 면제 효과** - 어학원 수료 점수로 대학 입학 ④**즉시 EAP 연계**. **⚠️ 단점**: 학비 비쌈(10주 $4,500~$6,500), **일부 전공 패키지 불가**(의학·간호·물리치료 등은 공식 IELTS 점수 별도 필요). **추천 기준**: ①**점수 빨리 + 비용 절약** → 필리핀 ②**현지 바로 적응 + 패키지 원함** → 호주 ③**최고 조합** → 필리핀 3개월(점수 확보) → 호주 EAP 10주(학술영어) → 대학. 카카오 studywilson에서 학생 맞춤 루트 무료 상담."
-        },
-        {
-          "q": "한국에서 화상영어로 미리 준비해도 되나요?",
-          "a": "네, 좋은 선택이에요. **화상영어 장점**: ①**시간 유연** - 새벽 6시~밤 11시 원하는 시간(직장인·재학생 최적) ②**1:1 수업** - 100% 개인 맞춤 ③**필리핀 원어민 강사** - 비용 대비 퀄리티 높음 ④**저렴** - 월 $200~$350(주 3~5회, 50분/회) ⑤**출국 준비 병행** - 퇴사·졸업 전 기초 확보. **추천 대상**: ①출국 3~6개월 전 기초 다지기 ②직장인·재학생 병행 ③아이 조기유학 부모 ④IELTS·PTE 시험 직전 집중. **효과**: 3개월 집중 시 IELTS 0.5~1.0점 상승, PTE 10~15점 상승. 한국 학원 대비 50% 저렴. **⚠️ 단독으로는 부족**: 화상영어만으로 호주 대학 준비 끝은 아니에요. **이상적 루트**: 한국 화상영어 3개월(기초) → 필리핀 연수 3개월(점수 확보, IELTS 3.5→6.0~6.5) → 호주 EAP 10주(학술영어) → 대학 입학. ⭐ **EAP 권장**: IELTS 점수 7.0~8.0 받은 학생에게도 EAP 과정을 추천드려요. 시험 영어와 대학 학술영어는 다른 영역이기 때문에요. 카카오 studywilson에서 맞춤 커리큘럼 무료 상담."
-        },
-        {
-          "q": "유학 결정하고 출국까지 보통 얼마나 걸리나요?",
-          "a": "**최소 4-6개월, 일반적으로 6-12개월 권장**. 단계: ①컨설팅·학교 결정 (1개월) ②학교 지원·합격 (1-2개월) ③CoE 발급 + 학비 1차 납부 (2-4주) ④학생비자 신청·승인 (2-3개월, 한국 신청 기준) ⑤OSHC 가입 + 항공권 + 짐 (1-2개월). **빠른 케이스**: 영어 점수 있고 학교 정해진 분 = 4-5개월 가능. **일반적**: 영어 준비 + 학교 비교 = 8-10개월. **여유 있는 출국 = 안전한 출국**입니다. 학생 상황별 정확한 일정은 카카오 상담에서 함께 짜드립니다."
-        },
-        {
-          "q": "유학 비용 부모님께 보여드릴 자료가 있을까요?",
-          "a": "있습니다. Wilson 상담 시 **PDF 견적서**를 만들어드립니다. 포함: ①학교별 학비 (1년/총) ②지역별 생활비 (홈스테이/쉐어/기숙사) ③학생비자 + OSHC + 항공권 ④부수 비용 (책·교통·통신) ⑤한화 환산 (현재 환율 1 AUD ≈ 1,061원 / 2026.05 기준). 학부모님께 직접 카카오/이메일로 발송 가능합니다. 부모님과 함께 보실 자료가 필요하시면 카카오로 요청해주세요."
-        },
-        {
-          "q": "혼자 결정하기 어려운데 부모님이랑 같이 상담받을 수 있나요?",
-          "a": "네, 환영합니다. **3자 카톡 상담** (학생+부모님+Wilson) 또는 **부모님 따로 상담** 둘 다 가능. 부모님이 가장 많이 묻는 것: ①실제 비용 (마케팅 비용 X) ②안전 (홈스테이/지역) ③취업·PR 가능성 ④Wilson 19년 실적. 상담은 항상 무료. 카카오 ID: studywilson"
-        },
-        {
           "q": "검정고시 + 영어 부족 (IELTS 5 미만) 케이스",
           "a": "Wilson 컨설팅 자주 보는 출발선. 동선 ①**한국에서 IELTS 학원 6개월~1년**: IELTS 5.5 도달 목표 ②**호주 도착 후 ELICOS 3~6개월**: 학사 진학 영어 보강 ③**Foundation 1년** (UNSW Foundation·Trinity Melbourne·Eynesbury·Monash College 등): IELTS 5.5 시작 OK ④**학사 3년** (Foundation 출신 학교 또는 다른 학교 진학) ⑤**총 5~6년 동선** (한국 IELTS + ELICOS + Foundation + 학사). **호주 유학은 다양한 케이스가 있어서**, 영어 출발선 5.0 학생이 ELICOS·Foundation 거쳐 G8 학사 졸업까지 가는 케이스 ausuhak 다수. Wilson 19년 컨설팅에서 영어 부족 케이스 정밀 동선은 카톡 상담."
         },
@@ -159,6 +83,82 @@
         {
           "q": "워홀러 + 가족 동반 학생비자 전환",
           "a": "가능합니다. 워홀 → 학생비자 (Subclass 500) 전환 시 배우자·자녀 동반 비자 신청 가능. 조건 ①**Primary Student 의 학사 또는 그 이상 코스 등록** (TAFE Diploma 도 가능하지만 학사 트랙 권장) ②**재정 증명**: 학생비자 본인 + 배우자 + 자녀 1인당 약 AUD 21~24K/년 추가 ③**배우자 알바**: Primary Student = 2주 48시간 / 배우자 = 학사 코스면 2주 48시간 / 석사·박사면 무제한 ④**자녀 학비**: 호주 공립학교 국제학생 학비 AUD 12~18K/년 (NSW 등). **호주 유학은 다양한 케이스가 있어서**, 워홀 부부 → 한 명 TAFE Cookery + 한 명 알바 → Cook PR 후 가족 PR 케이스, 자녀 데리고 와서 호주 공립학교 + 본인 학사 + PR 케이스 모두 있습니다. 카톡 상담."
+        },
+        {
+          "q": "검정고시로 호주 대학에 갈 수 있나요?",
+          "a": "네, 가능합니다. 검정고시는 호주 교육 체계에서 정식 고교 졸업(Year 12)과 동등 인정. 루트 3가지: ①**ELICOS 어학원 → EAP 10주 → 대학 조건부 입학**(영어 없어도 가능) ②**Foundation Program 1년**(Adelaide College·Trinity College 등) → Go8 대학 진학. 명문대 목표 시 최적 ③**Diploma 1~2년** → 대학 2학년 편입(학점 50% 인정). 실제 케이스: 검정고시 출신이 **Adelaide Go8 의대**, Melbourne 경영학, UNSW 공학 진학 다수. 호주는 검정고시 차별 없음. 검정고시 성적 낮아도 EAP·Foundation으로 보완 가능. 장점: ①고졸·검정고시 모두 동일 인정 ②Year 12 성적 불필요 ③호주 대학 입학 선발 GPA·영어 중심. 총 준비 기간 6~12개월."
+        },
+        {
+          "q": "영어 점수 없이 시작할 수 있나요?",
+          "a": "완전히 가능해요. 표준 루트: 어학원(ELICOS) 12~20주 → EAP 10주 → 대학 조건부 입학. 비용: ELICOS $280~$400/주, EAP $4,500~$6,500(10주). EAP 10주당 IELTS +0.5점 효과, 대학 GPA 평균 0.5~0.8점 상승. 영어 전무(왕초보)에서 대학 입학까지 총 6~8개월, 총 비용 $8K~$14K. IELTS 없이 입학 가능한 대학: CDU(다윈), JCU(타운즈빌), Federation(발라랏), Newcastle, Adelaide, Deakin, UTAS 등 대부분 Regional 대학. 영어 완전 초보 → 10개월 만에 IELTS 6.0 달성 케이스 다수."
+        },
+        {
+          "q": "한국 대학 재학 중인데 편입이 가능한가요?",
+          "a": "네, 매우 환영받아요. 한국 대학 학점을 **최대 50%까지 인정**받아 2~3학년 편입 가능. 간호·공학·경영·IT·교육·회계 분야가 가장 수월. 조건: ①한국에서 1년+ 이수 ②GPA 2.5 이상(3.0+ 유리) ③관련 전공 일치. 준비 기간: ①ELICOS 필요 시 8~12주 → ②EAP 10주 → ③학점 심사 → ④편입. 필요 서류: 한국 대학 성적표 영문(Course Description 포함), 졸업·재학증명서 영문. 추천 대학: Regional 대학(Newcastle·Adelaide·Deakin·JCU)이 편입 심사 유연. 장점: ①학비 절약(2년+ 단축) ②시간 절약 ③동일 전공 진로 유지 ④호주 학위 + 485비자 + PR 루트 가능. 한국 학비 이미 납부한 것 유지하며 해외 학위 추가."
+        },
+        {
+          "q": "나이 제한이 있나요? 30~40대도 가능한가요?",
+          "a": "호주 대학 입학 자체에는 **나이 제한 없어요**. 단, 비자와 영주권에는 영향 있음: ①**학생비자(500)**: 나이 제한 없음 ②**485 졸업비자**: **만 35세 이하**만 신청 가능(2024.11 개정) ③**기술이민 PR 점수**: 25~32세 30점(최고), 33~39세 25점, 40~44세 15점, 45세+ 0점. 실제 성공 케이스: **38세 은행원 Adelaide 재무 석사 → 485 → 190 PR**, **45세 주부 Deakin 유아교육 졸업 → Regional 취업 → PR**. 30대 이상의 장점: ①경력·성숙한 태도 입학 에세이 강점 ②명확한 목표로 학업 집중도 높음 ③전문직(의료·회계·IT)은 나이 제한 덜 영향. 40대+ 전략: Regional + MLTSSL 전공 + 491→191 루트. 가족 동반 이민도 30~40대 적합."
+        },
+        {
+          "q": "고등학교를 중퇴했어도 가능한가요?",
+          "a": "가능합니다. 3가지 루트: ①**검정고시 취득**(3~6개월 준비) - 호주에서 고졸 자격 완전 인정 → 어학원 → 대학 ②**Cert III/IV 직업과정** - Diploma 진학 → 대학 편입(간호·IT·회계 등) ③**경력 5년+ 보유 시 RPL**(Recognition of Prior Learning 선행학습인정) → Diploma 직행 가능. 호주는 **학벌보다 현재 능력·학습 의지**를 중시. 실제 케이스: 고등학교 중퇴 후 검정고시 → 2년 ELICOS+EAP → JCU 간호학 → AHPRA → 간호사 취업 → PR. Gap year 경력(창업·봉사)도 플러스. **주의**: 한국에서 중퇴 서류(전학기록·제적증명)는 호주 비자 신청 시 영향 없음. 중퇴 사유는 GS 진술서에 솔직하게 언급하되 성장 스토리로 풀어내면 긍정적 평가."
+        },
+        {
+          "q": "군대 전역 직후 바로 갈 수 있나요?",
+          "a": "네, 바로 가능해요. **군 복무 경력**이 입학 에세이·GS 진술서에서 **'성숙한 태도·책임감·리더십'** 강점으로 작용. 권장 준비: ①군 복무 중 **IELTS 공부 미리**(최소 5.0 목표 - 주말·저녁 활용) ②전역 후 1~2개월 내 출국 가능. 영어 없어도 어학원 → EAP → 대학 루트로 **10개월 내 입학** 가능. 예상 일정: 2월 전역 → 3월 상담·서류 → 5월 어학원 출국 → 12월 EAP 수료 → 다음해 2월 대학 입학. 전역 후 장점: ①PR 점수(30세 전후 30점 확보 여유) ②경력 강점 ③부모 지원 받기 쉬움. 한국 병역 완료는 호주 비자에 유리(귀국 의무 없음 증명). 추천 전공: 공학·IT·경영·교육(군 리더십 활용). 호주유학에서 전역 직후 맞춤 플랜 제공 - 여러 케이스 성공."
+        },
+        {
+          "q": "IELTS 없이 입학 가능한 대학이 있나요?",
+          "a": "대부분 Regional 대학은 **EAP 수료로 IELTS 면제** 가능. 대학부설 ELC(영어센터) 리스트: ①**JCU ELC**(Townsville) - 의·간호 ②**CDU English**(Darwin) - 최저비용 ③**Newcastle ELC/INTO** - 간호 강세 ④**Adelaide ELC** - Go8 ⑤**Deakin ELC** - IT·비즈니스 ⑥**Flinders ELC**(Adelaide) - 간호·교육 ⑦**UTAS ELC**(Hobart) - Regional ⑧**Federation ELC**(발라랏) - 초저비용 ⑨**UOW College**(Wollongong). EAP 10주 수료 시 → 해당 대학 **조건부 입학 확정**. 단, **의대·치대·법대·간호대·교육대는 IELTS 7.0+ 필수**(EAP 대체 불가). Go8 중 Adelaide·UWA는 EAP 대체 가능한 일반 과정 있음. 학비 EAP 10주 $4,500~$6,500. 영어 없으면 ELICOS 12~20주 → EAP 10주 조합."
+        },
+        {
+          "q": "한국에서 의대를 다니다 중간에 호주로 갈 수 있나요?",
+          "a": "가능해요. 단, 의학 전공 특성상 조건이 매우 까다로움. **3가지 루트**: ①**편입(Transfer)** - 한국 의대 1~2학년(예과) 이수 후 편입 심사 ②**Graduate Entry(MD 대학원)** - 한국 의대 학사 → GAMSAT → GEMSAS 통합지원 → Melbourne MD·UQ MD 등 4년 ③**한국 의사 면허 → AMC 시험**(MCQ + Clinical) → AHPRA 등록. **편입 조건**: ①한국 GPA 5.0/7.0+ ②**IELTS 7.0+** ③**UCAT ANZ (ucat.edu.au) 또는 GAMSAT (gamsat.acer.org)** ④**MMI 인터뷰 3개월+ 준비**. 경쟁 매우 치열. 국제학생 입학 가능: **JCU(접근성 높음), Adelaide, Melbourne, UQ, Monash, UNSW, Sydney, Flinders, Griffith, Deakin, ANU, Wollongong, UTAS**. 학비 연 $80K~$95K. **필수 공식 참고**: Medicine Admissions Guide (gemsas.edu.au/guides/medicine). 케이스별 전략 필수 - 호주유학 의대 상담 경험 풍부."
+        },
+        {
+          "q": "EAP가 뭔가요?",
+          "a": "**EAP(English for Academic Purposes)**는 대학 학술영어 준비 과정. 일반 영어(ELICOS)와 차원이 다름. **핵심 커리큘럼 5가지**: ①**학술 에세이 작성법**(서론-본론-결론, 논증 구조) ②**논문 인용법**(APA·Harvard 스타일, 표절 회피) ③**그룹 프로젝트**(팀워크·영문 협업) ④**프레젠테이션**(학술 발표·Q&A 대응) ⑤**비판적 사고**(Critical Thinking·데이터 분석). **효과**: 10주 수료 시 **IELTS 0.5~1.0점 상승** 효과, 대학 GPA 평균 **0.5~0.8점 상승**. **장점**: IELTS 점수 없이도 해당 대학 **조건부 입학 확정**. 학비 $4,500~$6,500/10주. **영어 점수 있어도 추천** - 학업 준비 차원. 대부분 Regional 대학 부설 ELC에서 제공. EAP는 시험 영어(IELTS)와 실제 대학 영어(에세이·토론)의 **결정적 격차**를 메워줘요."
+        },
+        {
+          "q": "IELTS 7.0이 있는데도 EAP를 들어야 하나요?",
+          "a": "**강력히 권장해요**. IELTS는 일상·업무 영어 테스트인 반면, 대학 학술영어는 차원이 다름. **실제 데이터**: EAP 수료자 vs 미수료자 **GPA 차이 평균 0.5~0.8점**. IELTS 7.0 받고도 첫 학기에 에세이 **D·Fail** 받는 케이스 다수. EAP에서 배우는 것: ①학술 에세이 구조(논증·인용) ②교수와 토론 방식 ③참고문헌 표기(APA·Harvard) ④**표절 회피**(Turnitin 시스템) ⑤비판적 분석·리서치 방법. **실리 계산**: 10주 EAP $5,000 투자 vs 첫 학기 재수강 $15K 방지. 장기적: ①GPA 유지 → 장학금 획득 ②대학원 진학 유리(Credit 이상 필요) ③연구·인턴십 기회. IELTS 7.0 있으면 일반 EAP 대신 **EAP Advanced** 또는 **Pre-sessional** 8주 추천. Cambridge CAE/CPE도 실력 향상에 매우 좋음."
+        },
+        {
+          "q": "어학원은 어떻게 고르나요?",
+          "a": "선택 기준 5가지: ①**목표 대학 연계 여부** - 부설 ELC가 EAP 수료 시 IELTS 면제 (가장 중요) ②**도시** - Regional은 생활비 저렴·한국인 적음·영어 환경 좋음 ③**비용** - $280~$400/주 ④**반 인원** - 소규모 15명 이하 효과적 ⑤**특화 과정** - IELTS·Cambridge·EAP·Business English. **목적별 추천**: ▶**간호학**→ INTO Newcastle ELC ▶**의대**→ JCU ELC, Adelaide ELC ▶**최저비용**→ CDU ELC(다윈) ▶**Go8**→ Adelaide ELC, Monash College ▶**브랜드**→ Kaplan, ILSC ▶**소규모**→ Lexis, Browns ▶**IELTS 특화**→ Greenwich. 사립 어학원 추천: ①**Lexis**(소규모·5개 도시) ②**Navitas**(Curtin 파트너) ③**Browns**(1975 전통) ④**Greenwich**(IELTS 특화) ⑤**Shafston**(기숙사 포함). 실제 선택: 대학 확정 → 부설 ELC, 미정 → 사립 어학원."
+        },
+        {
+          "q": "영어를 전혀 못해도 처음부터 갈 수 있나요?",
+          "a": "네. 영어 없이 시작해도 가능해요. 어학원 입문(Beginner) 반부터 시작하면 됩니다. 어학원 → EAP → 대학까지 대략 8~10개월. 호주유학에서 단계별 플랜을 잡아드립니다."
+        },
+        {
+          "q": "일본어·중국어로도 상담이 가능한가요?",
+          "a": "기본 상담은 한국어로 진행되며, 일본어·중국어 보조 지원이 가능합니다. 이 웹사이트는 한/영/일/중 4개 언어로 정보를 제공합니다."
+        },
+        {
+          "q": "영어 점수가 전혀 없는데 호주 유학 가능한가요?",
+          "a": "네, 가능해요. **2가지 루트** 중 선택: **① 필리핀 어학원 3개월 루트**: **IELTS 3.5 수준 학생이 3개월 만에 IELTS 6.0~6.5 도달** 가능(PTE 50~65 동등). 1:1 수업 집중 + 한국식 스파르타 교육의 힘. 학비·생활비 호주 대비 40~50% 저렴. **② 호주 현지 어학원 루트**: 필리핀이 맞지 않거나 싫은 학생은 **호주 대학 연계 어학원(ELICOS)**에서 영어 공부. 어학원 수료 → 해당 대학 바로 입학 **패키지 구성 가능**. **⚠️ 단, 일부 전공은 패키지 안 됨**: 의학·간호·물리치료 등 일부 전공은 별도 입학 요건(IELTS 7.0+ 공식 점수 등) 필요하여 패키지 대상에서 제외. **⚠️ 공통 주의사항 - EAP**: 어느 루트든 호주 대학 수업에 필요한 **학술 영어(에세이·발표·팀 프로젝트)**는 시험 영어와 다르므로 **EAP 과정 별도 추천**드려요. 이건 **IELTS 7.0~8.0 학생에게도 추천**하는 과정입니다. 카카오 studywilson 무료 상담으로 학생 맞춤 루트 확인."
+        },
+        {
+          "q": "필리핀 어학원 vs 호주 어학원, 뭐가 나은가요?",
+          "a": "각자 장단점 있어 **학생 상황에 따라 선택**: **🇵🇭 필리핀 어학원 장점**: ①**점수 향상 속도 빠름** - IELTS 3.5 학생이 3개월 만에 6.0~6.5 도달 가능 ②**1:1 수업 집중** - 한국식 스파르타 교육 ③**비용 저렴** - 호주 대비 40~50% 절약(월 $600~$1,100) ④**IELTS·PTE 시험 특화반** ⑤**단기 집중** - 직장인 휴직·학생 방학 활용. **주요 학교**: SMEAG, CPILS, CIA, EC, Cebu Blue Ocean 등(세부·바기오·클락). 호주유학도 EC를 포함한 여러 학교를 학생 성향에 맞춰 연결. **🇦🇺 호주 어학원 장점**: ①**대학 패키지 가능** - 어학원 수료 → 해당 대학 자동 입학 ②**현지 적응** - 호주 문화·생활 바로 체험 ③**IELTS 면제 효과** - 어학원 수료 점수로 대학 입학 ④**즉시 EAP 연계**. **⚠️ 단점**: 학비 비쌈(10주 $4,500~$6,500), **일부 전공 패키지 불가**(의학·간호·물리치료 등은 공식 IELTS 점수 별도 필요). **추천 기준**: ①**점수 빨리 + 비용 절약** → 필리핀 ②**현지 바로 적응 + 패키지 원함** → 호주 ③**최고 조합** → 필리핀 3개월(점수 확보) → 호주 EAP 10주(학술영어) → 대학. 카카오 studywilson에서 학생 맞춤 루트 무료 상담."
+        },
+        {
+          "q": "한국에서 화상영어로 미리 준비해도 되나요?",
+          "a": "네, 좋은 선택이에요. **화상영어 장점**: ①**시간 유연** - 새벽 6시~밤 11시 원하는 시간(직장인·재학생 최적) ②**1:1 수업** - 100% 개인 맞춤 ③**필리핀 원어민 강사** - 비용 대비 퀄리티 높음 ④**저렴** - 월 $200~$350(주 3~5회, 50분/회) ⑤**출국 준비 병행** - 퇴사·졸업 전 기초 확보. **추천 대상**: ①출국 3~6개월 전 기초 다지기 ②직장인·재학생 병행 ③아이 조기유학 부모 ④IELTS·PTE 시험 직전 집중. **효과**: 3개월 집중 시 IELTS 0.5~1.0점 상승, PTE 10~15점 상승. 한국 학원 대비 50% 저렴. **⚠️ 단독으로는 부족**: 화상영어만으로 호주 대학 준비 끝은 아니에요. **이상적 루트**: 한국 화상영어 3개월(기초) → 필리핀 연수 3개월(점수 확보, IELTS 3.5→6.0~6.5) → 호주 EAP 10주(학술영어) → 대학 입학. ⭐ **EAP 권장**: IELTS 점수 7.0~8.0 받은 학생에게도 EAP 과정을 추천드려요. 시험 영어와 대학 학술영어는 다른 영역이기 때문에요. 카카오 studywilson에서 맞춤 커리큘럼 무료 상담."
+        },
+        {
+          "q": "유학 결정하고 출국까지 보통 얼마나 걸리나요?",
+          "a": "**최소 4-6개월, 일반적으로 6-12개월 권장**. 단계: ①컨설팅·학교 결정 (1개월) ②학교 지원·합격 (1-2개월) ③CoE 발급 + 학비 1차 납부 (2-4주) ④학생비자 신청·승인 (2-3개월, 한국 신청 기준) ⑤OSHC 가입 + 항공권 + 짐 (1-2개월). **빠른 케이스**: 영어 점수 있고 학교 정해진 분 = 4-5개월 가능. **일반적**: 영어 준비 + 학교 비교 = 8-10개월. **여유 있는 출국 = 안전한 출국**입니다. 학생 상황별 정확한 일정은 카카오 상담에서 함께 짜드립니다."
+        },
+        {
+          "q": "유학 비용 부모님께 보여드릴 자료가 있을까요?",
+          "a": "있습니다. Wilson 상담 시 **PDF 견적서**를 만들어드립니다. 포함: ①학교별 학비 (1년/총) ②지역별 생활비 (홈스테이/쉐어/기숙사) ③학생비자 + OSHC + 항공권 ④부수 비용 (책·교통·통신) ⑤한화 환산 (현재 환율 1 AUD ≈ 1,061원 / 2026.05 기준). 학부모님께 직접 카카오/이메일로 발송 가능합니다. 부모님과 함께 보실 자료가 필요하시면 카카오로 요청해주세요."
+        },
+        {
+          "q": "혼자 결정하기 어려운데 부모님이랑 같이 상담받을 수 있나요?",
+          "a": "네, 환영합니다. **3자 카톡 상담** (학생+부모님+Wilson) 또는 **부모님 따로 상담** 둘 다 가능. 부모님이 가장 많이 묻는 것: ①실제 비용 (마케팅 비용 X) ②안전 (홈스테이/지역) ③취업·PR 가능성 ④Wilson 19년 실적. 상담은 항상 무료. 카카오 ID: studywilson"
         }
       ]
     },
@@ -256,122 +256,6 @@
       "icon": "🎓",
       "name": "학교 고르기",
       "items": [
-        {
-          "q": "파운데이션 과정이 뭔가요?",
-          "a": "**Foundation Program(파운데이션)**은 고교 졸업 후 대학 진학 전 **1년짜리 준비 과정**. 대학 학위(Bachelor) 아님. **주요 과정**: ①**Adelaide College**(Adelaide 대학 직통) ②**Sydney University Foundation Program** ③**Trinity College**(Melbourne 대학) ④**UNSW Foundation** ⑤**Monash College**. **대상**: 고졸·검정고시 출신, 해외 고교 졸업자(Year 12 미이수). 기간 1년, **학비 $28K~$40K**. 졸업 시 해당 대학 **조건부 입학**. 핵심 루트: **검정고시 → Foundation → Go8 의대·법대**의 핵심 단계. 영어 조건: IELTS 5.5~6.0. **디플로마와 차이**: ①Foundation - 대학 준비만, 학점 인정 안됨, 1년 ②Diploma - 자체 직업 자격 + 대학 2학년 편입 가능, 1~2년. **선택 가이드**: Go8·명문대 목표 → Foundation / 실용 직업 + 학위 → Diploma. Foundation은 대학 진학률 90%+, 명문대 진학에 유리. 호주유학이 Foundation 학교 고르기·지원 대행."
-        },
-        {
-          "q": "디플로마 과정은 뭔가요?",
-          "a": "**Diploma(디플로마)**는 호주 자격체계(AQF) **Level 5** 준학사 과정. 기간 **1~2년**. 제공: TAFE(정부 운영)·사립 컬리지. 수료 후 **2가지 선택**: ①**대학 2학년 편입**(Pathway, 학점 50% 인정) ②**바로 취업**. **학비**: TAFE $13K~$23K/년, 사립 $12K~$22K/년(학사 대비 **30~40% 저렴**). **입학 조건**: IELTS 5.5 또는 EAP 수료(학사 6.0보다 낮음). **장점**: ①학비 절약 ②입학 쉬움 ③실무 중심 ④학사 편입 시 총 비용 절약. **주요 분야**: ①**IT** - Diploma of IT → 학사 편입 ②**회계** - Diploma of Accounting → CPA 루트 ③**비즈니스** - Diploma of Business ④**호스피탈리티** - Diploma Hospitality ⑤**요리** - Cert IV + Diploma Commercial Cookery ⑥**간호** - Diploma of Nursing(EN·등록간호사) ⑦**유아교육**. **추천**: 학사 학비 부담 큰 학생, 취업 빠르게 원하는 학생, RPL(선행학습인정)로 빠른 수료 가능한 경력자. Foundation보다 실용적."
-        },
-        {
-          "q": "어떤 대학을 선택해야 하나요?",
-          "a": "목표별 추천: ①**PR 목표** → Regional 대학: Adelaide(Go8+Regional), Newcastle(간호), JCU(의·간호), Deakin(IT), Federation(초저비용), CDU(다윈 최저) ②**명문 학위** → Go8: Melbourne·UNSW·Sydney·Monash ③**최소 비용** → CDU($20K~$30K/년)·Federation·UTAS ④**의대** → JCU·Adelaide·Melbourne·UQ·Monash ⑤**간호** → Newcastle·JCU·Flinders ⑥**IT** → Deakin·UNSW·UTS ⑦**요리** → William Angliss·Le Cordon Bleu ⑧**트레이드** → TAFE QLD·WA·NSW. 선택 5요소: **전공 적합성 > 예산 > 영어 수준 > PR 여부 > 지역 선호도**. Regional + MLTSSL 조합이 PR에 가장 유리. 도시 Go8 + 명문 학위는 귀국 후 커리어 유리. **Wilson 카카오 studywilson에서 맞춤 상담** 시 전공·예산·목표 분석 후 최적 학교 3~5개 제시."
-        },
-        {
-          "q": "Go8 대학과 일반 대학의 차이는?",
-          "a": "**Go8(Group of Eight)**: 호주 최상위 8개 연구중심 대학. ①**University of Sydney**(QS 18) ②**UNSW Sydney**(QS 19) ③**University of Melbourne**(QS 13) ④**Monash University**(QS 42) ⑤**University of Queensland**(QS 40) ⑥**University of Adelaide**(QS 82) ⑦**University of Western Australia**(QS 72) ⑧**ANU**(QS 30). **장점**: 연구 질, 학위 인지도(국제·한국), 교수진(Nobel 수상자 다수), 대학원 진학 유리, 대기업 취업 네트워크. **단점**: 학비 높음($38K~$55K), 경쟁 치열, 대부분 도시 대학(Regional +5점 없음) - **단 Adelaide·ANU·UWA는 예외로 Regional 지정**. **일반 대학**(Deakin·RMIT·UTS·Swinburne 등)도 호주에서 충분히 인정, 취업 시장 차별 적음. **전공별**: IT·디자인·미디어는 RMIT·UTS가 오히려 유리. **Regional 대학**(Newcastle·JCU·Federation·CDU) - PR 점수 +5점 보너스로 이민 유리. 목표: 학위 브랜드 → Go8, PR → Regional + Go8 결합(Adelaide·ANU·UWA)."
-        },
-        {
-          "q": "Regional 대학 졸업 후 취업은?",
-          "a": "전혀 문제없어요. 핵심 사실: 호주 기업은 **학교 위치보다 직무 능력**을 중시. 간호사·엔지니어·IT·회계사·교사 등은 **호주 전역 수요 균등**. Regional 대학 5대 이점: ①**학비 저렴**(도시 대학 대비 20~30% 절감) ②**Destination $15K 장학금** 자동 대상 ③**한국인 적어** 영어 환경 좋음 ④**Regional 취업 시 PR +5점** ⑤**생활비 25~35% 저렴**. 실제 취업 데이터: **Newcastle 간호학 졸업생 취업률 96%**, **JCU 의대 졸업생 100% AHPRA 등록**. CDU 간호 졸업생도 다윈 병원 취업률 90%+. 단, 졸업 후 도시 대기업 취업 원하면 시드니·멜번 자유 이동 가능. Go8 + Regional 결합 학교(Adelaide·UWA·ANU)가 **두 장점 다 누림** - 학위 인지도 + PR 가산점. 한국 귀국 시에도 Go8 인지도 도움."
-        },
-        {
-          "q": "Bond 대학교는 어떤 학교인가요?",
-          "a": "**Bond University**: 호주 **유일 비영리 사립 대학**. Gold Coast QLD Robina 지역 위치. 1987년 설립. **특징**: ①**학기 3개/년**(1월·5월·9월) - 1년 **3번 입학 가능**(빠른 시작) ②**법학 JD 2년 완성**(일반 대학 3년) ③**소규모 수업** 평균 15~20명, 교수 밀착 지도 ④**국제학생 35%**, 다양성 높음 ⑤**학사 2년 완성 가능**(속성 프로그램) ⑥캠퍼스 자연 풍부(호수·조깅로). **학비**: $38K~$55K/년(일반 Go8과 비슷). **강점 전공**: 법학(JD·2년), 경영(MBA), 심리학, 의료(2021년 개원). **단점**: Go8 아님, Regional 아님(PR +5점 없음). **장점**: 빠른 학위 취득(학사 2년, 석사 1년), 커리어 체인지에 최적. **추천 대상**: ①빠른 학위 완성 원함 ②소규모 밀착 교육 선호 ③30대 이상 커리어 체인지 ④법학 빠른 JD 목표. 학교 규모 작아(5천명) 학생 지원 우수. PR 목적보다는 빠른 학위·커리어 전환에 추천."
-        },
-        {
-          "q": "RMIT·UTS는 좋은 대학인가요?",
-          "a": "네, 매우 좋아요. ①**RMIT**(Melbourne, QS 125) - **패션·디자인·미디어·IT·엔지니어링 세계적 수준**. 산업 연계 인턴십 강점. 멜번 CBD 도심 위치. 학비 $30K~$42K. 졸업생 취업률 92%+. 특화: Fashion & Textiles, Architecture, Media & Communication, Aviation. ②**UTS**(Sydney, QS 88) - IT·공학·비즈니스·디자인 강세. **시드니 CBD 도심** 위치로 취업 연계 최고. 학비 $32K~$45K. 특화: Information Technology, Business, Engineering, Creative Industries. **공통 장점**: 도시 중심 위치, 실용 교육, 취업률 높음(90%+), 기업 네트워크 강함, 해외 유학생 많음(다문화). **단점**: Regional 아니라 **PR +5점 없음**, Go8 아님. **IT·디자인·미디어 분야는 Go8보다 오히려 유리**(산업 연계). **선택 가이드**: ①도심 위치 + 실용 학업 → RMIT·UTS ②명문 브랜드 + 연구 → Go8 ③PR 목표 + 비용 → Regional. RMIT·UTS는 한국 귀국 시에도 인지도 높음."
-        },
-        {
-          "q": "디플로마 과정이란 무엇인가요?",
-          "a": "**Diploma(디플로마)**는 호주 자격체계(AQF) **Level 5** 준학사 과정. 기간 **1~2년**. 구조: Cert IV(AQF 4) < Diploma(5) < Advanced Diploma(6) < Bachelor(학사 7). **제공 기관**: TAFE(정부 직업학교)·사립 컬리지(Holmes, ACAP 등). 수료 후 2가지 선택: ①**Pathway로 대학 2~3학년 편입**(학점 50% 인정) ②**Diploma 자격으로 취업**. **학비**: TAFE $13K~$23K/년, 사립 $12K~$22K/년(학사 대비 30~40% 저렴). **입학 조건**: IELTS 5.5(학사 6.0보다 낮음). 장점: ①**저비용·빠른 취업·학사 학점 인정** ②실무 중심 커리큘럼 ③RPL(선행학습인정)로 경력 인정 가능. **주요 전공**: IT·회계·비즈니스·마케팅·간호(Diploma of Nursing - Enrolled Nurse)·호스피탈리티·디자인·교육보조. Diploma of Nursing 졸업 시 EN(Enrolled Nurse)로 취업 가능, 나중 RN 편입도 가능."
-        },
-        {
-          "q": "Certificate III/IV와 디플로마의 차이는?",
-          "a": "AQF 체계 비교: ①**Cert III(Level 3)**: 기초 직업 기술, 6개월~2년. **트레이드**(용접·목수·전기·요리·제빵·간호보조) 주 자격 ②**Cert IV(Level 4)**: 심화 직업 기술, 6개월~2년. 관리자 초급·전문 기술 ③**Diploma(Level 5)**: 전문 관리 수준, 1~2년. 사무·IT·회계 주력 ④**Advanced Diploma(Level 6)**: 관리직·전문 직종, 1.5~2년 ⑤**Bachelor(Level 7)**: 학사 3~4년. **학비 비교**: Cert III $10~$18K/년, Diploma $13~$22K/년, Advanced Diploma $15~$25K/년. **목적별**: 트레이드 → Cert III/IV, 사무·IT·경영 → Diploma가 일반적. **PR 관점**: **Cert III 트레이드**(용접·배관·전기·목수 등)는 MLTSSL로 **PR 가능**. Diploma는 주로 학사 편입 후 PR. Cert III는 어프렌티스 유급 훈련으로 실질 비용 0 가능 - 최저 리스크 PR 루트."
-        },
-        {
-          "q": "Blue Mountains Hotel School이 어떤 학교인가요?",
-          "a": "**Blue Mountains International Hotel Management School(BMIHMS)**. 시드니에서 기차 2시간 거리 **NSW Regional - Leura**(Blue Mountains). 1991년 설립. **특징**: ①**호주 최고 호텔경영학교** ②5성급 호텔 경영자 양성 특화 ③**Advanced Diploma Hospitality 2년 과정** ④학사·석사 과정 제공(Torrens University 제휴) ⑤**실습 중심**(학업 중 6개월 호텔 인턴십 필수) ⑥**NSW Regional 위치로 Destination $15K 자동 대상** ⑦졸업생 호주·세계 5성급 호텔 취업. **학비** 연 $25K~$35K. 입학 조건 IELTS 6.0. **장점**: 실습 집중도 William Angliss보다 높음, Blue Mountains 경치 좋음, 캠퍼스 생활 집중(Regional 특성). **단점**: 시드니 접근성 낮음(시내 2시간). 핫텔 GM·리조트 경영자 목표 시 **최적**. 한국 유명 호텔리어 다수 배출 - 힐튼·메리어트 커리어 경로."
-        },
-        {
-          "q": "호주 대학 지원 대행 서비스가 무료인가요?",
-          "a": "호주유학의 지원 대행 서비스는 수속 플랜에 포함되어 있어요. 초기 상담은 무료. 수속 결정 시 플랜(Basic·Standard·Premium)에 따라 서비스 범위가 달라요. 대부분의 유학 에이전트는 대학에서 수수료를 받으므로 학생은 무료인 경우가 많아요."
-        },
-        {
-          "q": "호주 유학원이 믿을 수 있는지 어떻게 판단하나요?",
-          "a": "검증 5단계: ①**PIER 등록** - 한국유학원협회 등록 여부 확인(pierworld.co.kr) ②**실제 케이스** - 이름·학교·비자 증빙 요구(이름 블러처리 OK) ③**카카오·인스타 후기** - 실명 후기·영상 리뷰 확인 ④**학교 편향** - 특정 학교만 추천하지 않는지(수수료 높은 학교만 푸시하면 부실) ⑤**투명한 수수료** - 계약서 명시, 환불 정책 명확. **주의 사항**: ①'**무조건 영주권 보장**' 주장 ②'**100% 합격**' 약속 ③실적 비공개 ④계약 전 비용 요구 ⑤부정적 정보 숨김 ⑥학생 조건 안 묻고 학교 추천. **호주유학 검증**: ①**QEAC E240 공인**(호주 정부 인정 전문가 자격) ②**19년 경력** ③**실제 케이스 500+개** 증빙 공개 ④카카오 **성실한 응대** ⑤솔직한 기대치 관리. 비교 상담 **3~5곳** 해보고 결정 추천. 직접 여러 유학원 상담 받아보고 답변 품질·솔직함·구체성 비교."
-        },
-        {
-          "q": "호주 대학 수업 방식이 한국과 다른가요?",
-          "a": "크게 달라요. 출석 체크 없는 경우 많고, 에세이·그룹과제·구술발표 중심. 교수와 직접 토론. 오픈북 시험도 있어요. 한국식 암기형 시험 비중이 낮아요. EAP에서 이 방식을 미리 익히는 게 핵심입니다."
-        },
-        {
-          "q": "호주 대학 학점(GPA)은 어떻게 계산되나요?",
-          "a": "High Distinction(HD, 85%+), Distinction(D, 75~84%), Credit(C, 65~74%), Pass(P, 50~64%). GPA 7점 만점 기준 HD=7, D=6, C=5, P=4. 대학원 진학이나 우수 졸업장은 D 이상 유지 필요."
-        },
-        {
-          "q": "학교 순위(랭킹)가 정말 중요한가요?",
-          "a": "**중요하지만 전부는 아님**. 한국 학부모는 QS 랭킹 중시 → Go8 (UMelb·USyd·UNSW·Monash·ANU·UQ·UWA·Adelaide) 선호. 그러나 호주 현지 취업·PR은 다름: ①**전공별 강세** (UTS = IT 명문 / Curtin = Mining / Griffith = Hospitality) ②**Cat 2 지역 (시드니/멜번 외)** = PR +15점 / 학교 명성과 별개 ③**졸업률·취업률** (Times Higher 등) = 한국 부모는 모르는 지표. 학생 목표 (PR vs 명성)에 따라 답이 달라집니다. 함께 정해야 할 부분."
-        },
-        {
-          "q": "Sandstone, Go8, IRU, RUN 같은 그룹 차이가 뭔가요?",
-          "a": "호주 대학 그룹: ①**Group of Eight (Go8)** = 연구 명문 8곳 (UMelb/USyd/UNSW/Monash/ANU/UQ/UWA/Adelaide). 한국 SKY 같은 위치 ②**Sandstone** = 19세기 설립 명문 (Go8 6곳 포함) ③**ATN (호주공대)** = 실용 중심 (RMIT/QUT/UTS/Curtin/UniSA) ④**IRU = 혁신연구대학** ⑤**RUN = 지역대학 네트워크** (Federation·CDU·USC 등 / Cat 2 다수 = PR 강세). 한국 부모님 자긍심 = Go8 / 가성비 + PR = ATN 또는 RUN. 학생별 맞춤은 상담에서."
-        },
-        {
-          "q": "TAFE와 사립 컬리지의 차이는?",
-          "a": "**TAFE(Technical and Further Education)**: 정부 운영 직업교육. 주별 운영(TAFE NSW·QLD·VIC·WA·SA 등). 장점: ①정부 신뢰도 최고 ②학비 저렴($13K~$23K/년) ③현장 실습 강점 ④PR 이민부 선호 ⑤Cricos 등록 확실. 단점: 입학 일정 제한(보통 2월·7월), 과정 표준화. **사립 컬리지(Private College)**: 민간 운영(Holmes·ACAP·Stott's·Evans 등). 장점: ①입학 유연(매월 가능) ②과정 다양 ③도심 위치 ④영어 조건 유연. 단점: 학비 비슷하거나 높음, 질 편차 큼, PR 심사 시 검증 엄격. 추천: ①**영주권·안전** → TAFE ②**요리·디자인·패션 특수 분야** → 전문 사립(Le Cordon Bleu·William Angliss·Whitehouse Institute) ③**IT·비즈니스 일반** → 둘 다 가능. TAFE가 한국 학생에게 가장 안전한 선택."
-        },
-        {
-          "q": "TAFE Queensland가 좋은 이유는?",
-          "a": "**TAFE QLD**은 호주 **최대 직업교육기관**. QLD 주정부 운영. **특징**: ①**신뢰도 최고**(정부 기관) ②**전주 캠퍼스 10+** - Gold Coast·Brisbane·Cairns·Sunshine Coast·Townsville·Mackay·Sunny Coast·Toowoomba 등 ③**다양한 과정** - Cert II~Advanced Diploma, **500+ 과정** ④**국제학생 학비 저렴** - $13K~$22K/년 ⑤**Regional 캠퍼스**(Cairns·Townsville·Mackay) + **Destination $15K 장학금** 가능 ⑥QLD 고용주 네트워크 강함(Tourism·Construction·Mining). **인기 과정**: Commercial Cookery(Gold Coast·Brisbane)·Nursing·IT·Hospitality·Trades·Business·Early Childhood Education. **입학**: IELTS 5.5, **매월 시작 가능**. **Gold Coast TAFE** - 관광·호스피탈리티 명성 전 세계. **Cairns TAFE** - 해양·관광 특화(Great Barrier Reef 연계). QLD는 **생활비 저렴·날씨 좋음·Regional 장학금 = 가성비 최고**. 한국인 TAFE QLD 선호도 1위."
-        },
-        {
-          "q": "Foundation과 Diploma 차이가 뭔가요?",
-          "a": "두 과정 모두 대학 진학 준비 과정이지만 **큰 차이**가 있어요. **Foundation Program**: ①**대상** - 고졸·검정고시·Year 12 미달 학생 ②**기간** 8~18개월 ③**학점 인정 없음** - 대학 1학년부터 시작 ④**학비** $28K~$45K ⑤**영어 요건** IELTS 5.5~6.0 ⑥**추천 대상** - 명문대(Go8) 도전·의대 목표. **Diploma Pathway**: ①**대상** - 고졸 + 기초 학력 있는 학생 ②**기간** 8~12개월 ③**학점 인정** - 대학 1학년 학점으로 **2학년 편입** ④**학비** $25K~$38K ⑤**영어 요건** IELTS 5.5~6.5 ⑥**추천 대상** - 빠른 졸업·비용 절약. **예시 비교 (Deakin 간호학 목표)**: Foundation 1년 + 대학 3년 = **총 4년** vs Diploma 1년 + 대학 2년 = **총 3년**(1년 절약, 학비 $25K+ 절약). **⚠️ 단점**: Diploma는 제한된 전공(주로 경영·IT·공학)만 가능, 의대·법대·심리학은 **Foundation 필수**. 학생 목표별 최적 경로 호주유학 무료 상담."
-        },
-        {
-          "q": "Taylors College, Trinity College는 어떤 학교인가요?",
-          "a": "**각 명문 대학의 공식 파운데이션 파트너 컬리지**예요. **Taylors College Sydney** (taylorssydney.edu.au): ①**University of Sydney 전용** 파운데이션(USFP) ②Navitas Australia 운영 ③Waterloo 캠퍼스(Sydney 본캠 3km 거리) ④**HAPP(14주 초단기)** - 고성적 학생용 Fast Track ⑤학비 약 $38K~$42K ⑥IELTS 6.0(Writing 5.0). **Trinity College** (trinity.unimelb.edu.au): ①**University of Melbourne 전용** 유일 공식 파운데이션(TCFS) ②**Melbourne 대학 본캠 Parkville 내부** 위치 ③**90%+ Melbourne 대학 합격률** - 호주 최고 수준 ④35년 역사 ⑤학비 약 $40K~$45K ⑥IELTS 6.0~6.5 ⑦Go8(Monash·Sydney·Adelaide·UQ·UNSW·UWA·ANU) 모두 진학 가능 ⑧해외 명문대(MIT·Boston·McGill·Manchester) 진학 실적. **공통점**: 연 2~3회 개강, 조기 신청 권장(6~12개월 전), 10~15명 소규모 수업. **⭐ Wilson 추천**: 명문 Go8·의대 대학원 MD 루트 목표 시 Trinity, 시드니 거주 선호 시 Taylors. 두 곳 모두 경쟁률 매우 높음 - 호주유학 의대반 프리미엄 상담으로 합격 전략."
-        },
-        {
-          "q": "Monash College, UNSW College, Deakin College는 뭐가 다른가요?",
-          "a": "각 대학의 **직영 파트너 컬리지**로 해당 대학 진학 디딤돌 역할. **Monash College** (monashcollege.edu.au): ①**Monash University 100% 자회사** (1994년 설립) ②Melbourne CBD 캠퍼스 ③**MUFY(Monash University Foundation Year)** + **Diploma 6종**(Business·IT·Engineering·Science·Design·Arts) ④**Diploma 수료 시 Monash 2학년 직행** ⑤학비 $32K~$42K ⑥IELTS 6.0+. **UNSW College** (unswcollege.edu.au): ①UNSW Sydney 공식 파트너 ②**1989년 설립 - 호주 최장수 파운데이션** ③Foundation Studies + Diploma Programs ④학비 $38K~$42K ⑤IELTS 6.0~6.5 ⑥UNSW 의대는 별도 UCAT 필수. **Deakin College** (deakincollege.edu.au): ①Navitas 운영·Deakin University 공식 파트너 ②Melbourne Burwood + Geelong 2개 캠퍼스 ③**1974년 설립 - 50년 전통** ④Foundation 8개월 + Diploma 12개월(2학년 직행) ⑤학비 $28K~$35K - 상대적 저렴 ⑥Navitas Family Bursary 10% 할인 ⑦IELTS 5.5~6.0. **비교**: 명성 Monash College > UNSW College > Deakin College. 비용 Deakin < Monash < UNSW. 합격률 Deakin > Monash > UNSW(가장 경쟁). 💡 **Wilson Tip**: Go8 중 **가장 접근성 높은** 파운데이션은 Monash College."
-        },
-        {
-          "q": "Foundation이나 Diploma는 어느 컬리지가 학생별로 맞나요?",
-          "a": "목표·예산·영어별 추천 **Case별 맞춤**: **🩺 의대 목표 학생**: (A) **Newcastle International College (FSM)** - 호주 유일 의대 파운데이션·UCAT 면제·Packaged Offer / (B) **Adelaide University College + Eynesbury** - Adelaide 의대 진학 유리·Regional PR +5 / (C) **Trinity College** - Melbourne 대학원 MD 루트. **🎓 Go8 명문대 목표**: (A) **Trinity College** (90% Melbourne 합격) / (B) **Taylors College Sydney** / (C) **UNSW College**. **⚡ 빠른 졸업·비용 절약**: (A) **Deakin College Diploma** (1년+2학년 직행) / (B) **Griffith College Diploma** (Gold Coast·호스피탈리티) / (C) **Edith Cowan College Diploma Part 2** (8개월 최단). **📚 영어 부족 (IELTS 5.0 이하)**: (A) **Monash College MUFY Extended** / (B) **Adelaide UC Extended** (Kaplan 영어 강함) / (C) **Trinity College Extended**. **🌄 Regional PR 목표**: (A) **Adelaide UC/Eynesbury** (전체 Regional) / (B) **Newcastle International College** / (C) **Deakin College Geelong**. 학생 개인 조건(GPA·영어·예산·전공·가족 상황) 파악 후 맞춤 추천 - 호주유학 무료 상담."
-        },
-        {
-          "q": "Foundation 입학 시기와 신청 마감은 언제인가요?",
-          "a": "대부분 연 2~3회 Intake 운영. **주요 컬리지 Intake (2026~2027)**: **Trinity College** - 2월·8월 (연 2회만·조기 신청 필수). **Taylors College Sydney** - 2월·7월·10월(HAPP 추가). **Monash College** - 2월·7월·10월(Fast Track 다수). **UNSW College** - 2월·4월·9월·10월(4회 가장 유연). **Adelaide UC** - 2월·6월·10월. **Eynesbury** - 1월·4월·10월. **Newcastle International College (FSM)** - 2월·6월 (⚠️ **2026 마감, 2027 Feb Intake 모집 중** - 인기 조기 마감). **Deakin College** - 3월·7월·10월. **Curtin College** - 2월·6월·10월. **Griffith College** - 2월·6월·10월. **⚠️ 조기 신청 필수**: ①**Trinity·Newcastle FSM·UNSW**는 **6~12개월 전** 신청 권장 ②비자 처리 2~3개월 ③OSHC 건강보험 ④기숙사/홈스테이 예약. **준비 서류**: 여권·학교성적표 영문·영어 점수(IELTS/PTE)·재정증명(AUD $29,710+)·GS 진술서. **신청 절차**: 컬리지 지원 → Letter of Offer → 학비 선납 → CoE 발급 → 학생비자 500 신청 → OSHC 가입. 호주유학이 서류·비자·영어 준비 원스톱 지원."
-        },
-        {
-          "q": "Foundation 안 가도 대학 직접 입학 가능한 케이스는?",
-          "a": "한국에서 **고졸 또는 검정고시 + 영어**만으로 직접 입학 가능한 경우: ①**Foundation 면제 학교** = QUT, Western Sydney, Federation, La Trobe 등 (한국 고교 성적 인정) ②**조건부 입학 (Conditional Offer)** = 영어 점수 부족해도 입학 확정 / 학교 부설 어학원 졸업 시 본과 진학 ③**고등학교 점수 우수** (내신 90+ 또는 모의고사 1-2등급) = Direct Entry 가능. **단**, Go8은 거의 Foundation 필수 (검정고시 학생). 학생 성적/영어/목표에 따라 케이스별 매우 다름. 정확한 진단은 카카오 상담."
-        },
-        {
-          "q": "사립 어학원과 대학 부설 어학원의 차이가 뭔가요?",
-          "a": "**대학 부설(ELC)**: 장점 - 해당 대학 **직통**, EAP 수료 시 IELTS 면제, 대학 캠퍼스·시설 사용, 교수진 네트워킹, 실제 학업 환경 경험. 단점 - 한 대학만 연계, 수업료 약간 높음($330~$420/주). 예: JCU ELC, Newcastle INTO, Adelaide ELC, Deakin ELC. **사립 어학원**: 장점 - 여러 대학 선택지, 분위기·비용 다양, Cambridge·IELTS·Business 특화, 도심 접근성, 유학생 다국적 네트워크. 단점 - 대학 입학 시 IELTS 별도 필요할 수 있음, 수업 질 편차 큼. 예: Lexis, Kaplan, ILSC, Navitas, Browns. 가격대 비슷($280~$400/주). **추천 가이드**: ①대학·전공 확정 → **부설 ELC** ②여러 대학 고민 중 → **사립 어학원** 수료 후 선택 ③IELTS 목표 → IELTS 특화 사립 ④Go8 목표 → 부설 ELC(Monash College 등). 한국인에게는 부설 ELC가 PR 루트 유리."
-        },
-        {
-          "q": "렉시스, 브라운즈, 그린위치는 어떤 학교인가요?",
-          "a": "①**Lexis English**(Brisbane·Gold Coast·Noosa·Sydney·Perth 5개 캠퍼스) - 소규모 수업(최대 15명), 각 도시 최고 입지. IELTS·비즈니스 특화. Griffith·Bond·QUT 패스웨이. Noosa·Gold Coast 해변 분위기. 학비 $310~$360/주. ②**Browns English Language School**(Brisbane·Gold Coast·Sydney·Melbourne 4개 캠퍼스) - **1975년 설립 호주 최고 전통**. 가족 경영 따뜻한 분위기, Gold Coast 해변 위치 명소. Bond·Griffith·QUT 연계. 학비 $290~$340/주. ③**Greenwich English College**(Sydney·Melbourne·Brisbane 3개 캠퍼스) - IELTS 특화, 도심 CBD 위치. 직장인·유학생 혼합. 학비 $300~$370/주. **모두 CRICOS 등록**, 학생비자 발급 가능. 한국 학생 비율 5~15% 적정. 선택 팁: 해변 분위기 → Lexis·Browns / 도심·IELTS → Greenwich / 대학 파트너십 → 3곳 모두 강력."
-        },
-        {
-          "q": "나비타스(Navitas English)는 어떤 학교인가요?",
-          "a": "Navitas English는 Perth CBD와 Sydney Hyde Park 2개 캠퍼스 운영 사립 어학원. 1981년 설립, CRICOS 00289M. 과정: General English·Academic English·IELTS Preparation·Cambridge Preparation. **Curtin University 공식 패스웨이 파트너**이며, 70개+ Direct Entry 파트너 기관과 협약. Academic English 수료 시 **IELTS 없이 파트너 기관 직접 입학** 가능. ⚠️ **INTO는 완전 별개 회사**, Navitas 그룹 산하 대학 College(Macquarie College, La Trobe Melbourne 등)와도 별개 브랜드. **2026 프로모션: 24주+ 등록 시 등록비 $230 면제 + 교재 50% 할인**. 한국인 비율 상대적으로 낮아 영어 환경 좋음. 학비 $290~$380/주. Curtin 진학 목표면 Navitas가 최적."
-        },
-        {
-          "q": "샵스톤(Shafston)은 어떤 학교인가요?",
-          "a": "**Shafston International College** - Brisbane에 위치한 사립 어학원. 1996년 설립. 특징: ①**Brisbane 역사적 건물**(1851년 건축) 캠퍼스 - 역사적 분위기 ②**ELICOS + VET(직업교육)** 동시 수강 가능한 특이 구조 ③**교내 기숙사 완비** - 도착 초기 편리(특히 첫 방문자) ④Brisbane 시내 10분 거리 ⑤Cert III Hospitality/Business 동시 이수 가능. 장점: ①어학원+직업자격증 **원스톱** ②Gold Coast 해변 15분 거리 ③IELTS·케임브리지·EAP 제공. 학비 $290~$370/주. 한국 학생 비율 10~15%. 기숙사 $250~$350/주(식사 포함 옵션). 패스웨이: Bond University, Griffith University, QUT 등. 2026 프로모션: 장기 등록 시 최대 15% 학비 할인. 추천: 첫 호주 방문자, 요리·호스피탈리티 병행 원할 때 최적."
-        },
-        {
-          "q": "어학원 기간은 보통 얼마나 다니나요?",
-          "a": "현재 영어 수준별로 달라요. ①**영어 전무(왕초보)**: ELICOS 12~20주 + EAP 10주 = **22~30주(5~7개월)** ②**중급(IELTS 5.0~5.5)**: EAP 10주 = **10주(2.5개월)** ③**상급(IELTS 6.0+)**: EAP 10주 권장(선택사항). 대부분 IELTS 6.0 보유자도 EAP 수료 권장(대학 학업 성공률 ↑). **학비**: $280~$400/주. **총비용**: ①왕초보 - $7K~$13K ②중급 - $4,500~$6,500 ③상급 EAP - $4,500~$6,500. **주간 스케줄**: 수업 20~25시간/주(오전 9시~오후 3시), 숙제·복습 15~20시간, 방과후 액티비티·관광. **입학 레벨 테스트**: 첫날 배치고사 → 본인 레벨 반 배정(Beginner~Upper-Intermediate~Advanced). 호주유학이 현재 실력 평가 후 최적 기간 추천. 중간 레벨 상승 시 반 조정 가능."
-        },
         {
           "q": "UNSW 와 University of Sydney 중 어디가 좋나요?",
           "a": "한국 학생 관점 비교: ①**위치**: UNSW=Kensington (시내에서 버스 30분, 캠퍼스 분위기 진함) / USyd=Camperdown (시내 도보 가능, 역사 깊음) ②**강한 전공**: UNSW=Engineering·Commerce·IT·Medicine / USyd=Medicine·Law·Arts·Architecture·Pharmacy ③**입학 컷**: 둘 다 학사 IELTS 6.5 (Medicine 7.0) / 한국 12학년 또는 검정고시는 Pathway 경유 ④**학비**: 학사 AUD 48K~55K/년 (전공별). **호주 유학은 다양한 케이스가 있어서**, UNSW Engineering Co-op (5년 인턴 포함) 으로 PR 가는 케이스, USyd Commerce + 회계사 자격증으로 PR 가는 케이스 둘 다 있습니다. 본인 케이스 정밀 매칭은 카톡 상담에서 정리해드립니다."
@@ -575,6 +459,122 @@
         {
           "q": "학교 입학에 SAT·ACT 필요한가요?",
           "a": "호주 학사는 **SAT·ACT 필요 없음**. ①**한국 12학년 성적 + 영어** 으로 학사 본 과정 (단 검정고시는 Pathway 필수) ②**ATAR (호주 12학년 성적 환산)** 이 사용되지만 한국 학생에게는 IELTS + 한국 성적표 + 추천서로 대체 ③**예외**: ①**의대 = ISAT 또는 UCAT** ②**Graduate Entry MD = GAMSAT** ③**Law 일부 = LSAT** ④**MBA = GMAT** (대부분 학교 면제 가능). **호주 유학은 다양한 케이스가 있어서**, 미국 학사 트랙 (SAT·ACT) 준비하다가 호주로 전향하는 케이스에서 시험 부담 줄어드는 점이 호주 유학 매력 중 하나. 본인 케이스 카톡 상담."
+        },
+        {
+          "q": "파운데이션 과정이 뭔가요?",
+          "a": "**Foundation Program(파운데이션)**은 고교 졸업 후 대학 진학 전 **1년짜리 준비 과정**. 대학 학위(Bachelor) 아님. **주요 과정**: ①**Adelaide College**(Adelaide 대학 직통) ②**Sydney University Foundation Program** ③**Trinity College**(Melbourne 대학) ④**UNSW Foundation** ⑤**Monash College**. **대상**: 고졸·검정고시 출신, 해외 고교 졸업자(Year 12 미이수). 기간 1년, **학비 $28K~$40K**. 졸업 시 해당 대학 **조건부 입학**. 핵심 루트: **검정고시 → Foundation → Go8 의대·법대**의 핵심 단계. 영어 조건: IELTS 5.5~6.0. **디플로마와 차이**: ①Foundation - 대학 준비만, 학점 인정 안됨, 1년 ②Diploma - 자체 직업 자격 + 대학 2학년 편입 가능, 1~2년. **선택 가이드**: Go8·명문대 목표 → Foundation / 실용 직업 + 학위 → Diploma. Foundation은 대학 진학률 90%+, 명문대 진학에 유리. 호주유학이 Foundation 학교 고르기·지원 대행."
+        },
+        {
+          "q": "디플로마 과정은 뭔가요?",
+          "a": "**Diploma(디플로마)**는 호주 자격체계(AQF) **Level 5** 준학사 과정. 기간 **1~2년**. 제공: TAFE(정부 운영)·사립 컬리지. 수료 후 **2가지 선택**: ①**대학 2학년 편입**(Pathway, 학점 50% 인정) ②**바로 취업**. **학비**: TAFE $13K~$23K/년, 사립 $12K~$22K/년(학사 대비 **30~40% 저렴**). **입학 조건**: IELTS 5.5 또는 EAP 수료(학사 6.0보다 낮음). **장점**: ①학비 절약 ②입학 쉬움 ③실무 중심 ④학사 편입 시 총 비용 절약. **주요 분야**: ①**IT** - Diploma of IT → 학사 편입 ②**회계** - Diploma of Accounting → CPA 루트 ③**비즈니스** - Diploma of Business ④**호스피탈리티** - Diploma Hospitality ⑤**요리** - Cert IV + Diploma Commercial Cookery ⑥**간호** - Diploma of Nursing(EN·등록간호사) ⑦**유아교육**. **추천**: 학사 학비 부담 큰 학생, 취업 빠르게 원하는 학생, RPL(선행학습인정)로 빠른 수료 가능한 경력자. Foundation보다 실용적."
+        },
+        {
+          "q": "어떤 대학을 선택해야 하나요?",
+          "a": "목표별 추천: ①**PR 목표** → Regional 대학: Adelaide(Go8+Regional), Newcastle(간호), JCU(의·간호), Deakin(IT), Federation(초저비용), CDU(다윈 최저) ②**명문 학위** → Go8: Melbourne·UNSW·Sydney·Monash ③**최소 비용** → CDU($20K~$30K/년)·Federation·UTAS ④**의대** → JCU·Adelaide·Melbourne·UQ·Monash ⑤**간호** → Newcastle·JCU·Flinders ⑥**IT** → Deakin·UNSW·UTS ⑦**요리** → William Angliss·Le Cordon Bleu ⑧**트레이드** → TAFE QLD·WA·NSW. 선택 5요소: **전공 적합성 > 예산 > 영어 수준 > PR 여부 > 지역 선호도**. Regional + MLTSSL 조합이 PR에 가장 유리. 도시 Go8 + 명문 학위는 귀국 후 커리어 유리. **Wilson 카카오 studywilson에서 맞춤 상담** 시 전공·예산·목표 분석 후 최적 학교 3~5개 제시."
+        },
+        {
+          "q": "Go8 대학과 일반 대학의 차이는?",
+          "a": "**Go8(Group of Eight)**: 호주 최상위 8개 연구중심 대학. ①**University of Sydney**(QS 18) ②**UNSW Sydney**(QS 19) ③**University of Melbourne**(QS 13) ④**Monash University**(QS 42) ⑤**University of Queensland**(QS 40) ⑥**University of Adelaide**(QS 82) ⑦**University of Western Australia**(QS 72) ⑧**ANU**(QS 30). **장점**: 연구 질, 학위 인지도(국제·한국), 교수진(Nobel 수상자 다수), 대학원 진학 유리, 대기업 취업 네트워크. **단점**: 학비 높음($38K~$55K), 경쟁 치열, 대부분 도시 대학(Regional +5점 없음) - **단 Adelaide·ANU·UWA는 예외로 Regional 지정**. **일반 대학**(Deakin·RMIT·UTS·Swinburne 등)도 호주에서 충분히 인정, 취업 시장 차별 적음. **전공별**: IT·디자인·미디어는 RMIT·UTS가 오히려 유리. **Regional 대학**(Newcastle·JCU·Federation·CDU) - PR 점수 +5점 보너스로 이민 유리. 목표: 학위 브랜드 → Go8, PR → Regional + Go8 결합(Adelaide·ANU·UWA)."
+        },
+        {
+          "q": "Regional 대학 졸업 후 취업은?",
+          "a": "전혀 문제없어요. 핵심 사실: 호주 기업은 **학교 위치보다 직무 능력**을 중시. 간호사·엔지니어·IT·회계사·교사 등은 **호주 전역 수요 균등**. Regional 대학 5대 이점: ①**학비 저렴**(도시 대학 대비 20~30% 절감) ②**Destination $15K 장학금** 자동 대상 ③**한국인 적어** 영어 환경 좋음 ④**Regional 취업 시 PR +5점** ⑤**생활비 25~35% 저렴**. 실제 취업 데이터: **Newcastle 간호학 졸업생 취업률 96%**, **JCU 의대 졸업생 100% AHPRA 등록**. CDU 간호 졸업생도 다윈 병원 취업률 90%+. 단, 졸업 후 도시 대기업 취업 원하면 시드니·멜번 자유 이동 가능. Go8 + Regional 결합 학교(Adelaide·UWA·ANU)가 **두 장점 다 누림** - 학위 인지도 + PR 가산점. 한국 귀국 시에도 Go8 인지도 도움."
+        },
+        {
+          "q": "Bond 대학교는 어떤 학교인가요?",
+          "a": "**Bond University**: 호주 **유일 비영리 사립 대학**. Gold Coast QLD Robina 지역 위치. 1987년 설립. **특징**: ①**학기 3개/년**(1월·5월·9월) - 1년 **3번 입학 가능**(빠른 시작) ②**법학 JD 2년 완성**(일반 대학 3년) ③**소규모 수업** 평균 15~20명, 교수 밀착 지도 ④**국제학생 35%**, 다양성 높음 ⑤**학사 2년 완성 가능**(속성 프로그램) ⑥캠퍼스 자연 풍부(호수·조깅로). **학비**: $38K~$55K/년(일반 Go8과 비슷). **강점 전공**: 법학(JD·2년), 경영(MBA), 심리학, 의료(2021년 개원). **단점**: Go8 아님, Regional 아님(PR +5점 없음). **장점**: 빠른 학위 취득(학사 2년, 석사 1년), 커리어 체인지에 최적. **추천 대상**: ①빠른 학위 완성 원함 ②소규모 밀착 교육 선호 ③30대 이상 커리어 체인지 ④법학 빠른 JD 목표. 학교 규모 작아(5천명) 학생 지원 우수. PR 목적보다는 빠른 학위·커리어 전환에 추천."
+        },
+        {
+          "q": "RMIT·UTS는 좋은 대학인가요?",
+          "a": "네, 매우 좋아요. ①**RMIT**(Melbourne, QS 125) - **패션·디자인·미디어·IT·엔지니어링 세계적 수준**. 산업 연계 인턴십 강점. 멜번 CBD 도심 위치. 학비 $30K~$42K. 졸업생 취업률 92%+. 특화: Fashion & Textiles, Architecture, Media & Communication, Aviation. ②**UTS**(Sydney, QS 88) - IT·공학·비즈니스·디자인 강세. **시드니 CBD 도심** 위치로 취업 연계 최고. 학비 $32K~$45K. 특화: Information Technology, Business, Engineering, Creative Industries. **공통 장점**: 도시 중심 위치, 실용 교육, 취업률 높음(90%+), 기업 네트워크 강함, 해외 유학생 많음(다문화). **단점**: Regional 아니라 **PR +5점 없음**, Go8 아님. **IT·디자인·미디어 분야는 Go8보다 오히려 유리**(산업 연계). **선택 가이드**: ①도심 위치 + 실용 학업 → RMIT·UTS ②명문 브랜드 + 연구 → Go8 ③PR 목표 + 비용 → Regional. RMIT·UTS는 한국 귀국 시에도 인지도 높음."
+        },
+        {
+          "q": "디플로마 과정이란 무엇인가요?",
+          "a": "**Diploma(디플로마)**는 호주 자격체계(AQF) **Level 5** 준학사 과정. 기간 **1~2년**. 구조: Cert IV(AQF 4) < Diploma(5) < Advanced Diploma(6) < Bachelor(학사 7). **제공 기관**: TAFE(정부 직업학교)·사립 컬리지(Holmes, ACAP 등). 수료 후 2가지 선택: ①**Pathway로 대학 2~3학년 편입**(학점 50% 인정) ②**Diploma 자격으로 취업**. **학비**: TAFE $13K~$23K/년, 사립 $12K~$22K/년(학사 대비 30~40% 저렴). **입학 조건**: IELTS 5.5(학사 6.0보다 낮음). 장점: ①**저비용·빠른 취업·학사 학점 인정** ②실무 중심 커리큘럼 ③RPL(선행학습인정)로 경력 인정 가능. **주요 전공**: IT·회계·비즈니스·마케팅·간호(Diploma of Nursing - Enrolled Nurse)·호스피탈리티·디자인·교육보조. Diploma of Nursing 졸업 시 EN(Enrolled Nurse)로 취업 가능, 나중 RN 편입도 가능."
+        },
+        {
+          "q": "Certificate III/IV와 디플로마의 차이는?",
+          "a": "AQF 체계 비교: ①**Cert III(Level 3)**: 기초 직업 기술, 6개월~2년. **트레이드**(용접·목수·전기·요리·제빵·간호보조) 주 자격 ②**Cert IV(Level 4)**: 심화 직업 기술, 6개월~2년. 관리자 초급·전문 기술 ③**Diploma(Level 5)**: 전문 관리 수준, 1~2년. 사무·IT·회계 주력 ④**Advanced Diploma(Level 6)**: 관리직·전문 직종, 1.5~2년 ⑤**Bachelor(Level 7)**: 학사 3~4년. **학비 비교**: Cert III $10~$18K/년, Diploma $13~$22K/년, Advanced Diploma $15~$25K/년. **목적별**: 트레이드 → Cert III/IV, 사무·IT·경영 → Diploma가 일반적. **PR 관점**: **Cert III 트레이드**(용접·배관·전기·목수 등)는 MLTSSL로 **PR 가능**. Diploma는 주로 학사 편입 후 PR. Cert III는 어프렌티스 유급 훈련으로 실질 비용 0 가능 - 최저 리스크 PR 루트."
+        },
+        {
+          "q": "Blue Mountains Hotel School이 어떤 학교인가요?",
+          "a": "**Blue Mountains International Hotel Management School(BMIHMS)**. 시드니에서 기차 2시간 거리 **NSW Regional - Leura**(Blue Mountains). 1991년 설립. **특징**: ①**호주 최고 호텔경영학교** ②5성급 호텔 경영자 양성 특화 ③**Advanced Diploma Hospitality 2년 과정** ④학사·석사 과정 제공(Torrens University 제휴) ⑤**실습 중심**(학업 중 6개월 호텔 인턴십 필수) ⑥**NSW Regional 위치로 Destination $15K 자동 대상** ⑦졸업생 호주·세계 5성급 호텔 취업. **학비** 연 $25K~$35K. 입학 조건 IELTS 6.0. **장점**: 실습 집중도 William Angliss보다 높음, Blue Mountains 경치 좋음, 캠퍼스 생활 집중(Regional 특성). **단점**: 시드니 접근성 낮음(시내 2시간). 핫텔 GM·리조트 경영자 목표 시 **최적**. 한국 유명 호텔리어 다수 배출 - 힐튼·메리어트 커리어 경로."
+        },
+        {
+          "q": "호주 대학 지원 대행 서비스가 무료인가요?",
+          "a": "호주유학의 지원 대행 서비스는 수속 플랜에 포함되어 있어요. 초기 상담은 무료. 수속 결정 시 플랜(Basic·Standard·Premium)에 따라 서비스 범위가 달라요. 대부분의 유학 에이전트는 대학에서 수수료를 받으므로 학생은 무료인 경우가 많아요."
+        },
+        {
+          "q": "호주 유학원이 믿을 수 있는지 어떻게 판단하나요?",
+          "a": "검증 5단계: ①**PIER 등록** - 한국유학원협회 등록 여부 확인(pierworld.co.kr) ②**실제 케이스** - 이름·학교·비자 증빙 요구(이름 블러처리 OK) ③**카카오·인스타 후기** - 실명 후기·영상 리뷰 확인 ④**학교 편향** - 특정 학교만 추천하지 않는지(수수료 높은 학교만 푸시하면 부실) ⑤**투명한 수수료** - 계약서 명시, 환불 정책 명확. **주의 사항**: ①'**무조건 영주권 보장**' 주장 ②'**100% 합격**' 약속 ③실적 비공개 ④계약 전 비용 요구 ⑤부정적 정보 숨김 ⑥학생 조건 안 묻고 학교 추천. **호주유학 검증**: ①**QEAC E240 공인**(호주 정부 인정 전문가 자격) ②**19년 경력** ③**실제 케이스 500+개** 증빙 공개 ④카카오 **성실한 응대** ⑤솔직한 기대치 관리. 비교 상담 **3~5곳** 해보고 결정 추천. 직접 여러 유학원 상담 받아보고 답변 품질·솔직함·구체성 비교."
+        },
+        {
+          "q": "호주 대학 수업 방식이 한국과 다른가요?",
+          "a": "크게 달라요. 출석 체크 없는 경우 많고, 에세이·그룹과제·구술발표 중심. 교수와 직접 토론. 오픈북 시험도 있어요. 한국식 암기형 시험 비중이 낮아요. EAP에서 이 방식을 미리 익히는 게 핵심입니다."
+        },
+        {
+          "q": "호주 대학 학점(GPA)은 어떻게 계산되나요?",
+          "a": "High Distinction(HD, 85%+), Distinction(D, 75~84%), Credit(C, 65~74%), Pass(P, 50~64%). GPA 7점 만점 기준 HD=7, D=6, C=5, P=4. 대학원 진학이나 우수 졸업장은 D 이상 유지 필요."
+        },
+        {
+          "q": "학교 순위(랭킹)가 정말 중요한가요?",
+          "a": "**중요하지만 전부는 아님**. 한국 학부모는 QS 랭킹 중시 → Go8 (UMelb·USyd·UNSW·Monash·ANU·UQ·UWA·Adelaide) 선호. 그러나 호주 현지 취업·PR은 다름: ①**전공별 강세** (UTS = IT 명문 / Curtin = Mining / Griffith = Hospitality) ②**Cat 2 지역 (시드니/멜번 외)** = PR +15점 / 학교 명성과 별개 ③**졸업률·취업률** (Times Higher 등) = 한국 부모는 모르는 지표. 학생 목표 (PR vs 명성)에 따라 답이 달라집니다. 함께 정해야 할 부분."
+        },
+        {
+          "q": "Sandstone, Go8, IRU, RUN 같은 그룹 차이가 뭔가요?",
+          "a": "호주 대학 그룹: ①**Group of Eight (Go8)** = 연구 명문 8곳 (UMelb/USyd/UNSW/Monash/ANU/UQ/UWA/Adelaide). 한국 SKY 같은 위치 ②**Sandstone** = 19세기 설립 명문 (Go8 6곳 포함) ③**ATN (호주공대)** = 실용 중심 (RMIT/QUT/UTS/Curtin/UniSA) ④**IRU = 혁신연구대학** ⑤**RUN = 지역대학 네트워크** (Federation·CDU·USC 등 / Cat 2 다수 = PR 강세). 한국 부모님 자긍심 = Go8 / 가성비 + PR = ATN 또는 RUN. 학생별 맞춤은 상담에서."
+        },
+        {
+          "q": "TAFE와 사립 컬리지의 차이는?",
+          "a": "**TAFE(Technical and Further Education)**: 정부 운영 직업교육. 주별 운영(TAFE NSW·QLD·VIC·WA·SA 등). 장점: ①정부 신뢰도 최고 ②학비 저렴($13K~$23K/년) ③현장 실습 강점 ④PR 이민부 선호 ⑤Cricos 등록 확실. 단점: 입학 일정 제한(보통 2월·7월), 과정 표준화. **사립 컬리지(Private College)**: 민간 운영(Holmes·ACAP·Stott's·Evans 등). 장점: ①입학 유연(매월 가능) ②과정 다양 ③도심 위치 ④영어 조건 유연. 단점: 학비 비슷하거나 높음, 질 편차 큼, PR 심사 시 검증 엄격. 추천: ①**영주권·안전** → TAFE ②**요리·디자인·패션 특수 분야** → 전문 사립(Le Cordon Bleu·William Angliss·Whitehouse Institute) ③**IT·비즈니스 일반** → 둘 다 가능. TAFE가 한국 학생에게 가장 안전한 선택."
+        },
+        {
+          "q": "TAFE Queensland가 좋은 이유는?",
+          "a": "**TAFE QLD**은 호주 **최대 직업교육기관**. QLD 주정부 운영. **특징**: ①**신뢰도 최고**(정부 기관) ②**전주 캠퍼스 10+** - Gold Coast·Brisbane·Cairns·Sunshine Coast·Townsville·Mackay·Sunny Coast·Toowoomba 등 ③**다양한 과정** - Cert II~Advanced Diploma, **500+ 과정** ④**국제학생 학비 저렴** - $13K~$22K/년 ⑤**Regional 캠퍼스**(Cairns·Townsville·Mackay) + **Destination $15K 장학금** 가능 ⑥QLD 고용주 네트워크 강함(Tourism·Construction·Mining). **인기 과정**: Commercial Cookery(Gold Coast·Brisbane)·Nursing·IT·Hospitality·Trades·Business·Early Childhood Education. **입학**: IELTS 5.5, **매월 시작 가능**. **Gold Coast TAFE** - 관광·호스피탈리티 명성 전 세계. **Cairns TAFE** - 해양·관광 특화(Great Barrier Reef 연계). QLD는 **생활비 저렴·날씨 좋음·Regional 장학금 = 가성비 최고**. 한국인 TAFE QLD 선호도 1위."
+        },
+        {
+          "q": "Foundation과 Diploma 차이가 뭔가요?",
+          "a": "두 과정 모두 대학 진학 준비 과정이지만 **큰 차이**가 있어요. **Foundation Program**: ①**대상** - 고졸·검정고시·Year 12 미달 학생 ②**기간** 8~18개월 ③**학점 인정 없음** - 대학 1학년부터 시작 ④**학비** $28K~$45K ⑤**영어 요건** IELTS 5.5~6.0 ⑥**추천 대상** - 명문대(Go8) 도전·의대 목표. **Diploma Pathway**: ①**대상** - 고졸 + 기초 학력 있는 학생 ②**기간** 8~12개월 ③**학점 인정** - 대학 1학년 학점으로 **2학년 편입** ④**학비** $25K~$38K ⑤**영어 요건** IELTS 5.5~6.5 ⑥**추천 대상** - 빠른 졸업·비용 절약. **예시 비교 (Deakin 간호학 목표)**: Foundation 1년 + 대학 3년 = **총 4년** vs Diploma 1년 + 대학 2년 = **총 3년**(1년 절약, 학비 $25K+ 절약). **⚠️ 단점**: Diploma는 제한된 전공(주로 경영·IT·공학)만 가능, 의대·법대·심리학은 **Foundation 필수**. 학생 목표별 최적 경로 호주유학 무료 상담."
+        },
+        {
+          "q": "Taylors College, Trinity College는 어떤 학교인가요?",
+          "a": "**각 명문 대학의 공식 파운데이션 파트너 컬리지**예요. **Taylors College Sydney** (taylorssydney.edu.au): ①**University of Sydney 전용** 파운데이션(USFP) ②Navitas Australia 운영 ③Waterloo 캠퍼스(Sydney 본캠 3km 거리) ④**HAPP(14주 초단기)** - 고성적 학생용 Fast Track ⑤학비 약 $38K~$42K ⑥IELTS 6.0(Writing 5.0). **Trinity College** (trinity.unimelb.edu.au): ①**University of Melbourne 전용** 유일 공식 파운데이션(TCFS) ②**Melbourne 대학 본캠 Parkville 내부** 위치 ③**90%+ Melbourne 대학 합격률** - 호주 최고 수준 ④35년 역사 ⑤학비 약 $40K~$45K ⑥IELTS 6.0~6.5 ⑦Go8(Monash·Sydney·Adelaide·UQ·UNSW·UWA·ANU) 모두 진학 가능 ⑧해외 명문대(MIT·Boston·McGill·Manchester) 진학 실적. **공통점**: 연 2~3회 개강, 조기 신청 권장(6~12개월 전), 10~15명 소규모 수업. **⭐ Wilson 추천**: 명문 Go8·의대 대학원 MD 루트 목표 시 Trinity, 시드니 거주 선호 시 Taylors. 두 곳 모두 경쟁률 매우 높음 - 호주유학 의대반 프리미엄 상담으로 합격 전략."
+        },
+        {
+          "q": "Monash College, UNSW College, Deakin College는 뭐가 다른가요?",
+          "a": "각 대학의 **직영 파트너 컬리지**로 해당 대학 진학 디딤돌 역할. **Monash College** (monashcollege.edu.au): ①**Monash University 100% 자회사** (1994년 설립) ②Melbourne CBD 캠퍼스 ③**MUFY(Monash University Foundation Year)** + **Diploma 6종**(Business·IT·Engineering·Science·Design·Arts) ④**Diploma 수료 시 Monash 2학년 직행** ⑤학비 $32K~$42K ⑥IELTS 6.0+. **UNSW College** (unswcollege.edu.au): ①UNSW Sydney 공식 파트너 ②**1989년 설립 - 호주 최장수 파운데이션** ③Foundation Studies + Diploma Programs ④학비 $38K~$42K ⑤IELTS 6.0~6.5 ⑥UNSW 의대는 별도 UCAT 필수. **Deakin College** (deakincollege.edu.au): ①Navitas 운영·Deakin University 공식 파트너 ②Melbourne Burwood + Geelong 2개 캠퍼스 ③**1974년 설립 - 50년 전통** ④Foundation 8개월 + Diploma 12개월(2학년 직행) ⑤학비 $28K~$35K - 상대적 저렴 ⑥Navitas Family Bursary 10% 할인 ⑦IELTS 5.5~6.0. **비교**: 명성 Monash College > UNSW College > Deakin College. 비용 Deakin < Monash < UNSW. 합격률 Deakin > Monash > UNSW(가장 경쟁). 💡 **Wilson Tip**: Go8 중 **가장 접근성 높은** 파운데이션은 Monash College."
+        },
+        {
+          "q": "Foundation이나 Diploma는 어느 컬리지가 학생별로 맞나요?",
+          "a": "목표·예산·영어별 추천 **Case별 맞춤**: **🩺 의대 목표 학생**: (A) **Newcastle International College (FSM)** - 호주 유일 의대 파운데이션·UCAT 면제·Packaged Offer / (B) **Adelaide University College + Eynesbury** - Adelaide 의대 진학 유리·Regional PR +5 / (C) **Trinity College** - Melbourne 대학원 MD 루트. **🎓 Go8 명문대 목표**: (A) **Trinity College** (90% Melbourne 합격) / (B) **Taylors College Sydney** / (C) **UNSW College**. **⚡ 빠른 졸업·비용 절약**: (A) **Deakin College Diploma** (1년+2학년 직행) / (B) **Griffith College Diploma** (Gold Coast·호스피탈리티) / (C) **Edith Cowan College Diploma Part 2** (8개월 최단). **📚 영어 부족 (IELTS 5.0 이하)**: (A) **Monash College MUFY Extended** / (B) **Adelaide UC Extended** (Kaplan 영어 강함) / (C) **Trinity College Extended**. **🌄 Regional PR 목표**: (A) **Adelaide UC/Eynesbury** (전체 Regional) / (B) **Newcastle International College** / (C) **Deakin College Geelong**. 학생 개인 조건(GPA·영어·예산·전공·가족 상황) 파악 후 맞춤 추천 - 호주유학 무료 상담."
+        },
+        {
+          "q": "Foundation 입학 시기와 신청 마감은 언제인가요?",
+          "a": "대부분 연 2~3회 Intake 운영. **주요 컬리지 Intake (2026~2027)**: **Trinity College** - 2월·8월 (연 2회만·조기 신청 필수). **Taylors College Sydney** - 2월·7월·10월(HAPP 추가). **Monash College** - 2월·7월·10월(Fast Track 다수). **UNSW College** - 2월·4월·9월·10월(4회 가장 유연). **Adelaide UC** - 2월·6월·10월. **Eynesbury** - 1월·4월·10월. **Newcastle International College (FSM)** - 2월·6월 (⚠️ **2026 마감, 2027 Feb Intake 모집 중** - 인기 조기 마감). **Deakin College** - 3월·7월·10월. **Curtin College** - 2월·6월·10월. **Griffith College** - 2월·6월·10월. **⚠️ 조기 신청 필수**: ①**Trinity·Newcastle FSM·UNSW**는 **6~12개월 전** 신청 권장 ②비자 처리 2~3개월 ③OSHC 건강보험 ④기숙사/홈스테이 예약. **준비 서류**: 여권·학교성적표 영문·영어 점수(IELTS/PTE)·재정증명(AUD $29,710+)·GS 진술서. **신청 절차**: 컬리지 지원 → Letter of Offer → 학비 선납 → CoE 발급 → 학생비자 500 신청 → OSHC 가입. 호주유학이 서류·비자·영어 준비 원스톱 지원."
+        },
+        {
+          "q": "Foundation 안 가도 대학 직접 입학 가능한 케이스는?",
+          "a": "한국에서 **고졸 또는 검정고시 + 영어**만으로 직접 입학 가능한 경우: ①**Foundation 면제 학교** = QUT, Western Sydney, Federation, La Trobe 등 (한국 고교 성적 인정) ②**조건부 입학 (Conditional Offer)** = 영어 점수 부족해도 입학 확정 / 학교 부설 어학원 졸업 시 본과 진학 ③**고등학교 점수 우수** (내신 90+ 또는 모의고사 1-2등급) = Direct Entry 가능. **단**, Go8은 거의 Foundation 필수 (검정고시 학생). 학생 성적/영어/목표에 따라 케이스별 매우 다름. 정확한 진단은 카카오 상담."
+        },
+        {
+          "q": "사립 어학원과 대학 부설 어학원의 차이가 뭔가요?",
+          "a": "**대학 부설(ELC)**: 장점 - 해당 대학 **직통**, EAP 수료 시 IELTS 면제, 대학 캠퍼스·시설 사용, 교수진 네트워킹, 실제 학업 환경 경험. 단점 - 한 대학만 연계, 수업료 약간 높음($330~$420/주). 예: JCU ELC, Newcastle INTO, Adelaide ELC, Deakin ELC. **사립 어학원**: 장점 - 여러 대학 선택지, 분위기·비용 다양, Cambridge·IELTS·Business 특화, 도심 접근성, 유학생 다국적 네트워크. 단점 - 대학 입학 시 IELTS 별도 필요할 수 있음, 수업 질 편차 큼. 예: Lexis, Kaplan, ILSC, Navitas, Browns. 가격대 비슷($280~$400/주). **추천 가이드**: ①대학·전공 확정 → **부설 ELC** ②여러 대학 고민 중 → **사립 어학원** 수료 후 선택 ③IELTS 목표 → IELTS 특화 사립 ④Go8 목표 → 부설 ELC(Monash College 등). 한국인에게는 부설 ELC가 PR 루트 유리."
+        },
+        {
+          "q": "렉시스, 브라운즈, 그린위치는 어떤 학교인가요?",
+          "a": "①**Lexis English**(Brisbane·Gold Coast·Noosa·Sydney·Perth 5개 캠퍼스) - 소규모 수업(최대 15명), 각 도시 최고 입지. IELTS·비즈니스 특화. Griffith·Bond·QUT 패스웨이. Noosa·Gold Coast 해변 분위기. 학비 $310~$360/주. ②**Browns English Language School**(Brisbane·Gold Coast·Sydney·Melbourne 4개 캠퍼스) - **1975년 설립 호주 최고 전통**. 가족 경영 따뜻한 분위기, Gold Coast 해변 위치 명소. Bond·Griffith·QUT 연계. 학비 $290~$340/주. ③**Greenwich English College**(Sydney·Melbourne·Brisbane 3개 캠퍼스) - IELTS 특화, 도심 CBD 위치. 직장인·유학생 혼합. 학비 $300~$370/주. **모두 CRICOS 등록**, 학생비자 발급 가능. 한국 학생 비율 5~15% 적정. 선택 팁: 해변 분위기 → Lexis·Browns / 도심·IELTS → Greenwich / 대학 파트너십 → 3곳 모두 강력."
+        },
+        {
+          "q": "나비타스(Navitas English)는 어떤 학교인가요?",
+          "a": "Navitas English는 Perth CBD와 Sydney Hyde Park 2개 캠퍼스 운영 사립 어학원. 1981년 설립, CRICOS 00289M. 과정: General English·Academic English·IELTS Preparation·Cambridge Preparation. **Curtin University 공식 패스웨이 파트너**이며, 70개+ Direct Entry 파트너 기관과 협약. Academic English 수료 시 **IELTS 없이 파트너 기관 직접 입학** 가능. ⚠️ **INTO는 완전 별개 회사**, Navitas 그룹 산하 대학 College(Macquarie College, La Trobe Melbourne 등)와도 별개 브랜드. **2026 프로모션: 24주+ 등록 시 등록비 $230 면제 + 교재 50% 할인**. 한국인 비율 상대적으로 낮아 영어 환경 좋음. 학비 $290~$380/주. Curtin 진학 목표면 Navitas가 최적."
+        },
+        {
+          "q": "샵스톤(Shafston)은 어떤 학교인가요?",
+          "a": "**Shafston International College** - Brisbane에 위치한 사립 어학원. 1996년 설립. 특징: ①**Brisbane 역사적 건물**(1851년 건축) 캠퍼스 - 역사적 분위기 ②**ELICOS + VET(직업교육)** 동시 수강 가능한 특이 구조 ③**교내 기숙사 완비** - 도착 초기 편리(특히 첫 방문자) ④Brisbane 시내 10분 거리 ⑤Cert III Hospitality/Business 동시 이수 가능. 장점: ①어학원+직업자격증 **원스톱** ②Gold Coast 해변 15분 거리 ③IELTS·케임브리지·EAP 제공. 학비 $290~$370/주. 한국 학생 비율 10~15%. 기숙사 $250~$350/주(식사 포함 옵션). 패스웨이: Bond University, Griffith University, QUT 등. 2026 프로모션: 장기 등록 시 최대 15% 학비 할인. 추천: 첫 호주 방문자, 요리·호스피탈리티 병행 원할 때 최적."
+        },
+        {
+          "q": "어학원 기간은 보통 얼마나 다니나요?",
+          "a": "현재 영어 수준별로 달라요. ①**영어 전무(왕초보)**: ELICOS 12~20주 + EAP 10주 = **22~30주(5~7개월)** ②**중급(IELTS 5.0~5.5)**: EAP 10주 = **10주(2.5개월)** ③**상급(IELTS 6.0+)**: EAP 10주 권장(선택사항). 대부분 IELTS 6.0 보유자도 EAP 수료 권장(대학 학업 성공률 ↑). **학비**: $280~$400/주. **총비용**: ①왕초보 - $7K~$13K ②중급 - $4,500~$6,500 ③상급 EAP - $4,500~$6,500. **주간 스케줄**: 수업 20~25시간/주(오전 9시~오후 3시), 숙제·복습 15~20시간, 방과후 액티비티·관광. **입학 레벨 테스트**: 첫날 배치고사 → 본인 레벨 반 배정(Beginner~Upper-Intermediate~Advanced). 호주유학이 현재 실력 평가 후 최적 기간 추천. 중간 레벨 상승 시 반 조정 가능."
         }
       ]
     },
@@ -582,6 +582,66 @@
       "icon": "🏥",
       "name": "간호·의대·약대",
       "items": [
+        {
+          "q": "검정고시인데 간호 가능한가요?",
+          "a": "가능합니다. 검정고시도 호주 RN (Registered Nurse) 학위까지 충분히 갑니다. 정본 동선 ①**IELTS 6.5 도달**: 부족하면 ELICOS 또는 한국에서 IELTS 학원 ②**Diploma of Health Sciences 1년** (College 트랙): Griffith College / Deakin College / QUT International College 정착 트랙 ③**Bachelor of Nursing 2학년 편입 2년** (해당 대학교 본진): Griffith·Deakin·QUT 등 ④**졸업 후 AHPRA 등록**: IELTS 7.0 (각 영역 7.0) 또는 OET B 등급 필요 ⑤**RN 등록 후 PR**: 간호 = MLTSSL · 485 졸업비자 → 직업평가 → 189/190/491. **호주 유학은 다양한 케이스가 있어서**, 검정고시 학생이 위 트랙으로 호주 RN 후 PR 까지 가는 케이스가 ausuhak 의뢰 가장 많습니다. Wilson 19년 컨설팅 자산. 카톡 상담."
+        },
+        {
+          "q": "직장인인데 한국에서 일하다가 간호 가능한가요?",
+          "a": "가능합니다. 직장인 케이스 자주 옵니다. 동선 ①**현 학력 평가**: 한국 4년제 대졸이면 Graduate Entry Master of Nursing 2년 (UTS·Sydney·Melbourne·Monash·Deakin 등) ②**한국 2년제 졸업·고졸**: Bachelor of Nursing 학사 트랙 (Diploma 경유 가능) ③**IELTS 6.5 → 졸업 시 7.0 (AHPRA)**: 영어 보강 필수 ④**가족 동반**: 학생비자 500 으로 배우자·자녀 동반 가능 ⑤**졸업 후 PR**: MLTSSL · 485 → 직업평가 → 189/190/491. **호주 유학은 다양한 케이스가 있어서**, 한국 사무직 직장인 → Master of Nursing 2년 → 호주 RN → PR 케이스, 한국 간호조무사 → 호주 Bachelor of Nursing 편입 케이스 모두 정착. 본인 학력·예산·가족 케이스 카톡 상담."
+        },
+        {
+          "q": "간호 Diploma 와 TAFE Diploma of Nursing 차이가 뭔가요?",
+          "a": "두 가지는 완전히 다른 경로입니다. ①**Diploma of Health Sciences** (College 트랙): Griffith·Deakin·QUT 등 / 학사 1년 인정 → **RN Bachelor 2학년 편입** → 졸업 후 RN 등록 ②**Diploma of Nursing** (TAFE 트랙): TAFE NSW·TAFE Vic 등 / 1.5~2년 / 졸업 후 **EN (Enrolled Nurse) 등록** → 별도 트랙으로 RN Bachelor 편입 가능. 차이: ①**RN vs EN 자격**: RN 은 정식 간호사 / EN 은 보조 간호사 (호주 의료 시스템 분류) ②**IELTS 요구**: TAFE Diploma of Nursing 입학 IELTS 7.0 (각 영역) — Health Sciences Diploma (6.5) 보다 높음. **호주 유학은 다양한 케이스가 있어서**, 영어 약하면 Health Sciences Diploma → RN 트랙 / 영어 충분하면 TAFE EN → 485 → RN 트랙. 카톡 상담에서 본인 케이스."
+        },
+        {
+          "q": "간호 졸업 후 AHPRA IELTS 7 어렵나요?",
+          "a": "한국 학생 가장 큰 벽 중 하나입니다. AHPRA (호주 간호사 등록 기관) 요구: ①**IELTS 7.0 각 영역 (총점 아님)** 또는 ②**OET B 등급 (Speaking·Listening·Reading·Writing 4 영역)**. 한국 학생 다수가 OET 트랙 선호 (의료 영어 특화 시험 — 한국 학생에게 IELTS 보다 친숙). 대비 ①**졸업 1년 전부터 OET 학원** ②**시드니·멜번 OET 학원 풍부** ③**졸업 후 6~12개월 OET 응시 반복** 흔함. **호주 유학은 다양한 케이스가 있어서**, 학사 졸업 후 OET 6개월 만에 통과 케이스, 1.5년 걸리는 케이스 둘 다 있습니다. 단 OET 미통과 시 RN 등록 안 됨 = PR 동선 막힘. Wilson 컨설팅 OET 전략은 카톡 상담."
+        },
+        {
+          "q": "간호 학과 어느 학교가 좋나요?",
+          "a": "한국 학생 입장 추천 학교 (Diploma → 학사 편입 트랙 정착 기준) ①**Griffith** (Brisbane·Gold Coast): Griffith College Diploma of Health Sciences → Bachelor of Nursing 2학년 편입 ②**Deakin** (Melbourne·Geelong): Deakin College Diploma → Bachelor of Nursing 편입 / Geelong=Regional 가산점 ③**QUT** (Brisbane): QUT College Diploma → Bachelor of Nursing 편입 ④**Newcastle** (NSW Regional): Pathway 정비 + Regional 가산점 ⑤**Flinders** (Adelaide SA Regional) ⑥**ACU** (multi-campus): 호주 최대 간호대 ⑦**Federation·CDU·UTAS**: 저비용 + Regional. **호주 유학은 다양한 케이스가 있어서**, 학비·지역·졸업 후 PR 우선순위별로 학교 갈립니다. 본인 케이스 카톡 상담."
+        },
+        {
+          "q": "남자 간호사도 호주에서 환영받나요?",
+          "a": "환영받습니다. 호주는 한국과 달리 남자 간호사 비율 약 12~14% (한국 약 5%) — 남자 간호사 인식 자연스럽고 정신과·응급실·중환자실에서는 오히려 선호되는 영역. 한국 남학생 케이스 ①**병역 마치고 호주 학사** ②**고졸·검정고시 후 워홀러 → 학생비자 → 간호 학사** ③**한국 사무직·체육 등 직장인 → Master of Nursing 2년**. 졸업 후 RN 등록 + PR 동선은 성별 무관 동일. **호주 유학은 다양한 케이스가 있어서**, 한국 남자 간호사 → 호주 RN + PR 케이스 ausuhak 의뢰 다수. 단 한국 군 의무 + 가족 의견 등 본인 환경 케이스별 동선은 카톡 상담."
+        },
+        {
+          "q": "간호 졸업하고 호주에서 어떤 일을 하나요?",
+          "a": "RN 등록 후 진로 분기 ①**Hospital RN**: 종합병원·공립병원 (NSW Health·Royal Melbourne 등) 풀타임 시작 시급 AUD 36~42 (연봉 AUD 70K~85K) ②**Aged Care RN**: 양로원·요양시설 (수요 매우 높음·취업 빠름) ③**Mental Health RN**: 정신과 특화 (별도 자격 1년) ④**ICU·ED RN**: 중환자실·응급실 (경력 후 진출) ⑤**Community Nurse**: 가정 방문 간호 ⑥**Aesthetics Nurse**: 미용 시술 (Botox·Filler — Melbourne·Sydney 시장 큼). 호주 간호사 평균 시급 AUD 38~50 (경력별), PR 후 신용·정착 빠름. **호주 유학은 다양한 케이스가 있어서**, 한국 학생들이 위 분기 중 본인 성향·일·생활 균형 별로 선택. 카톡 상담."
+        },
+        {
+          "q": "간호 PR 동선 자세히 알려주세요.",
+          "a": "Wilson 컨설팅 정본 동선 ①**Bachelor of Nursing 졸업** (호주 학사 2년 이상 = Australian Study Requirement 충족) ②**AHPRA 등록**: IELTS 7.0 각 영역 또는 OET B ③**485 졸업비자**: 2~3년 임시 거주 (취업·경력 쌓기) ④**ANMAC 직업평가** (간호사 협회): Skilled Migration Skills Assessment ⑤**EOI 제출 (SkillSelect)**: 호주 이민성 점수 시스템 — 65점 이상 필요 ⑥**비자 신청**: ①**189 (독립기술이민, 일반 PR)** ②**190 (주정부 지명, 일부 주 가산점)** ③**491 (Regional, 5년 후 191 영주권 전환)**. **호주 유학은 다양한 케이스가 있어서**, 시드니·멜번 RN → 189 직접 PR 케이스, Regional RN → 491 → 191 전환 케이스 모두 흔합니다. Wilson 점수·동선 시뮬레이션은 카톡 상담."
+        },
+        {
+          "q": "검정고시인데 의대 가능한가요?",
+          "a": "가능합니다. 호주 의대 진학 동선 ①**MBBS/MD 본 과정 6년** (학사 본 과정): UNSW Medicine·Adelaide BMD-MD·UQ Provisional·JCU MBBS·Bond MD·Notre Dame MD — 검정고시·고졸 학생도 ISAT/UCAT + IELTS 7.0 + MMI 통과 시 진학 가능 (단 Foundation 1년 경유 권장) ②**Graduate Entry MD 4년**: 한국 또는 호주 학사 졸업 (Biomedical·Health Science 등) + GAMSAT + IELTS 7.0 + MMI → USyd·Melbourne·Monash·UQ Grad·Wollongong·Notre Dame·Flinders. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → UNSW Medicine 본 과정 케이스, 검정고시 → Bachelor of Biomedical Science → GAMSAT → Sydney MD 케이스 둘 다 있습니다. ISAT vs GAMSAT 전략은 본인 영어·과학 기초 별 — 카톡 상담."
+        },
+        {
+          "q": "GAMSAT 과 ISAT 차이가 뭔가요?",
+          "a": "①**ISAT (International Student Admissions Test)**: 학사 의대 본 과정 진학 (MBBS 본 과정) 지원 시험 / Critical Reasoning + Quantitative Reasoning 각 100문제 / 5시간 / 매년 2회 / UNSW·Adelaide·JCU 등 사용 ②**GAMSAT (Graduate Australian Medical School Admissions Test)**: Graduate Entry MD 지원 시험 / Section I (인문 추론) + Section II (에세이) + Section III (과학) / 6시간 / 매년 3월·9월 / USyd·Melbourne·Monash·UQ Grad·Wollongong·Notre Dame·Flinders 사용. 즉 **ISAT = 학사 본 과정 시험 / GAMSAT = 학사 졸업 후 시험**. **호주 유학은 다양한 케이스가 있어서**, 검정고시·고졸 학생은 ISAT 트랙 (학사 본 과정) 가능, 호주 또는 한국 학사 졸업 학생은 GAMSAT 트랙 (Graduate Entry MD). Wilson 의대 컨설팅에서 본인 케이스별 시험 전략 카톡 상담."
+        },
+        {
+          "q": "약대 어느 학교에서 갈 수 있나요?",
+          "a": "호주 약대 (Bachelor of Pharmacy 4년 또는 Master of Pharmacy 2년) 운영 학교 ①**Monash** (Parkville Pharmacy 단독 캠퍼스): 호주 약학 1위 ②**Sydney University** ③**UQ** ④**Curtin** (Perth) ⑤**Newcastle** ⑥**Charles Sturt** (NSW Regional) ⑦**Griffith** ⑧**UWA**. 입학 컷: ①**IELTS 6.5 (학사) / 7.0 (Master)** ②**한국 12학년 또는 검정고시 학생은 Foundation 또는 Bachelor of Pharmaceutical Science 경유 후 편입 가능** ③**졸업 후 호주 약사 등록 = 1년 인턴쉽 + 시험**. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → Monash Pharmacy 케이스, 한국 약대 학사 → Master of Pharmacy 2년 전향 케이스 모두 있습니다. 약사 = MLTSSL · PR 동선 안정적. 카톡 상담."
+        },
+        {
+          "q": "치대 (Dentistry) 도 갈 수 있나요?",
+          "a": "어렵지만 가능합니다. 호주 치대 운영 학교 ①**Sydney University** ②**Melbourne University** (Graduate Entry DMD 4년) ③**UQ** ④**Adelaide** ⑤**Griffith** ⑥**Charles Sturt** (NSW Regional) ⑦**JCU** (QLD Regional). 한국 학생 경로 ①**BDS/Bachelor of Dental Science 5년 (학사 본 과정)** (Sydney·UQ·Adelaide·Griffith·CSU·JCU): 검정고시·고졸 학생은 Foundation 후 진입 ②**Graduate Entry DMD 4년** (Melbourne·Sydney): 호주 또는 한국 학사 졸업 + GAMSAT + 인터뷰. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → Adelaide BDS 본 과정 진학 케이스, 한국 학사 → Melbourne DMD Graduate Entry 케이스 모두 가능. 치대는 의대만큼 합격 어렵지만 PR 동선·소득 안정적. 카톡 상담."
+        },
+        {
+          "q": "수의대 (Veterinary) 어떻게 가나요?",
+          "a": "호주 수의대 운영 학교 5곳 ①**Sydney University** ②**Melbourne University** ③**UQ** ④**Adelaide** ⑤**Murdoch** (Perth) ⑥**Charles Sturt** (NSW Regional) ⑦**JCU** (QLD Regional). 학사 트랙: ①**Bachelor of Veterinary Science 5~6년** (Sydney·UQ·Murdoch·CSU·JCU) ②**Graduate Entry DVM** (Melbourne·Sydney·Adelaide): 호주 또는 한국 학사 졸업 + 인터뷰. 입학 컷: ①**IELTS 7.0 (각 영역 7.0)** ②**과학 (Biology·Chemistry) 강한 학생** ③**동물 관련 실습·자원봉사 경력** 가산. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → Murdoch Veterinary 본 과정 진학 케이스, 한국 학사 → Melbourne DVM Graduate Entry 케이스. 수의대 = MLTSSL · PR 안정. 카톡 상담."
+        },
+        {
+          "q": "의대 학비는 얼마인가요?",
+          "a": "호주 의대 (MBBS·MD) 학비 (국제학생) ①**UNSW Medicine** AUD 84K/년 (6년 총 약 5억) ②**Sydney·Melbourne·Monash MD** AUD 90K~100K/년 (4년 총 약 4억) ③**Adelaide BMD-MD** AUD 78K/년 ④**UQ MBBS** AUD 80K/년 ⑤**JCU MBBS** AUD 70K~75K/년 (Regional 가장 저렴) ⑥**Bond MD** AUD 90K~110K/년 ⑦**Notre Dame MD** AUD 65K~70K/년. 생활비 별도 시드니·멜번 AUD 22K~28K/년. **장학금**: G8 의대는 국제학생 장학금 적음 (한국 학생 자비 케이스 대다수) / Notre Dame·CSU·JCU 등 일부 장학금 있음. **호주 유학은 다양한 케이스가 있어서**, 의대 학비 부담을 가족이 받쳐주는 케이스, JCU·Notre Dame 저비용 트랙 + Regional 가산점 케이스로 가는 케이스 모두 있습니다. 카톡 상담."
+        },
+        {
+          "q": "의대 합격률은 얼마나 되나요?",
+          "a": "국제학생 의대 합격률은 학교·트랙별로 다릅니다 (대략 기준) ①**MBBS 본 과정 (학사 본 과정)**: 지원자 100명 중 5~15명 합격 (UNSW·Adelaide·JCU·UQ Provisional) ②**Graduate Entry MD**: 지원자 100명 중 10~20명 합격 (USyd·Melbourne·Monash·UQ Grad·Wollongong·Notre Dame) ③**ISAT·GAMSAT 점수 + MMI 통과율**: 일반 한국 학생 80~90 백분위 + MMI 시뮬레이션 준비 충분히 한 경우 ④**Foundation 경유 검정고시 의대 합격**: 사례 있음 (UNSW Foundation Distinction + ISAT + MMI). **호주 유학은 다양한 케이스가 있어서**, 한 번에 합격한 케이스, 1~2년 GAMSAT·MMI 재시도 후 합격한 케이스 둘 다 있습니다. 의대는 시간·비용·정신력 다 큰 트랙 — Wilson 컨설팅 카톡 상담에서 본인 케이스 현실적 평가."
+        },
         {
           "q": "간호학 루트가 현실적인가요?",
           "a": "매우 현실적입니다. 간호사(Registered Nurse RN·ANZSCO 254418)는 호주 **최고 부족 직종 TOP 3**. AHPRA 등록 간호사 2026년 기준 **12만명+ 부족** 추정. 루트: ①**검정고시·고졸** → Bachelor of Nursing 3년(Newcastle·JCU·Flinders·Adelaide·Deakin 추천) ②학사 → **AHPRA 등록** → ③**간호사(RN)로 즉시 취업** $75K~$95K(도시별). 영주권: 간호사는 **MLTSSL 1위 직종** → 189·190·491 모두 신청 가능. 실제 한국인 간호사 **취업률 95%+**. 졸업 → 취업 → PR까지 평균 2~3년. 경험 있는 한국 간호사는 ANMAC + AHPRA 등록 + OET(B등급) → 직접 이민 가능(1~2년). Regional 대학(Newcastle·JCU·Flinders) + Destination $15K 조합 최적. 전문 분야 선택: ICU·응급실·수술실·정신과·아동·산부인과."
@@ -649,66 +709,6 @@
         {
           "q": "간호 졸업 후 호주 취업 정말 잘 되나요?",
           "a": "**네, 호주 최강 PR 직업**. 데이터: ①**MLTSSL 등재** (PR 직진) ②**호주 간호사 부족 = 매년 1만명 이상 부족** ③**시급 $35-45 (캐주얼) / 연봉 $75-95K (RN 시작)** ④**졸업 후 즉시 취업률 90%+** ⑤**AHPRA 등록 = 호주 전국 어디든 취업 가능**. 이게 한국 부모님이 의대 다음으로 안심하는 이유. **단, 영어 IELTS 7.0 (각 7.0)은 졸업과 별개로 따야** AHPRA 등록 가능. 학생 영어/예산 따라 학교 선택 다름. 카카오에서 맞춤 루트 안내."
-        },
-        {
-          "q": "검정고시인데 간호 가능한가요?",
-          "a": "가능합니다. 검정고시도 호주 RN (Registered Nurse) 학위까지 충분히 갑니다. 정본 동선 ①**IELTS 6.5 도달**: 부족하면 ELICOS 또는 한국에서 IELTS 학원 ②**Diploma of Health Sciences 1년** (College 트랙): Griffith College / Deakin College / QUT International College 정착 트랙 ③**Bachelor of Nursing 2학년 편입 2년** (해당 대학교 본진): Griffith·Deakin·QUT 등 ④**졸업 후 AHPRA 등록**: IELTS 7.0 (각 영역 7.0) 또는 OET B 등급 필요 ⑤**RN 등록 후 PR**: 간호 = MLTSSL · 485 졸업비자 → 직업평가 → 189/190/491. **호주 유학은 다양한 케이스가 있어서**, 검정고시 학생이 위 트랙으로 호주 RN 후 PR 까지 가는 케이스가 ausuhak 의뢰 가장 많습니다. Wilson 19년 컨설팅 자산. 카톡 상담."
-        },
-        {
-          "q": "직장인인데 한국에서 일하다가 간호 가능한가요?",
-          "a": "가능합니다. 직장인 케이스 자주 옵니다. 동선 ①**현 학력 평가**: 한국 4년제 대졸이면 Graduate Entry Master of Nursing 2년 (UTS·Sydney·Melbourne·Monash·Deakin 등) ②**한국 2년제 졸업·고졸**: Bachelor of Nursing 학사 트랙 (Diploma 경유 가능) ③**IELTS 6.5 → 졸업 시 7.0 (AHPRA)**: 영어 보강 필수 ④**가족 동반**: 학생비자 500 으로 배우자·자녀 동반 가능 ⑤**졸업 후 PR**: MLTSSL · 485 → 직업평가 → 189/190/491. **호주 유학은 다양한 케이스가 있어서**, 한국 사무직 직장인 → Master of Nursing 2년 → 호주 RN → PR 케이스, 한국 간호조무사 → 호주 Bachelor of Nursing 편입 케이스 모두 정착. 본인 학력·예산·가족 케이스 카톡 상담."
-        },
-        {
-          "q": "간호 Diploma 와 TAFE Diploma of Nursing 차이가 뭔가요?",
-          "a": "두 가지는 완전히 다른 경로입니다. ①**Diploma of Health Sciences** (College 트랙): Griffith·Deakin·QUT 등 / 학사 1년 인정 → **RN Bachelor 2학년 편입** → 졸업 후 RN 등록 ②**Diploma of Nursing** (TAFE 트랙): TAFE NSW·TAFE Vic 등 / 1.5~2년 / 졸업 후 **EN (Enrolled Nurse) 등록** → 별도 트랙으로 RN Bachelor 편입 가능. 차이: ①**RN vs EN 자격**: RN 은 정식 간호사 / EN 은 보조 간호사 (호주 의료 시스템 분류) ②**IELTS 요구**: TAFE Diploma of Nursing 입학 IELTS 7.0 (각 영역) — Health Sciences Diploma (6.5) 보다 높음. **호주 유학은 다양한 케이스가 있어서**, 영어 약하면 Health Sciences Diploma → RN 트랙 / 영어 충분하면 TAFE EN → 485 → RN 트랙. 카톡 상담에서 본인 케이스."
-        },
-        {
-          "q": "간호 졸업 후 AHPRA IELTS 7 어렵나요?",
-          "a": "한국 학생 가장 큰 벽 중 하나입니다. AHPRA (호주 간호사 등록 기관) 요구: ①**IELTS 7.0 각 영역 (총점 아님)** 또는 ②**OET B 등급 (Speaking·Listening·Reading·Writing 4 영역)**. 한국 학생 다수가 OET 트랙 선호 (의료 영어 특화 시험 — 한국 학생에게 IELTS 보다 친숙). 대비 ①**졸업 1년 전부터 OET 학원** ②**시드니·멜번 OET 학원 풍부** ③**졸업 후 6~12개월 OET 응시 반복** 흔함. **호주 유학은 다양한 케이스가 있어서**, 학사 졸업 후 OET 6개월 만에 통과 케이스, 1.5년 걸리는 케이스 둘 다 있습니다. 단 OET 미통과 시 RN 등록 안 됨 = PR 동선 막힘. Wilson 컨설팅 OET 전략은 카톡 상담."
-        },
-        {
-          "q": "간호 학과 어느 학교가 좋나요?",
-          "a": "한국 학생 입장 추천 학교 (Diploma → 학사 편입 트랙 정착 기준) ①**Griffith** (Brisbane·Gold Coast): Griffith College Diploma of Health Sciences → Bachelor of Nursing 2학년 편입 ②**Deakin** (Melbourne·Geelong): Deakin College Diploma → Bachelor of Nursing 편입 / Geelong=Regional 가산점 ③**QUT** (Brisbane): QUT College Diploma → Bachelor of Nursing 편입 ④**Newcastle** (NSW Regional): Pathway 정비 + Regional 가산점 ⑤**Flinders** (Adelaide SA Regional) ⑥**ACU** (multi-campus): 호주 최대 간호대 ⑦**Federation·CDU·UTAS**: 저비용 + Regional. **호주 유학은 다양한 케이스가 있어서**, 학비·지역·졸업 후 PR 우선순위별로 학교 갈립니다. 본인 케이스 카톡 상담."
-        },
-        {
-          "q": "남자 간호사도 호주에서 환영받나요?",
-          "a": "환영받습니다. 호주는 한국과 달리 남자 간호사 비율 약 12~14% (한국 약 5%) — 남자 간호사 인식 자연스럽고 정신과·응급실·중환자실에서는 오히려 선호되는 영역. 한국 남학생 케이스 ①**병역 마치고 호주 학사** ②**고졸·검정고시 후 워홀러 → 학생비자 → 간호 학사** ③**한국 사무직·체육 등 직장인 → Master of Nursing 2년**. 졸업 후 RN 등록 + PR 동선은 성별 무관 동일. **호주 유학은 다양한 케이스가 있어서**, 한국 남자 간호사 → 호주 RN + PR 케이스 ausuhak 의뢰 다수. 단 한국 군 의무 + 가족 의견 등 본인 환경 케이스별 동선은 카톡 상담."
-        },
-        {
-          "q": "간호 졸업하고 호주에서 어떤 일을 하나요?",
-          "a": "RN 등록 후 진로 분기 ①**Hospital RN**: 종합병원·공립병원 (NSW Health·Royal Melbourne 등) 풀타임 시작 시급 AUD 36~42 (연봉 AUD 70K~85K) ②**Aged Care RN**: 양로원·요양시설 (수요 매우 높음·취업 빠름) ③**Mental Health RN**: 정신과 특화 (별도 자격 1년) ④**ICU·ED RN**: 중환자실·응급실 (경력 후 진출) ⑤**Community Nurse**: 가정 방문 간호 ⑥**Aesthetics Nurse**: 미용 시술 (Botox·Filler — Melbourne·Sydney 시장 큼). 호주 간호사 평균 시급 AUD 38~50 (경력별), PR 후 신용·정착 빠름. **호주 유학은 다양한 케이스가 있어서**, 한국 학생들이 위 분기 중 본인 성향·일·생활 균형 별로 선택. 카톡 상담."
-        },
-        {
-          "q": "간호 PR 동선 자세히 알려주세요.",
-          "a": "Wilson 컨설팅 정본 동선 ①**Bachelor of Nursing 졸업** (호주 학사 2년 이상 = Australian Study Requirement 충족) ②**AHPRA 등록**: IELTS 7.0 각 영역 또는 OET B ③**485 졸업비자**: 2~3년 임시 거주 (취업·경력 쌓기) ④**ANMAC 직업평가** (간호사 협회): Skilled Migration Skills Assessment ⑤**EOI 제출 (SkillSelect)**: 호주 이민성 점수 시스템 — 65점 이상 필요 ⑥**비자 신청**: ①**189 (독립기술이민, 일반 PR)** ②**190 (주정부 지명, 일부 주 가산점)** ③**491 (Regional, 5년 후 191 영주권 전환)**. **호주 유학은 다양한 케이스가 있어서**, 시드니·멜번 RN → 189 직접 PR 케이스, Regional RN → 491 → 191 전환 케이스 모두 흔합니다. Wilson 점수·동선 시뮬레이션은 카톡 상담."
-        },
-        {
-          "q": "검정고시인데 의대 가능한가요?",
-          "a": "가능합니다. 호주 의대 진학 동선 ①**MBBS/MD 본 과정 6년** (학사 본 과정): UNSW Medicine·Adelaide BMD-MD·UQ Provisional·JCU MBBS·Bond MD·Notre Dame MD — 검정고시·고졸 학생도 ISAT/UCAT + IELTS 7.0 + MMI 통과 시 진학 가능 (단 Foundation 1년 경유 권장) ②**Graduate Entry MD 4년**: 한국 또는 호주 학사 졸업 (Biomedical·Health Science 등) + GAMSAT + IELTS 7.0 + MMI → USyd·Melbourne·Monash·UQ Grad·Wollongong·Notre Dame·Flinders. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → UNSW Medicine 본 과정 케이스, 검정고시 → Bachelor of Biomedical Science → GAMSAT → Sydney MD 케이스 둘 다 있습니다. ISAT vs GAMSAT 전략은 본인 영어·과학 기초 별 — 카톡 상담."
-        },
-        {
-          "q": "GAMSAT 과 ISAT 차이가 뭔가요?",
-          "a": "①**ISAT (International Student Admissions Test)**: 학사 의대 본 과정 진학 (MBBS 본 과정) 지원 시험 / Critical Reasoning + Quantitative Reasoning 각 100문제 / 5시간 / 매년 2회 / UNSW·Adelaide·JCU 등 사용 ②**GAMSAT (Graduate Australian Medical School Admissions Test)**: Graduate Entry MD 지원 시험 / Section I (인문 추론) + Section II (에세이) + Section III (과학) / 6시간 / 매년 3월·9월 / USyd·Melbourne·Monash·UQ Grad·Wollongong·Notre Dame·Flinders 사용. 즉 **ISAT = 학사 본 과정 시험 / GAMSAT = 학사 졸업 후 시험**. **호주 유학은 다양한 케이스가 있어서**, 검정고시·고졸 학생은 ISAT 트랙 (학사 본 과정) 가능, 호주 또는 한국 학사 졸업 학생은 GAMSAT 트랙 (Graduate Entry MD). Wilson 의대 컨설팅에서 본인 케이스별 시험 전략 카톡 상담."
-        },
-        {
-          "q": "약대 어느 학교에서 갈 수 있나요?",
-          "a": "호주 약대 (Bachelor of Pharmacy 4년 또는 Master of Pharmacy 2년) 운영 학교 ①**Monash** (Parkville Pharmacy 단독 캠퍼스): 호주 약학 1위 ②**Sydney University** ③**UQ** ④**Curtin** (Perth) ⑤**Newcastle** ⑥**Charles Sturt** (NSW Regional) ⑦**Griffith** ⑧**UWA**. 입학 컷: ①**IELTS 6.5 (학사) / 7.0 (Master)** ②**한국 12학년 또는 검정고시 학생은 Foundation 또는 Bachelor of Pharmaceutical Science 경유 후 편입 가능** ③**졸업 후 호주 약사 등록 = 1년 인턴쉽 + 시험**. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → Monash Pharmacy 케이스, 한국 약대 학사 → Master of Pharmacy 2년 전향 케이스 모두 있습니다. 약사 = MLTSSL · PR 동선 안정적. 카톡 상담."
-        },
-        {
-          "q": "치대 (Dentistry) 도 갈 수 있나요?",
-          "a": "어렵지만 가능합니다. 호주 치대 운영 학교 ①**Sydney University** ②**Melbourne University** (Graduate Entry DMD 4년) ③**UQ** ④**Adelaide** ⑤**Griffith** ⑥**Charles Sturt** (NSW Regional) ⑦**JCU** (QLD Regional). 한국 학생 경로 ①**BDS/Bachelor of Dental Science 5년 (학사 본 과정)** (Sydney·UQ·Adelaide·Griffith·CSU·JCU): 검정고시·고졸 학생은 Foundation 후 진입 ②**Graduate Entry DMD 4년** (Melbourne·Sydney): 호주 또는 한국 학사 졸업 + GAMSAT + 인터뷰. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → Adelaide BDS 본 과정 진학 케이스, 한국 학사 → Melbourne DMD Graduate Entry 케이스 모두 가능. 치대는 의대만큼 합격 어렵지만 PR 동선·소득 안정적. 카톡 상담."
-        },
-        {
-          "q": "수의대 (Veterinary) 어떻게 가나요?",
-          "a": "호주 수의대 운영 학교 5곳 ①**Sydney University** ②**Melbourne University** ③**UQ** ④**Adelaide** ⑤**Murdoch** (Perth) ⑥**Charles Sturt** (NSW Regional) ⑦**JCU** (QLD Regional). 학사 트랙: ①**Bachelor of Veterinary Science 5~6년** (Sydney·UQ·Murdoch·CSU·JCU) ②**Graduate Entry DVM** (Melbourne·Sydney·Adelaide): 호주 또는 한국 학사 졸업 + 인터뷰. 입학 컷: ①**IELTS 7.0 (각 영역 7.0)** ②**과학 (Biology·Chemistry) 강한 학생** ③**동물 관련 실습·자원봉사 경력** 가산. **호주 유학은 다양한 케이스가 있어서**, 검정고시 → Foundation → Murdoch Veterinary 본 과정 진학 케이스, 한국 학사 → Melbourne DVM Graduate Entry 케이스. 수의대 = MLTSSL · PR 안정. 카톡 상담."
-        },
-        {
-          "q": "의대 학비는 얼마인가요?",
-          "a": "호주 의대 (MBBS·MD) 학비 (국제학생) ①**UNSW Medicine** AUD 84K/년 (6년 총 약 5억) ②**Sydney·Melbourne·Monash MD** AUD 90K~100K/년 (4년 총 약 4억) ③**Adelaide BMD-MD** AUD 78K/년 ④**UQ MBBS** AUD 80K/년 ⑤**JCU MBBS** AUD 70K~75K/년 (Regional 가장 저렴) ⑥**Bond MD** AUD 90K~110K/년 ⑦**Notre Dame MD** AUD 65K~70K/년. 생활비 별도 시드니·멜번 AUD 22K~28K/년. **장학금**: G8 의대는 국제학생 장학금 적음 (한국 학생 자비 케이스 대다수) / Notre Dame·CSU·JCU 등 일부 장학금 있음. **호주 유학은 다양한 케이스가 있어서**, 의대 학비 부담을 가족이 받쳐주는 케이스, JCU·Notre Dame 저비용 트랙 + Regional 가산점 케이스로 가는 케이스 모두 있습니다. 카톡 상담."
-        },
-        {
-          "q": "의대 합격률은 얼마나 되나요?",
-          "a": "국제학생 의대 합격률은 학교·트랙별로 다릅니다 (대략 기준) ①**MBBS 본 과정 (학사 본 과정)**: 지원자 100명 중 5~15명 합격 (UNSW·Adelaide·JCU·UQ Provisional) ②**Graduate Entry MD**: 지원자 100명 중 10~20명 합격 (USyd·Melbourne·Monash·UQ Grad·Wollongong·Notre Dame) ③**ISAT·GAMSAT 점수 + MMI 통과율**: 일반 한국 학생 80~90 백분위 + MMI 시뮬레이션 준비 충분히 한 경우 ④**Foundation 경유 검정고시 의대 합격**: 사례 있음 (UNSW Foundation Distinction + ISAT + MMI). **호주 유학은 다양한 케이스가 있어서**, 한 번에 합격한 케이스, 1~2년 GAMSAT·MMI 재시도 후 합격한 케이스 둘 다 있습니다. 의대는 시간·비용·정신력 다 큰 트랙 — Wilson 컨설팅 카톡 상담에서 본인 케이스 현실적 평가."
         }
       ]
     },
@@ -716,6 +716,26 @@
       "icon": "🍳",
       "name": "요리·트레이드",
       "items": [
+        {
+          "q": "Cookery (요리) 와 Hospitality (호텔) 차이가 뭔가요?",
+          "a": "두 가지는 완전 다른 트랙입니다 (Wilson 2026-05-19 명시: 쿠커리는 요리, 호텔은 호스피탈리티). ①**Cookery (Commercial Cookery)**: TAFE Cert III in Commercial Cookery (1년) → Cert IV (6개월) → Diploma (1년) → Cook/Chef 직종. PR 동선 = MLTSSL Cook · TRA 직업평가 ②**Hospitality**: TAFE Diploma of Hospitality Management 또는 학사 Bachelor of Hotel Management (Griffith·Blue Mountains·Le Cordon Bleu 등) → 호텔 매니지먼트·서비스·운영 직종. 다른 직업평가 트랙. **호주 유학은 다양한 케이스가 있어서**, Cookery 트랙은 실무 + Chef PR 동선 (Wilson 컨설팅 활발) / Hospitality 트랙은 매니지먼트 + 학사 학위. 본인 진로 카톡 상담."
+        },
+        {
+          "q": "요리 (Cookery) 학교 어디가 좋나요?",
+          "a": "한국 학생 추천 ①**TAFE NSW**: Sydney Ultimo·Sydney Northern Beaches — Commercial Cookery Cert III/IV/Diploma 정본 ②**TAFE Victoria**: Melbourne William Angliss·Box Hill TAFE — 호주 요리 학교 자체 ③**TAFE Queensland**: Brisbane·Gold Coast 캠퍼스 ④**TAFE WA**: Perth ⑤**TAFE SA**: Adelaide ⑥**Le Cordon Bleu Australia**: Sydney·Melbourne·Adelaide 사립 (고급 요리·파티세리 특화) ⑦**William Angliss Institute**: 멜번 요리 전문 학교. 입학 컷: IELTS 5.5~6.0 / 영어 부족 케이스 ELICOS 동시 등록 가능. **호주 유학은 다양한 케이스가 있어서**, Wilson 컨설팅에서 한국 워홀러·고졸·검정고시 학생이 요리 학교 → Cook/Chef 자격 → PR 가는 케이스 매우 흔합니다. 카톡 상담."
+        },
+        {
+          "q": "요리 PR 동선 자세히 알려주세요.",
+          "a": "Wilson 컨설팅 정본 ①**TAFE Cert III in Commercial Cookery 1년** ②**Cert IV in Commercial Cookery 6개월** ③**Diploma of Hospitality Management 1년** (선택) ④**졸업 후 호주 식당 1년+ 경력** (Chef·Cook 직무) ⑤**TRA (Trades Recognition Australia) 직업평가**: 학력 + 경력 검증 ⑥**485 졸업비자 1.5~3년**: 추가 경력 누적 ⑦**EOI → 189/190/491**. 직종 ①**Cook** (ANZSCO 351411) ②**Chef** (ANZSCO 351311) — 둘 다 MLTSSL. **호주 유학은 다양한 케이스가 있어서**, 시드니·멜번 도시 식당 트랙, Regional 식당 트랙 (491 가산점), Le Cordon Bleu 졸업 후 호텔 트랙 모두 정착. Wilson 컨설팅 요리 PR 전략은 카톡 상담."
+        },
+        {
+          "q": "Trade (전기·배관·목공) 동선은 어떤가요?",
+          "a": "Trade = MLTSSL · 호주 노동시장 수요 매우 큼. 한국 학생 트랙 ①**TAFE Cert III in Electrotechnology Electrician** (전기) 3년 / **Cert III in Plumbing** (배관) 3~4년 / **Cert III in Carpentry** (목공) 3년 ②**Apprenticeship 병행**: 한국 학생은 보통 Cert III 풀시간 학생 트랙 ③**TRA 직업평가** ④**485 졸업비자** ⑤**189/190/491 PR**. 입학 컷: IELTS 5.5~6.0 / 영어 부족 케이스 ELICOS 동시. 학비: TAFE Cert III AUD 18~25K/년 (호주 학사 절반 이하). **호주 유학은 다양한 케이스가 있어서**, 한국 사무직 → 호주 워홀 → Trade Cert III → 직업평가 + PR 케이스, 가족 동반 가능한 학생비자 케이스 자주 옵니다. 본인 학력·체력·진로 카톡 상담."
+        },
+        {
+          "q": "전공 변경 가능한가요?",
+          "a": "가능하지만 케이스별 부담 다릅니다. ①**Pathway 중 변경 (Foundation·Diploma)**: 비교적 자유 (학교 내 학과 변경 OK) ②**학사 1학년 중 변경**: 학점 이전 70~90% 가능 (학교·학과별) ③**학사 2학년 이후 변경**: 학점 이전 30~50% 만 가능 — 1~2년 추가 부담 ④**학사 졸업 후 다른 전공 석사**: Conversion Master (Master of IT·Master of Teaching·Master of Nursing 등) 으로 전향 가능 ⑤**비자 조건**: 학생비자 500 은 학과 변경 가능 (Course Variation) 단 동일 등급 이내. **호주 유학은 다양한 케이스가 있어서**, 검정고시·고졸 학생이 Foundation 중 전공 변경, 한국 인문 학사 → 호주 Master of IT 전향 케이스 모두 흔합니다. 본인 학점·비자 케이스 카톡 상담."
+        },
         {
           "q": "트레이드(용접·목수·전기공) 연봉이 정말 높나요?",
           "a": "네, 사실입니다. 2026년 실제 급여(Robert Half/SEEK 기준): ①**용접**(Welder·ANZSCO 322311) - WA 광업 $110K~$140K, 시드니 $75K~$90K, **FIFO 시 $150K+** ②**전기공**(Electrician·341111) - $85K~$110K, 자영업 $120K~$180K ③**배관공**(Plumber·334111) - $85K~$105K, 독립 $130K+ ④**목수**(Carpenter·331212) - $75K~$95K, Gold Coast 건설 붐 $90K+. 경로: **TAFE Cert III 2~4년 어프렌티스**(급여 수령 - 주 $600~$1,150) → 라이선스 → 취업/자영업. 모두 **MLTSSL 직종 → PR 가능**. 한국인 트레이드 진출 증가 중(조선소·중공업 경력자), 연봉은 대졸 사무직보다 훨씬 높음. 광산지역 특화(WA Karratha·Port Hedland·QLD Gladstone) 시 최고 수익. FIFO 생활(2주 근무·1주 휴식)은 가족 있으면 부담 있지만 수익 압도적."
@@ -819,26 +839,6 @@
         {
           "q": "요리 학교 비용이 비싼데 저렴한 루트는?",
           "a": "TAFE Cert III Commercial Cookery가 가장 저렴($13K~$23K/년). Regional TAFE + Destination Australia 장학금($15K) 조합 시 실질 비용 $0~$7K. 르 꼬르동 블르·William Angliss는 브랜드 프리미엄이 있지만 취업 연계가 강해요."
-        },
-        {
-          "q": "Cookery (요리) 와 Hospitality (호텔) 차이가 뭔가요?",
-          "a": "두 가지는 완전 다른 트랙입니다 (Wilson 2026-05-19 명시: 쿠커리는 요리, 호텔은 호스피탈리티). ①**Cookery (Commercial Cookery)**: TAFE Cert III in Commercial Cookery (1년) → Cert IV (6개월) → Diploma (1년) → Cook/Chef 직종. PR 동선 = MLTSSL Cook · TRA 직업평가 ②**Hospitality**: TAFE Diploma of Hospitality Management 또는 학사 Bachelor of Hotel Management (Griffith·Blue Mountains·Le Cordon Bleu 등) → 호텔 매니지먼트·서비스·운영 직종. 다른 직업평가 트랙. **호주 유학은 다양한 케이스가 있어서**, Cookery 트랙은 실무 + Chef PR 동선 (Wilson 컨설팅 활발) / Hospitality 트랙은 매니지먼트 + 학사 학위. 본인 진로 카톡 상담."
-        },
-        {
-          "q": "요리 (Cookery) 학교 어디가 좋나요?",
-          "a": "한국 학생 추천 ①**TAFE NSW**: Sydney Ultimo·Sydney Northern Beaches — Commercial Cookery Cert III/IV/Diploma 정본 ②**TAFE Victoria**: Melbourne William Angliss·Box Hill TAFE — 호주 요리 학교 자체 ③**TAFE Queensland**: Brisbane·Gold Coast 캠퍼스 ④**TAFE WA**: Perth ⑤**TAFE SA**: Adelaide ⑥**Le Cordon Bleu Australia**: Sydney·Melbourne·Adelaide 사립 (고급 요리·파티세리 특화) ⑦**William Angliss Institute**: 멜번 요리 전문 학교. 입학 컷: IELTS 5.5~6.0 / 영어 부족 케이스 ELICOS 동시 등록 가능. **호주 유학은 다양한 케이스가 있어서**, Wilson 컨설팅에서 한국 워홀러·고졸·검정고시 학생이 요리 학교 → Cook/Chef 자격 → PR 가는 케이스 매우 흔합니다. 카톡 상담."
-        },
-        {
-          "q": "요리 PR 동선 자세히 알려주세요.",
-          "a": "Wilson 컨설팅 정본 ①**TAFE Cert III in Commercial Cookery 1년** ②**Cert IV in Commercial Cookery 6개월** ③**Diploma of Hospitality Management 1년** (선택) ④**졸업 후 호주 식당 1년+ 경력** (Chef·Cook 직무) ⑤**TRA (Trades Recognition Australia) 직업평가**: 학력 + 경력 검증 ⑥**485 졸업비자 1.5~3년**: 추가 경력 누적 ⑦**EOI → 189/190/491**. 직종 ①**Cook** (ANZSCO 351411) ②**Chef** (ANZSCO 351311) — 둘 다 MLTSSL. **호주 유학은 다양한 케이스가 있어서**, 시드니·멜번 도시 식당 트랙, Regional 식당 트랙 (491 가산점), Le Cordon Bleu 졸업 후 호텔 트랙 모두 정착. Wilson 컨설팅 요리 PR 전략은 카톡 상담."
-        },
-        {
-          "q": "Trade (전기·배관·목공) 동선은 어떤가요?",
-          "a": "Trade = MLTSSL · 호주 노동시장 수요 매우 큼. 한국 학생 트랙 ①**TAFE Cert III in Electrotechnology Electrician** (전기) 3년 / **Cert III in Plumbing** (배관) 3~4년 / **Cert III in Carpentry** (목공) 3년 ②**Apprenticeship 병행**: 한국 학생은 보통 Cert III 풀시간 학생 트랙 ③**TRA 직업평가** ④**485 졸업비자** ⑤**189/190/491 PR**. 입학 컷: IELTS 5.5~6.0 / 영어 부족 케이스 ELICOS 동시. 학비: TAFE Cert III AUD 18~25K/년 (호주 학사 절반 이하). **호주 유학은 다양한 케이스가 있어서**, 한국 사무직 → 호주 워홀 → Trade Cert III → 직업평가 + PR 케이스, 가족 동반 가능한 학생비자 케이스 자주 옵니다. 본인 학력·체력·진로 카톡 상담."
-        },
-        {
-          "q": "전공 변경 가능한가요?",
-          "a": "가능하지만 케이스별 부담 다릅니다. ①**Pathway 중 변경 (Foundation·Diploma)**: 비교적 자유 (학교 내 학과 변경 OK) ②**학사 1학년 중 변경**: 학점 이전 70~90% 가능 (학교·학과별) ③**학사 2학년 이후 변경**: 학점 이전 30~50% 만 가능 — 1~2년 추가 부담 ④**학사 졸업 후 다른 전공 석사**: Conversion Master (Master of IT·Master of Teaching·Master of Nursing 등) 으로 전향 가능 ⑤**비자 조건**: 학생비자 500 은 학과 변경 가능 (Course Variation) 단 동일 등급 이내. **호주 유학은 다양한 케이스가 있어서**, 검정고시·고졸 학생이 Foundation 중 전공 변경, 한국 인문 학사 → 호주 Master of IT 전향 케이스 모두 흔합니다. 본인 학점·비자 케이스 카톡 상담."
         }
       ]
     },
@@ -846,6 +846,46 @@
       "icon": "💼",
       "name": "IT·경영·교육",
       "items": [
+        {
+          "q": "IT 전공 어느 학교가 좋나요?",
+          "a": "한국 학생 입장 추천 ①**UNSW** (Sydney): Computer Science·SENG·Software Engineering Honours·Co-op 트랙 (5년 인턴 포함) ②**UTS** (Sydney): IT Honours Co-op·산학연계 강함 ③**Macquarie**: Cyber Security·Data Science·Software / Professional Year 정착 ④**Sydney University**: Software Engineering·Data Science ⑤**Monash·Melbourne**: 멜번 학교·연구 강함 ⑥**RMIT·Curtin·QUT·Griffith**: 학비 효율·산학연계 ⑦**WSU·Federation·CDU**: 저비용 + Regional 가산점. 입학 컷: 학사 IELTS 6.5 / 검정고시·고졸 학생은 Pathway 경유 (UTS Insearch·MQ College·UNSW Foundation 등). **호주 유학은 다양한 케이스가 있어서**, UNSW Co-op 으로 졸업 시 호주 빅테크 취업 케이스, Macquarie + Professional Year + PR 케이스 모두 정착. 카톡 상담."
+        },
+        {
+          "q": "IT 졸업 후 PR 동선이 어떻게 되나요?",
+          "a": "IT = MLTSSL · 호주 PR 직종 안정. 동선 ①**호주 IT 학사 졸업** (2년 이상 = Australian Study Requirement 충족) ②**ACS (Australian Computer Society) 직업평가**: 학사 + 1년 경력 또는 학사 + Professional Year (PYP) 통과 ③**485 졸업비자 2~3년**: 호주 IT 회사 취업 + 경력 누적 ④**Professional Year**: IT 학사 졸업 후 1년 직무 + 인턴 12주 = PR 점수 +5점 ⑤**EOI → 189/190/491 비자**. 직종 분류 ①**Software Engineer** ②**Developer Programmer** ③**Systems Analyst** ④**ICT Security Specialist** ⑤**Data Scientist**. **호주 유학은 다양한 케이스가 있어서**, 학사 + PYP + 시드니 취업 → 189 직접 PR 케이스, Regional 학교 + 491 → 191 영주권 전환 케이스 모두 안정. Wilson IT PR 컨설팅 카톡 상담."
+        },
+        {
+          "q": "IT 비전공자도 호주에서 IT 가능한가요?",
+          "a": "가능합니다. 한국 비전공 (인문·경영 등) 학사 졸업자 케이스 자주 옵니다. 동선 ①**Master of IT (Conversion Master)**: 1.5~2년 / IT 비전공자 위한 전환 석사 / Sydney·UNSW·Melbourne·Monash·UTS·Macquarie 등 운영 ②**입학 컷**: IELTS 6.5 / 학사 졸업 (전공 무관) ③**졸업 후 PR 동선**: Master of IT = ACS 직업평가 OK (학사 + 1년 경력 또는 PYP) ④**한국 직장 경력**: ACS 평가 시 일부 인정 (case-by-case). **호주 유학은 다양한 케이스가 있어서**, 한국 경영·인문 학사 → Master of IT 2년 → 호주 IT 회사 취업 → PR 케이스 ausuhak 의뢰 많습니다. 본인 한국 학력·경력 케이스 카톡 상담."
+        },
+        {
+          "q": "IT 학부 vs 석사 어느 쪽이 좋나요?",
+          "a": "본인 학력·시간·예산에 따라 다릅니다. ①**검정고시·고졸 학생**: 학사 트랙 (Pathway → 학사 3년) 추천 — 호주 학사 2년 이상 = Australian Study Requirement 충족 ②**한국 IT 전공 학사 졸업자**: 호주 Master of IT 1.5~2년 (한국 학사 인정) — 시간·비용 효율 ③**한국 비전공 학사 졸업자**: Master of IT (Conversion) 2년 — IT 전환 가능 ④**한국 IT 경력 5년+**: Master of IT 또는 ACS 직업평가 + 호주 취업 우회 가능. 학사 = AUD 40~55K/년 × 3년 / 석사 = AUD 45~55K/년 × 1.5~2년. **호주 유학은 다양한 케이스가 있어서**, 학사 트랙이 PR 동선 가장 안정 (PYP 가능) / 석사가 시간 단축. 본인 학력·경력 카톡 상담."
+        },
+        {
+          "q": "IT 전공 세부 (Software vs Data Science vs Cyber Security) 차이?",
+          "a": "PR 직종 평가 + 호주 취업 시장 ①**Software Engineering / Developer**: ACS 평가 가장 안정 · 호주 가장 큰 직종 · 시드니·멜번 빅테크 (Atlassian·Canva·Google·Amazon AUS) ②**Data Science / Analytics**: AI 붐 이후 수요 폭증 · Monash·UNSW·Macquarie 강함 ③**Cyber Security**: 호주 정부·금융 수요 큼 · Macquarie·ECU·UNSW 강함 · 호주 시민권 필요한 직책 있음 ④**Network / Systems**: 안정적이지만 성장세 약함 ⑤**Game Development**: RMIT·QUT 강함 · 시장 작음. 학교 추천 별도. **호주 유학은 다양한 케이스가 있어서**, Software 가 안정 / Data Science 가 트렌드 / Cyber Security 가 정부·국방 트랙. 본인 적성·시장 매칭 카톡 상담."
+        },
+        {
+          "q": "경영 학부 vs MBA 어느 쪽?",
+          "a": "본인 학력·경력에 따라 분기 ①**검정고시·고졸**: Bachelor of Commerce·Business 학사 3년 (Pathway 경유 가능) ②**한국 4년제 졸업 + 직장 경력 3년+**: MBA 1.5~2년 (Melbourne·Monash·Sydney·UNSW AGSM·UQ·Macquarie 등) ③**한국 학사 + 경력 짧음**: Master of Commerce·Business 1.5~2년 (MBA 보다 입학 컷 낮음) ④**MBA 입학 컷**: GMAT (대부분 호주 MBA 는 면제 가능) / IELTS 7.0 / 직장 경력 3~5년 ⑤**MBA 학비**: AUD 60~100K (총) — Melbourne MBA·AGSM 가장 비쌈. **호주 유학은 다양한 케이스가 있어서**, MBA 후 한국 복귀 직장 케이스, MBA 후 호주 정착 케이스, Master of Commerce 트랙으로 PR (Accounting) 가는 케이스 모두 있습니다. 본인 케이스 카톡 상담."
+        },
+        {
+          "q": "회계사 (CPA) 트랙은 어떤가요?",
+          "a": "한국 학생 인기 PR 동선 중 하나. 동선 ①**Bachelor of Commerce (Accounting Major) 3년** 또는 **Master of Professional Accounting 2년** ②**CPA Australia 회원 가입**: 학사 + Skills Assessment 또는 CPA Program (6 과목 + 3년 경력) ③**Professional Year (PYP) Accounting**: 학사 후 1년 직무 + 인턴 = PR 점수 +5점 ④**ACS·VETASSESS Accounting 직업평가** ⑤**EOI → 189/190/491**. 강한 학교 ①**Sydney·UNSW·Melbourne·Monash·UQ·UWA·Adelaide**: G8 회계 ②**Macquarie**: Accounting 호주 Top (Big4 채용 강함) ③**UTS·Curtin·QUT**: 학비 효율. **호주 유학은 다양한 케이스가 있어서**, 학사 + PYP + Big4 (PwC·Deloitte·EY·KPMG) 인턴 → PR 케이스 정착. 카톡 상담."
+        },
+        {
+          "q": "교육 (TESOL·초등·중등 교사) 어떻게 되나요?",
+          "a": "교사 자격 = MLTSSL · PR 안정. 한국 학생 동선 ①**Master of Teaching (Primary 초등 또는 Secondary 중등) 2년**: 한국 학사 졸업자 트랙 (Melbourne·Sydney·UNSW·Monash·Deakin·La Trobe·QUT·Griffith 등) ②**Bachelor of Education 4년**: 학부 곧바로 (UTS·Western Sydney·ACU 등) ③**TESOL Master 1~2년**: 영어 교사 자격 (Macquarie·UTS·Monash 강함) — 한국 영어 학원·국제학교 트랙. 입학 컷: ①**IELTS 7.5 (Listening·Reading 8.0 / Speaking·Writing 7.0)** — 호주 교사 자격은 영어 가장 높음 ②**졸업 후 주별 교사 등록** (NSWIT·VIT 등). **호주 유학은 다양한 케이스가 있어서**, 한국 사범대 졸업 → Master of Teaching → 호주 공립학교 교사 + PR 케이스, TESOL Master → 한국 국제학교 교사 케이스. 카톡 상담."
+        },
+        {
+          "q": "TESOL 어느 학교가 좋나요?",
+          "a": "TESOL Master 운영 한국 학생 추천 ①**Macquarie** (Sydney): Linguistics·TESOL 호주 Top·학교 자체가 언어학 강함 ②**UTS** (Sydney): TESOL·Applied Linguistics·취업 연계 ③**Monash** (Melbourne): Education + TESOL 통합 트랙 ④**Sydney University**: TESOL·Applied Linguistics 학부 + 석사 ⑤**Melbourne**: Master of TESOL·연구 강함 ⑥**Deakin·La Trobe·UQ**: 학비 효율. 입학 컷: IELTS 6.5~7.0 / 학사 졸업 (영어·교육 전공 우대) / 일부 학교는 교사 경력 요구. **호주 유학은 다양한 케이스가 있어서**, 한국에서 영어 학원·교사 경력 → 호주 TESOL Master → 한국 또는 호주 진로, 호주 정착 + TESOL + 영어 교사 + PR 케이스 모두 있습니다. 단 TESOL 만으로는 호주 정식 교사 자격 X (Teaching 자격 별도) — 카톡 상담."
+        },
+        {
+          "q": "호주 교사 자격은 한국에서 인정되나요?",
+          "a": "쌍방 인정 케이스가 있지만 일반적이지 않습니다. ①**한국 → 호주**: 한국 사범대·교사 자격증 만으로 호주 교사 등록 어려움 → 호주 Master of Teaching 2년 + IELTS 7.5 + 주별 교사 등록 필요 ②**호주 → 한국**: 호주 학사·석사 + 교사 자격 → 한국 외국인학교·국제학교·국제부 교사 가능 (한국 공립 정식 교사는 한국 사범대 + 임용고시 필요). 한국 영어 학원·국제학교 트랙은 호주 TESOL Master 로 가능. **호주 유학은 다양한 케이스가 있어서**, 한국 사범대 → 호주 Master of Teaching → 호주 공립학교 정식 교사 + PR 케이스, 한국 학사 → 호주 TESOL → 한국 국제학교 교사 케이스 둘 다 있습니다. 본인 진로 (한국 복귀 vs 호주 정착) 카톡 상담."
+        },
         {
           "q": "IT·사이버보안 전공 추천 학교는?",
           "a": "2026년 추천: ①**사이버보안 특화** - Deakin(세계 Top 50 사이버)·UNSW(Go8)·RMIT(Melbourne) ②**일반 IT·소프트웨어** - UOW(Wollongong)·Newcastle·Deakin·Swinburne ③**데이터사이언스·AI** - UNSW·Monash·Melbourne ④**IT+Regional(PR 유리)** - Newcastle·Deakin·JCU(Townsville). 학비 연 $36K~$48K. 졸업 후 경로: **학사 3년 → 485비자 2년**(만 35세 이하) → 취업(연봉 $85K~$130K) → **189·190 기술이민**. IT MLTSSL 직종: 소프트웨어 엔지니어(261313), 사이버보안 전문가(262112), 데이터사이언티스트(224119), 시스템 분석가(261112), DevOps 엔지니어. 2024~26 IT 채용 둔화 중이지만 **사이버·클라우드·AI 전문 여전 강세**. 실무 팁: 대학 4년간 GitHub 포트폴리오·인턴십·특정 기술(Python·React·AWS·Kubernetes) 확보 필수. IT 직종 이민 점수 높아 지속적 IELTS 향상 필요."
@@ -913,46 +953,6 @@
         {
           "q": "NAATI 한국어 통역사로 돈 벌 수 있나요?",
           "a": "가능해요. NAATI CCL 인증 취득 후 법원·병원·이민국 통역 가능. 시간당 $60~$150. 영주권 점수 +5점 보너스. 한국어-영어 CCL은 한국인에게 유리한 시험. 시험 준비 6개월 + 등록 절차."
-        },
-        {
-          "q": "IT 전공 어느 학교가 좋나요?",
-          "a": "한국 학생 입장 추천 ①**UNSW** (Sydney): Computer Science·SENG·Software Engineering Honours·Co-op 트랙 (5년 인턴 포함) ②**UTS** (Sydney): IT Honours Co-op·산학연계 강함 ③**Macquarie**: Cyber Security·Data Science·Software / Professional Year 정착 ④**Sydney University**: Software Engineering·Data Science ⑤**Monash·Melbourne**: 멜번 학교·연구 강함 ⑥**RMIT·Curtin·QUT·Griffith**: 학비 효율·산학연계 ⑦**WSU·Federation·CDU**: 저비용 + Regional 가산점. 입학 컷: 학사 IELTS 6.5 / 검정고시·고졸 학생은 Pathway 경유 (UTS Insearch·MQ College·UNSW Foundation 등). **호주 유학은 다양한 케이스가 있어서**, UNSW Co-op 으로 졸업 시 호주 빅테크 취업 케이스, Macquarie + Professional Year + PR 케이스 모두 정착. 카톡 상담."
-        },
-        {
-          "q": "IT 졸업 후 PR 동선이 어떻게 되나요?",
-          "a": "IT = MLTSSL · 호주 PR 직종 안정. 동선 ①**호주 IT 학사 졸업** (2년 이상 = Australian Study Requirement 충족) ②**ACS (Australian Computer Society) 직업평가**: 학사 + 1년 경력 또는 학사 + Professional Year (PYP) 통과 ③**485 졸업비자 2~3년**: 호주 IT 회사 취업 + 경력 누적 ④**Professional Year**: IT 학사 졸업 후 1년 직무 + 인턴 12주 = PR 점수 +5점 ⑤**EOI → 189/190/491 비자**. 직종 분류 ①**Software Engineer** ②**Developer Programmer** ③**Systems Analyst** ④**ICT Security Specialist** ⑤**Data Scientist**. **호주 유학은 다양한 케이스가 있어서**, 학사 + PYP + 시드니 취업 → 189 직접 PR 케이스, Regional 학교 + 491 → 191 영주권 전환 케이스 모두 안정. Wilson IT PR 컨설팅 카톡 상담."
-        },
-        {
-          "q": "IT 비전공자도 호주에서 IT 가능한가요?",
-          "a": "가능합니다. 한국 비전공 (인문·경영 등) 학사 졸업자 케이스 자주 옵니다. 동선 ①**Master of IT (Conversion Master)**: 1.5~2년 / IT 비전공자 위한 전환 석사 / Sydney·UNSW·Melbourne·Monash·UTS·Macquarie 등 운영 ②**입학 컷**: IELTS 6.5 / 학사 졸업 (전공 무관) ③**졸업 후 PR 동선**: Master of IT = ACS 직업평가 OK (학사 + 1년 경력 또는 PYP) ④**한국 직장 경력**: ACS 평가 시 일부 인정 (case-by-case). **호주 유학은 다양한 케이스가 있어서**, 한국 경영·인문 학사 → Master of IT 2년 → 호주 IT 회사 취업 → PR 케이스 ausuhak 의뢰 많습니다. 본인 한국 학력·경력 케이스 카톡 상담."
-        },
-        {
-          "q": "IT 학부 vs 석사 어느 쪽이 좋나요?",
-          "a": "본인 학력·시간·예산에 따라 다릅니다. ①**검정고시·고졸 학생**: 학사 트랙 (Pathway → 학사 3년) 추천 — 호주 학사 2년 이상 = Australian Study Requirement 충족 ②**한국 IT 전공 학사 졸업자**: 호주 Master of IT 1.5~2년 (한국 학사 인정) — 시간·비용 효율 ③**한국 비전공 학사 졸업자**: Master of IT (Conversion) 2년 — IT 전환 가능 ④**한국 IT 경력 5년+**: Master of IT 또는 ACS 직업평가 + 호주 취업 우회 가능. 학사 = AUD 40~55K/년 × 3년 / 석사 = AUD 45~55K/년 × 1.5~2년. **호주 유학은 다양한 케이스가 있어서**, 학사 트랙이 PR 동선 가장 안정 (PYP 가능) / 석사가 시간 단축. 본인 학력·경력 카톡 상담."
-        },
-        {
-          "q": "IT 전공 세부 (Software vs Data Science vs Cyber Security) 차이?",
-          "a": "PR 직종 평가 + 호주 취업 시장 ①**Software Engineering / Developer**: ACS 평가 가장 안정 · 호주 가장 큰 직종 · 시드니·멜번 빅테크 (Atlassian·Canva·Google·Amazon AUS) ②**Data Science / Analytics**: AI 붐 이후 수요 폭증 · Monash·UNSW·Macquarie 강함 ③**Cyber Security**: 호주 정부·금융 수요 큼 · Macquarie·ECU·UNSW 강함 · 호주 시민권 필요한 직책 있음 ④**Network / Systems**: 안정적이지만 성장세 약함 ⑤**Game Development**: RMIT·QUT 강함 · 시장 작음. 학교 추천 별도. **호주 유학은 다양한 케이스가 있어서**, Software 가 안정 / Data Science 가 트렌드 / Cyber Security 가 정부·국방 트랙. 본인 적성·시장 매칭 카톡 상담."
-        },
-        {
-          "q": "경영 학부 vs MBA 어느 쪽?",
-          "a": "본인 학력·경력에 따라 분기 ①**검정고시·고졸**: Bachelor of Commerce·Business 학사 3년 (Pathway 경유 가능) ②**한국 4년제 졸업 + 직장 경력 3년+**: MBA 1.5~2년 (Melbourne·Monash·Sydney·UNSW AGSM·UQ·Macquarie 등) ③**한국 학사 + 경력 짧음**: Master of Commerce·Business 1.5~2년 (MBA 보다 입학 컷 낮음) ④**MBA 입학 컷**: GMAT (대부분 호주 MBA 는 면제 가능) / IELTS 7.0 / 직장 경력 3~5년 ⑤**MBA 학비**: AUD 60~100K (총) — Melbourne MBA·AGSM 가장 비쌈. **호주 유학은 다양한 케이스가 있어서**, MBA 후 한국 복귀 직장 케이스, MBA 후 호주 정착 케이스, Master of Commerce 트랙으로 PR (Accounting) 가는 케이스 모두 있습니다. 본인 케이스 카톡 상담."
-        },
-        {
-          "q": "회계사 (CPA) 트랙은 어떤가요?",
-          "a": "한국 학생 인기 PR 동선 중 하나. 동선 ①**Bachelor of Commerce (Accounting Major) 3년** 또는 **Master of Professional Accounting 2년** ②**CPA Australia 회원 가입**: 학사 + Skills Assessment 또는 CPA Program (6 과목 + 3년 경력) ③**Professional Year (PYP) Accounting**: 학사 후 1년 직무 + 인턴 = PR 점수 +5점 ④**ACS·VETASSESS Accounting 직업평가** ⑤**EOI → 189/190/491**. 강한 학교 ①**Sydney·UNSW·Melbourne·Monash·UQ·UWA·Adelaide**: G8 회계 ②**Macquarie**: Accounting 호주 Top (Big4 채용 강함) ③**UTS·Curtin·QUT**: 학비 효율. **호주 유학은 다양한 케이스가 있어서**, 학사 + PYP + Big4 (PwC·Deloitte·EY·KPMG) 인턴 → PR 케이스 정착. 카톡 상담."
-        },
-        {
-          "q": "교육 (TESOL·초등·중등 교사) 어떻게 되나요?",
-          "a": "교사 자격 = MLTSSL · PR 안정. 한국 학생 동선 ①**Master of Teaching (Primary 초등 또는 Secondary 중등) 2년**: 한국 학사 졸업자 트랙 (Melbourne·Sydney·UNSW·Monash·Deakin·La Trobe·QUT·Griffith 등) ②**Bachelor of Education 4년**: 학부 곧바로 (UTS·Western Sydney·ACU 등) ③**TESOL Master 1~2년**: 영어 교사 자격 (Macquarie·UTS·Monash 강함) — 한국 영어 학원·국제학교 트랙. 입학 컷: ①**IELTS 7.5 (Listening·Reading 8.0 / Speaking·Writing 7.0)** — 호주 교사 자격은 영어 가장 높음 ②**졸업 후 주별 교사 등록** (NSWIT·VIT 등). **호주 유학은 다양한 케이스가 있어서**, 한국 사범대 졸업 → Master of Teaching → 호주 공립학교 교사 + PR 케이스, TESOL Master → 한국 국제학교 교사 케이스. 카톡 상담."
-        },
-        {
-          "q": "TESOL 어느 학교가 좋나요?",
-          "a": "TESOL Master 운영 한국 학생 추천 ①**Macquarie** (Sydney): Linguistics·TESOL 호주 Top·학교 자체가 언어학 강함 ②**UTS** (Sydney): TESOL·Applied Linguistics·취업 연계 ③**Monash** (Melbourne): Education + TESOL 통합 트랙 ④**Sydney University**: TESOL·Applied Linguistics 학부 + 석사 ⑤**Melbourne**: Master of TESOL·연구 강함 ⑥**Deakin·La Trobe·UQ**: 학비 효율. 입학 컷: IELTS 6.5~7.0 / 학사 졸업 (영어·교육 전공 우대) / 일부 학교는 교사 경력 요구. **호주 유학은 다양한 케이스가 있어서**, 한국에서 영어 학원·교사 경력 → 호주 TESOL Master → 한국 또는 호주 진로, 호주 정착 + TESOL + 영어 교사 + PR 케이스 모두 있습니다. 단 TESOL 만으로는 호주 정식 교사 자격 X (Teaching 자격 별도) — 카톡 상담."
-        },
-        {
-          "q": "호주 교사 자격은 한국에서 인정되나요?",
-          "a": "쌍방 인정 케이스가 있지만 일반적이지 않습니다. ①**한국 → 호주**: 한국 사범대·교사 자격증 만으로 호주 교사 등록 어려움 → 호주 Master of Teaching 2년 + IELTS 7.5 + 주별 교사 등록 필요 ②**호주 → 한국**: 호주 학사·석사 + 교사 자격 → 한국 외국인학교·국제학교·국제부 교사 가능 (한국 공립 정식 교사는 한국 사범대 + 임용고시 필요). 한국 영어 학원·국제학교 트랙은 호주 TESOL Master 로 가능. **호주 유학은 다양한 케이스가 있어서**, 한국 사범대 → 호주 Master of Teaching → 호주 공립학교 정식 교사 + PR 케이스, 한국 학사 → 호주 TESOL → 한국 국제학교 교사 케이스 둘 다 있습니다. 본인 진로 (한국 복귀 vs 호주 정착) 카톡 상담."
         }
       ]
     },
