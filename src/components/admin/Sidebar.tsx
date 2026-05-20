@@ -18,7 +18,6 @@ const menus = [
   { href: "/admin/activity", label: "🛡️ 활동 로그", phase: 1 },
   { href: "/admin/issues", label: "🚨 이슈 트래킹", phase: 2 },
   { href: "/admin/faqs", label: "📚 FAQ 통합 관리", phase: 1 },
-  { href: "/admin/faq-draft", label: "🆕 FAQ Draft 검토", phase: 1 },
   { href: "/admin/offers", label: "🏆 합격증 갤러리", phase: 1 },
   { href: "/admin/sites", label: "🔗 자료 사이트", phase: 1 },
   { href: "/admin/cases", label: "🧠 케이스 학습", phase: 2 },
