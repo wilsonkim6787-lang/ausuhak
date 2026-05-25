@@ -27,7 +27,13 @@ export default function OfferCarousel({
 }) {
   const groups: OfferItem[][] = [];
   for (let i = 0; i < items.length; i += 3) {
-    groups.push(items.slice(i, i + 3));
+    const group = items.slice(i, i + 3);
+    let fill = 0;
+    while (group.length < 3 && items.length >= 3) {
+      group.push(items[fill % items.length]);
+      fill++;
+    }
+    groups.push(group);
   }
   const groupCount = Math.max(groups.length, 1);
   const [page, setPage] = useState(0);

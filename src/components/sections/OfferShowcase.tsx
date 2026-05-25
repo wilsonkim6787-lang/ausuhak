@@ -72,10 +72,6 @@ export default async function OfferShowcase() {
             {t("subtitle")}
           </p>
 
-          <div className="mx-auto mt-6 inline-flex items-center gap-2 rounded-full border border-gold-600/30 bg-gold-600/10 px-4 py-2 text-xs font-bold tracking-wider text-gold-600 sm:text-[13px]">
-            <span className="size-1.5 animate-pulse rounded-full bg-gold-600" />
-            {t("statusBadge")}
-          </div>
         </div>
 
         {/* PC = 3개씩 자동 회전 (5초) / 모바일 = 가로 swipe */}
@@ -89,12 +85,6 @@ export default async function OfferShowcase() {
             {t("swipeHint")}
           </p>
         )}
-
-        <div className="mx-auto mt-12 max-w-3xl rounded-2xl border-l-4 border-gold-600 bg-gold-100 p-6 sm:p-7">
-          <p className="text-sm leading-relaxed text-ink-900 sm:text-base">
-            {t("statusNote")}
-          </p>
-        </div>
 
         <div className="mt-10 text-center">
           <a
