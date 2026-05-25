@@ -14,7 +14,7 @@ export default async function StudentBasicPage({
   const { data, error } = await supabase
     .from("students")
     .select(
-      "id, name, kakao_id, phone, email, age, age_range, education, english_level, preferred_region, major, budget_range, is_medical, medical_pathway, source, anonymous_id, diagnose_uuid, scenario_matched, partner_ref, created_at, updated_at",
+      "id, name, kakao_id, phone, email, age, age_range, education, english_level, preferred_region, major, budget_range, is_medical, medical_pathway, source, anonymous_id, diagnose_uuid, scenario_matched, partner_ref, photo_path, created_at, updated_at",
     )
     .eq("id", id)
     .single();

@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 import { updateStudentBasicAction, type ActionState } from "./actions";
 
 type Student = {
@@ -24,6 +25,7 @@ type Student = {
   diagnose_uuid: string | null;
   scenario_matched: string | null;
   partner_ref: string | null;
+  photo_path: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -52,20 +54,73 @@ const initial: ActionState = {};
 export default function BasicInfoForm({ student }: { student: Student }) {
   const [state, formAction, pending] = useActionState(updateStudentBasicAction, initial);
   const [isMedical, setIsMedical] = useState(!!student.is_medical);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [deletePhotoFlag, setDeletePhotoFlag] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  function onPhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    if (f) {
+      setPhotoPreview(URL.createObjectURL(f));
+      setDeletePhotoFlag(false);
+    } else {
+      setPhotoPreview(null);
+    }
+  }
+
+  function clearPhoto() {
+    setPhotoPreview(null);
+    setDeletePhotoFlag(true);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
+  const showCurrentPhoto = !!student.photo_path && !deletePhotoFlag && !photoPreview;
 
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr_280px]">
       <form action={formAction} className="flex flex-col gap-5">
         <input type="hidden" name="student_id" value={student.id} />
+        {deletePhotoFlag && <input type="hidden" name="delete_photo" value="on" />}
 
-        {/* 연락처 */}
+        {/* 사진 + 연락처 */}
         <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
           <h2 className="font-display text-base font-bold text-navy-900">연락처</h2>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <Field name="name" label="이름" required defaultValue={student.name} />
-            <Field name="kakao_id" label="카카오 ID" defaultValue={student.kakao_id} />
-            <Field name="phone" label="전화" defaultValue={student.phone} />
-            <Field name="email" label="이메일" type="email" defaultValue={student.email} />
+          <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+            {/* 사진 */}
+            <div className="flex flex-col items-center gap-2">
+              {photoPreview ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={photoPreview} alt="새 사진 미리보기"
+                  className="size-24 shrink-0 rounded-full bg-cream-200 object-cover ring-2 ring-gold-400" />
+              ) : showCurrentPhoto ? (
+                <StudentAvatar name={student.name} photoPath={student.photo_path} size="xl" />
+              ) : (
+                <StudentAvatar name={student.name} photoPath={null} size="xl" />
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                name="photo"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={onPhotoChange}
+                className="w-44 cursor-pointer rounded-md border border-cream-300 bg-white px-2 py-1 text-[11px] file:mr-2 file:rounded file:border-0 file:bg-navy-900 file:px-2 file:py-1 file:text-[11px] file:font-semibold file:text-gold-400"
+              />
+              <p className="text-[10px] text-ink-500">JPG·PNG·WebP / 2MB</p>
+              {(student.photo_path || photoPreview) && (
+                <button type="button" onClick={clearPhoto}
+                  className="text-[11px] text-error hover:underline">
+                  🗑️ 사진 삭제
+                </button>
+              )}
+            </div>
+
+            {/* 연락처 필드 */}
+            <div className="flex-1 grid gap-3 sm:grid-cols-2">
+              <Field name="name" label="이름" required defaultValue={student.name} />
+              <Field name="kakao_id" label="카카오 ID" defaultValue={student.kakao_id} />
+              <Field name="phone" label="전화" defaultValue={student.phone} />
+              <Field name="email" label="이메일" type="email" defaultValue={student.email} />
+            </div>
           </div>
         </section>
 

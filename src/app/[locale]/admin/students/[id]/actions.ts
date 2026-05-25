@@ -5,6 +5,16 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
 import { logActivity } from "@/lib/audit/log";
 
+const PHOTO_MAX_BYTES = 2 * 1024 * 1024;
+const PHOTO_ALLOWED_MIME = new Set(["image/jpeg", "image/png", "image/webp"]);
+const PHOTO_BUCKET = "student-photos";
+
+function photoExt(filename: string): string {
+  const dot = filename.lastIndexOf(".");
+  if (dot < 0) return "bin";
+  return filename.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
 export type ActionState = { ok?: boolean; error?: string };
 
 function nullify(raw: FormDataEntryValue | null): string | null {
@@ -63,18 +73,59 @@ export async function updateStudentBasicAction(
   };
 
   const supabase = await createClient();
-  const { error } = await supabase.from("students").update(payload).eq("id", id);
+
+  // ─── 사진 처리 ─────────────────────────────────────
+  // delete_photo: 기존 삭제 / file: 새 업로드 (둘 다 가능 — 교체)
+  const deletePhoto = formData.get("delete_photo") === "on";
+  const photoFile = formData.get("photo") as File | null;
+  const hasNewPhoto = photoFile && photoFile.size > 0;
+
+  let nextPhotoPath: string | null | undefined = undefined; // undefined = 변경 없음
+  if (deletePhoto || hasNewPhoto) {
+    const { data: existing } = await supabase
+      .from("students")
+      .select("photo_path")
+      .eq("id", id)
+      .single();
+    const existingPath = (existing as { photo_path?: string | null } | null)?.photo_path ?? null;
+
+    if (existingPath && (deletePhoto || hasNewPhoto)) {
+      await supabase.storage.from(PHOTO_BUCKET).remove([existingPath]);
+    }
+
+    if (hasNewPhoto) {
+      if (photoFile.size > PHOTO_MAX_BYTES) return { error: "사진 2MB 초과" };
+      if (!PHOTO_ALLOWED_MIME.has(photoFile.type)) return { error: "JPG·PNG·WebP 만 허용" };
+      const path = `${id}/${Date.now()}.${photoExt(photoFile.name)}`;
+      const buffer = await photoFile.arrayBuffer();
+      const { error: uploadError } = await supabase.storage
+        .from(PHOTO_BUCKET)
+        .upload(path, buffer, { contentType: photoFile.type, upsert: false });
+      if (uploadError) return { error: `사진 업로드 실패: ${uploadError.message}` };
+      nextPhotoPath = path;
+    } else if (deletePhoto) {
+      nextPhotoPath = null;
+    }
+  }
+
+  const finalPayload =
+    nextPhotoPath !== undefined
+      ? { ...payload, photo_path: nextPhotoPath }
+      : payload;
+
+  const { error } = await supabase.from("students").update(finalPayload).eq("id", id);
   if (error) return { error: `저장 실패: ${error.message}` };
 
   await logActivity({
     action_type: "update_student",
     target_table: "students",
     target_id: id,
-    details: { name, is_medical: isMedical },
+    details: { name, is_medical: isMedical, photo_changed: nextPhotoPath !== undefined },
   });
 
   revalidatePath(`/admin/students/${id}`);
   revalidatePath("/admin/students");
+  revalidatePath("/admin/students/kanban");
   return { ok: true };
 }
 

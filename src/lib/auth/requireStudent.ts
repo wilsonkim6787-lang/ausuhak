@@ -19,6 +19,7 @@ export type StudentRow = {
   budget_range: string | null;
   card_result: unknown;
   diagnose_uuid: string | null;
+  photo_path: string | null;
 };
 
 // /mypage/* 가드: 로그인된 student 유저 + 본인 students row를 함께 돌려줌.
@@ -45,7 +46,7 @@ export async function requireStudent(): Promise<{
   const { data: existing } = await supabase
     .from("students")
     .select(
-      "id, user_id, name, current_stage, is_medical, medical_pathway, lead_status, age, education, english_level, preferred_region, major, budget_range, card_result, diagnose_uuid",
+      "id, user_id, name, current_stage, is_medical, medical_pathway, lead_status, age, education, english_level, preferred_region, major, budget_range, card_result, diagnose_uuid, photo_path",
     )
     .eq("user_id", user.id)
     .maybeSingle();
@@ -73,6 +74,7 @@ export async function requireStudent(): Promise<{
       budget_range: null,
       card_result: null,
       diagnose_uuid: null,
+      photo_path: null,
     },
   };
 }
