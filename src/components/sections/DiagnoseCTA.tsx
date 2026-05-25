@@ -18,17 +18,17 @@ type ConcernKey =
   | "concern9"
   | "concern10";
 
-const CONCERNS: { icon: string; key: ConcernKey }[] = [
-  { icon: "\u{1F4DA}", key: "concern1" },
-  { icon: "\u{1F4DD}", key: "concern2" },
-  { icon: "\u{1F4B0}", key: "concern3" },
-  { icon: "\u{1FA7A}", key: "concern4" },
-  { icon: "\u{1F3E5}", key: "concern5" },
-  { icon: "\u{1F3DB}️", key: "concern6" },
-  { icon: "\u{1F6C2}", key: "concern7" },
-  { icon: "\u{1F393}", key: "concern8" },
-  { icon: "\u{1F504}", key: "concern9" },
-  { icon: "\u{1F6EB}", key: "concern10" },
+const CONCERNS: { icon: string; key: ConcernKey; q: string }[] = [
+  { icon: "\u{1F4DA}", key: "concern1", q: "검정고시" },
+  { icon: "\u{1F4DD}", key: "concern2", q: "영어 점수" },
+  { icon: "\u{1F4B0}", key: "concern3", q: "예산 학비" },
+  { icon: "\u{1FA7A}", key: "concern4", q: "간호" },
+  { icon: "\u{1F3E5}", key: "concern5", q: "의대" },
+  { icon: "\u{1F3DB}️", key: "concern6", q: "Go8" },
+  { icon: "\u{1F6C2}", key: "concern7", q: "워홀 학생비자" },
+  { icon: "\u{1F393}", key: "concern8", q: "고등학생 준비" },
+  { icon: "\u{1F504}", key: "concern9", q: "중퇴 편입" },
+  { icon: "\u{1F6EB}", key: "concern10", q: "영주권 전공" },
 ];
 
 export default function DiagnoseCTA() {
@@ -83,9 +83,7 @@ export default function DiagnoseCTA() {
           {CONCERNS.map((c) => (
             <a
               key={c.key}
-              href={KAKAO}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`/faq?q=${encodeURIComponent(c.q)}`}
               className="flex items-start gap-3 rounded-xl border border-cream-300 bg-white px-5 py-4 transition hover:border-gold-600/50 hover:shadow-sm"
             >
               <span
