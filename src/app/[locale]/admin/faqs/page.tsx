@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import { FAQ_CATEGORIES, getTotalCount as getPublicFaqTotal } from "@/data/faqs";
+import MarkdownPreviewToggle from "@/components/admin/MarkdownPreviewToggle";
 import {
   upsertStaffManualAction,
   deleteStaffManualAction,
@@ -584,14 +585,15 @@ function StaffManualForm({
         </FieldGroup>
 
         <FieldGroup>
-          <FormLabel required hint="markdown · ## 헤더 · **굵게** · - 리스트">본문</FormLabel>
-          <textarea
+          <FormLabel required hint="markdown · ## 헤더 · **굵게** · - 리스트 · 👁️ 미리보기 토글">
+            본문
+          </FormLabel>
+          <MarkdownPreviewToggle
             name="content"
             defaultValue={row?.content != null ? String(row.content) : ""}
             required
             rows={20}
             placeholder={"## 시작\n매뉴얼 내용을 markdown 으로 작성합니다.\n\n## 1단계\n- 항목 1\n- 항목 2\n\n**굵게**, *기울임*, [텍스트](url) 사용 가능."}
-            className="rounded-lg border border-cream-300 bg-cream-100/60 px-4 py-3 font-mono text-[13px] leading-[1.7] outline-none transition focus:border-gold-500 focus:bg-white"
           />
         </FieldGroup>
 
