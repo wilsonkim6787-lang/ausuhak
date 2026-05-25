@@ -13,7 +13,6 @@ interface CategoryPreview {
 
 interface Props {
   categories: CategoryPreview[];
-  total: number;
   labels: {
     eyebrow: string;
     title: string;
@@ -27,7 +26,7 @@ interface Props {
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
-export default function FAQPreviewClient({ categories, total, labels }: Props) {
+export default function FAQPreviewClient({ categories, labels }: Props) {
   const [active, setActive] = useState(0);
   const [query, setQuery] = useState("");
   const activeCat = categories[active];
@@ -61,9 +60,6 @@ export default function FAQPreviewClient({ categories, total, labels }: Props) {
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
             {labels.subtitle}
-          </p>
-          <p className="mt-3 text-sm font-semibold text-gold-600">
-            Wilson 검수본 {total}개 · 10 카테고리
           </p>
         </div>
 
