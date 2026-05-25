@@ -164,7 +164,7 @@ export default function FAQPreviewClient({ categories, total, labels }: Props) {
                   {labels.seeAllLabel} <span aria-hidden>→</span>
                 </Link>
               </div>
-              <FaqAccordion items={activeCat.items} />
+              <FaqAccordion items={activeCat.items.slice(0, 5)} />
             </div>
           </>
         )}
