@@ -111,11 +111,9 @@ export default function WilsonStory() {
               key={m.n}
               className="flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-8"
             >
-              <div className="font-display text-4xl font-bold leading-none text-gold-600">
-                {m.n}
-              </div>
-              <h4 className="mt-4 whitespace-nowrap text-lg font-bold text-ink-900 sm:text-xl">
-                {m.title}
+              <h4 className="flex items-baseline gap-3 text-lg font-bold text-ink-900 sm:text-xl">
+                <span className="font-display text-2xl text-gold-600 sm:text-3xl">{m.n}</span>
+                <span className="whitespace-nowrap">{m.title}</span>
               </h4>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-700 sm:text-[15px]">
                 {m.body}
