@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { FAQ_CATEGORIES } from "@/data/faqs";
+import FaqAccordion from "@/components/faq/FaqAccordion";
 
 const KAKAO = "https://pf.kakao.com/_GadTX";
 
@@ -31,15 +32,45 @@ const CONCERNS: { icon: string; key: ConcernKey; q: string }[] = [
   { icon: "\u{1F6EB}", key: "concern10", q: "영주권 전공" },
 ];
 
+function searchFaqs(query: string) {
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const hits: { q: string; a: string }[] = [];
+  FAQ_CATEGORIES.forEach((cat) => {
+    cat.items.forEach((item) => {
+      const text = `${item.q} ${item.a}`.toLowerCase();
+      if (words.some((w) => text.includes(w))) {
+        hits.push({ q: `${cat.icon} ${item.q}`, a: item.a });
+      }
+    });
+  });
+  return hits.slice(0, 8);
+}
+
 export default function DiagnoseCTA() {
   const t = useTranslations("DiagnoseCTA");
-  const router = useRouter();
+  const [selected, setSelected] = useState<string | null>(null);
   const [query, setQuery] = useState("");
 
+  const activeQuery = selected || query.trim();
+
+  const results = useMemo(() => {
+    if (!activeQuery) return null;
+    return searchFaqs(activeQuery);
+  }, [activeQuery]);
+
   const onSearch = () => {
-    const trimmed = query.trim();
-    if (!trimmed) return;
-    router.push(`/faq?q=${encodeURIComponent(trimmed)}`);
+    setSelected(null);
+    setQuery(query.trim());
+  };
+
+  const onCardClick = (q: string) => {
+    setQuery("");
+    setSelected(q);
+  };
+
+  const onBack = () => {
+    setSelected(null);
+    setQuery("");
   };
 
   return (
@@ -63,7 +94,7 @@ export default function DiagnoseCTA() {
             <input
               type="text"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => { setQuery(e.target.value); setSelected(null); }}
               onKeyDown={(e) => e.key === "Enter" && onSearch()}
               placeholder={t("searchPlaceholder")}
               className="min-w-0 flex-1 bg-transparent px-5 py-4 text-sm text-ink-900 placeholder:text-ink-400 focus:outline-none sm:text-base"
@@ -78,39 +109,82 @@ export default function DiagnoseCTA() {
           </div>
         </div>
 
-        {/* 고민 카드 10개 */}
-        <div className="mt-12 grid gap-3 sm:grid-cols-2">
-          {CONCERNS.map((c) => (
-            <a
-              key={c.key}
-              href={`/faq?q=${encodeURIComponent(c.q)}`}
-              className="flex items-start gap-3 rounded-xl border border-cream-300 bg-white px-5 py-4 transition hover:border-gold-600/50 hover:shadow-sm"
-            >
-              <span
-                aria-hidden
-                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold-600/10 text-base"
+        {/* 결과 모드 */}
+        {results !== null ? (
+          <div className="mx-auto mt-10 max-w-3xl">
+            <div className="mb-5 flex items-center justify-between">
+              <p className="text-sm text-ink-500">
+                &lsquo;<strong className="text-ink-900">{activeQuery}</strong>&rsquo;
+                {results.length > 0
+                  ? <> 관련 FAQ <strong className="text-gold-600">{results.length}</strong>건</>
+                  : <> 검색 결과 없음</>}
+              </p>
+              <button
+                type="button"
+                onClick={onBack}
+                className="text-sm font-semibold text-gold-600 transition hover:text-gold-500"
               >
-                {c.icon}
-              </span>
-              <span className="pt-0.5 text-sm leading-relaxed text-ink-900 sm:text-[15px]">
-                {t(c.key)}
-              </span>
-            </a>
-          ))}
-        </div>
+                ← 돌아가기
+              </button>
+            </div>
 
-        {/* CTA */}
-        <div className="mt-12 text-center">
-          <a
-            href={KAKAO}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
-          >
-            {t("ctaPrimary")} <span aria-hidden>→</span>
-          </a>
-          <p className="mt-4 text-sm text-ink-500">{t("ctaSubtext")}</p>
-        </div>
+            {results.length > 0 && <FaqAccordion items={results} />}
+
+            <div className="mt-8 rounded-2xl bg-white px-6 py-7 text-center sm:px-8">
+              <p className="text-sm font-semibold text-ink-900 sm:text-base">
+                {results.length === 0
+                  ? "원하는 답을 못 찾으셨나요?"
+                  : "더 자세한 상담이 필요하신가요?"}
+              </p>
+              <a
+                href={KAKAO}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-3.5 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg"
+              >
+                카카오 상담하기 <span aria-hidden>→</span>
+              </a>
+              <p className="mt-3 text-xs text-ink-500">1차 카톡 상담은 무료입니다</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* 고민 카드 10개 */}
+            <div className="mt-12 grid gap-3 sm:grid-cols-2">
+              {CONCERNS.map((c) => (
+                <button
+                  key={c.key}
+                  type="button"
+                  onClick={() => onCardClick(c.q)}
+                  className="flex items-start gap-3 rounded-xl border border-cream-300 bg-white px-5 py-4 text-left transition hover:border-gold-600/50 hover:shadow-sm"
+                >
+                  <span
+                    aria-hidden
+                    className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold-600/10 text-base"
+                  >
+                    {c.icon}
+                  </span>
+                  <span className="pt-0.5 text-sm leading-relaxed text-ink-900 sm:text-[15px]">
+                    {t(c.key)}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="mt-12 text-center">
+              <a
+                href={KAKAO}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
+              >
+                {t("ctaPrimary")} <span aria-hidden>→</span>
+              </a>
+              <p className="mt-4 text-sm text-ink-500">{t("ctaSubtext")}</p>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
