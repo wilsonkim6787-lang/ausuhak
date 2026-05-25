@@ -28,7 +28,7 @@ export const MEDICAL_ROUTES: MedicalRoute[] = [
     num: 1,
     emoji: "🎯",
     title: "Direct (Year 12 / IB / 수능)",
-    subtitle: "고등학생부터 의대 직진 5~6년",
+    subtitle: "고등학생부터 의대 본 과정 5~6년",
     target: "한국 고등학생 / 검정고시 / IB 학생",
     duration: "5~6년",
     difficulty: 5,

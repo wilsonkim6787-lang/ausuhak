@@ -114,7 +114,7 @@ const PATHWAY_TEMPLATES: Record<string, PathwayPlan> = {
     duration_years_min: 2, duration_years_max: 5,
   },
 
-  // 요리·호텔·Trade = vocational 트랙. 학점 transfer·Foundation·학사 직진 X — Cert III 부터 시작.
+  // 요리·호텔·Trade = vocational 트랙. 학점 transfer·Foundation·학사 곧바로 진학 X — Cert III 부터 시작.
   // education (검정고시/고졸/대학재학/대졸/워홀러) 무관하게 동일 트랙 — Wilson 명시 2026-05-19.
   "요리·호텔→Vocational": {
     pathway: "요리·호텔 → Cert III → Diploma → (Bachelor 선택)",
@@ -145,7 +145,7 @@ const PATHWAY_TEMPLATES: Record<string, PathwayPlan> = {
 // PATHWAY_TEMPLATES 와 분리. (Wilson 정본 / /medical sub-funnel 과 정합)
 const MEDICAL_PATHWAYS: Record<MedicalPathway, PathwayPlan> = {
   direct: {
-    pathway: "의대 직진학 (MBBS/MD 6년 통합)",
+    pathway: "의대 본 과정 (MBBS/MD 6년 통합)",
     steps: [
       "ISAT 또는 UCAT 응시 (학교별 다름)",
       "IELTS 7.0+ (각 영역 7.0)",
@@ -168,7 +168,7 @@ const MEDICAL_PATHWAYS: Record<MedicalPathway, PathwayPlan> = {
     pathway: "대학재학 → 의대 재진입 (학점 이전 거의 불가 / 재시작 케이스 다수)",
     steps: [
       "현 학점 평가 — 대부분 의대는 학점 이전 불인정",
-      "재학 단계에 따라 ISAT (학사 직진) 또는 GAMSAT (졸업 후 PG 대기)",
+      "재학 단계에 따라 ISAT (학사 곧바로) 또는 GAMSAT (졸업 후 PG 대기)",
       "IELTS 7.0+ · MMI",
       "MBBS/MD 재시작 또는 GAMSAT 후 Graduate Entry MD",
     ],
@@ -195,7 +195,7 @@ const MEDICAL_PATHWAYS: Record<MedicalPathway, PathwayPlan> = {
 };
 
 // 검정고시·고졸 = Diploma/TAFE → 학사 2학년 편입 (또는 Foundation) — Wilson 정본 2026-05-20.
-// 호주 모든 학교가 검정고시·고졸 직진학 불가. 간호=IELTS 6.5 / 그 외=IELTS 6.0 임계점.
+// 호주 모든 학교가 검정고시·고졸 곧바로 진학 불가. 간호=IELTS 6.5 / 그 외=IELTS 6.0 임계점.
 // 간호는 Foundation 분기 금지 — Wilson 정본 (Foundation = 일반 학사 트랙이라 ANMAC 간호 진입 동선과 어긋남).
 // IELTS 부족하면 ELICOS → Diploma of Health Sciences (College) 또는 TAFE Diploma of Nursing (EN) → RN 편입.
 function buildPathwayForGedOrHighSchool(
@@ -613,11 +613,11 @@ export function stage5_cards(
     ? `${input.preferred_region} 지역에 ${input.major} 코스를 운영하는 정본 학교가 적습니다. 다른 지역 추가 고려 또는 1:1 정밀 상담(유료)으로 케이스별 안내를 받으실 수 있습니다.`
     : undefined;
 
-  // 검정고시·고졸 = 호주 학사 직진학 불가 (Wilson 정본). 'A' = 졸업 목표 학교 / 'B' = Pathway 진입 학교.
+  // 검정고시·고졸 = 호주 학사 곧바로 진학 불가 (Wilson 정본). 'A' = 졸업 목표 학교 / 'B' = Pathway 진입 학교.
   const pathwayNote = showDualPath
     ? (input.major === "간호"
-        ? "한국 검정고시·고졸은 호주 간호 학사 직진학 불가. 모든 학생이 Diploma of Health Sciences (College) 또는 TAFE Diploma of Nursing (EN) 거친 후 RN 학사 편입. 'A' 학교 = 최종 RN 학위 목표, 'B' 학교 = Pathway 진입 학교입니다."
-        : "한국 검정고시·고졸은 호주 학사 직진학 불가. 모든 학생이 Foundation 또는 Diploma 1년 거친 후 학사 편입. 'A' 학교 = 최종 학사 학위 목표, 'B' 학교 = Pathway 진입 학교입니다.")
+        ? "한국 검정고시·고졸은 호주 간호 학사 곧바로 진학 불가. 모든 학생이 Diploma of Health Sciences (College) 또는 TAFE Diploma of Nursing (EN) 거친 후 RN 학사 편입. 'A' 학교 = 최종 RN 학위 목표, 'B' 학교 = Pathway 진입 학교입니다."
+        : "한국 검정고시·고졸은 호주 학사 곧바로 진학 불가. 모든 학생이 Foundation 또는 Diploma 1년 거친 후 학사 편입. 'A' 학교 = 최종 학사 학위 목표, 'B' 학교 = Pathway 진입 학교입니다.")
     : undefined;
   const consultNote =
     "정확한 학교 추천·합격 가능성·정밀 학비·IELTS 트랙은 1:1 정밀 상담(유료)에서 확정합니다.";

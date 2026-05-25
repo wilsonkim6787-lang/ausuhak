@@ -19,7 +19,7 @@ const SOURCES: [string, string][] = [
   ["partner_referral", "파트너 추천"],
 ];
 const MEDICAL_PATHWAYS: [string, string][] = [
-  ["direct", "Direct (의대 직진)"],
+  ["direct", "Direct (의대 본 과정)"],
   ["undergrad", "학부 졸업 → 의대"],
   ["graduate", "대학원 → 의대"],
   ["converter", "전공 전환"],
