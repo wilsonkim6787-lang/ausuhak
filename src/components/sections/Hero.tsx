@@ -21,11 +21,12 @@ export default function Hero() {
               {t("badge")}
             </span>
 
-            <h1 className="mt-4 font-display text-[clamp(36px,5.5vw,64px)] font-bold leading-[1.15] tracking-tight text-ink-900">
+            <p className="mt-4 text-lg font-medium text-ink-700 sm:text-xl">
               {t("titleLine1")}
-              <br />
+            </p>
+            <h1 className="mt-2 font-display text-3xl font-bold leading-tight text-ink-900 sm:text-5xl">
               {t("titlePrefix")}
-              <span className="italic text-gold-600">{t("titleEm")}</span>
+              <span className="text-gold-600">{t("titleEm")}</span>
               {t("titleSuffix")}
             </h1>
 
