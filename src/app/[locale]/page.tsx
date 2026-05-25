@@ -7,7 +7,6 @@ import NoticePopup from "@/components/layout/NoticePopup";
 import Hero from "@/components/sections/Hero";
 import WilsonStory from "@/components/sections/WilsonStory";
 import OfferShowcase from "@/components/sections/OfferShowcase";
-import FaqIndex from "@/components/sections/FaqIndex";
 import MedicalCTA from "@/components/sections/MedicalCTA";
 import FAQPreview from "@/components/sections/FAQPreview";
 import EnglishLanding from "@/components/sections/EnglishLanding";
@@ -53,7 +52,6 @@ export default async function Home({
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
         <Hero />
-        <FaqIndex />
         <WilsonStory />
         <OfferShowcase />
         <MedicalCTA />
