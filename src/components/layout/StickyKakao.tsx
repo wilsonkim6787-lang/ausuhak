@@ -11,11 +11,11 @@ export default function StickyKakao() {
       <div className="fixed inset-x-0 bottom-0 z-30 flex gap-1 border-t border-cream-300 bg-white/95 p-2 shadow-[0_-4px_20px_rgba(10,22,40,0.08)] backdrop-blur sm:hidden">
         <Link
           href="/diagnose"
-          aria-label="30초 가능성 진단 시작"
+          aria-label="가능성 진단 시작"
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-gold-600 px-3 py-3.5 text-sm font-bold text-white shadow-md"
         >
           <span aria-hidden>{"\u{1F3AF}"}</span>
-          30초 진단
+          진단 시작
         </Link>
         <a
           href={KAKAO_URL}
