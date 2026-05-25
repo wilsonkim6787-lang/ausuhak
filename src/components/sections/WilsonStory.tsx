@@ -1,34 +1,13 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export default function WilsonStory() {
   const t = useTranslations("WilsonStory");
 
   const methods = [
-    {
-      n: "01",
-      title: t("method1Title"),
-      body: t("method1Body"),
-      tag: t("method1Tag"),
-    },
-    {
-      n: "02",
-      title: t("method2Title"),
-      body: t("method2Body"),
-      tag: t("method2Tag"),
-    },
-    {
-      n: "03",
-      title: t("method3Title"),
-      body: t("method3Body"),
-      tag: t("method3Tag"),
-    },
-    {
-      n: "04",
-      title: t("method4Title"),
-      body: t("method4Body"),
-      tag: t("method4Tag"),
-    },
+    { n: "01", title: t("method1Title"), body: t("method1Body") },
+    { n: "02", title: t("method2Title"), body: t("method2Body") },
+    { n: "03", title: t("method3Title"), body: t("method3Body") },
+    { n: "04", title: t("method4Title"), body: t("method4Body") },
   ];
 
   return (
@@ -117,45 +96,44 @@ export default function WilsonStory() {
           </p>
         </div>
 
-        <h3 className="mt-20 text-center font-display text-2xl font-bold text-navy-900 sm:text-3xl">
-          {t("methodHeading")}
-        </h3>
+        <div className="mt-20 text-center">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
+            {t("methodEyebrow")}
+          </span>
+          <h3 className="mx-auto mt-3 max-w-3xl font-display text-2xl font-bold leading-tight text-ink-900 sm:text-3xl">
+            {t("methodHeading")}
+          </h3>
+        </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {methods.map((m) => (
             <div
               key={m.n}
-              className="rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-8"
+              className="flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-8"
             >
-              <div className="font-display text-5xl italic font-bold leading-none text-gold-600">
+              <div className="font-display text-4xl font-bold leading-none text-gold-600">
                 {m.n}
               </div>
-              <h4 className="mt-4 text-lg font-bold text-navy-900 sm:text-xl">
+              <h4 className="mt-4 whitespace-nowrap text-lg font-bold text-ink-900 sm:text-xl">
                 {m.title}
               </h4>
-              <p className="mt-3 text-sm leading-relaxed text-ink-700 sm:text-[15px]">
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-700 sm:text-[15px]">
                 {m.body}
               </p>
-              <div className="mt-5 text-xs font-bold tracking-wider text-gold-600">
-                {m.tag}
-              </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 rounded-3xl bg-navy-900 p-10 text-center text-cream-100 sm:p-12">
-          <h3 className="font-display text-2xl font-bold text-gold-500 sm:text-3xl">
-            {t("ctaTitle")}
-          </h3>
-          <p className="mt-4 text-base leading-relaxed text-cream-200">
-            {t("ctaBody")}
-          </p>
-          <Link
-            href="/diagnose"
-            className="mt-8 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-3.5 text-base font-semibold text-navy-900 shadow-md transition hover:bg-gold-500 hover:shadow-lg"
+        <div className="mt-12 text-center">
+          <a
+            href="https://pf.kakao.com/_GadTX"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
           >
-            {t("ctaButton")} <span aria-hidden>→</span>
-          </Link>
+            {t("ctaTitle")} <span aria-hidden>→</span>
+          </a>
+          <p className="mt-4 text-sm text-ink-500">{t("ctaBody")}</p>
         </div>
       </div>
     </section>
