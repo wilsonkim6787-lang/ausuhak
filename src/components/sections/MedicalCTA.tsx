@@ -80,6 +80,15 @@ export default function MedicalCTA() {
           ))}
         </div>
 
+        <div className="mx-auto mt-12 max-w-3xl rounded-2xl border-l-4 border-gold-600 bg-gold-100 p-7 sm:p-8">
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-gold-600">
+            {t("honestEyebrow")}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-ink-900 sm:text-base">
+            {t("honestBody")}
+          </p>
+        </div>
+
         <div className="mt-12 text-center">
           <a
             href="/medical.html"

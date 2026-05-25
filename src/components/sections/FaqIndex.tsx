@@ -1,6 +1,5 @@
 // 메인 페이지 FAQ 카테고리 인덱스 — DiagnoseCTA 대체.
 // FAQ_CATEGORIES (10 카테고리) 카드 그리드. 각 카드 → /faq?cat=N
-// 학생이 본인 관심 카테고리부터 직접 진입.
 
 import Link from "next/link";
 import { FAQ_CATEGORIES, getTotalCount } from "@/data/faqs";
@@ -18,7 +17,7 @@ export default function FaqIndex() {
           내 상황에 맞는 질문부터 골라보세요
         </h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
-          Wilson 이 19년 동안 가장 많이 받은 질문 {total}개 · 10 카테고리.
+          Wilson 이 19년 동안 가장 많이 받은 질문 {total}개. 10 카테고리.
           본인 상황과 가까운 카테고리부터 시작하세요.
         </p>
 
