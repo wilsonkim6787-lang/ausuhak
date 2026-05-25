@@ -22,7 +22,7 @@ export default function WilsonStory() {
       />
 
       <div className="container relative z-10 mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
-        <div className="max-w-3xl">
+        <div className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("eyebrow")}
           </span>
