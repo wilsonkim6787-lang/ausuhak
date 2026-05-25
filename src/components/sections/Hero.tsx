@@ -50,24 +50,11 @@ export default function Hero() {
           </div>
 
           <div className="hidden lg:block">
-            <div
-              className="flex aspect-[4/5] items-center justify-center rounded-3xl border-2 border-dashed border-cream-300 bg-cream-200 text-center"
-              style={{
-                background:
-                  "repeating-linear-gradient(45deg, rgba(201,150,42,0.04) 0, rgba(201,150,42,0.04) 12px, rgba(201,150,42,0.08) 12px, rgba(201,150,42,0.08) 24px)",
-              }}
-            >
-              <div className="p-8">
-                <p className="text-xs font-bold tracking-wider text-gold-600">
-                  HERO IMAGE PLACEHOLDER
-                </p>
-                <p className="mt-2 text-sm text-ink-700">
-                  Wilson 프로필 또는 호주 캠퍼스
-                  <br />
-                  4:5 세로 비율
-                </p>
-              </div>
-            </div>
+            <img
+              src="/hero-campus.png"
+              alt="호주 대학교 캠퍼스에서 대화하는 학생들"
+              className="rounded-3xl object-cover shadow-lg"
+            />
           </div>
         </div>
       </div>
