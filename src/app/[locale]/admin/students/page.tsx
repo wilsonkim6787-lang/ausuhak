@@ -4,9 +4,14 @@ import { createClient } from "@/lib/supabase/server";
 import { buttonStyles } from "@/components/ui/Button";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 import StudentFilters from "./StudentFilters";
+import KanbanBoard, { type KanbanStudent } from "./kanban/KanbanBoard";
+import {
+  CARE_RULES,
+  evaluateCareRules,
+  type StudentForCare,
+} from "@/lib/care/rules";
 
 // 헬퍼 분리: react-hooks/purity 규칙은 컴포넌트 본문 안의 Date.now/new Date를 막음.
-// 서버 컴포넌트라 매 요청마다 실행되어야 정상이므로 헬퍼로 우회.
 function isoDaysAgo(days: number): string {
   return new Date(Date.now() - days * 24 * 3600 * 1000).toISOString();
 }
@@ -22,6 +27,7 @@ type SP = {
   lead_status?: string;
   is_medical?: string;
   filter?: string; // 대시보드에서 넘어오는 단축 필터
+  view?: "list" | "kanban";
 };
 
 type StudentRow = {
@@ -38,6 +44,7 @@ type StudentRow = {
   kakao_id: string | null;
   source: string | null;
   photo_path: string | null;
+  user_id: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -53,17 +60,18 @@ export default async function StudentsPage({
   const sp = await searchParams;
   setRequestLocale(locale);
 
+  const view: "list" | "kanban" = sp.view === "kanban" ? "kanban" : "list";
+
   const supabase = await createClient();
   let query = supabase
     .from("students")
     .select(
-      "id, name, age_range, education, major, preferred_region, current_stage, lead_status, is_medical, wilson_alerts, kakao_id, source, photo_path, created_at, updated_at",
+      "id, name, age_range, education, major, preferred_region, current_stage, lead_status, is_medical, wilson_alerts, kakao_id, source, photo_path, user_id, created_at, updated_at",
     )
     .order("updated_at", { ascending: false })
-    .limit(200);
+    .limit(view === "kanban" ? 500 : 200);
 
   if (sp.q) {
-    // ILIKE OR 검색 (name, kakao_id, email, phone)
     const q = `%${sp.q.replace(/[%_]/g, "")}%`;
     query = query.or(
       `name.ilike.${q},kakao_id.ilike.${q},email.ilike.${q},phone.ilike.${q}`,
@@ -81,7 +89,6 @@ export default async function StudentsPage({
     query = query.eq("is_medical", false);
   }
 
-  // 대시보드 단축 필터
   if (sp.filter === "alerts") {
     query = query.not("wilson_alerts", "is", null);
   } else if (sp.filter === "stuck_14d") {
@@ -95,7 +102,7 @@ export default async function StudentsPage({
   const { data, error } = await query;
   const students = (data ?? []) as StudentRow[];
 
-  // 마지막 메모 1줄 + 다음 deadline 1개 fetch (목록 카드 노출용)
+  // 마지막 메모 1줄 + 다음 deadline 1개 fetch
   const studentIds = students.map((s) => s.id);
   const [notesRes, deadlinesRes] = await Promise.all([
     studentIds.length === 0
@@ -124,14 +131,123 @@ export default async function StudentsPage({
       noteByStudent.set(n.student_id, n.content.replace(/\s+/g, " ").slice(0, 60));
     }
   }
-  const deadlineByStudent = new Map<
-    string,
-    { type: string; date: string }
-  >();
+  const deadlineByStudent = new Map<string, { type: string; date: string }>();
   for (const d of deadlinesRes.data ?? []) {
     if (!deadlineByStudent.has(d.student_id)) {
-      deadlineByStudent.set(d.student_id, { type: d.deadline_type, date: d.deadline_date });
+      deadlineByStudent.set(d.student_id, {
+        type: d.deadline_type,
+        date: d.deadline_date,
+      });
     }
+  }
+
+  // ─── 칸반 view 용 추가 데이터: care rule 평가 ──────────────
+  const careHitsByStudent = new Map<
+    string,
+    { rule_id: string; title: string; emoji: string; days_since: number | null }[]
+  >();
+
+  if (view === "kanban" && studentIds.length > 0) {
+    const userIds = students
+      .map((s) => s.user_id)
+      .filter((v): v is string => !!v);
+    const [docsRes, visasRes, usersRes] = await Promise.all([
+      supabase
+        .from("documents")
+        .select("student_id, created_at")
+        .in("student_id", studentIds)
+        .order("created_at", { ascending: false })
+        .limit(5000),
+      supabase
+        .from("visa_cases")
+        .select("student_id, submitted_at")
+        .in("student_id", studentIds)
+        .eq("status", "submitted")
+        .not("submitted_at", "is", null),
+      userIds.length === 0
+        ? { data: [] as { id: string; last_login_at: string | null }[] }
+        : supabase
+            .from("users")
+            .select("id, last_login_at")
+            .in("id", userIds),
+    ]);
+
+    const latestDocByStudent = new Map<string, string>();
+    for (const d of (docsRes.data ?? []) as { student_id: string; created_at: string }[]) {
+      if (!latestDocByStudent.has(d.student_id)) {
+        latestDocByStudent.set(d.student_id, d.created_at);
+      }
+    }
+    const visaByStudent = new Map<string, string>();
+    for (const v of (visasRes.data ?? []) as { student_id: string; submitted_at: string | null }[]) {
+      if (v.submitted_at && !visaByStudent.has(v.student_id)) {
+        visaByStudent.set(v.student_id, v.submitted_at);
+      }
+    }
+    const lastLoginByUser = new Map<string, string | null>();
+    for (const u of usersRes.data ?? []) {
+      lastLoginByUser.set(u.id, u.last_login_at);
+    }
+
+    const studentsForCare: StudentForCare[] = students.map((s) => ({
+      id: s.id,
+      name: s.name,
+      kakao_id: s.kakao_id,
+      current_stage: s.current_stage,
+      lead_status: s.lead_status,
+      updated_at: s.updated_at,
+      user_id: s.user_id,
+      photo_path: s.photo_path,
+      users: s.user_id ? { last_login_at: lastLoginByUser.get(s.user_id) ?? null } : null,
+      latest_document_at: latestDocByStudent.get(s.id) ?? null,
+      visa_submitted_at: visaByStudent.get(s.id) ?? null,
+    }));
+
+    const hits = evaluateCareRules(studentsForCare);
+    for (const h of hits) {
+      const rule = CARE_RULES.find((r) => r.id === h.rule_id);
+      if (!rule) continue;
+      const arr = careHitsByStudent.get(h.student_id) ?? [];
+      arr.push({
+        rule_id: h.rule_id,
+        title: rule.title,
+        emoji: rule.emoji,
+        days_since: h.days_since,
+      });
+      careHitsByStudent.set(h.student_id, arr);
+    }
+  }
+
+  // KanbanStudent enriched
+  const kanbanStudents: KanbanStudent[] = students.map((s) => {
+    const note = noteByStudent.get(s.id);
+    const dl = deadlineByStudent.get(s.id);
+    return {
+      id: s.id,
+      name: s.name?.trim() || "이름 미입력",
+      lead_status: s.lead_status ?? "lead",
+      current_stage: s.current_stage,
+      is_medical: !!s.is_medical,
+      alert_count: s.wilson_alerts?.length ?? 0,
+      summary: [s.age_range, s.major].filter(Boolean).join(" / "),
+      last_note: note ?? null,
+      next_deadline: dl ?? null,
+      photo_path: s.photo_path,
+      care_hits: careHitsByStudent.get(s.id) ?? [],
+    };
+  });
+
+  // view 토글 link
+  function buildViewLink(target: "list" | "kanban"): string {
+    const params = new URLSearchParams();
+    for (const [k, v] of Object.entries(sp)) {
+      if (k === "view" || !v) continue;
+      params.set(k, String(v));
+    }
+    if (target === "kanban") params.set("view", "kanban");
+    return params.toString()
+      ? `/admin/students?${params.toString()}`
+      : "/admin/students";
   }
 
   return (
@@ -145,18 +261,35 @@ export default async function StudentsPage({
             📊 학생 관리
           </h1>
           <p className="mt-2 text-sm text-ink-500">
-            총 {students.length}명 표시{students.length === 200 ? " (최대 200건)" : ""}
+            총 {students.length}명{students.length === (view === "kanban" ? 500 : 200) ? ` (최대 ${view === "kanban" ? 500 : 200}건)` : ""}
           </p>
         </div>
-        <div className="flex gap-2 self-start">
-          <Link
-            href="/admin/students/kanban"
-            className="rounded-full border border-cream-300 bg-white px-3 py-2 text-xs font-semibold text-navy-700 hover:bg-cream-100"
-          >
-            📋 칸반 뷰
-          </Link>
+        <div className="flex flex-wrap gap-2 self-start">
+          {/* view 토글 */}
+          <div className="flex overflow-hidden rounded-full border border-cream-300 bg-white">
+            <Link
+              href={buildViewLink("list")}
+              className={`px-3 py-2 text-xs font-semibold transition ${
+                view === "list"
+                  ? "bg-navy-900 text-white"
+                  : "text-navy-700 hover:bg-cream-100"
+              }`}
+            >
+              📊 리스트
+            </Link>
+            <Link
+              href={buildViewLink("kanban")}
+              className={`px-3 py-2 text-xs font-semibold transition ${
+                view === "kanban"
+                  ? "bg-navy-900 text-white"
+                  : "text-navy-700 hover:bg-cream-100"
+              }`}
+            >
+              📋 칸반
+            </Link>
+          </div>
           <Link href="/admin/students/new" className={buttonStyles()}>
-            + 신규 학생 추가
+            + 신규 학생
           </Link>
         </div>
       </header>
@@ -169,7 +302,13 @@ export default async function StudentsPage({
         </div>
       )}
 
-      {students.length === 0 ? (
+      {view === "kanban" ? (
+        students.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <KanbanBoard students={kanbanStudents} />
+        )
+      ) : students.length === 0 ? (
         <EmptyState />
       ) : (
         <ul className="flex flex-col gap-2">
@@ -294,7 +433,7 @@ function EmptyState() {
         학생이 없습니다
       </p>
       <p className="mt-1 text-sm text-ink-500">
-        진단 폼을 통해 자동 생성되거나, 우측 상단 [+ 신규 학생 추가]로 직접 등록할 수 있어요.
+        진단 폼을 통해 자동 생성되거나, 우측 상단 [+ 신규 학생]으로 직접 등록할 수 있어요.
       </p>
       <Link href="/admin/students/new" className={`${buttonStyles()} mt-5`}>
         + 첫 학생 등록하기

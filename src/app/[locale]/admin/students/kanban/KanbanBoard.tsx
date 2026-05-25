@@ -5,6 +5,13 @@ import Link from "next/link";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 import { updateLeadStatusAction } from "./actions";
 
+export type KanbanCareHit = {
+  rule_id: string;
+  title: string;
+  emoji: string;
+  days_since: number | null;
+};
+
 export type KanbanStudent = {
   id: string;
   name: string;
@@ -16,6 +23,7 @@ export type KanbanStudent = {
   last_note: string | null;
   next_deadline: { type: string; date: string } | null;
   photo_path: string | null;
+  care_hits: KanbanCareHit[];
 };
 
 // 메인 active 5컬럼.
@@ -277,6 +285,25 @@ function StudentCard({
             ⏰ {dlLabel} · {dl.date}
             {dlDays != null && ` (D-${dlDays})`}
           </p>
+        )}
+        {student.care_hits.length > 0 && (
+          <div className="flex flex-wrap gap-1 pt-1">
+            {student.care_hits.slice(0, 2).map((h) => (
+              <span
+                key={h.rule_id}
+                title={h.title}
+                className="rounded-full bg-error/10 px-1.5 py-0.5 text-[9px] font-semibold text-error"
+              >
+                {h.emoji} {h.title}
+                {h.days_since != null && ` ${h.days_since}d`}
+              </span>
+            ))}
+            {student.care_hits.length > 2 && (
+              <span className="text-[9px] text-ink-500">
+                +{student.care_hits.length - 2}
+              </span>
+            )}
+          </div>
         )}
       </div>
     </div>
