@@ -5,6 +5,39 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
 
 export type SettingsState = { ok?: boolean; error?: string };
+export type NoticeState = { ok?: boolean; error?: string };
+
+// 메인 페이지 공지 팝업 저장 (site_settings 4 키 upsert).
+export async function saveNoticeAction(
+  _prev: NoticeState,
+  formData: FormData,
+): Promise<NoticeState> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") return { error: "권한 없음" };
+
+  const active = formData.get("active") === "on";
+  const title = String(formData.get("title") ?? "").trim();
+  const body = String(formData.get("body") ?? "").trim();
+  const bump = formData.get("bump_version") === "on";
+  const versionRaw = parseInt(String(formData.get("version") ?? "1"), 10) || 1;
+  const version = bump ? versionRaw + 1 : versionRaw;
+
+  const supabase = await createClient();
+  const rows = [
+    { key: "notice_active", value: active ? "true" : "false", category: "notice", is_public: false },
+    { key: "notice_title",  value: title || null,             category: "notice", is_public: false },
+    { key: "notice_body",   value: body || null,              category: "notice", is_public: false },
+    { key: "notice_version", value: String(version),          category: "notice", is_public: false },
+  ];
+  const { error } = await supabase
+    .from("site_settings")
+    .upsert(rows, { onConflict: "key" });
+  if (error) return { error: `저장 실패: ${error.message}` };
+
+  revalidatePath("/admin/settings");
+  revalidatePath("/", "layout"); // 메인 페이지 즉시 갱신
+  return { ok: true };
+}
 
 // site_settings + branches 일괄 저장 server action.
 // FormData prefix 규약:

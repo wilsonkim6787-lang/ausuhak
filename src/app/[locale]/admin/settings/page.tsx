@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import SettingsForm, { type SettingRow, type BranchRow } from "./SettingsForm";
+import NoticePanel from "./NoticePanel";
 
 export default async function SettingsPage({
   params,
@@ -34,6 +35,16 @@ export default async function SettingsPage({
     );
   }
 
+  const allRows = (settingsRes.data ?? []) as SettingRow[];
+  const noticeMap = new Map(allRows.filter((r) => r.category === "notice").map((r) => [r.key, r.value]));
+  const noticeDefaults = {
+    active: noticeMap.get("notice_active") === "true",
+    title: noticeMap.get("notice_title") ?? "",
+    body: noticeMap.get("notice_body") ?? "",
+    version: parseInt(noticeMap.get("notice_version") ?? "1", 10) || 1,
+  };
+  const generalRows = allRows.filter((r) => r.category !== "notice");
+
   return (
     <div className="flex flex-col gap-6">
       <header>
@@ -44,12 +55,14 @@ export default async function SettingsPage({
           ⚙️ 사이트 설정
         </h1>
         <p className="mt-2 text-sm text-ink-500">
-          회사 정보·지사·카카오·영업 시간·가격. 저장하면 사이트 푸터/페이지에 즉시 반영됩니다.
+          회사 정보·지사·카카오·영업 시간·가격·공지. 저장하면 사이트에 즉시 반영됩니다.
         </p>
       </header>
 
+      <NoticePanel defaults={noticeDefaults} />
+
       <SettingsForm
-        rows={(settingsRes.data ?? []) as SettingRow[]}
+        rows={generalRows}
         branches={(branchesRes.data ?? []) as BranchRow[]}
       />
     </div>

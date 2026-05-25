@@ -78,6 +78,16 @@ export default function Sidebar({
           </button>
         </div>
 
+        {/* 사이트 홈 가기 — admin 에서 메인 페이지 즉시 이동 */}
+        <Link
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mx-3 mt-3 flex items-center justify-center gap-1.5 rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-xs font-semibold text-navy-700 transition hover:bg-cream-200"
+        >
+          🏠 사이트 홈 (새 탭)
+        </Link>
+
         <nav className="flex-1 overflow-y-auto px-3 py-4">
           <ul className="flex flex-col gap-0.5">
             {menus.map((m) => {
