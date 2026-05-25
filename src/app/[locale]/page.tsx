@@ -53,10 +53,10 @@ export default async function Home({
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
         <Hero />
-        <DiagnoseCTA />
-        <WilsonStory />
         <OfferShowcase />
+        <DiagnoseCTA />
         <MedicalCTA />
+        <WilsonStory />
         <FAQPreview />
       </main>
       <Footer />
