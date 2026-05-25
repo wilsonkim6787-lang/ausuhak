@@ -7,7 +7,7 @@ export default function Hero() {
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="/hero-campus.png"
+          src="/hero-campus.jpg"
           alt="호주 대학교 캠퍼스에서 대화하는 학생들"
           className="h-full w-full object-cover"
         />
