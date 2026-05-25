@@ -11,6 +11,18 @@ import {
   type StudentForCare,
 } from "@/lib/care/rules";
 import CopyButton from "@/components/admin/CopyButton";
+import StudentAvatar from "@/components/admin/StudentAvatar";
+
+const LEAD_OPTIONS: { key: string; label: string }[] = [
+  { key: "all",       label: "전체" },
+  { key: "lead",      label: "리드" },
+  { key: "contacted", label: "연락" },
+  { key: "pro",       label: "상담" },
+  { key: "contract",  label: "계약" },
+  { key: "visa",      label: "비자" },
+  { key: "onsite",    label: "도착" },
+  { key: "pr",        label: "PR" },
+];
 
 type StudentRaw = {
   id: string;
@@ -20,6 +32,7 @@ type StudentRaw = {
   lead_status: string | null;
   updated_at: string;
   user_id: string | null;
+  photo_path: string | null;
   users: { last_login_at: string | null } | { last_login_at: string | null }[] | null;
 };
 
@@ -28,10 +41,15 @@ type VisaRow = { student_id: string; submitted_at: string | null };
 
 export default async function AdminCarePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ lead?: string; q?: string }>;
 }) {
   const { locale } = await params;
+  const sp = await searchParams;
+  const leadFilter = sp.lead && sp.lead !== "all" ? sp.lead : null;
+  const nameQ = sp.q?.trim().toLowerCase() ?? "";
   setRequestLocale(locale);
 
   const supabase = await createClient();
@@ -43,7 +61,7 @@ export default async function AdminCarePage({
     supabase
       .from("students")
       .select(
-        "id, name, kakao_id, current_stage, lead_status, updated_at, user_id, users(last_login_at)",
+        "id, name, kakao_id, current_stage, lead_status, updated_at, user_id, photo_path, users(last_login_at)",
       )
       .limit(2000),
     supabase
@@ -94,6 +112,7 @@ export default async function AdminCarePage({
         lead_status: raw.lead_status,
         updated_at: raw.updated_at,
         user_id: raw.user_id,
+        photo_path: raw.photo_path,
         users: usersField ?? undefined,
         latest_document_at: latestDocByStudent.get(raw.id) ?? null,
         visa_submitted_at: visaByStudent.get(raw.id) ?? null,
@@ -101,7 +120,12 @@ export default async function AdminCarePage({
     },
   );
 
-  const hits = evaluateCareRules(studentsForCare);
+  const allHits = evaluateCareRules(studentsForCare);
+  const hits = allHits.filter((h) => {
+    if (leadFilter && h.lead_status !== leadFilter) return false;
+    if (nameQ && !(h.student_name ?? "").toLowerCase().includes(nameQ)) return false;
+    return true;
+  });
 
   // 룰별 그룹화 + 정렬 (오래 정체된 학생 먼저)
   const byRule = new Map<string, typeof hits>();
@@ -127,10 +151,50 @@ export default async function AdminCarePage({
           🩺 학생 자동 케어
         </h1>
         <p className="mt-1 text-sm text-ink-500">
-          정체 감지 7룰 실시간 평가 · 학생 {studentsForCare.length}명 / 트리거 {hits.length}건.
+          정체 감지 7룰 실시간 평가 · 학생 {studentsForCare.length}명 / 트리거 {hits.length}건
+          {leadFilter || nameQ ? ` (필터 적용 / 전체 ${allHits.length}건)` : ""}.
           Cron 자동 발송은 Step 3.1 이후 활성화.
         </p>
       </header>
+
+      {/* 필터 */}
+      <div className="flex flex-col gap-3 rounded-2xl border border-cream-300 bg-white p-4 shadow-sm">
+        <form action="/admin/care" className="flex gap-2">
+          <input
+            type="search"
+            name="q"
+            defaultValue={sp.q ?? ""}
+            placeholder="학생 이름 검색"
+            className="flex-1 rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm outline-none focus:border-gold-500"
+          />
+          {sp.lead && <input type="hidden" name="lead" value={sp.lead} />}
+          <button type="submit" className="rounded-lg bg-navy-900 px-4 text-xs font-semibold text-white hover:bg-navy-700">
+            검색
+          </button>
+        </form>
+        <div className="flex flex-wrap gap-2">
+          {LEAD_OPTIONS.map((opt) => {
+            const params = new URLSearchParams();
+            if (opt.key !== "all") params.set("lead", opt.key);
+            if (sp.q) params.set("q", sp.q);
+            const href = params.toString() ? `/admin/care?${params.toString()}` : "/admin/care";
+            const active = (sp.lead ?? "all") === opt.key;
+            return (
+              <Link
+                key={opt.key}
+                href={href}
+                className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                  active
+                    ? "border-navy-900 bg-navy-900 text-white"
+                    : "border-cream-300 bg-white text-navy-700 hover:bg-cream-100"
+                }`}
+              >
+                {opt.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
 
       <section>
         <h2 className="mb-3 font-display text-base font-bold text-navy-900">
@@ -231,13 +295,23 @@ function RuleGroup({
               >
                 <Link
                   href={`/admin/students/${h.student_id}`}
-                  className="min-w-0 flex-1 truncate font-medium text-navy-900 underline-offset-2 hover:underline"
+                  className="flex min-w-0 flex-1 items-center gap-2 font-medium text-navy-900 underline-offset-2 hover:underline"
                 >
-                  {h.student_name?.trim() || "이름 미입력"}
+                  <StudentAvatar
+                    name={h.student_name}
+                    photoPath={h.student_photo_path}
+                    size="sm"
+                  />
+                  <span className="truncate">{h.student_name?.trim() || "이름 미입력"}</span>
                 </Link>
                 <span className="shrink-0 rounded-full bg-navy-900 px-2 py-0.5 text-[10px] font-bold text-white">
                   Stage {h.current_stage}
                 </span>
+                {h.lead_status && (
+                  <span className="shrink-0 rounded-full bg-cream-200 px-2 py-0.5 text-[10px] font-medium text-navy-700">
+                    {h.lead_status}
+                  </span>
+                )}
                 {h.days_since != null && (
                   <span className="shrink-0 text-[11px] font-semibold text-ink-700">
                     {h.days_since}일 전

@@ -20,7 +20,7 @@ export default async function NewQuotePage({
   // 022: schools 마스터 참조 제거 (Wilson 100% 수기 입력). students만 fetch.
   const { data } = await supabase
     .from("students")
-    .select("id, name, age_range, major, preferred_region")
+    .select("id, name, age_range, major, preferred_region, photo_path")
     .order("updated_at", { ascending: false })
     .limit(500);
 
@@ -29,6 +29,7 @@ export default async function NewQuotePage({
     name: s.name?.trim() || "이름 미입력",
     summary: [s.age_range, s.major, s.preferred_region].filter(Boolean).join(" / "),
     preferred_region: s.preferred_region as string | null,
+    photo_path: (s as { photo_path?: string | null }).photo_path ?? null,
   }));
 
   return (

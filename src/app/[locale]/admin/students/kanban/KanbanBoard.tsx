@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 import { updateLeadStatusAction } from "./actions";
 
 export type KanbanStudent = {
@@ -14,6 +15,7 @@ export type KanbanStudent = {
   summary: string;
   last_note: string | null;
   next_deadline: { type: string; date: string } | null;
+  photo_path: string | null;
 };
 
 // 메인 active 5컬럼.
@@ -233,8 +235,9 @@ function StudentCard({
         aria-label={`${student.name} 상세`}
       />
       <div className="relative z-10 flex flex-col gap-1.5 pointer-events-none">
-        <div className="flex items-center justify-between gap-2">
-          <span className="font-display text-sm font-bold text-navy-900 truncate">
+        <div className="flex items-center gap-2">
+          <StudentAvatar name={student.name} photoPath={student.photo_path} size="sm" />
+          <span className="font-display text-sm font-bold text-navy-900 truncate flex-1">
             {student.name}
           </span>
           <span className="rounded-full bg-navy-900 px-1.5 py-0.5 text-[9px] font-bold text-gold-400 shrink-0">

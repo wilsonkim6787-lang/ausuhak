@@ -86,6 +86,7 @@ export type StudentForCare = {
   lead_status: string | null;
   updated_at: string;
   user_id: string | null;
+  photo_path: string | null;
   // 가입된 학생만 (users.last_login_at)
   users?: { last_login_at: string | null } | null;
   // 최근 문서 1개 (created_at)
@@ -99,7 +100,9 @@ export type CareHit = {
   student_id: string;
   student_name: string | null;
   student_kakao_id: string | null;
+  student_photo_path: string | null;
   current_stage: number;
+  lead_status: string | null;
   severity: RuleSeverity;
   days_since: number | null; // 정체된 일수 (계산 가능 시)
 };
@@ -183,7 +186,9 @@ function makeHit(
     student_id: s.id,
     student_name: s.name,
     student_kakao_id: s.kakao_id,
+    student_photo_path: s.photo_path ?? null,
     current_stage: s.current_stage,
+    lead_status: s.lead_status,
     severity: rule.severity,
     days_since: daysSince,
   };

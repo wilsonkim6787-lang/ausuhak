@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 
-type SP = { status?: string };
+type SP = { status?: string; q?: string };
 
 type PaymentRow = {
   id: string;
@@ -12,7 +13,7 @@ type PaymentRow = {
   status: string | null;
   confirmed_at: string | null;
   created_at: string;
-  students?: { name: string | null } | null;
+  students?: { name: string | null; photo_path: string | null } | null;
 };
 
 const TYPE_LABEL: Record<string, string> = {
@@ -36,7 +37,7 @@ export default async function AdminPaymentsListPage({
   let query = supabase
     .from("payments")
     .select(
-      "id, student_id, payment_type, amount_krw, status, confirmed_at, created_at, students(name)",
+      "id, student_id, payment_type, amount_krw, status, confirmed_at, created_at, students(name, photo_path)",
     )
     .order("created_at", { ascending: false })
     .limit(200);
@@ -53,7 +54,15 @@ export default async function AdminPaymentsListPage({
       </div>
     );
   }
-  const rows = (data ?? []) as unknown as PaymentRow[];
+  let rows = (data ?? []) as unknown as PaymentRow[];
+
+  // 학생 이름 검색 (client filter — 200건 limit 이라 안전)
+  if (sp.q) {
+    const needle = sp.q.toLowerCase();
+    rows = rows.filter((p) =>
+      (p.students?.name ?? "").toLowerCase().includes(needle),
+    );
+  }
 
   // 이번 달 통계
   const now = new Date();
@@ -87,13 +96,28 @@ export default async function AdminPaymentsListPage({
         <Stat label="이번 달 총 등록" value={monthRows.length.toString()} />
       </section>
 
-      {/* 필터 */}
-      <nav className="flex flex-wrap gap-2 text-xs">
-        <FilterChip status={undefined} current={sp.status} label="전체" />
-        <FilterChip status="pending" current={sp.status} label="대기" />
-        <FilterChip status="confirmed" current={sp.status} label="확정" />
-        <FilterChip status="refunded" current={sp.status} label="환불" />
-      </nav>
+      {/* 검색 + 필터 */}
+      <div className="flex flex-col gap-3">
+        <form action="/admin/payments" className="flex gap-2">
+          <input
+            type="search"
+            name="q"
+            defaultValue={sp.q ?? ""}
+            placeholder="학생 이름 검색"
+            className="flex-1 rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm outline-none focus:border-gold-500"
+          />
+          {sp.status && <input type="hidden" name="status" value={sp.status} />}
+          <button type="submit" className="rounded-lg bg-navy-900 px-4 text-xs font-semibold text-white hover:bg-navy-700">
+            검색
+          </button>
+        </form>
+        <nav className="flex flex-wrap gap-2 text-xs">
+          <FilterChip status={undefined} current={sp.status} q={sp.q} label="전체" />
+          <FilterChip status="pending" current={sp.status} q={sp.q} label="대기" />
+          <FilterChip status="confirmed" current={sp.status} q={sp.q} label="확정" />
+          <FilterChip status="refunded" current={sp.status} q={sp.q} label="환불" />
+        </nav>
+      </div>
 
       {/* 목록 */}
       {rows.length === 0 ? (
@@ -105,15 +129,16 @@ export default async function AdminPaymentsListPage({
           {rows.map((p, i) => (
             <li
               key={p.id}
-              className={`flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3 text-sm ${
+              className={`flex flex-wrap items-center gap-x-3 gap-y-1 px-5 py-3 text-sm ${
                 i > 0 ? "border-t border-cream-200" : ""
               }`}
             >
               <Link
                 href={`/admin/students/${p.student_id}/payments`}
-                className="min-w-[120px] font-medium text-navy-900 underline-offset-2 hover:underline"
+                className="flex min-w-[140px] items-center gap-2 font-medium text-navy-900 underline-offset-2 hover:underline"
               >
-                {p.students?.name ?? "이름 미입력"}
+                <StudentAvatar name={p.students?.name ?? null} photoPath={p.students?.photo_path ?? null} size="sm" />
+                <span>{p.students?.name ?? "이름 미입력"}</span>
               </Link>
               <span className="min-w-[140px] text-ink-700">
                 {TYPE_LABEL[p.payment_type] ?? p.payment_type}
@@ -161,13 +186,20 @@ function Stat({
 function FilterChip({
   status,
   current,
+  q,
   label,
 }: {
   status: string | undefined;
   current: string | undefined;
+  q: string | undefined;
   label: string;
 }) {
-  const href = status ? `/admin/payments?status=${status}` : "/admin/payments";
+  const params = new URLSearchParams();
+  if (status) params.set("status", status);
+  if (q) params.set("q", q);
+  const href = params.toString()
+    ? `/admin/payments?${params.toString()}`
+    : "/admin/payments";
   const active = (current ?? undefined) === status;
   return (
     <Link

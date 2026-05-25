@@ -20,6 +20,7 @@ type StudentRow = {
   kakao_id: string | null;
   age_range: string | null;
   major: string | null;
+  photo_path: string | null;
   updated_at: string;
 };
 
@@ -46,7 +47,7 @@ export default async function KanbanPage({
   let studentQuery = supabase
     .from("students")
     .select(
-      "id, name, current_stage, lead_status, is_medical, wilson_alerts, kakao_id, age_range, major, updated_at",
+      "id, name, current_stage, lead_status, is_medical, wilson_alerts, kakao_id, age_range, major, photo_path, updated_at",
     )
     .order("updated_at", { ascending: false })
     .limit(500);
@@ -117,6 +118,7 @@ export default async function KanbanPage({
       next_deadline: dl
         ? { type: dl.deadline_type, date: dl.deadline_date }
         : null,
+      photo_path: s.photo_path,
     };
   });
 

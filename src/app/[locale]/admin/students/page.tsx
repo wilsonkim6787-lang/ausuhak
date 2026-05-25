@@ -2,6 +2,7 @@ import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { buttonStyles } from "@/components/ui/Button";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 import StudentFilters from "./StudentFilters";
 
 // 헬퍼 분리: react-hooks/purity 규칙은 컴포넌트 본문 안의 Date.now/new Date를 막음.
@@ -36,6 +37,7 @@ type StudentRow = {
   wilson_alerts: string[] | null;
   kakao_id: string | null;
   source: string | null;
+  photo_path: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -55,7 +57,7 @@ export default async function StudentsPage({
   let query = supabase
     .from("students")
     .select(
-      "id, name, age_range, education, major, preferred_region, current_stage, lead_status, is_medical, wilson_alerts, kakao_id, source, created_at, updated_at",
+      "id, name, age_range, education, major, preferred_region, current_stage, lead_status, is_medical, wilson_alerts, kakao_id, source, photo_path, created_at, updated_at",
     )
     .order("updated_at", { ascending: false })
     .limit(200);
@@ -226,57 +228,60 @@ function StudentRowCard({
   return (
     <Link
       href={`/admin/students/${s.id}`}
-      className="block rounded-xl border border-cream-300 bg-white p-4 shadow-sm transition hover:shadow-md"
+      className="flex gap-3 rounded-xl border border-cream-300 bg-white p-4 shadow-sm transition hover:shadow-md"
     >
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <span className={`font-display text-base font-bold ${s.name ? "text-navy-900" : "text-ink-500"}`}>
-            {displayName}
-          </span>
-          {s.is_medical && (
-            <span className="rounded-full bg-error/15 px-2 py-0.5 text-[10px] font-semibold text-error">
-              🩺 의대
+      <StudentAvatar name={s.name} photoPath={s.photo_path} size="md" />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className={`font-display text-base font-bold ${s.name ? "text-navy-900" : "text-ink-500"}`}>
+              {displayName}
             </span>
-          )}
-          {hasAlerts && (
-            <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[10px] font-semibold text-gold-600">
-              🚨 Alert {s.wilson_alerts!.length}
+            {s.is_medical && (
+              <span className="rounded-full bg-error/15 px-2 py-0.5 text-[10px] font-semibold text-error">
+                🩺 의대
+              </span>
+            )}
+            {hasAlerts && (
+              <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[10px] font-semibold text-gold-600">
+                🚨 Alert {s.wilson_alerts!.length}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="rounded-full bg-navy-900 px-2.5 py-0.5 text-[10px] font-semibold text-gold-500">
+              Stage {s.current_stage}
             </span>
-          )}
+            <span className="rounded-full bg-cream-200 px-2.5 py-0.5 text-[10px] font-medium text-navy-700">
+              {s.lead_status ?? "lead"}
+            </span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="rounded-full bg-navy-900 px-2.5 py-0.5 text-[10px] font-semibold text-gold-500">
-            Stage {s.current_stage}
-          </span>
-          <span className="rounded-full bg-cream-200 px-2.5 py-0.5 text-[10px] font-medium text-navy-700">
-            {s.lead_status ?? "lead"}
-          </span>
-        </div>
+        {summary && (
+          <p className="mt-1.5 text-xs text-ink-500">{summary}</p>
+        )}
+        {(lastNote || nextDeadline) && (
+          <div className="mt-2 flex flex-col gap-1">
+            {lastNote && (
+              <p className="text-xs text-ink-700 line-clamp-1">💬 {lastNote}</p>
+            )}
+            {nextDeadline && (
+              <p
+                className={`text-xs font-semibold ${
+                  dlDays != null && dlDays <= 3
+                    ? "text-error"
+                    : dlDays != null && dlDays <= 7
+                      ? "text-gold-600"
+                      : "text-navy-700"
+                }`}
+              >
+                ⏰ {dlLabel} · {nextDeadline.date}
+                {dlDays != null && ` (D-${dlDays})`}
+              </p>
+            )}
+          </div>
+        )}
       </div>
-      {summary && (
-        <p className="mt-1.5 text-xs text-ink-500">{summary}</p>
-      )}
-      {(lastNote || nextDeadline) && (
-        <div className="mt-2 flex flex-col gap-1">
-          {lastNote && (
-            <p className="text-xs text-ink-700 line-clamp-1">💬 {lastNote}</p>
-          )}
-          {nextDeadline && (
-            <p
-              className={`text-xs font-semibold ${
-                dlDays != null && dlDays <= 3
-                  ? "text-error"
-                  : dlDays != null && dlDays <= 7
-                    ? "text-gold-600"
-                    : "text-navy-700"
-              }`}
-            >
-              ⏰ {dlLabel} · {nextDeadline.date}
-              {dlDays != null && ` (D-${dlDays})`}
-            </p>
-          )}
-        </div>
-      )}
     </Link>
   );
 }

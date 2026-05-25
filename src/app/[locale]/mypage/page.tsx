@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireStudent } from "@/lib/auth/requireStudent";
 import StageTimeline from "@/components/mypage/StageTimeline";
 import LeadProgress from "@/components/mypage/LeadProgress";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 import { getStage } from "@/lib/stages";
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
@@ -43,20 +44,23 @@ export default async function MypageHome() {
 
   return (
     <div className="space-y-6">
-      {/* 현재 단계 */}
-      <section className="rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">
-        <p className="text-xs font-bold tracking-wider text-gold-600">현재 진행 상황</p>
-        <h1 className="mt-1 font-display text-2xl font-bold text-navy-900 sm:text-3xl">
-          Stage {student.current_stage}.{" "}
-          <span className="text-gold-600">{currentStage?.short ?? "-"}</span>
-        </h1>
-        <p className="mt-1 text-sm text-ink-700">{currentStage?.label}</p>
+      {/* 현재 단계 + 사진 */}
+      <section className="flex flex-col gap-4 rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:p-6">
+        <StudentAvatar name={student.name} photoPath={student.photo_path} size="xl" />
+        <div className="flex-1">
+          <p className="text-xs font-bold tracking-wider text-gold-600">현재 진행 상황</p>
+          <h1 className="mt-1 font-display text-2xl font-bold text-navy-900 sm:text-3xl">
+            Stage {student.current_stage}.{" "}
+            <span className="text-gold-600">{currentStage?.short ?? "-"}</span>
+          </h1>
+          <p className="mt-1 text-sm text-ink-700">{currentStage?.label}</p>
 
-        {student.is_medical && (
-          <div className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-navy-900 px-2.5 py-1 text-xs font-bold text-gold-400">
-            🩺 의대 트랙 ({student.medical_pathway ?? "-"})
-          </div>
-        )}
+          {student.is_medical && (
+            <div className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-navy-900 px-2.5 py-1 text-xs font-bold text-gold-400">
+              🩺 의대 트랙 ({student.medical_pathway ?? "-"})
+            </div>
+          )}
+        </div>
       </section>
 
       {/* 진행도 시각화 (lead_status 7단계) */}

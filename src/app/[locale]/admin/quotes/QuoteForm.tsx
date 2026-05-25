@@ -2,6 +2,7 @@
 
 import { useActionState, useMemo, useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 import {
   createQuoteAction,
   updateQuoteAction,
@@ -15,6 +16,7 @@ export type StudentOption = {
   name: string;
   summary: string;
   preferred_region: string | null;
+  photo_path: string | null;
 };
 
 type Mode = "new" | "edit";
@@ -705,9 +707,10 @@ function StudentCombobox({
         className="w-full rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm outline-none focus:border-gold-500"
       />
       {selected && !open && (
-        <p className="mt-1 text-xs text-ink-500">
-          ✓ 선택됨: {selected.name} {selected.summary && `(${selected.summary})`}
-        </p>
+        <div className="mt-2 flex items-center gap-2 text-xs text-ink-500">
+          <StudentAvatar name={selected.name} photoPath={selected.photo_path} size="sm" />
+          <span>✓ 선택됨: <strong className="text-navy-900">{selected.name}</strong> {selected.summary && `(${selected.summary})`}</span>
+        </div>
       )}
       {open && (
         <ul className="absolute z-30 mt-1 max-h-64 w-full overflow-y-auto rounded-lg border border-cream-300 bg-white shadow-lg">
@@ -723,12 +726,15 @@ function StudentCombobox({
                     setQuery(s.name);
                     setOpen(false);
                   }}
-                  className={`w-full px-3 py-2 text-left text-sm hover:bg-cream-100 ${
+                  className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-cream-100 ${
                     s.id === studentId ? "bg-gold-100/60" : ""
                   }`}
                 >
-                  <div className="font-semibold text-navy-900">{s.name}</div>
-                  {s.summary && <div className="text-[11px] text-ink-500">{s.summary}</div>}
+                  <StudentAvatar name={s.name} photoPath={s.photo_path} size="sm" />
+                  <div className="min-w-0 flex-1">
+                    <div className="font-semibold text-navy-900 truncate">{s.name}</div>
+                    {s.summary && <div className="text-[11px] text-ink-500 truncate">{s.summary}</div>}
+                  </div>
                 </button>
               </li>
             ))
