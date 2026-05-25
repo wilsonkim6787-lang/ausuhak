@@ -72,7 +72,7 @@ export default async function TermsPage({
 
           <Section title="제5조 (서비스 제공)">
             <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-ink-700">
-              <li>· <strong>무료 서비스</strong>: 가능성 진단, 카카오 채널 1:1 상담, ISAT 5문제 체험, MMI 1 스테이션 체험.</li>
+              <li>· <strong>무료 서비스</strong>: 30초 진단, 카카오 채널 1:1 상담, ISAT 5문제 체험, MMI 1 스테이션 체험.</li>
               <li>· <strong>유료 서비스</strong>: 의대 패키지 ₩300,000 (ISAT 200문제 + MMI 40 스테이션 + Wilson 직접 피드백). 그 외 학교 수속·비자 진행 서비스는 케이스별 별도 견적.</li>
               <li>· <strong>서비스 중단</strong>: 시스템 점검·천재지변·운영자 사정 등 사유로 서비스가 일시 중단될 수 있으며, 가능한 범위에서 사전 공지합니다.</li>
             </ul>

@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
+import {
+  BlocksBanner, Card1Schools, Card3Pathway, Card5Visa, Card6Tuition, Card7Next,
+} from "@/components/diagnose/Cards";
 import DiagnoseCompleteTracker from "@/components/diagnose/DiagnoseCompleteTracker";
 import { matchDiagnose } from "@/lib/matching";
 import type {
@@ -116,27 +119,27 @@ export default async function DiagnosePage({
             )}
           </div>
 
-          <div className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm sm:p-8">
-            <h2 className="font-display text-lg font-bold text-navy-900">
-              Wilson 이 직접 검토합니다
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-ink-700">
-              학생 상황 (학력·영어·전공·지역·예산) 을 토대로 Wilson 이 카카오톡으로 맞춤 안내합니다.
-              일반 자동 결과보다 학생 개별 케이스에 맞춘 정밀 매칭이 정확합니다.
-            </p>
-            <a
-              href={KAKAO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-kakao-source="diagnose_complete"
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-600 px-6 py-3.5 text-base font-bold text-white shadow-sm transition hover:bg-gold-500 sm:w-auto"
-            >
-              💬 카카오로 1:1 상담 시작
-            </a>
+          {(result.blocks_hard.length + result.blocks_soft.length > 0) && (
+            <div className="mb-8">
+              <BlocksBanner hard={result.blocks_hard} soft={result.blocks_soft} />
+            </div>
+          )}
+
+          <div className="space-y-5">
+            <Card1Schools data={result.cards.card1_schools} />
+            <Card3Pathway data={result.cards.card3_pathway} />
+            <Card5Visa data={result.cards.card5_visa_pr} />
+            <Card6Tuition
+              directItems={result.cards.card1_schools.items}
+              pathwayItems={result.cards.card1_schools.pathway_items}
+              education={input.education}
+            />
+            <Card7Next data={result.cards.card7_next} kakaoUrl={KAKAO_URL} />
           </div>
 
           <p className="mt-8 text-center text-xs text-ink-500">
-            * 학비·정원·정책·비자 룰은 실시간 변동될 수 있어 1:1 카톡 상담으로 최종 확정합니다.
+            * 이 결과는 Wilson 검수 정본 데이터 (109교 · 36차단룰 · 24Alert · 83시나리오 FAQ) 기반의 1차 매칭입니다.
+            <br />* 학비·정원·정책은 실시간 변동될 수 있어 1:1 카톡 상담으로 최종 확정합니다.
           </p>
         </section>
       </main>
