@@ -51,26 +51,49 @@ export default function OfferCarousel({
   }, [paused, groupCount]);
 
   const current = groups[page] ?? [];
+  const goPrev = () => setPage((p) => (p - 1 + groupCount) % groupCount);
+  const goNext = () => setPage((p) => (p + 1) % groupCount);
 
   return (
     <div
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* 모바일 = 가로 스와이프 전체 / PC = 현재 페이지 3개만 */}
-      <div className="-mx-4 overflow-x-auto pb-2 sm:mx-0 sm:overflow-visible sm:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {/* PC 페이지 그리드 */}
-        <ul className="hidden snap-x snap-mandatory gap-5 sm:grid sm:grid-cols-3 sm:px-0">
-          {current.map((o, i) => (
-            <CardLi key={`pc-${page}-${o.id ?? i}`} o={o} placeholderLabel={placeholderLabel} />
-          ))}
-        </ul>
-        {/* 모바일 전체 스와이프 */}
-        <ul className="flex snap-x snap-mandatory gap-5 px-4 sm:hidden">
-          {items.map((o, i) => (
-            <CardLi key={`m-${o.id ?? i}`} o={o} placeholderLabel={placeholderLabel} />
-          ))}
-        </ul>
+      {/* 모바일 = 가로 스와이프 전체 / PC = 현재 페이지 3개 + 좌우 화살표 */}
+      <div className="relative">
+        {groupCount > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={goPrev}
+              aria-label="이전"
+              className="absolute -left-5 top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-cream-300 bg-white text-lg text-ink-700 shadow-sm transition hover:border-gold-600 hover:text-gold-600 hover:shadow-md sm:flex"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              aria-label="다음"
+              className="absolute -right-5 top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-cream-300 bg-white text-lg text-ink-700 shadow-sm transition hover:border-gold-600 hover:text-gold-600 hover:shadow-md sm:flex"
+            >
+              ›
+            </button>
+          </>
+        )}
+
+        <div className="-mx-4 overflow-x-auto pb-2 sm:mx-0 sm:overflow-visible sm:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <ul className="hidden snap-x snap-mandatory gap-5 sm:grid sm:grid-cols-3 sm:px-0">
+            {current.map((o, i) => (
+              <CardLi key={`pc-${page}-${o.id ?? i}`} o={o} placeholderLabel={placeholderLabel} />
+            ))}
+          </ul>
+          <ul className="flex snap-x snap-mandatory gap-5 px-4 sm:hidden">
+            {items.map((o, i) => (
+              <CardLi key={`m-${o.id ?? i}`} o={o} placeholderLabel={placeholderLabel} />
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* dots (PC 만 / 그룹 2개 이상일 때) */}
