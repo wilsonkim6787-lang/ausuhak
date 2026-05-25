@@ -11,7 +11,7 @@ export default function Hero() {
           alt="호주 대학교 캠퍼스에서 대화하는 학생들"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-cream-100/95 via-cream-100/80 to-cream-100/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-cream-100/90 via-cream-100/70 to-cream-100/30" />
       </div>
 
       <div className="container relative z-10 mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
@@ -41,7 +41,7 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               data-kakao-source="hero"
-              className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
+              className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-10 py-5 text-lg font-extrabold text-white shadow-lg transition hover:bg-gold-500 hover:shadow-xl sm:text-xl"
             >
               {t("ctaStory")} <span aria-hidden>→</span>
             </a>
