@@ -44,17 +44,18 @@ export default async function MypageHome() {
 
   return (
     <div className="space-y-6">
-      {/* 현재 단계 + 사진 */}
+      {/* 헤더: 사진 + 이름 + 의대 뱃지 */}
       <section className="flex flex-col gap-4 rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:p-6">
         <StudentAvatar name={student.name} photoPath={student.photo_path} size="xl" />
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wider text-gold-600">현재 진행 상황</p>
+          <p className="text-xs font-bold tracking-wider text-gold-600">내 마이페이지</p>
           <h1 className="mt-1 font-display text-2xl font-bold text-navy-900 sm:text-3xl">
-            Stage {student.current_stage}.{" "}
-            <span className="text-gold-600">{currentStage?.short ?? "-"}</span>
+            {student.name?.trim() || "이름 미입력"}
           </h1>
-          <p className="mt-1 text-sm text-ink-700">{currentStage?.label}</p>
-
+          <p className="mt-1 text-sm text-ink-700">
+            현재 <span className="font-semibold text-navy-900">Stage {student.current_stage}</span>
+            {currentStage?.short ? ` · ${currentStage.short}` : ""}
+          </p>
           {student.is_medical && (
             <div className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-navy-900 px-2.5 py-1 text-xs font-bold text-gold-400">
               🩺 의대 트랙 ({student.medical_pathway ?? "-"})
@@ -63,8 +64,24 @@ export default async function MypageHome() {
         </div>
       </section>
 
-      {/* 진행도 시각화 (lead_status 7단계) */}
+      {/* 진행도 통합 카드: LeadProgress (main) + Stage 12 timeline (details 펼침) */}
       <LeadProgress leadStatus={student.lead_status} />
+
+      <details className="group rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">
+        <summary className="flex cursor-pointer items-center justify-between gap-2 list-none">
+          <h2 className="font-display text-lg font-semibold text-navy-900">
+            🎯 Stage 12 자세히 보기
+          </h2>
+          <span className="text-xs text-ink-500 group-open:hidden">펼치기 ▼</span>
+          <span className="hidden text-xs text-ink-500 group-open:inline">접기 ▲</span>
+        </summary>
+        <div className="mt-4">
+          <p className="mb-3 text-xs text-ink-500">
+            12단계 = Wilson 케어 lifecycle. 현재 위치를 더 자세히 확인하세요.
+          </p>
+          <StageTimeline currentStage={student.current_stage} />
+        </div>
+      </details>
 
       {/* 다음 액션 = critical_deadlines 미완료 */}
       <section className="rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">
@@ -115,44 +132,57 @@ export default async function MypageHome() {
         )}
       </section>
 
-      {/* Stage 12 시각화 */}
-      <section className="rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">
-        <h2 className="mb-4 font-display text-lg font-semibold text-navy-900">
-          🎯 전체 로드맵 (12단계)
-        </h2>
-        <StageTimeline currentStage={student.current_stage} />
+      {/* 주요 메뉴 (primary 3) */}
+      <section>
+        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-ink-500">내 자산</p>
+        <div className="grid grid-cols-3 gap-3">
+          <PrimaryLink href="/mypage/quote" icon="📋" label="견적서" />
+          <PrimaryLink href="/mypage/payments" icon="💳" label="결제 내역" />
+          <PrimaryLink href="/mypage/documents" icon="📁" label="서류" />
+        </div>
       </section>
 
-      {/* 빠른 메뉴 */}
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <QuickLink href="/mypage/cards" icon="📄" label="카드 7장 다시 보기" />
-        <QuickLink href="/mypage/quote" icon="📋" label="견적서" />
-        <QuickLink href="/mypage/documents" icon="📁" label="서류 업로드" />
-        <QuickLink href="/mypage/payments" icon="💳" label="결제 내역" />
-        <QuickLink href="/mypage/self-guide" icon="📚" label="셀프 가이드" />
-        <a
-          href={KAKAO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-kakao-source="mypage_home_quick"
-          className="flex flex-col items-center justify-center gap-1.5 rounded-2xl border border-gold-600 bg-gold-600 px-3 py-4 text-white shadow-sm transition hover:bg-gold-500"
-        >
-          <span className="text-2xl">💬</span>
-          <span className="text-xs font-semibold">카톡 채널</span>
-        </a>
+      {/* 보조 메뉴 (secondary 2) */}
+      <section>
+        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-ink-500">도움</p>
+        <div className="grid grid-cols-2 gap-3">
+          <SecondaryLink href="/mypage/self-guide" icon="📚" label="셀프 가이드" />
+          <a
+            href={KAKAO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-kakao-source="mypage_home_quick"
+            className="flex items-center justify-center gap-2 rounded-2xl border border-gold-600 bg-gold-600 px-3 py-3 text-white shadow-sm transition hover:bg-gold-500"
+          >
+            <span className="text-lg">💬</span>
+            <span className="text-xs font-semibold">카톡 채널</span>
+          </a>
+        </div>
       </section>
     </div>
   );
 }
 
-function QuickLink({ href, icon, label }: { href: string; icon: string; label: string }) {
+function PrimaryLink({ href, icon, label }: { href: string; icon: string; label: string }) {
   return (
     <Link
       href={href}
-      className="flex flex-col items-center justify-center gap-1.5 rounded-2xl border border-cream-300 bg-white px-3 py-4 text-navy-900 shadow-sm transition hover:border-navy-800/40 hover:shadow-md"
+      className="flex flex-col items-center justify-center gap-1.5 rounded-2xl border border-cream-300 bg-white px-3 py-5 text-navy-900 shadow-sm transition hover:border-navy-800/40 hover:shadow-md"
     >
-      <span className="text-2xl">{icon}</span>
-      <span className="text-xs font-medium">{label}</span>
+      <span className="text-3xl">{icon}</span>
+      <span className="text-sm font-semibold">{label}</span>
+    </Link>
+  );
+}
+
+function SecondaryLink({ href, icon, label }: { href: string; icon: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="flex items-center justify-center gap-2 rounded-2xl border border-cream-300 bg-white px-3 py-3 text-navy-900 shadow-sm transition hover:border-navy-800/40"
+    >
+      <span className="text-lg">{icon}</span>
+      <span className="text-xs font-semibold">{label}</span>
     </Link>
   );
 }
