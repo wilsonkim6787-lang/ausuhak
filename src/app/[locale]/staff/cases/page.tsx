@@ -1,5 +1,6 @@
-// 케이스 학습 = 졸업생·실제 진행 케이스 학습. Phase 2 후속.
+// 케이스 학습 = 합격증·후기·졸업생까지 /offers 갤러리에 통합. 이 페이지는 redirect 안내.
 
+import Link from "next/link";
 import { requireStaff } from "@/lib/auth/requireStaff";
 
 export default async function StaffCasesPage() {
@@ -16,10 +17,11 @@ export default async function StaffCasesPage() {
 
       <div className="rounded-2xl border border-cream-300 bg-white p-6 text-sm text-ink-700">
         <p>
-          케이스 학습 모듈은 Wilson이 졸업생 DB·실제 진행 케이스를 분석한 후 단계적으로 공개됩니다.
-        </p>
-        <p className="mt-3 text-xs text-ink-500">
-          연관 데이터: 졸업생 DB (Phase 2) · 매뉴얼 (위) · activity_logs (Phase 3).
+          합격증·학생 후기·졸업생 케이스는{" "}
+          <Link href="/offers" className="font-semibold text-gold-600 hover:underline">
+            /offers 갤러리
+          </Link>
+          에 통합되어 있습니다. 각 카드 상세에서 학생 배경·합격 과정·졸업/진로까지 확인하세요.
         </p>
       </div>
     </div>

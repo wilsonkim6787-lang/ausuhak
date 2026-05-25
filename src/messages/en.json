@@ -9,6 +9,8 @@
     "menuStory": "About Wilson",
     "menuMedical": "Market",
     "menuFaq": "Contact",
+    "menuLogin": "Sign in",
+    "menuSignup": "Sign up",
     "ctaKakao": "📧 Contact"
   },
   "Hero": {
@@ -47,6 +49,7 @@
     "hoursLabel": "Working hours",
     "hoursValue": "Mon-Fri 10:00 ~ 18:00 (Korea Standard Time)",
     "sisterEyebrow": "Wilson's sister services",
+    "sisterBody": "Pre-departure English prep academy + online English tutoring center. As Wilson's sister services, we work with students from their starting English level.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "languageToggle": "한국어 / Korean Site"
