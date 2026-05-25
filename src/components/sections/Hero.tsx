@@ -22,23 +22,7 @@ export default function Hero() {
               {t("badge")}
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              {([1, 2, 3] as const).map((i) => (
-                <div key={i} className="text-center sm:text-left">
-                  <div className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">
-                    {t(`stat${i}Num` as const)}
-                    <span className="text-lg text-gold-600">
-                      {t(`stat${i}Unit` as const)}
-                    </span>
-                  </div>
-                  <div className="mt-1 text-xs text-ink-500 sm:text-sm">
-                    {t(`stat${i}Label` as const)}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <h1 className="mt-8 font-display text-[clamp(36px,5.5vw,64px)] font-bold leading-[1.15] tracking-tight text-ink-900">
+            <h1 className="font-display text-[clamp(36px,5.5vw,64px)] font-bold leading-[1.15] tracking-tight text-navy-900">
               {t("titleLine1")}
               <br />
               {t("titlePrefix")}
@@ -47,7 +31,7 @@ export default function Hero() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
-              <strong className="text-ink-900">{t("subtitleBold")}</strong>
+              <strong className="text-navy-900">{t("subtitleBold")}</strong>
               <br />
               {t("subtitleBody")}
             </p>
@@ -64,17 +48,33 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-kakao-source="hero"
-                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border-2 border-ink-800 px-6 py-4 text-base font-semibold text-ink-800 transition hover:bg-ink-800 hover:text-cream-100 sm:text-lg"
+                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border-2 border-navy-800 px-6 py-4 text-base font-semibold text-navy-800 transition hover:bg-navy-800 hover:text-cream-100 sm:text-lg"
               >
                 {t("ctaStory")}
               </a>
+            </div>
+
+            <div className="mt-10 grid grid-cols-3 gap-4">
+              {([1, 2, 3] as const).map((i) => (
+                <div key={i} className="text-center sm:text-left">
+                  <div className="font-display text-3xl font-bold text-navy-900 sm:text-4xl">
+                    {t(`stat${i}Num` as const)}
+                    <span className="text-lg text-gold-600">
+                      {t(`stat${i}Unit` as const)}
+                    </span>
+                  </div>
+                  <div className="mt-1 text-xs text-ink-500 sm:text-sm">
+                    {t(`stat${i}Label` as const)}
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div className="mt-8 flex flex-wrap gap-2">
               {([1, 2, 3] as const).map((i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-cream-200 px-3 py-1.5 text-xs font-medium text-ink-800 sm:text-sm"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-cream-200 px-3 py-1.5 text-xs font-medium text-navy-800 sm:text-sm"
                 >
                   <span className="text-gold-600">✓</span>
                   {t(`trustPill${i}` as const)}
