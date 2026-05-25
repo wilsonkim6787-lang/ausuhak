@@ -5,6 +5,7 @@ import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import StudentAvatar from "@/components/admin/StudentAvatar";
+import CreateStaffForm from "./CreateStaffForm";
 
 type StaffRow = {
   id: string;
@@ -94,18 +95,8 @@ export default async function AdminStaffPage({
         </p>
       </header>
 
-      {/* 신규 직원 안내 */}
-      <div className="rounded-2xl border border-cream-300 bg-cream-100/40 p-5">
-        <p className="text-xs font-bold uppercase tracking-wider text-ink-500">
-          신규 직원 추가
-        </p>
-        <p className="mt-2 text-sm text-ink-700">
-          ① 직원이 회원가입 (학생용 가입 폼) → ② Supabase{" "}
-          <span className="font-mono text-xs">users</span> 테이블에서 해당 row 의{" "}
-          <span className="font-mono text-xs">role</span> 을 <strong>'staff'</strong> 로 변경 →{" "}
-          ③ 이 페이지에 자동 등장 → ④ 클릭해서 권한 설정.
-        </p>
-      </div>
+      {/* 신규 직원 추가 — 인라인 폼 */}
+      <CreateStaffForm />
 
       {/* 직원 list */}
       {staff.length === 0 ? (
