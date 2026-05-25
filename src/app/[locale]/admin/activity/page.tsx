@@ -1,5 +1,5 @@
 // PART K 3.5: Wilson 활동 로그 대시보드.
-// activity_logs SELECT는 RLS로 Wilson만 허용.
+// activity_logs SELECT는 RLS로 Wilson만 허용 (is_super_admin()).
 
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
@@ -15,7 +15,13 @@ type LogRow = {
   ip_address: string | null;
   user_agent: string | null;
   created_at: string;
-  users?: { name: string | null; email: string | null; role: string | null } | null;
+};
+
+type UserRow = {
+  id: string;
+  name: string | null;
+  email: string | null;
+  role: string | null;
 };
 
 type SP = { action?: string; user?: string; since?: string };
@@ -43,10 +49,11 @@ export default async function AdminActivityPage({
   setRequestLocale(locale);
 
   const supabase = await createClient();
+  // users join 폐기 — PostgREST fk 인식 이슈 회피 + RLS 거부 시 활동 로그 자체는 보임.
   let query = supabase
     .from("activity_logs")
     .select(
-      "id, user_id, action_type, target_table, target_id, details, ip_address, user_agent, created_at, users(name, email, role)",
+      "id, user_id, action_type, target_table, target_id, details, ip_address, user_agent, created_at",
     )
     .order("created_at", { ascending: false })
     .limit(300);
@@ -58,12 +65,35 @@ export default async function AdminActivityPage({
   const { data, error } = await query;
   if (error) {
     return (
-      <div className="rounded-lg bg-error/10 p-4 text-sm text-error">
-        활동 로그 조회 실패: {error.message}
+      <div className="flex flex-col gap-4">
+        <h1 className="font-display text-3xl font-bold text-navy-900">🛡️ 활동 로그</h1>
+        <div className="rounded-lg bg-error/10 p-4 text-sm text-error">
+          <p className="font-semibold">활동 로그 조회 실패</p>
+          <p className="mt-2 font-mono text-xs">{error.message}</p>
+          <p className="mt-3 text-xs text-ink-700">
+            원인 후보: ① supabase migration 023 (activity_logs) 미적용
+            · ② RLS 거부 (is_super_admin() 함수 또는 role 확인) · ③ 환경변수 누락.
+          </p>
+        </div>
       </div>
     );
   }
-  const rows = (data ?? []) as unknown as LogRow[];
+  const rows = (data ?? []) as LogRow[];
+
+  // 학생·직원 이름 매핑 (별도 fetch — join 분리)
+  const userIds = Array.from(
+    new Set(rows.map((r) => r.user_id).filter((v): v is string => !!v)),
+  );
+  const userById = new Map<string, UserRow>();
+  if (userIds.length > 0) {
+    const { data: usersData } = await supabase
+      .from("users")
+      .select("id, name, email, role")
+      .in("id", userIds);
+    for (const u of (usersData ?? []) as UserRow[]) {
+      userById.set(u.id, u);
+    }
+  }
 
   // 보안 이벤트 카운트
   const securityCount = rows.filter((r) => SECURITY_ACTIONS.has(r.action_type)).length;
@@ -74,13 +104,13 @@ export default async function AdminActivityPage({
     <div className="flex flex-col gap-6">
       <header>
         <p className="text-xs font-semibold uppercase tracking-wider text-gold-600">
-          PHASE 3
+          보안 · 감사
         </p>
         <h1 className="mt-1 font-display text-3xl font-bold text-navy-900">
           🛡️ 활동 로그
         </h1>
         <p className="mt-1 text-sm text-ink-500">
-          모든 보안·인증·데이터 변경 자동 기록. UPDATE/DELETE 차단 (변조 불가).
+          모든 보안·인증·데이터 변경 자동 기록 (최근 300건). UPDATE/DELETE 차단 = 변조 불가.
         </p>
       </header>
 
@@ -109,11 +139,19 @@ export default async function AdminActivityPage({
       {/* 로그 테이블 */}
       {rows.length === 0 ? (
         <div className="rounded-2xl border border-cream-300 bg-cream-100/40 p-6 text-center text-sm text-ink-500">
-          {sp.action ? `${sp.action} 이벤트가 없습니다.` : "기록된 로그가 없습니다."}
+          {sp.action
+            ? `${sp.action} 이벤트가 없습니다.`
+            : "기록된 로그가 없습니다. (Wilson 또는 학생이 로그인·결제·견적 작업을 하면 자동 기록됩니다.)"}
         </div>
       ) : (
         <ul className="divide-y divide-cream-200 overflow-hidden rounded-2xl border border-cream-300 bg-white">
-          {rows.map((r) => <LogRowItem key={r.id} log={r} />)}
+          {rows.map((r) => (
+            <LogRowItem
+              key={r.id}
+              log={r}
+              user={r.user_id ? userById.get(r.user_id) ?? null : null}
+            />
+          ))}
         </ul>
       )}
     </div>
@@ -174,7 +212,7 @@ function FilterChip({
   );
 }
 
-function LogRowItem({ log }: { log: LogRow }) {
+function LogRowItem({ log, user }: { log: LogRow; user: UserRow | null }) {
   const security = SECURITY_ACTIONS.has(log.action_type);
   return (
     <li
@@ -193,9 +231,13 @@ function LogRowItem({ log }: { log: LogRow }) {
           >
             {log.action_type}
           </span>
-          {log.users?.name ? (
+          {user?.name ? (
             <span className="text-xs text-navy-700">
-              {log.users.name} ({log.users.role})
+              {user.name} ({user.role})
+            </span>
+          ) : user?.email ? (
+            <span className="text-xs text-navy-700">
+              {user.email} ({user.role})
             </span>
           ) : (
             <span className="text-xs text-ink-500">비로그인 / 익명</span>
