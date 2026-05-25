@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
+import { logActivity } from "@/lib/audit/log";
 
 export type ActionState = { ok?: boolean; error?: string };
 
@@ -65,6 +66,13 @@ export async function updateStudentBasicAction(
   const { error } = await supabase.from("students").update(payload).eq("id", id);
   if (error) return { error: `저장 실패: ${error.message}` };
 
+  await logActivity({
+    action_type: "update_student",
+    target_table: "students",
+    target_id: id,
+    details: { name, is_medical: isMedical },
+  });
+
   revalidatePath(`/admin/students/${id}`);
   revalidatePath("/admin/students");
   return { ok: true };
@@ -103,6 +111,13 @@ export async function updateStudentStageAction(
     })
     .eq("id", id);
   if (error) return { error: `저장 실패: ${error.message}` };
+
+  await logActivity({
+    action_type: "advance_stage",
+    target_table: "students",
+    target_id: id,
+    details: { new_stage: stage, new_lead_status: leadStatus },
+  });
 
   revalidatePath(`/admin/students/${id}`);
   revalidatePath("/admin/students");
