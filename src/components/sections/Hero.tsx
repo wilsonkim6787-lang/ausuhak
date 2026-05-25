@@ -15,7 +15,7 @@ export default function Hero() {
       </div>
 
       <div className="container relative z-10 mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("badge")}
           </span>
