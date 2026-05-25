@@ -43,30 +43,30 @@ export default function DiagnoseCTA() {
   };
 
   return (
-    <section id="diagnose" className="bg-navy-900 text-cream-100">
+    <section id="diagnose" className="bg-cream-200">
       <div className="container mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-500">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("eyebrow")}
           </span>
-          <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold leading-tight text-cream-100 sm:text-5xl">
+          <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold leading-tight text-ink-900 sm:text-5xl">
             {t("title")}
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-cream-200 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
             {t("subtitle")}
           </p>
         </div>
 
         {/* 검색창 */}
         <div className="mx-auto mt-10 max-w-2xl">
-          <div className="flex overflow-hidden rounded-xl border border-cream-100/20 bg-white shadow-lg">
+          <div className="flex overflow-hidden rounded-xl border border-cream-300 bg-white shadow-sm">
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && onSearch()}
               placeholder={t("searchPlaceholder")}
-              className="min-w-0 flex-1 bg-transparent px-5 py-4 text-sm text-navy-900 placeholder:text-ink-400 focus:outline-none sm:text-base"
+              className="min-w-0 flex-1 bg-transparent px-5 py-4 text-sm text-ink-900 placeholder:text-ink-400 focus:outline-none sm:text-base"
             />
             <button
               type="button"
@@ -86,15 +86,15 @@ export default function DiagnoseCTA() {
               href={KAKAO}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-3 rounded-xl border border-cream-100/10 bg-navy-800/50 px-5 py-4 transition hover:border-gold-500/40 hover:bg-navy-800/80"
+              className="flex items-start gap-3 rounded-xl border border-cream-300 bg-white px-5 py-4 transition hover:border-gold-600/50 hover:shadow-sm"
             >
               <span
                 aria-hidden
-                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-base"
+                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold-600/10 text-base"
               >
                 {c.icon}
               </span>
-              <span className="pt-0.5 text-sm leading-relaxed text-cream-100 sm:text-[15px]">
+              <span className="pt-0.5 text-sm leading-relaxed text-ink-900 sm:text-[15px]">
                 {t(c.key)}
               </span>
             </a>
@@ -111,7 +111,7 @@ export default function DiagnoseCTA() {
           >
             {t("ctaPrimary")} <span aria-hidden>→</span>
           </a>
-          <p className="mt-4 text-sm text-cream-200/70">{t("ctaSubtext")}</p>
+          <p className="mt-4 text-sm text-ink-500">{t("ctaSubtext")}</p>
         </div>
       </div>
     </section>
