@@ -36,7 +36,7 @@ export default function OfferCarousel({
     groups.push(group);
   }
   const groupCount = Math.max(groups.length, 1);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(() => Math.floor(Math.random() * groupCount));
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
