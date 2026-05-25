@@ -104,6 +104,22 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
                 }))}
               />
             )}
+            <div className="mt-8 rounded-2xl bg-cream-200 px-6 py-7 text-center sm:px-8">
+              <p className="text-sm font-semibold text-ink-900 sm:text-base">
+                {filtered.length === 0
+                  ? "원하는 답을 못 찾으셨나요?"
+                  : "더 자세한 상담이 필요하신가요?"}
+              </p>
+              <a
+                href={KAKAO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-3.5 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg"
+              >
+                카카오 상담하기 <span aria-hidden>→</span>
+              </a>
+              <p className="mt-3 text-xs text-ink-500">1차 카톡 상담은 무료입니다</p>
+            </div>
           </div>
         ) : (
           <>
