@@ -1,31 +1,12 @@
-// Tab 2: 진행 단계 (Stage 12 시각화 + 변경)
-import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import StageEditor from "./StageEditor";
+// 옛 /stage 라우트 → 기본 정보 페이지에 통합. 외부 link 호환용 redirect.
 
-export default async function StagePage({
+import { redirect } from "next/navigation";
+
+export default async function StageRedirect({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("students")
-    .select("id, current_stage, lead_status, graduated_at, updated_at")
-    .eq("id", id)
-    .single();
-
-  if (error || !data) notFound();
-
-  return (
-    <StageEditor
-      studentId={data.id}
-      currentStage={data.current_stage}
-      leadStatus={data.lead_status}
-      graduatedAt={data.graduated_at}
-      updatedAt={data.updated_at}
-    />
-  );
+  redirect(`/admin/students/${id}#stage`);
 }

@@ -10,19 +10,18 @@ type TabDef = {
   phase: 1 | 2 | 3;
 };
 
-// PART E-4 11탭. Phase 1 활성 6개 (Phase 1.x 추가: 학교 지원·서류·마감일) / 나머지 disabled.
+// PART E-4 — "기본 정보" 안에 Stage 통합 (탭 11 → 10).
 const TABS: TabDef[] = [
-  { href: "",                label: "기본 정보",     phase: 1 },
-  { href: "/stage",          label: "진행 단계",     phase: 1 },
-  { href: "/notes",          label: "메모",         phase: 1 },
-  { href: "/applications",   label: "학교 지원",     phase: 1 },
-  { href: "/documents",      label: "서류",         phase: 1 },
-  { href: "/deadlines",      label: "마감일",       phase: 1 },
-  { href: "/payments",       label: "결제",         phase: 1 },
-  { href: "/visa",           label: "비자",         phase: 2 },
-  { href: "/notifications",  label: "알림 이력",     phase: 2 },
-  { href: "/activity",       label: "활동 로그",     phase: 3 },
-  { href: "/assignments",    label: "담당 관리",     phase: 2 },
+  { href: "",                label: "기본 정보 · Stage", phase: 1 },
+  { href: "/notes",          label: "메모",              phase: 1 },
+  { href: "/applications",   label: "학교 지원",         phase: 1 },
+  { href: "/documents",      label: "서류",             phase: 1 },
+  { href: "/deadlines",      label: "마감일",           phase: 1 },
+  { href: "/payments",       label: "결제",             phase: 1 },
+  { href: "/visa",           label: "비자",             phase: 2 },
+  { href: "/notifications",  label: "알림 이력",         phase: 2 },
+  { href: "/activity",       label: "활동 로그",         phase: 3 },
+  { href: "/assignments",    label: "담당 관리",         phase: 2 },
 ];
 
 export default function StudentTabNav({ studentId }: { studentId: string }) {
