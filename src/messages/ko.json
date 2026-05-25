@@ -16,26 +16,12 @@
   "Hero": {
     "badge": "호주 유학 · 진학 상담",
     "titleLine1": "진짜 중요한 건 학교가 아니라",
-    "titlePrefix": "‘",
+    "titlePrefix": "’",
     "titleEm": "나에게 맞는 진학 루트",
     "titleSuffix": "’입니다",
     "subtitleBold": "학력 · 영어 · 예산 · 목표에 따라 가능한 방법이 완전히 달라집니다.",
     "subtitleBody": "아래에서 비슷한 고민을 골라보세요. 가능한 루트가 보입니다.",
-    "ctaDiagnose": "내 상황 확인하기",
-    "ctaStory": "카카오 상담하기",
-    "stat1Num": "19",
-    "stat1Unit": "년",
-    "stat1Label": "총 경력",
-    "stat2Num": "950",
-    "stat2Unit": "+",
-    "stat2Label": "누적 학생",
-    "stat3Num": "50",
-    "stat3Unit": "명",
-    "stat3Label": "연 한정",
-    "trustPill1": "QEAC E240 자격",
-    "trustPill2": "호주 학교 교직원 경력",
-    "trustPill3": "졸업까지 케어",
-    "businessHours": "평일 10:00 ~ 18:00 (KST) · 주말·공휴일 휴무"
+    "ctaStory": "카카오 상담하기"
   },
   "WilsonStory": {
     "eyebrow": "Ausuhak 이야기",
@@ -63,8 +49,7 @@
     "method4Title": "정해둔 추천 학교가 없습니다",
     "method4Body": "호주는 넓고, 도시마다 색깔이 다릅니다. 학생도 성격이 다르고, 준비된 정도도 다릅니다. 같은 학교 몇 곳만 권하는 건 그 다름을 무시하는 일입니다. 950명+ 학생을 졸업·취업·영주권까지 따라가 본 데이터로, 이 학생에게 맞는 도시와 학교를 다시 찾습니다.",
     "ctaTitle": "카톡으로 물어보기",
-    "ctaBody": "1차 카톡 상담은 무료입니다",
-    "ctaButton": "내 상황 확인하기"
+    "ctaBody": "1차 카톡 상담은 무료입니다"
   },
   "DiagnoseCTA": {
     "eyebrow": "내 상황부터 확인하세요",
@@ -107,8 +92,6 @@
     "card3Body": "Year 12/IB/수능 직접 지원 · Foundation · 학사 후 Graduate Entry MD · 한국 의사 AMC 경로 · 한국 의대 재학생의 호주 의대 재지원.",
     "card3Tag1": "5개 루트",
     "card3Tag2": "Newcastle FSM 안내",
-    "honestEyebrow": "진실도 100",
-    "honestBody": "호주 의대 진학은 학생마다 적합한 루트가 다릅니다. 본 페이지의 ISAT·MMI 도구는 무료 체험을 제공하며, 본인 조건에 맞는 자세한 진학 안내는 카카오 상담을 통해 확인하실 수 있습니다.",
     "ctaPrimary": "의대 준비 센터 입장",
     "ctaSubtext": "ISAT 200문제 · MMI 20개 시나리오 · 5가지 진학 루트"
   },
@@ -116,8 +99,6 @@
     "eyebrow": "합격 오퍼 · 후기 · 케이스",
     "title": "Wilson 학생들의 실제 결과",
     "subtitle": "검정고시·워홀러·대졸 — 합격 오퍼, 졸업 후기, 진학 케이스를 직접 확인하세요.",
-    "statusBadge": "갤러리 준비 중",
-    "statusNote": "Wilson이 학생 동의를 받아 합격증 갤러리를 곧 공개합니다. 학생 이름·여권번호 등 개인정보는 마스킹 처리됩니다.",
     "placeholderLabel": "오퍼 이미지",
     "swipeHint": "← 좌우로 스와이프해서 더 보기 →",
     "ctaPrimary": "카카오 상담하기",
