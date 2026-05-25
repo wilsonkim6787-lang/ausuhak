@@ -7,7 +7,8 @@ import { Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { logoutAction } from "@/app/[locale]/login/actions";
 
-// PART E-1: 좌측 사이드바 메뉴 18개 (Phase 1 = 5개 활성 / 나머지 placeholder)
+// PART E-1: 좌측 사이드바 메뉴.
+// 모든 메뉴 클릭 가능 (P1=정식 / P2~4=placeholder 안내 페이지 / redirect 일부는 ↗ 표시).
 const menus = [
   { href: "/admin", label: "🌅 아침 대시보드", phase: 1 },
   { href: "/admin/students", label: "📊 학생 관리", phase: 1 },
@@ -15,19 +16,19 @@ const menus = [
   { href: "/admin/payments", label: "💰 결제·커미션", phase: 1 },
   { href: "/admin/care", label: "🩺 학생 자동 케어", phase: 1 },
   { href: "/admin/activity", label: "🛡️ 활동 로그", phase: 1 },
-  { href: "/admin/issues", label: "🚨 이슈 트래킹", phase: 2 },
+  { href: "/admin/stats", label: "📈 통계", phase: 1 },
   { href: "/admin/faqs", label: "📚 FAQ 통합 관리", phase: 1 },
-  { href: "/admin/offers", label: "🏆 합격증 갤러리", phase: 1 },
+  { href: "/admin/offers", label: "🏆 합격증·후기·졸업생", phase: 1 },
   { href: "/admin/sites", label: "🔗 자료 사이트", phase: 1 },
+  { href: "/admin/issues", label: "🚨 이슈 트래킹", phase: 2 },
   { href: "/admin/cases", label: "🧠 케이스 학습", phase: 2 },
-  { href: "/admin/db-updates", label: "🔄 DB 업데이트", phase: 3 },
   { href: "/admin/graduates", label: "🎓 졸업생 DB", phase: 2 },
   { href: "/admin/staff", label: "👥 직원 관리", phase: 2 },
-  { href: "/admin/blog", label: "✍️ 블로그", phase: 4 },
-  { href: "/admin/youtube", label: "📺 유튜브", phase: 3 },
-  { href: "/admin/ads", label: "📢 카톡 광고", phase: 4 },
   { href: "/admin/medical", label: "🩺 의대 도구", phase: 2 },
-  { href: "/admin/stats", label: "📈 통계", phase: 2 },
+  { href: "/admin/db-updates", label: "🔄 DB 업데이트", phase: 3 },
+  { href: "/admin/youtube", label: "📺 유튜브", phase: 3 },
+  { href: "/admin/blog", label: "✍️ 블로그", phase: 4 },
+  { href: "/admin/ads", label: "📢 카톡 광고", phase: 4 },
   { href: "/admin/settings", label: "⚙️ 사이트 설정", phase: 1 },
 ];
 
@@ -90,7 +91,7 @@ export default function Sidebar({
                   ? "bg-navy-900 font-semibold text-white"
                   : isPhase1
                     ? "text-navy-700 hover:bg-cream-200"
-                    : "cursor-not-allowed text-ink-300"
+                    : "text-ink-500 hover:bg-cream-100"
               }`;
               const inner = (
                 <>
@@ -104,15 +105,9 @@ export default function Sidebar({
               );
               return (
                 <li key={m.href}>
-                  {isPhase1 ? (
-                    <Link href={m.href} onClick={() => setOpen(false)} className={itemClass}>
-                      {inner}
-                    </Link>
-                  ) : (
-                    <span className={itemClass} aria-disabled="true">
-                      {inner}
-                    </span>
-                  )}
+                  <Link href={m.href} onClick={() => setOpen(false)} className={itemClass}>
+                    {inner}
+                  </Link>
                 </li>
               );
             })}
