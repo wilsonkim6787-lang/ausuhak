@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth/requireStaff";
 import { STAGES } from "@/lib/stages";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 
 type Student = {
   id: string;
@@ -27,6 +28,7 @@ type Student = {
   medical_pathway: string | null;
   wilson_alerts: string[] | null;
   source: string | null;
+  photo_path: string | null;
   created_at: string;
 };
 
@@ -62,7 +64,7 @@ export default async function StaffStudentDetailPage({
     supabase
       .from("students")
       .select(
-        "id, name, kakao_id, phone, email, age, age_range, education, english_level, preferred_region, major, budget_range, current_stage, lead_status, is_medical, medical_pathway, wilson_alerts, source, created_at",
+        "id, name, kakao_id, phone, email, age, age_range, education, english_level, preferred_region, major, budget_range, current_stage, lead_status, is_medical, medical_pathway, wilson_alerts, source, photo_path, created_at",
       )
       .eq("id", id)
       .single(),
@@ -106,37 +108,40 @@ export default async function StaffStudentDetailPage({
         ← 담당 학생 목록
       </Link>
 
-      <header className="flex flex-wrap items-center gap-2">
-        <h1 className="font-display text-3xl font-bold text-navy-900">
-          {s.name?.trim() || "이름 미입력"}
-        </h1>
-        {s.is_medical && (
-          <span className="rounded-full bg-error/15 px-3 py-1 text-xs font-semibold text-error">
-            🩺 의대 ({s.medical_pathway ?? "-"})
+      <header className="flex flex-wrap items-center gap-3">
+        <StudentAvatar name={s.name} photoPath={s.photo_path} size="lg" />
+        <div className="flex flex-wrap items-center gap-2">
+          <h1 className="font-display text-3xl font-bold text-navy-900">
+            {s.name?.trim() || "이름 미입력"}
+          </h1>
+          {s.is_medical && (
+            <span className="rounded-full bg-error/15 px-3 py-1 text-xs font-semibold text-error">
+              🩺 의대 ({s.medical_pathway ?? "-"})
+            </span>
+          )}
+          <span className="rounded-full bg-navy-900 px-3 py-1 text-xs font-semibold text-white">
+            Stage {s.current_stage}
           </span>
-        )}
-        <span className="rounded-full bg-navy-900 px-3 py-1 text-xs font-semibold text-white">
-          Stage {s.current_stage}
-        </span>
-        <span className="rounded-full bg-cream-200 px-3 py-1 text-xs font-medium text-navy-700">
-          {s.lead_status ?? "-"}
-        </span>
-        <span
-          className={`rounded-full px-3 py-1 text-xs font-medium ${
-            role === "primary"
-              ? "bg-navy-900 text-white"
-              : role === "shared"
-              ? "bg-success/15 text-success"
-              : "bg-cream-300 text-ink-700"
-          }`}
-        >
-          본인 권한: {role}
-        </span>
-        {alerts.length > 0 && (
-          <span className="rounded-full bg-gold-100 px-3 py-1 text-xs font-semibold text-gold-600">
-            🚨 Alert {alerts.length}건
+          <span className="rounded-full bg-cream-200 px-3 py-1 text-xs font-medium text-navy-700">
+            {s.lead_status ?? "-"}
           </span>
-        )}
+          <span
+            className={`rounded-full px-3 py-1 text-xs font-medium ${
+              role === "primary"
+                ? "bg-navy-900 text-white"
+                : role === "shared"
+                ? "bg-success/15 text-success"
+                : "bg-cream-300 text-ink-700"
+            }`}
+          >
+            본인 권한: {role}
+          </span>
+          {alerts.length > 0 && (
+            <span className="rounded-full bg-gold-100 px-3 py-1 text-xs font-semibold text-gold-600">
+              🚨 Alert {alerts.length}건
+            </span>
+          )}
+        </div>
       </header>
 
       {role === "observer" && (

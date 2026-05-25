@@ -5,6 +5,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth/requireStaff";
+import StudentAvatar from "@/components/admin/StudentAvatar";
 
 type Row = {
   role: "primary" | "shared" | "observer";
@@ -20,6 +21,7 @@ type Row = {
     lead_status: string | null;
     wilson_alerts: string[] | null;
     is_medical: boolean;
+    photo_path: string | null;
   } | null;
 };
 
@@ -36,7 +38,7 @@ export default async function StaffStudentsPage() {
   const { data, error } = await supabase
     .from("student_assignments")
     .select(
-      "role, assigned_at, students(id, name, age_range, education, major, preferred_region, current_stage, lead_status, wilson_alerts, is_medical)",
+      "role, assigned_at, students(id, name, age_range, education, major, preferred_region, current_stage, lead_status, wilson_alerts, is_medical, photo_path)",
     )
     .eq("staff_id", user.id)
     .is("released_at", null)
@@ -115,43 +117,46 @@ function StudentCard({
   return (
     <Link
       href={`/staff/students/${student.id}`}
-      className="block rounded-2xl border border-cream-300 bg-white p-4 shadow-sm transition hover:border-navy-800/40 hover:shadow-md"
+      className="flex gap-3 rounded-2xl border border-cream-300 bg-white p-4 shadow-sm transition hover:border-navy-800/40 hover:shadow-md"
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <div>
-          <p className="font-display text-base font-semibold text-navy-900">
-            #{(idx + 1).toString().padStart(3, "0")} {student.name?.trim() || "이름 미입력"}
-          </p>
-          <p className="mt-0.5 text-xs text-ink-500">
-            {[student.education, student.major, student.preferred_region]
-              .filter(Boolean)
-              .join(" / ") || "정보 없음"}
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-1.5">
-          {student.is_medical && (
-            <span className="rounded-full bg-error/15 px-2 py-0.5 text-[10px] font-semibold text-error">
-              🩺 의대
+      <StudentAvatar name={student.name} photoPath={student.photo_path} size="md" />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <div>
+            <p className="font-display text-base font-semibold text-navy-900">
+              #{(idx + 1).toString().padStart(3, "0")} {student.name?.trim() || "이름 미입력"}
+            </p>
+            <p className="mt-0.5 text-xs text-ink-500">
+              {[student.education, student.major, student.preferred_region]
+                .filter(Boolean)
+                .join(" / ") || "정보 없음"}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {student.is_medical && (
+              <span className="rounded-full bg-error/15 px-2 py-0.5 text-[10px] font-semibold text-error">
+                🩺 의대
+              </span>
+            )}
+            <span className="rounded-full bg-navy-900 px-2 py-0.5 text-[10px] font-semibold text-white">
+              Stage {student.current_stage}
             </span>
-          )}
-          <span className="rounded-full bg-navy-900 px-2 py-0.5 text-[10px] font-semibold text-white">
-            Stage {student.current_stage}
-          </span>
-          <span className="rounded-full bg-cream-200 px-2 py-0.5 text-[10px] font-medium text-navy-700">
-            {student.lead_status ?? "-"}
-          </span>
-          {alerts.length > 0 && (
-            <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[10px] font-semibold text-gold-600">
-              🚨 Alert {alerts.length}
+            <span className="rounded-full bg-cream-200 px-2 py-0.5 text-[10px] font-medium text-navy-700">
+              {student.lead_status ?? "-"}
             </span>
-          )}
+            {alerts.length > 0 && (
+              <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[10px] font-semibold text-gold-600">
+                🚨 Alert {alerts.length}
+              </span>
+            )}
+          </div>
         </div>
+        {role === "observer" && (
+          <p className="mt-2 rounded bg-cream-100 px-2 py-1 text-[10px] text-ink-500">
+            ⚠️ 관찰 권한 = 메모 작성 X / 학생 정보 수정 X
+          </p>
+        )}
       </div>
-      {role === "observer" && (
-        <p className="mt-2 rounded bg-cream-100 px-2 py-1 text-[10px] text-ink-500">
-          ⚠️ 관찰 권한 = 메모 작성 X / 학생 정보 수정 X
-        </p>
-      )}
     </Link>
   );
 }

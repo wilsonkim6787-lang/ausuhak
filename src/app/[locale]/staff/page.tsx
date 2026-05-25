@@ -68,7 +68,8 @@ export default async function StaffHomePage() {
         <QuickLink href="/staff/students" icon="📋" label="담당 학생 리스트" />
         <QuickLink href="/staff/manuals" icon="📚" label="매뉴얼 검색" />
         <QuickLink href="/staff/faqs" icon="🔍" label="내부 FAQ" />
-        <QuickLink href="/staff/cases" icon="🧠" label="케이스 학습" />
+        <QuickLink href="/staff/sites" icon="🔗" label="자료 사이트" />
+        <QuickLink href="/offers" icon="🏆" label="합격증·후기·졸업생" />
       </section>
 
       {/* 권한 안내 */}
