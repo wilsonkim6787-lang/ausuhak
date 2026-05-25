@@ -4,11 +4,14 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
+import { logActivity } from "@/lib/audit/log";
 
 export type QuoteActionState = { ok?: boolean; error?: string; id?: string };
 
 // 학교별 정보 (selected_schools JSONB) — 022: 100% Wilson 수기 입력
+// step_type 추가 (어학연수/컬리지/대학/직접추가) — 동적 단계 쌓기 지원.
 export type SelectedSchool = {
+  step_type?: string;             // "어학연수" / "컬리지" / "대학" / "직접" / null (옛 데이터)
   school_name: string;
   program: string;
   duration_text: string;          // 자유 텍스트 "24주" / "1.5년" / "1학기"
@@ -78,22 +81,57 @@ function parseQuotePayload(formData: FormData): ParsedQuote {
   const quote_type = String(formData.get("quote_type") ?? "consultation") as
     | "consultation" | "enrollment";
 
-  // 학교 슬롯 3개 (022: 100% 수기 입력 / 자유 텍스트)
+  // 동적 학교 슬롯: schools_json (client 에서 JSON.stringify 로 전달)
+  // 호환: 옛 school{i}_xxx 폼 필드도 fallback 으로 읽음.
   const selected_schools: SelectedSchool[] = [];
-  for (let i = 0; i < 3; i++) {
-    const school_name = String(formData.get(`school${i}_name`) ?? "").trim();
-    if (!school_name) continue;
-    selected_schools.push({
-      school_name,
-      program:          String(formData.get(`school${i}_program`) ?? "").trim(),
-      duration_text:    String(formData.get(`school${i}_duration_text`) ?? "").trim(),
-      payment_cycle:    String(formData.get(`school${i}_cycle`) ?? "").trim() || null,
-      tuition_aud:      parseFloat(String(formData.get(`school${i}_tuition`) ?? "0")) || 0,
-      scholarship_aud:  parseFloat(String(formData.get(`school${i}_scholarship`) ?? "0")) || 0,
-      promotion_aud:    parseFloat(String(formData.get(`school${i}_promotion`) ?? "0")) || 0,
-      scholarship_note: String(formData.get(`school${i}_scholarship_note`) ?? "").trim() || null,
-      promotion_note:   String(formData.get(`school${i}_promotion_note`) ?? "").trim() || null,
-    });
+  const schoolsJsonRaw = formData.get("schools_json");
+  if (typeof schoolsJsonRaw === "string" && schoolsJsonRaw.trim()) {
+    try {
+      const parsed = JSON.parse(schoolsJsonRaw) as unknown;
+      if (Array.isArray(parsed)) {
+        for (const raw of parsed) {
+          if (!raw || typeof raw !== "object") continue;
+          const r = raw as Record<string, unknown>;
+          const school_name = String(r.school_name ?? "").trim();
+          if (!school_name) continue;
+          selected_schools.push({
+            step_type:        typeof r.step_type === "string" ? r.step_type : undefined,
+            school_name,
+            program:          String(r.program ?? "").trim(),
+            duration_text:    String(r.duration_text ?? "").trim(),
+            payment_cycle:    typeof r.payment_cycle === "string" && r.payment_cycle.trim()
+                                ? r.payment_cycle : null,
+            tuition_aud:      Number(r.tuition_aud) || 0,
+            scholarship_aud:  Number(r.scholarship_aud) || 0,
+            promotion_aud:    Number(r.promotion_aud) || 0,
+            scholarship_note: typeof r.scholarship_note === "string" && r.scholarship_note.trim()
+                                ? r.scholarship_note : null,
+            promotion_note:   typeof r.promotion_note === "string" && r.promotion_note.trim()
+                                ? r.promotion_note : null,
+          });
+        }
+      }
+    } catch {
+      // fallback to legacy slot parse below
+    }
+  }
+  // fallback (옛 폼 호환)
+  if (selected_schools.length === 0) {
+    for (let i = 0; i < 10; i++) {
+      const school_name = String(formData.get(`school${i}_name`) ?? "").trim();
+      if (!school_name) continue;
+      selected_schools.push({
+        school_name,
+        program:          String(formData.get(`school${i}_program`) ?? "").trim(),
+        duration_text:    String(formData.get(`school${i}_duration_text`) ?? "").trim(),
+        payment_cycle:    String(formData.get(`school${i}_cycle`) ?? "").trim() || null,
+        tuition_aud:      parseFloat(String(formData.get(`school${i}_tuition`) ?? "0")) || 0,
+        scholarship_aud:  parseFloat(String(formData.get(`school${i}_scholarship`) ?? "0")) || 0,
+        promotion_aud:    parseFloat(String(formData.get(`school${i}_promotion`) ?? "0")) || 0,
+        scholarship_note: String(formData.get(`school${i}_scholarship_note`) ?? "").trim() || null,
+        promotion_note:   String(formData.get(`school${i}_promotion_note`) ?? "").trim() || null,
+      });
+    }
   }
   if (selected_schools.length === 0) {
     return { ...empty, student_id, quote_type, error: "최소 1개 학교를 입력해주세요." };
@@ -189,6 +227,19 @@ export async function createQuoteAction(
 
   if (error) return { error: `저장 실패: ${error.message}` };
 
+  await logActivity({
+    action_type: "create_quote",
+    target_table: "quotes",
+    target_id: data.id,
+    details: {
+      student_id: parsed.student_id,
+      quote_type: parsed.quote_type,
+      school_count: parsed.selected_schools.length,
+      total_aud: parsed.total_aud,
+      total_krw: parsed.total_krw,
+    },
+  });
+
   revalidatePath("/admin/quotes");
   redirect(`/admin/quotes/${data.id}`);
 }
@@ -216,6 +267,19 @@ export async function updateQuoteAction(
     .eq("id", quoteId);
 
   if (error) return { error: `저장 실패: ${error.message}` };
+
+  await logActivity({
+    action_type: "update_quote",
+    target_table: "quotes",
+    target_id: quoteId,
+    details: {
+      student_id: parsed.student_id,
+      quote_type: parsed.quote_type,
+      school_count: parsed.selected_schools.length,
+      total_aud: parsed.total_aud,
+      total_krw: parsed.total_krw,
+    },
+  });
 
   revalidatePath(`/admin/quotes/${quoteId}`);
   revalidatePath("/admin/quotes");

@@ -11,7 +11,7 @@ import { logoutAction } from "@/app/[locale]/login/actions";
 const menus = [
   { href: "/admin", label: "🌅 아침 대시보드", phase: 1 },
   { href: "/admin/students", label: "📊 학생 관리", phase: 1 },
-  { href: "/admin/students/kanban", label: "📋 학생 칸반", phase: 2 },
+  { href: "/admin/students/kanban", label: "📋 학생 칸반", phase: 1 },
   { href: "/admin/quotes", label: "💵 견적서", phase: 1 },
   { href: "/admin/payments", label: "💰 결제·커미션", phase: 1 },
   { href: "/admin/care", label: "🩺 학생 자동 케어", phase: 1 },

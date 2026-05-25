@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { requireStudent } from "@/lib/auth/requireStudent";
 import StageTimeline from "@/components/mypage/StageTimeline";
+import LeadProgress from "@/components/mypage/LeadProgress";
 import { getStage } from "@/lib/stages";
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
@@ -57,6 +58,9 @@ export default async function MypageHome() {
           </div>
         )}
       </section>
+
+      {/* 진행도 시각화 (lead_status 7단계) */}
+      <LeadProgress leadStatus={student.lead_status} />
 
       {/* 다음 액션 = critical_deadlines 미완료 */}
       <section className="rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">

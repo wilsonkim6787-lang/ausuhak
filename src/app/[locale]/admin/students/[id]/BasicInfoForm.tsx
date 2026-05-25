@@ -40,7 +40,7 @@ const SOURCES: [string, string][] = [
   ["partner_referral", "파트너 추천"],
 ];
 const MEDICAL_PATHWAYS: [string, string][] = [
-  ["direct", "Direct (의대 직진)"],
+  ["direct", "Direct (의대 본 과정)"],
   ["undergrad", "학부 졸업 → 의대"],
   ["graduate", "대학원 → 의대"],
   ["converter", "전공 전환"],
@@ -54,98 +54,111 @@ export default function BasicInfoForm({ student }: { student: Student }) {
   const [isMedical, setIsMedical] = useState(!!student.is_medical);
 
   return (
-    <form action={formAction} className="flex flex-col gap-5">
-      <input type="hidden" name="student_id" value={student.id} />
+    <div className="grid gap-5 lg:grid-cols-[1fr_280px]">
+      <form action={formAction} className="flex flex-col gap-5">
+        <input type="hidden" name="student_id" value={student.id} />
 
-      {/* 연락처 */}
-      <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
-        <h2 className="font-display text-base font-bold text-navy-900">연락처</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <Field name="name" label="이름" required defaultValue={student.name} />
-          <Field name="kakao_id" label="카카오 ID" defaultValue={student.kakao_id} />
-          <Field name="phone" label="전화" defaultValue={student.phone} />
-          <Field name="email" label="이메일" type="email" defaultValue={student.email} />
-        </div>
-      </section>
-
-      {/* 6변수 */}
-      <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
-        <h2 className="font-display text-base font-bold text-navy-900">
-          6변수 (FAQ 매칭 키)
-        </h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <Field name="age" label="나이" type="number" defaultValue={student.age != null ? String(student.age) : null} />
-          <Select name="education" label="학력" options={EDUCATIONS} defaultValue={student.education} />
-          <Select name="english_level" label="영어 (IELTS)" options={ENGLISHES} defaultValue={student.english_level} />
-          <Select name="preferred_region" label="선호 지역" options={REGIONS} defaultValue={student.preferred_region} />
-          <Select name="major" label="전공" options={MAJORS} defaultValue={student.major} />
-          <Select name="budget_range" label="예산" options={BUDGETS} defaultValue={student.budget_range} />
-        </div>
-      </section>
-
-      {/* 의대 */}
-      <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
-        <h2 className="font-display text-base font-bold text-navy-900">의대 여부</h2>
-        <label className="mt-3 flex items-center gap-2 text-sm text-navy-700">
-          <input
-            type="checkbox"
-            name="is_medical"
-            checked={isMedical}
-            onChange={(e) => setIsMedical(e.target.checked)}
-            className="size-4 rounded border-cream-300"
-          />
-          🩺 이 학생은 의대 학생입니다 (Wilson 직접 응대)
-        </label>
-        {isMedical && (
-          <div className="mt-4 sm:max-w-sm">
-            <SelectKV
-              name="medical_pathway"
-              label="의대 진입 경로"
-              options={MEDICAL_PATHWAYS}
-              defaultValue={student.medical_pathway}
-            />
+        {/* 연락처 */}
+        <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy-900">연락처</h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <Field name="name" label="이름" required defaultValue={student.name} />
+            <Field name="kakao_id" label="카카오 ID" defaultValue={student.kakao_id} />
+            <Field name="phone" label="전화" defaultValue={student.phone} />
+            <Field name="email" label="이메일" type="email" defaultValue={student.email} />
           </div>
-        )}
-      </section>
+        </section>
 
-      {/* 진입 경로 */}
-      <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
-        <h2 className="font-display text-base font-bold text-navy-900">진입 경로</h2>
-        <div className="mt-4 sm:max-w-sm">
-          <SelectKV name="source" label="알게 된 경로" options={SOURCES} defaultValue={student.source} />
-        </div>
-      </section>
+        {/* 프로필 (전 "6변수 / FAQ 매칭 키") */}
+        <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy-900">프로필</h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <Field name="age" label="나이" type="number" defaultValue={student.age != null ? String(student.age) : null} />
+            <Select name="education" label="학력" options={EDUCATIONS} defaultValue={student.education} />
+            <Select name="english_level" label="영어 (IELTS)" options={ENGLISHES} defaultValue={student.english_level} />
+            <Select name="preferred_region" label="선호 지역" options={REGIONS} defaultValue={student.preferred_region} />
+            <Select name="major" label="전공" options={MAJORS} defaultValue={student.major} />
+            <Select name="budget_range" label="예산" options={BUDGETS} defaultValue={student.budget_range} />
+          </div>
+        </section>
 
-      {/* 자동 매칭 정보 (읽기 전용) */}
-      <section className="rounded-2xl border border-cream-300 bg-cream-100/60 p-6 shadow-sm">
-        <h2 className="font-display text-base font-bold text-navy-900">
-          자동 매칭 정보 <span className="text-xs font-normal text-ink-500">(읽기 전용)</span>
-        </h2>
-        <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-          <Row k="자동 매칭 시나리오" v={student.scenario_matched} />
-          <Row k="진단 결과 UUID" v={student.diagnose_uuid} />
-          <Row k="익명 ID" v={student.anonymous_id} />
-          <Row k="파트너 추천" v={student.partner_ref} />
-          <Row k="등록일" v={new Date(student.created_at).toLocaleString("ko-KR")} />
-          <Row k="최근 수정" v={new Date(student.updated_at).toLocaleString("ko-KR")} />
-        </dl>
-      </section>
-
-      {/* 저장 */}
-      <div className="sticky bottom-4 z-10 flex items-center justify-between gap-4 rounded-2xl border border-cream-300 bg-white p-4 shadow-md">
-        <div className="text-xs">
-          {state.error && (
-            <span className="rounded-lg bg-error/10 px-2.5 py-1 text-error">{state.error}</span>
+        {/* 의대 */}
+        <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy-900">의대 여부</h2>
+          <label className="mt-3 flex items-center gap-2 text-sm text-navy-700">
+            <input
+              type="checkbox"
+              name="is_medical"
+              checked={isMedical}
+              onChange={(e) => setIsMedical(e.target.checked)}
+              className="size-4 rounded border-cream-300"
+            />
+            🩺 이 학생은 의대 학생입니다 (Wilson 직접 응대)
+          </label>
+          {isMedical && (
+            <div className="mt-4 sm:max-w-sm">
+              <SelectKV
+                name="medical_pathway"
+                label="의대 진입 경로"
+                options={MEDICAL_PATHWAYS}
+                defaultValue={student.medical_pathway}
+              />
+            </div>
           )}
-          {state.ok && !pending && (
-            <span className="rounded-lg bg-success/10 px-2.5 py-1 text-success">✓ 저장됨</span>
-          )}
+        </section>
+
+        {/* 진입 경로 */}
+        <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy-900">진입 경로</h2>
+          <div className="mt-4 sm:max-w-sm">
+            <SelectKV name="source" label="알게 된 경로" options={SOURCES} defaultValue={student.source} />
+          </div>
+        </section>
+
+        {/* 저장 */}
+        <div className="sticky bottom-4 z-10 flex items-center justify-between gap-4 rounded-2xl border border-cream-300 bg-white p-4 shadow-md">
+          <div className="text-xs">
+            {state.error && (
+              <span className="rounded-lg bg-error/10 px-2.5 py-1 text-error">{state.error}</span>
+            )}
+            {state.ok && !pending && (
+              <span className="rounded-lg bg-success/10 px-2.5 py-1 text-success">✓ 저장됨</span>
+            )}
+          </div>
+          <Button type="submit" disabled={pending}>
+            {pending ? "저장 중…" : "💾 기본 정보 저장"}
+          </Button>
         </div>
-        <Button type="submit" disabled={pending}>
-          {pending ? "저장 중…" : "💾 기본 정보 저장"}
-        </Button>
-      </div>
-    </form>
+      </form>
+
+      {/* sidebar: 자동 매칭·시스템 정보 (읽기 전용) */}
+      <aside className="flex flex-col gap-3 lg:sticky lg:top-4 lg:self-start">
+        <section className="rounded-2xl border border-cream-300 bg-cream-100/60 p-5 shadow-sm">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-ink-500">
+            시스템 정보
+          </h3>
+          <dl className="mt-3 flex flex-col gap-2 text-xs">
+            <SideRow k="자동 매칭 시나리오" v={student.scenario_matched} />
+            <SideRow k="진단 결과 UUID" v={student.diagnose_uuid} />
+            <SideRow k="익명 ID" v={student.anonymous_id} />
+            <SideRow k="파트너 추천" v={student.partner_ref} />
+            <SideRow k="등록일" v={new Date(student.created_at).toLocaleString("ko-KR")} />
+            <SideRow k="최근 수정" v={new Date(student.updated_at).toLocaleString("ko-KR")} />
+          </dl>
+        </section>
+      </aside>
+    </div>
+  );
+}
+
+function SideRow({ k, v }: { k: string; v: string | null | undefined }) {
+  return (
+    <div className="flex flex-col gap-0.5">
+      <dt className="text-[10px] font-semibold uppercase tracking-wider text-ink-400">{k}</dt>
+      <dd className="break-all text-navy-900">
+        {v?.trim() ? v : <span className="text-ink-300">—</span>}
+      </dd>
+    </div>
   );
 }
 
@@ -214,11 +227,3 @@ function SelectKV({
   );
 }
 
-function Row({ k, v }: { k: string; v: string | null | undefined }) {
-  return (
-    <div className="flex items-baseline gap-3 border-b border-cream-200 pb-2">
-      <dt className="w-32 shrink-0 text-xs font-semibold text-ink-500">{k}</dt>
-      <dd className="break-all text-navy-900">{v?.trim() ? v : <span className="text-ink-300">—</span>}</dd>
-    </div>
-  );
-}

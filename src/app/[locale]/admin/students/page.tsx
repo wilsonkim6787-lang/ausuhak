@@ -93,6 +93,45 @@ export default async function StudentsPage({
   const { data, error } = await query;
   const students = (data ?? []) as StudentRow[];
 
+  // 마지막 메모 1줄 + 다음 deadline 1개 fetch (목록 카드 노출용)
+  const studentIds = students.map((s) => s.id);
+  const [notesRes, deadlinesRes] = await Promise.all([
+    studentIds.length === 0
+      ? { data: [] as { student_id: string; content: string; created_at: string }[] }
+      : supabase
+          .from("student_notes")
+          .select("student_id, content, created_at")
+          .in("student_id", studentIds)
+          .is("hidden_at", null)
+          .order("created_at", { ascending: false })
+          .limit(2000),
+    studentIds.length === 0
+      ? { data: [] as { student_id: string; deadline_type: string; deadline_date: string }[] }
+      : supabase
+          .from("critical_deadlines")
+          .select("student_id, deadline_type, deadline_date")
+          .in("student_id", studentIds)
+          .neq("status", "completed")
+          .gte("deadline_date", new Date().toISOString().slice(0, 10))
+          .order("deadline_date", { ascending: true }),
+  ]);
+
+  const noteByStudent = new Map<string, string>();
+  for (const n of notesRes.data ?? []) {
+    if (!noteByStudent.has(n.student_id)) {
+      noteByStudent.set(n.student_id, n.content.replace(/\s+/g, " ").slice(0, 60));
+    }
+  }
+  const deadlineByStudent = new Map<
+    string,
+    { type: string; date: string }
+  >();
+  for (const d of deadlinesRes.data ?? []) {
+    if (!deadlineByStudent.has(d.student_id)) {
+      deadlineByStudent.set(d.student_id, { type: d.deadline_type, date: d.deadline_date });
+    }
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -107,9 +146,17 @@ export default async function StudentsPage({
             총 {students.length}명 표시{students.length === 200 ? " (최대 200건)" : ""}
           </p>
         </div>
-        <Link href="/admin/students/new" className={`${buttonStyles()} self-start`}>
-          + 신규 학생 추가
-        </Link>
+        <div className="flex gap-2 self-start">
+          <Link
+            href="/admin/students/kanban"
+            className="rounded-full border border-cream-300 bg-white px-3 py-2 text-xs font-semibold text-navy-700 hover:bg-cream-100"
+          >
+            📋 칸반 뷰
+          </Link>
+          <Link href="/admin/students/new" className={buttonStyles()}>
+            + 신규 학생 추가
+          </Link>
+        </div>
       </header>
 
       <StudentFilters initial={sp} />
@@ -126,7 +173,11 @@ export default async function StudentsPage({
         <ul className="flex flex-col gap-2">
           {students.map((s) => (
             <li key={s.id}>
-              <StudentRowCard student={s} />
+              <StudentRowCard
+                student={s}
+                lastNote={noteByStudent.get(s.id) ?? null}
+                nextDeadline={deadlineByStudent.get(s.id) ?? null}
+              />
             </li>
           ))}
         </ul>
@@ -135,12 +186,42 @@ export default async function StudentsPage({
   );
 }
 
-function StudentRowCard({ student: s }: { student: StudentRow }) {
+const DEADLINE_LABEL: Record<string, string> = {
+  offer_acceptance: "Offer 수락",
+  tuition:          "학비 입금",
+  visa:             "비자",
+  coe:              "CoE",
+  oshc:             "OSHC",
+  isat_test:        "ISAT",
+  mmi_interview:    "MMI",
+  gamsat:           "GAMSAT",
+  departure:        "출국",
+};
+
+function daysUntil(iso: string): number {
+  const target = new Date(iso);
+  const now = new Date();
+  return Math.ceil((target.getTime() - now.getTime()) / (24 * 3600 * 1000));
+}
+
+function StudentRowCard({
+  student: s,
+  lastNote,
+  nextDeadline,
+}: {
+  student: StudentRow;
+  lastNote: string | null;
+  nextDeadline: { type: string; date: string } | null;
+}) {
   const summary = [s.age_range, s.education, s.major, s.preferred_region]
     .filter(Boolean)
     .join(" / ");
   const displayName = s.name?.trim() ? s.name : "이름 미입력";
   const hasAlerts = (s.wilson_alerts?.length ?? 0) > 0;
+  const dlDays = nextDeadline ? daysUntil(nextDeadline.date) : null;
+  const dlLabel = nextDeadline
+    ? DEADLINE_LABEL[nextDeadline.type] ?? nextDeadline.type
+    : null;
 
   return (
     <Link
@@ -174,6 +255,27 @@ function StudentRowCard({ student: s }: { student: StudentRow }) {
       </div>
       {summary && (
         <p className="mt-1.5 text-xs text-ink-500">{summary}</p>
+      )}
+      {(lastNote || nextDeadline) && (
+        <div className="mt-2 flex flex-col gap-1">
+          {lastNote && (
+            <p className="text-xs text-ink-700 line-clamp-1">💬 {lastNote}</p>
+          )}
+          {nextDeadline && (
+            <p
+              className={`text-xs font-semibold ${
+                dlDays != null && dlDays <= 3
+                  ? "text-error"
+                  : dlDays != null && dlDays <= 7
+                    ? "text-gold-600"
+                    : "text-navy-700"
+              }`}
+            >
+              ⏰ {dlLabel} · {nextDeadline.date}
+              {dlDays != null && ` (D-${dlDays})`}
+            </p>
+          )}
+        </div>
       )}
     </Link>
   );
