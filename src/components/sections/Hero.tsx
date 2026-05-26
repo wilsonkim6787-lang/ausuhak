@@ -11,10 +11,17 @@ export default function Hero() {
         className="absolute inset-0 h-full w-full object-cover"
         loading="eager"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-navy-900/85 via-navy-900/70 to-navy-900/40" />
+      {/* 가운데 어둡고 양옆은 밝게 — 비네팅 효과 */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 100% at 50% 50%, rgba(15,23,42,0.75) 0%, rgba(15,23,42,0.35) 70%, rgba(15,23,42,0.10) 100%)",
+        }}
+      />
 
-      <div className="container relative z-10 mx-auto flex max-w-5xl items-center px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
-        <div className="max-w-xl">
+      <div className="container relative z-10 mx-auto flex max-w-3xl items-center justify-center px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
+        <div className="text-center">
           <span className="inline-block rounded-full border border-gold-500/40 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold-400 backdrop-blur-sm">
             {t("badge")}
           </span>
@@ -28,13 +35,13 @@ export default function Hero() {
             {t("titleSuffix")}
           </h1>
 
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-cream-200/90 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-cream-200/90 sm:text-lg">
             <strong className="text-white">{t("subtitleBold")}</strong>
             <br />
             {t("subtitleBody")}
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8">
             <a
               href="#diagnose"
               className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-10 py-5 text-lg font-extrabold text-white shadow-lg transition hover:bg-gold-500 hover:shadow-xl sm:text-xl"
@@ -43,7 +50,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-xs font-semibold text-cream-200/80">
+          <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs font-semibold text-cream-200/80">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 backdrop-blur-sm">
               <span className="size-1.5 rounded-full bg-gold-400" />
               {t("trust1")}

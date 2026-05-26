@@ -168,11 +168,6 @@ function CardLi({ o, placeholderLabel }: { o: OfferItem; placeholderLabel: strin
             </div>
           </div>
         )}
-        {o.student_alias && (
-          <div className="absolute right-3 top-3 rounded-full bg-navy-900/85 px-3 py-1 text-[10px] font-bold tracking-wider text-cream-100">
-            {o.student_alias}
-          </div>
-        )}
         {o.id && (
           <div className="absolute bottom-3 left-3 rounded-full bg-gold-600/90 px-3 py-1 text-[10px] font-bold tracking-wider text-white opacity-0 transition group-hover:opacity-100">
             후기 보기 →
