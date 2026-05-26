@@ -4,7 +4,7 @@ export default function Hero() {
   const t = useTranslations("Hero");
 
   return (
-    <section className="relative min-h-[520px] overflow-hidden sm:min-h-[600px] lg:min-h-[680px]">
+    <section className="relative min-h-[85svh] overflow-hidden">
       <img
         src="/hero-campus.jpg"
         alt="호주 대학교 캠퍼스에서 대화하는 학생들"
