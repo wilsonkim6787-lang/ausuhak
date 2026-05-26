@@ -46,24 +46,30 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
         </div>
 
         <div className="mt-16 grid items-center gap-12 rounded-3xl bg-white p-8 shadow-sm sm:p-10 lg:grid-cols-[1fr_1.2fr]">
-          <div
-            className="flex aspect-[4/5] items-center justify-center rounded-2xl border-2 border-dashed border-cream-300 bg-cream-200 text-center"
-            style={{
-              background:
-                "repeating-linear-gradient(45deg, rgba(201,150,42,0.04) 0, rgba(201,150,42,0.04) 12px, rgba(201,150,42,0.08) 12px, rgba(201,150,42,0.08) 24px)",
-            }}
-          >
-            <div className="p-8">
-              <p className="text-xs font-bold tracking-wider text-gold-600">
-                WILSON 프로필
-              </p>
-              <p className="mt-2 text-sm text-ink-700">
-                정면 프로필 사진
-                <br />
-                4:5 세로 비율
-              </p>
+          {gallery.length > 0 ? (
+            <div className="overflow-hidden rounded-2xl">
+              <GalleryCarousel items={gallery} />
             </div>
-          </div>
+          ) : (
+            <div
+              className="flex aspect-[4/5] items-center justify-center rounded-2xl border-2 border-dashed border-cream-300 bg-cream-200 text-center"
+              style={{
+                background:
+                  "repeating-linear-gradient(45deg, rgba(201,150,42,0.04) 0, rgba(201,150,42,0.04) 12px, rgba(201,150,42,0.08) 12px, rgba(201,150,42,0.08) 24px)",
+              }}
+            >
+              <div className="p-8">
+                <p className="text-xs font-bold tracking-wider text-gold-600">
+                  WILSON 프로필
+                </p>
+                <p className="mt-2 text-sm text-ink-700">
+                  정면 프로필 사진
+                  <br />
+                  4:5 세로 비율
+                </p>
+              </div>
+            </div>
+          )}
 
           <div>
             <span className="inline-flex items-center rounded-full border border-gold-600/30 bg-gold-600/10 px-4 py-1.5 text-xs font-bold tracking-wider text-gold-600">
@@ -97,12 +103,6 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
             {t("honestBody")}
           </p>
         </div>
-
-        {gallery.length > 0 && (
-          <div className="mt-16">
-            <GalleryCarousel items={gallery} />
-          </div>
-        )}
 
         <div className="mt-20 text-center">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
