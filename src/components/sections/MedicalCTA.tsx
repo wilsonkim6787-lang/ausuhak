@@ -55,8 +55,7 @@ export default function MedicalCTA() {
               href={c.href}
               className="group flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-gold-600 hover:shadow-lg sm:p-8"
             >
-              <div className="text-4xl">{c.icon}</div>
-              <p className="mt-4 text-[11px] font-bold tracking-[0.15em] text-gold-600">
+              <p className="text-[11px] font-bold tracking-[0.15em] text-gold-600">
                 {c.eyebrow}
               </p>
               <h3 className="mt-2 text-lg font-bold text-navy-900 group-hover:text-gold-600 sm:text-xl">
