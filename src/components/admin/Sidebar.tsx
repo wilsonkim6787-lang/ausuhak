@@ -26,6 +26,7 @@ const menus = [
   { href: "/admin/youtube", label: "📺 유튜브", phase: 3 },
   { href: "/admin/blog", label: "✍️ 블로그", phase: 4 },
   { href: "/admin/ads", label: "📢 카톡 광고", phase: 4 },
+  { href: "/admin/gallery", label: "🖼️ 갤러리", phase: 4 },
   { href: "/admin/settings", label: "⚙️ 사이트 설정", phase: 1 },
 ];
 
