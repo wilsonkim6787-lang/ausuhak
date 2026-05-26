@@ -62,7 +62,7 @@ export default async function OfferShowcase() {
     <section id="offers" className="bg-white">
       <div className="container mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
+          <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("eyebrow")}
           </span>
           <h2 className="mx-auto mt-3 max-w-3xl font-display text-4xl font-bold leading-tight text-navy-900 sm:text-5xl lg:text-6xl">

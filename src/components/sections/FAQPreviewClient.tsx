@@ -52,7 +52,7 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
     <section id="faq" className="bg-cream-100">
       <div className="container mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
+          <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
             {labels.eyebrow}
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-navy-900 sm:text-5xl lg:text-6xl">
@@ -124,7 +124,7 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
         ) : (
           <>
             {/* 카테고리 그리드 */}
-            <ul className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            <ul className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-5">
               {categories.map((c, i) => {
                 const isActive = active === i;
                 return (

@@ -23,7 +23,7 @@ export default function WilsonStory() {
 
       <div className="container relative z-10 mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
+          <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("eyebrow")}
           </span>
           <h2 className="mt-4 font-display text-4xl italic font-bold leading-tight text-navy-900 sm:text-5xl lg:text-6xl">
@@ -97,7 +97,7 @@ export default function WilsonStory() {
         </div>
 
         <div className="mt-20 text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
+          <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("methodEyebrow")}
           </span>
           <h3 className="mx-auto mt-3 max-w-3xl font-display text-2xl font-bold leading-tight text-ink-900 sm:text-3xl">
