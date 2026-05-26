@@ -52,14 +52,11 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
     <section id="faq" className="bg-cream-100">
       <div className="container mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="text-center">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
+          <h2 className="font-display text-2xl font-bold tracking-wide text-gold-600 sm:text-3xl">
             {labels.eyebrow}
-          </span>
-          <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-navy-900 sm:text-5xl">
-            {labels.title}
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
-            {labels.subtitle}
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
+            {labels.title}
           </p>
         </div>
 

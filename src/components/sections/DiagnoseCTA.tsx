@@ -77,14 +77,11 @@ export default function DiagnoseCTA() {
     <section id="diagnose" className="bg-cream-200">
       <div className="container mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="text-center">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
+          <h2 className="font-display text-2xl font-bold tracking-wide text-gold-600 sm:text-3xl">
             {t("eyebrow")}
-          </span>
-          <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold leading-tight text-ink-900 sm:text-5xl">
-            {t("title")}
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
-            {t("subtitle")}
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
+            {t("title")}
           </p>
         </div>
 

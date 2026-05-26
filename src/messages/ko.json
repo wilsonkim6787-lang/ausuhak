@@ -57,8 +57,8 @@
   },
   "DiagnoseCTA": {
     "eyebrow": "30초 진단",
-    "title": "30초면 충분합니다",
-    "subtitle": "비슷한 고민을 고르면, 가능한 호주 진학 루트가 보입니다.",
+    "title": "비슷한 고민을 고르면, 가능한 호주 진학 루트가 보입니다",
+    "subtitle": "",
     "searchPlaceholder": "궁금한 키워드를 입력하세요 — 검정고시, 간호, 영주권…",
     "searchButton": "검색",
     "concern1": "검정고시인데 진학 가능할까요?",
@@ -76,8 +76,8 @@
   },
   "MedicalCTA": {
     "eyebrow": "호주 의대 준비 센터",
-    "title": "호주 의대, ISAT·MMI부터 준비하세요",
-    "subtitle": "ISAT 모의고사 · MMI 인터뷰 연습 — Ausuhak이 직접 구성한 실전 대비 콘텐츠입니다.",
+    "title": "ISAT 모의고사 · MMI 인터뷰 연습 · 5가지 진학 루트",
+    "subtitle": "",
     "card1Icon": "📊",
     "card1Eyebrow": "ISAT MOCK TEST",
     "card1Title": "ISAT 모의고사 200문제",
@@ -101,8 +101,8 @@
   },
   "OfferShowcase": {
     "eyebrow": "합격 오퍼 · 후기 · 케이스",
-    "title": "Wilson 학생들의 호주 대학 합격 결과",
-    "subtitle": "검정고시·워홀러·대졸 — 호주 대학 합격 오퍼, 졸업 후기, 진학 케이스를 직접 확인하세요.",
+    "title": "검정고시·워홀러·대졸 — 호주 대학 합격을 직접 확인하세요",
+    "subtitle": "",
     "placeholderLabel": "오퍼 이미지",
     "swipeHint": "← 좌우로 스와이프해서 더 보기 →",
     "ctaPrimary": "카카오 상담하기",
@@ -110,8 +110,8 @@
   },
   "FAQPreview": {
     "eyebrow": "FAQ 365",
-    "title": "19년간 가장 많이 받은 질문 365개",
-    "subtitle": "검정고시부터 영주권까지, 학생들이 실제로 물어본 질문입니다.",
+    "title": "19년간 학생들이 실제로 물어본 질문입니다",
+    "subtitle": "",
     "seeAllLabel": "이 카테고리 전체 보기",
     "ctaTitle": "다음 단계가 궁금하신가요?",
     "ctaBody": "학생마다 상황이 다릅니다 — 1:1 상담에서 자세히 안내드립니다.",
