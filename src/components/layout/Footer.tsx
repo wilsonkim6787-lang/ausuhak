@@ -1,10 +1,18 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { GraduationCap, Briefcase, Wrench, CalendarDays, Plane } from "lucide-react";
 
 // PART F-2 / PART E-16 site_settings 동적 로드 (Phase 1.7에서 DB 연결)
 // PART N-11: 자매학교 EC 어학원·화상영어 = 푸터 로고만 (카드/FAQ X)
 // PART 0-1: Wilson 개인 카톡 ID 노출 X / 채널 URL만
+
+const VISAS = [
+  { name: "학생비자", code: "500" },
+  { name: "졸업생 임시비자", code: "485" },
+  { name: "연수비자", code: "407" },
+  { name: "단기 전문활동", code: "408" },
+  { name: "방문비자", code: "600" },
+];
+
 export default function Footer() {
   const t = useTranslations("Footer");
   const kakaoUrl = "https://pf.kakao.com/_GadTX";
@@ -55,7 +63,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Wilson 자매 서비스 (페이지 최하단에만 / 브랜드명 직접 노출 X) */}
+          {/* Column 3: Wilson 자매 서비스 */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("sisterEyebrow")}
@@ -66,75 +74,32 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 비자 대행 */}
-        <div className="mt-12 border-t border-cream-100/15 pt-10">
+        {/* 비자 대행 — 간결 리스트 */}
+        <div className="mt-12 border-t border-cream-100/15 pt-8">
           <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
             비자도 함께 도와드립니다
           </p>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            {(
-              [
-                {
-                  Icon: GraduationCap,
-                  name: "학생비자",
-                  code: "500",
-                  desc: "호주 정규 과정(대학·VET·ELICOS 등)에 등록한 유학생을 위한 비자입니다. 입학 허가(CoE)를 받은 뒤 신청하며, 과정 길이에 따라 최대 5년까지 체류할 수 있습니다. 수업 기간 중에는 2주당 48시간까지, 방학 중에는 제한 없이 일할 수 있습니다.",
-                },
-                {
-                  Icon: Briefcase,
-                  name: "졸업생 임시비자",
-                  code: "485",
-                  desc: "호주에서 과정을 마친 졸업생이 현지에 남아 취업·경력을 쌓을 수 있는 비자입니다. 직업·전문대 졸업자(약 18개월)와 학위 졸업자(2~3년) 스트림으로 나뉘며, 졸업 후 6개월 이내에 신청해야 합니다.",
-                },
-                {
-                  Icon: Wrench,
-                  name: "연수비자",
-                  code: "407",
-                  desc: "호주 승인 스폰서 아래에서 직무 관련 훈련을 받기 위한 비자입니다. 통상 최대 2년까지 체류 가능하며, 간호사·약사 등이 AHPRA 등록을 위해 감독 실무가 필요한 경우 활용됩니다.",
-                },
-                {
-                  Icon: CalendarDays,
-                  name: "단기 전문활동",
-                  code: "408",
-                  desc: "특정 단기 활동·행사·전문 업무를 위한 비자입니다. 엔터테인먼트, 연구, 스포츠, 종교, 문화 교류 등 정해진 활동 유형에 한해 발급됩니다.",
-                },
-                {
-                  Icon: Plane,
-                  name: "방문비자",
-                  code: "600",
-                  desc: "관광·가족 방문·단기 비즈니스 목적으로 호주에 머무를 때 사용하는 비자입니다. 취업은 허용되지 않으며, 최대 12개월까지 유효합니다.",
-                },
-              ] as const
-            ).map((v) => (
-              <details
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {VISAS.map((v) => (
+              <li
                 key={v.code}
-                className="group rounded-xl border border-cream-100/10 bg-white/5 transition-colors hover:border-gold-500/40"
+                className="rounded-full border border-cream-100/15 bg-white/5 px-3.5 py-1.5 text-sm text-cream-200"
               >
-                <summary className="flex cursor-pointer items-center gap-3 px-4 py-4 [&::-webkit-details-marker]:hidden">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gold-500/15">
-                    <v.Icon size={18} className="text-gold-500" />
-                  </span>
-                  <span className="flex-1 text-sm font-semibold text-cream-100">
-                    {v.name}{" "}
-                    <span className="font-normal text-cream-200/50">{v.code}</span>
-                  </span>
-                  <span className="text-cream-200/50 transition-transform duration-200 group-open:rotate-180">
-                    ▾
-                  </span>
-                </summary>
-                <div className="px-4 pb-5 pl-16">
-                  <p className="text-[13px] leading-relaxed text-cream-200/80">
-                    {v.desc}
-                  </p>
-                </div>
-              </details>
+                {v.name} <span className="text-cream-200/40">{v.code}</span>
+              </li>
             ))}
-          </div>
-          <p className="mt-5 text-xs font-semibold text-gold-500">
-            최신 조건은 카톡 상담에서 안내드립니다
-          </p>
-          <p className="mt-2 text-[11px] leading-relaxed text-cream-200/50">
-            비자 신청 대행 업무만 진행하며, 발급 여부는 호주 이민성(Department of Home Affairs)의 결정에 따릅니다.
+          </ul>
+          <p className="mt-4 text-xs text-cream-200/60">
+            최신 조건은{" "}
+            <a
+              href={kakaoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-gold-500 hover:text-gold-400"
+            >
+              카톡 상담
+            </a>
+            에서 안내드립니다 · 대행 업무만 진행하며 발급 여부는 호주 이민성 결정에 따릅니다.
           </p>
         </div>
 
