@@ -81,7 +81,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               data-kakao-source="header_mobile"
-              aria-label="카톡 상담"
+              aria-label="카톡 문의"
               className="rounded-full bg-[#FEE500] px-3 py-2 text-sm font-bold text-[#3C1E1E]"
             >
               <span aria-hidden>{"\u{1F4AC}"}</span>

@@ -30,12 +30,14 @@ export default async function OfferShowcase() {
   const { data } = await supabase
     .from("offers")
     .select("id, school, program, year, student_alias, image_path")
-    .eq("status", "published")
-    .order("display_order")
-    .order("year", { ascending: false })
-    .limit(12);
+    .eq("status", "published");
 
-  const rows = (data ?? []) as OfferRow[];
+  const all = (data ?? []) as OfferRow[];
+  for (let i = all.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [all[i], all[j]] = [all[j], all[i]];
+  }
+  const rows = all.slice(0, 12);
   const useFallback = rows.length === 0;
   const items: Array<{
     id?: string;

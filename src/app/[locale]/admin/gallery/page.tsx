@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import { upsertGalleryAction, deleteGalleryAction } from "./actions";
+import { SaveButton, DeleteButton } from "./GalleryFormButtons";
 
 type GalleryRow = {
   id: string;
@@ -128,7 +129,7 @@ export default async function AdminGalleryPage({
           </div>
 
           <div className="flex gap-3">
-            <Button type="submit">저장</Button>
+            <SaveButton />
             <a href="/admin/gallery">
               <Button type="button">취소</Button>
             </a>
@@ -170,12 +171,7 @@ export default async function AdminGalleryPage({
                   </a>
                   <form action={deleteGalleryAction}>
                     <input type="hidden" name="id" value={item.id} />
-                    <button
-                      type="submit"
-                      className="text-xs font-semibold text-red-600 hover:text-red-500"
-                    >
-                      삭제
-                    </button>
+                    <DeleteButton />
                   </form>
                 </div>
               </div>

@@ -61,15 +61,17 @@ export async function upsertGalleryAction(formData: FormData): Promise<void> {
     if (file.size > MAX_BYTES) redirect(errUrl("5MB 초과"));
     if (!ALLOWED_MIME.has(file.type)) redirect(errUrl("JPG·PNG·WebP만 허용"));
 
-    if (existingPath) {
-      await supabase.storage.from(BUCKET).remove([existingPath]);
-    }
-
     const path = `gallery-${Date.now()}.${extOf(file.name)}`;
     const buffer = await file.arrayBuffer();
-    const { error: uploadError } = await supabase.storage
-      .from(BUCKET)
-      .upload(path, buffer, { contentType: file.type, upsert: false });
+    const [, { error: uploadError }] = await Promise.all([
+      existingPath
+        ? supabase.storage.from(BUCKET).remove([existingPath])
+        : Promise.resolve(),
+      supabase.storage.from(BUCKET).upload(path, buffer, {
+        contentType: file.type,
+        upsert: false,
+      }),
+    ]);
     if (uploadError) redirect(errUrl(`업로드 실패: ${uploadError.message}`));
     imagePath = path;
   }
@@ -90,7 +92,7 @@ export async function upsertGalleryAction(formData: FormData): Promise<void> {
   }
 
   revalidatePath("/admin/gallery");
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "page");
   redirect("/admin/gallery?ok=1");
 }
 
@@ -108,12 +110,14 @@ export async function deleteGalleryAction(formData: FormData): Promise<void> {
     .eq("id", id)
     .single();
 
-  if (data?.image_path) {
-    await supabase.storage.from(BUCKET).remove([data.image_path]);
-  }
-  await supabase.from("gallery").delete().eq("id", id);
+  await Promise.all([
+    data?.image_path
+      ? supabase.storage.from(BUCKET).remove([data.image_path])
+      : Promise.resolve(),
+    supabase.from("gallery").delete().eq("id", id),
+  ]);
 
   revalidatePath("/admin/gallery");
-  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "page");
   redirect("/admin/gallery?ok=1");
 }

@@ -22,11 +22,11 @@ export default function StickyKakao() {
           target="_blank"
           rel="noopener noreferrer"
           data-kakao-source="sticky-mobile"
-          aria-label="Wilson 카톡 채널로 상담"
+          aria-label="Wilson 카톡 채널로 문의"
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[#FEE500] px-3 py-3.5 text-sm font-bold text-[#3C1E1E] shadow-md"
         >
           <span aria-hidden>{"\u{1F4AC}"}</span>
-          카카오 상담
+          카톡 문의
         </a>
       </div>
 
@@ -40,7 +40,7 @@ export default function StickyKakao() {
         className="fixed bottom-6 right-6 z-30 hidden items-center gap-2 rounded-full bg-[#FEE500] px-5 py-3.5 text-base font-bold text-[#3C1E1E] shadow-lg transition hover:scale-105 hover:shadow-xl sm:flex"
       >
         <span className="text-xl leading-none" aria-hidden>{"\u{1F4AC}"}</span>
-        카톡 상담 →
+        카톡 문의 →
       </a>
     </>
   );

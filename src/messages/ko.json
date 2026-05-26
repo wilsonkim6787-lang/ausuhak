@@ -11,7 +11,7 @@
     "menuFaq": "자주 묻는 질문",
     "menuLogin": "로그인",
     "menuSignup": "회원가입",
-    "ctaKakao": "카카오 상담"
+    "ctaKakao": "카카오톡 문의"
   },
   "Hero": {
     "badge": "호주 전문 유학원 · QEAC E240",
@@ -21,7 +21,7 @@
     "titleSuffix": "’입니다",
     "subtitleBold": "학력 · 영어 · 예산 · 목표에 따라 가능한 호주 진학 방법이 완전히 달라집니다.",
     "subtitleBody": "아래에서 비슷한 고민을 골라보세요. 가능한 루트가 보입니다.",
-    "ctaStory": "카카오 상담하기",
+    "ctaStory": "카카오톡 문의하기",
     "trust1": "19년 경력",
     "trust2": "950명+ 졸업생",
     "trust3": "호주 정부 인증",
@@ -52,7 +52,7 @@
     "method3Body": "필리핀 세부에 영어센터를 직접 차렸습니다. 출국 전 같이 공부하며 성격·습관까지 파악하고, 그에 맞춰 학교를 고릅니다.",
     "method4Title": "정해둔 추천 학교가 없습니다",
     "method4Body": "950명+ 데이터로 학생마다 맞는 도시와 학교를 새로 찾습니다. 같은 학교만 권하지 않습니다.",
-    "ctaTitle": "카카오 상담하기",
+    "ctaTitle": "카카오톡 상담하기",
     "ctaBody": ""
   },
   "DiagnoseCTA": {
@@ -71,7 +71,7 @@
     "concern8": "고2·고3 지금 준비 늦지 않았나?",
     "concern9": "한국 대학 중퇴 후 다시 시작?",
     "concern10": "영주권 연결 가능한 전공은?",
-    "ctaPrimary": "카카오 상담하기",
+    "ctaPrimary": "카카오톡 상담하기",
     "ctaSubtext": ""
   },
   "MedicalCTA": {
@@ -115,7 +115,7 @@
     "seeAllLabel": "이 카테고리 전체 보기",
     "ctaTitle": "다음 단계가 궁금하신가요?",
     "ctaBody": "학생마다 상황이 다릅니다 — 1:1 상담에서 자세히 안내드립니다.",
-    "ctaKakao": "카카오 상담하기"
+    "ctaKakao": "카카오톡 상담하기"
   },
   "FaqPage": {
     "title": "자주 묻는 질문",
@@ -127,7 +127,7 @@
     "itemCountLabel": "{n}개 질문",
     "ctaTitle": "본인 케이스 더 자세히 묻고 싶으면",
     "ctaBody": "FAQ에 없는 상황 — 카카오 채널에서 Wilson이 직접 답해드립니다.",
-    "ctaKakao": "카카오 상담"
+    "ctaKakao": "카카오톡 상담"
   },
   "Footer": {
     "tagline": "Wilson Kim · 19년 호주 유학 컨설팅 + 호주 학교 교직원 경력 · 950명+ 누적 학생",
