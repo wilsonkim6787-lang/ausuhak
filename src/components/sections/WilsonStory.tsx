@@ -45,7 +45,24 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
           </p>
         </div>
 
-        <div className="mt-16 grid items-center gap-12 rounded-3xl bg-white p-8 shadow-sm sm:p-10 lg:grid-cols-[1fr_1.2fr]">
+        <div className="mt-16 grid items-center gap-12 rounded-3xl bg-white p-8 shadow-sm sm:p-10 lg:grid-cols-[1fr_1.4fr]">
+          <div>
+            <span className="inline-flex items-center rounded-full border border-gold-600/30 bg-gold-600/10 px-4 py-1.5 text-xs font-bold tracking-wider text-gold-600">
+              {t("profileBadge")}
+            </span>
+            <h3 className="mt-5 font-display text-2xl font-bold leading-tight text-navy-900 sm:text-3xl">
+              {t("profileTitle1")}
+              <br />
+              <span className="italic text-gold-600">
+                {t("profileTitleEm")}
+              </span>
+              {t("profileTitleSuffix")}
+            </h3>
+            <p className="mt-5 text-base leading-relaxed text-ink-700">
+              {t("profileBody")}
+            </p>
+          </div>
+
           {gallery.length > 0 ? (
             <div className="overflow-hidden rounded-2xl">
               <GalleryCarousel items={gallery} />
@@ -70,23 +87,6 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
               </div>
             </div>
           )}
-
-          <div>
-            <span className="inline-flex items-center rounded-full border border-gold-600/30 bg-gold-600/10 px-4 py-1.5 text-xs font-bold tracking-wider text-gold-600">
-              {t("profileBadge")}
-            </span>
-            <h3 className="mt-5 font-display text-2xl font-bold leading-tight text-navy-900 sm:text-3xl">
-              {t("profileTitle1")}
-              <br />
-              <span className="italic text-gold-600">
-                {t("profileTitleEm")}
-              </span>
-              {t("profileTitleSuffix")}
-            </h3>
-            <p className="mt-5 text-base leading-relaxed text-ink-700">
-              {t("profileBody")}
-            </p>
-          </div>
         </div>
 
         <div
