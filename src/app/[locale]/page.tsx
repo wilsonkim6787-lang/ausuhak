@@ -55,8 +55,8 @@ export default async function Home({
         <Hero />
         <OfferShowcase />
         <DiagnoseCTA />
-        <MedicalCTA />
         <WilsonStory />
+        <MedicalCTA />
         <FAQPreview />
       </main>
       <Footer />

@@ -35,6 +35,21 @@ export default function Hero() {
                 내 고민 확인하기 <span aria-hidden>↓</span>
               </a>
             </div>
+
+            <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold text-ink-600">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-cream-300 bg-white/70 px-3 py-1.5">
+                <span className="size-1.5 rounded-full bg-gold-600" />
+                {t("trust1")}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-cream-300 bg-white/70 px-3 py-1.5">
+                <span className="size-1.5 rounded-full bg-gold-600" />
+                {t("trust2")}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-cream-300 bg-white/70 px-3 py-1.5">
+                <span className="size-1.5 rounded-full bg-gold-600" />
+                {t("trust3")}
+              </span>
+            </div>
           </div>
 
           <div className="overflow-hidden rounded-3xl shadow-lg">

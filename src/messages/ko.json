@@ -14,14 +14,17 @@
     "ctaKakao": "카카오 상담"
   },
   "Hero": {
-    "badge": "호주 유학 · 진학 상담",
-    "titleLine1": "진짜 중요한 건 학교가 아니라",
+    "badge": "호주 전문 유학원 · QEAC E240",
+    "titleLine1": "호주 유학, 학교 이름보다 중요한 건",
     "titlePrefix": "’",
     "titleEm": "나에게 맞는 진학 루트",
     "titleSuffix": "’입니다",
-    "subtitleBold": "학력 · 영어 · 예산 · 목표에 따라 가능한 방법이 완전히 달라집니다.",
+    "subtitleBold": "학력 · 영어 · 예산 · 목표에 따라 가능한 호주 진학 방법이 완전히 달라집니다.",
     "subtitleBody": "아래에서 비슷한 고민을 골라보세요. 가능한 루트가 보입니다.",
-    "ctaStory": "카카오 상담하기"
+    "ctaStory": "카카오 상담하기",
+    "trust1": "19년 경력",
+    "trust2": "950명+ 졸업생",
+    "trust3": "호주 정부 인증"
   },
   "WilsonStory": {
     "eyebrow": "Ausuhak 이야기",
@@ -52,9 +55,9 @@
     "ctaBody": "1차 카톡 상담은 무료입니다"
   },
   "DiagnoseCTA": {
-    "eyebrow": "내 상황부터 확인하세요",
-    "title": "비슷한 고민을 고르면 가능한 진학 루트가 보입니다",
-    "subtitle": "검정고시 · 워홀 · 대졸 — 어떤 출발이든 길은 있습니다.",
+    "eyebrow": "30초 진단",
+    "title": "내 상황부터 확인하세요",
+    "subtitle": "비슷한 고민을 고르면, 가능한 호주 진학 루트가 보입니다.",
     "searchPlaceholder": "궁금한 키워드를 입력하세요 — 검정고시, 간호, 영주권…",
     "searchButton": "검색",
     "concern1": "검정고시인데 진학 가능할까요?",
@@ -97,19 +100,19 @@
   },
   "OfferShowcase": {
     "eyebrow": "합격 오퍼 · 후기 · 케이스",
-    "title": "Wilson 학생들의 실제 결과",
-    "subtitle": "검정고시·워홀러·대졸 — 합격 오퍼, 졸업 후기, 진학 케이스를 직접 확인하세요.",
+    "title": "Wilson 학생들의 호주 대학 합격 결과",
+    "subtitle": "검정고시·워홀러·대졸 — 호주 대학 합격 오퍼, 졸업 후기, 진학 케이스를 직접 확인하세요.",
     "placeholderLabel": "오퍼 이미지",
     "swipeHint": "← 좌우로 스와이프해서 더 보기 →",
     "ctaPrimary": "카카오 상담하기",
     "ctaNote": "지금 진단으로 본인 상황부터 먼저 받아볼 수 있습니다"
   },
   "FAQPreview": {
-    "eyebrow": "FAQ",
-    "title": "19년간 가장 많이 받은 질문들",
-    "subtitle": "더 깊은 이야기는 카카오에서 나누겠습니다.",
+    "eyebrow": "FAQ 365",
+    "title": "19년간 가장 많이 받은 질문 365개",
+    "subtitle": "검정고시부터 영주권까지, 학생들이 실제로 물어본 질문입니다.",
     "seeAllLabel": "이 카테고리 전체 보기",
-    "ctaTitle": "여기서 답을 못 찾으셨다면",
+    "ctaTitle": "다음 단계가 궁금하신가요?",
     "ctaBody": "학생마다 상황이 다릅니다 — 1:1 상담에서 자세히 안내드립니다.",
     "ctaKakao": "카카오 상담하기"
   },
