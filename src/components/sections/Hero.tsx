@@ -46,7 +46,7 @@ export default function Hero() {
               href="#diagnose"
               className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-10 py-5 text-lg font-extrabold text-white shadow-lg transition hover:bg-gold-500 hover:shadow-xl sm:text-xl"
             >
-              내 고민 확인하기 <span aria-hidden>↓</span>
+              30초 진학 가능성 확인 <span aria-hidden>↓</span>
             </a>
           </div>
 

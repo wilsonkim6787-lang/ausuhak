@@ -89,21 +89,6 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
           )}
         </div>
 
-        <div
-          className="mx-auto mt-16 max-w-3xl rounded-2xl border-l-4 border-gold-600 p-8 sm:p-10"
-          style={{
-            background:
-              "linear-gradient(135deg, #FBF7EE 0%, #F5EFD9 100%)",
-          }}
-        >
-          <p className="font-display text-xl italic leading-relaxed text-navy-900 sm:text-2xl">
-            &ldquo;{t("honestQuote")}&rdquo;
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-ink-700">
-            {t("honestBody")}
-          </p>
-        </div>
-
         <div className="mt-20 text-center">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("methodEyebrow")}

@@ -85,13 +85,10 @@ export default async function OfferShowcase() {
 
         <div className="mt-10 text-center">
           <a
-            href="https://pf.kakao.com/_GadTX"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-kakao-source="offers"
+            href="#diagnose"
             className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-semibold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
           >
-            {t("ctaPrimary")} <span aria-hidden>→</span>
+            {t("ctaPrimary")} <span aria-hidden>↓</span>
           </a>
           <p className="mt-4 text-sm text-ink-500">{t("ctaNote")}</p>
         </div>
