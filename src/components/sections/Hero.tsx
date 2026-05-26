@@ -63,6 +63,10 @@ export default function Hero() {
               <span className="size-1.5 rounded-full bg-gold-400" />
               {t("trust3")}
             </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 backdrop-blur-sm">
+              <span className="size-1.5 rounded-full bg-gold-400" />
+              {t("trust4")}
+            </span>
           </div>
         </div>
       </div>
