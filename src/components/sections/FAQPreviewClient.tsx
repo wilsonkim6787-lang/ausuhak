@@ -115,7 +115,6 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
               >
                 카카오 상담하기 <span aria-hidden>→</span>
               </a>
-              <p className="mt-3 text-xs text-ink-500">1차 카톡 상담은 무료입니다</p>
             </div>
           </div>
         ) : (

@@ -141,7 +141,6 @@ export default function DiagnoseCTA() {
               >
                 카카오 상담하기 <span aria-hidden>→</span>
               </a>
-              <p className="mt-3 text-xs text-ink-500">1차 카톡 상담은 무료입니다</p>
             </div>
           </div>
         ) : (
@@ -178,7 +177,6 @@ export default function DiagnoseCTA() {
               >
                 {t("ctaPrimary")} <span aria-hidden>→</span>
               </a>
-              <p className="mt-4 text-sm text-ink-500">{t("ctaSubtext")}</p>
             </div>
           </>
         )}

@@ -90,7 +90,6 @@ export default async function OfferShowcase() {
           >
             {t("ctaPrimary")} <span aria-hidden>↓</span>
           </a>
-          <p className="mt-4 text-sm text-ink-500">{t("ctaNote")}</p>
         </div>
       </div>
     </section>

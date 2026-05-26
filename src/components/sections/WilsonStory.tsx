@@ -124,7 +124,6 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
           >
             {t("ctaTitle")} <span aria-hidden>→</span>
           </a>
-          <p className="mt-4 text-sm text-ink-500">{t("ctaBody")}</p>
         </div>
       </div>
     </section>
