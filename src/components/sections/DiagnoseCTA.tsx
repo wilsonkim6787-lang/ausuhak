@@ -80,7 +80,7 @@ export default function DiagnoseCTA() {
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("eyebrow")}
           </span>
-          <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold leading-tight text-ink-900 sm:text-5xl">
+          <h2 className="mx-auto mt-3 max-w-3xl font-display text-4xl font-bold leading-tight text-ink-900 sm:text-5xl lg:text-6xl">
             {t("title")}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">

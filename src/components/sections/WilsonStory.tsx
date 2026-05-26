@@ -26,7 +26,7 @@ export default function WilsonStory() {
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
             {t("eyebrow")}
           </span>
-          <h2 className="mt-4 font-display text-3xl italic font-bold leading-tight text-navy-900 sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl italic font-bold leading-tight text-navy-900 sm:text-5xl lg:text-6xl">
             &ldquo;{t("quoteTitle1")}
             <br />
             {t("quoteTitlePrefix")}
