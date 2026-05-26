@@ -74,49 +74,25 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 비자 대행 — 간결 리스트 */}
-        <div className="mt-12 border-t border-cream-100/15 pt-8">
-          <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
-            비자도 함께 도와드립니다
-          </p>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {VISAS.map((v) => (
-              <li
-                key={v.code}
-                className="rounded-full border border-cream-100/15 bg-white/5 px-3.5 py-1.5 text-sm text-cream-200"
-              >
-                {v.name} <span className="text-cream-200/40">{v.code}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-xs text-cream-200/60">
-            최신 조건은{" "}
-            <a
-              href={kakaoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-gold-500 hover:text-gold-400"
-            >
-              카톡 상담
-            </a>
-            에서 안내드립니다 · 대행 업무만 진행하며 발급 여부는 호주 이민성 결정에 따릅니다.
-          </p>
-        </div>
-
         {/* 하단 라인 */}
-        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-cream-100/15 pt-6 text-xs text-cream-200 sm:flex-row sm:items-center">
-          <p>© 2026 ausuhak.com</p>
-          <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-gold-500">
-              {t("privacy")}
-            </Link>
-            <Link href="/terms" className="hover:text-gold-500">
-              {t("terms")}
-            </Link>
-            <Link href="/en" className="hover:text-gold-500">
-              {t("languageToggle")}
-            </Link>
+        <div className="mt-12 space-y-3 border-t border-cream-100/15 pt-6 text-xs text-cream-200/60">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+            <p className="text-cream-200">© 2026 ausuhak.com</p>
+            <div className="flex gap-4">
+              <Link href="/privacy" className="hover:text-gold-500">
+                {t("privacy")}
+              </Link>
+              <Link href="/terms" className="hover:text-gold-500">
+                {t("terms")}
+              </Link>
+              <Link href="/en" className="hover:text-gold-500">
+                {t("languageToggle")}
+              </Link>
+            </div>
           </div>
+          <p>
+            비자 대행: {VISAS.map((v) => `${v.name}(${v.code})`).join(" · ")} — 발급 여부는 호주 이민성 결정에 따릅니다.
+          </p>
         </div>
       </div>
     </footer>
