@@ -48,6 +48,19 @@ export default async function Home({
   const noticeBody = noticeMap.get("notice_body") ?? "";
   const noticeVersion = parseInt(noticeMap.get("notice_version") ?? "1", 10) || 1;
 
+  const { data: galleryRows } = await supabase
+    .from("gallery")
+    .select("id, image_path, caption")
+    .eq("status", "published")
+    .order("display_order");
+  const gallery = (galleryRows ?? []).map((r) => ({
+    id: r.id as string,
+    image_url: r.image_path
+      ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${r.image_path}`
+      : "",
+    caption: r.caption as string | null,
+  })).filter((g) => g.image_url);
+
   return (
     <>
       <Header />
@@ -55,7 +68,7 @@ export default async function Home({
         <Hero />
         <OfferShowcase />
         <DiagnoseCTA />
-        <WilsonStory />
+        <WilsonStory gallery={gallery} />
         <MedicalCTA />
         <FAQPreview />
       </main>

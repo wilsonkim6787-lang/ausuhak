@@ -1,6 +1,8 @@
 import { useTranslations } from "next-intl";
+import GalleryCarousel from "./GalleryCarousel";
+import type { GalleryItem } from "./GalleryCarousel";
 
-export default function WilsonStory() {
+export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] }) {
   const t = useTranslations("WilsonStory");
 
   const methods = [
@@ -95,6 +97,12 @@ export default function WilsonStory() {
             {t("honestBody")}
           </p>
         </div>
+
+        {gallery.length > 0 && (
+          <div className="mt-16">
+            <GalleryCarousel items={gallery} />
+          </div>
+        )}
 
         <div className="mt-20 text-center">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold-600">
