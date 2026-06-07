@@ -12,7 +12,7 @@ type QuoteRow = {
   quote_type: "consultation" | "enrollment" | null;
   total_aud: number | null;
   total_krw: number | null;
-  selected_schools: { name: string }[] | null;
+  selected_schools: { school_name?: string; name?: string }[] | null;
   created_at: string;
   updated_at: string;
   students?: { name: string | null } | null;
@@ -104,7 +104,10 @@ export default async function QuotesListPage({
 
 function QuoteCard({ quote: q }: { quote: QuoteRow }) {
   const studentName = q.students?.name?.trim() || "이름 미입력";
-  const schoolNames = (q.selected_schools ?? []).map((s) => s.name).join(" / ");
+  const schoolNames = (q.selected_schools ?? [])
+    .map((s) => s.school_name ?? s.name)
+    .filter(Boolean)
+    .join(" / ");
   const krw = q.total_krw != null ? `₩${q.total_krw.toLocaleString("ko-KR")}` : "—";
   const aud = q.total_aud != null ? `AUD $${q.total_aud.toLocaleString("en-AU")}` : "—";
 
