@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { PHASES, type SubstepStatus } from "@/lib/progress";
+import {
+  PHASES,
+  currentPhaseIndex,
+  phaseIsComplete,
+  type Phase,
+  type SubstepStatus,
+} from "@/lib/progress";
 import {
   updateSubstepStatusAction,
   uploadSubstepDocAction,
@@ -27,6 +33,7 @@ const ACCEPT_MIME =
   "application/pdf,image/jpeg,image/png,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.jpg,.jpeg,.png,.docx";
 
 // admin/담당직원 — 5 phase × sub-step 상태 제어 + staff 서류 업로드 + 학생 서류 조회.
+// BLOCK 4: 완료 phase 접힘(✓) / 현재 phase 펼침 / 미래 phase 회색.
 export default function ProgressControl({
   studentId,
   statusMap,
@@ -36,23 +43,39 @@ export default function ProgressControl({
   statusMap: Record<string, SubstepStatus>;
   docsBySubstep: Record<string, AdminDocItem[]>;
 }) {
+  const curPhaseIdx = currentPhaseIndex(statusMap);
+  const [openKeys, setOpenKeys] = useState<Set<string>>(
+    () => new Set([PHASES[curPhaseIdx]?.key].filter(Boolean) as string[]),
+  );
+  const toggle = (key: string) =>
+    setOpenKeys((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+
   return (
     <section className="rounded-2xl border border-cream-300 bg-white p-6 shadow-sm">
       <div className="flex items-baseline justify-between">
-        <h2 className="font-display text-base font-bold text-navy-900">
-          진행 단계 (sub-step 제어)
-        </h2>
+        <h2 className="font-display text-base font-bold text-navy-900">진행 단계</h2>
         <span className="text-xs text-ink-500">
-          상태 변경 시 학생 화면·current_stage 자동 반영
+          상태 변경 시 학생 화면·단계 자동 반영
         </span>
       </div>
 
-      <div className="mt-5 flex flex-col gap-5">
+      <div className="mt-5 flex flex-col gap-4">
         {PHASES.map((phase, i) => (
-          <div key={phase.key}>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-gold-600">
-              {i + 1}. {phase.label}
-            </p>
+          <PhaseBlock
+            key={phase.key}
+            phase={phase}
+            index={i}
+            complete={phaseIsComplete(phase, statusMap)}
+            isCurrent={i === curPhaseIdx}
+            isFuture={i > curPhaseIdx}
+            open={openKeys.has(phase.key)}
+            onToggle={() => toggle(phase.key)}
+          >
             <ul className="flex flex-col divide-y divide-cream-200 rounded-xl border border-cream-300">
               {phase.substeps.map((sub) => {
                 const docs = docsBySubstep[sub.key] ?? [];
@@ -106,7 +129,7 @@ export default function ProgressControl({
                             <input type="hidden" name="substep_key" value={sub.key} />
                             <input type="hidden" name="doc_type" value={sub.staffDoc.docType} />
                             <span className="text-[11px] text-ink-500">
-                              {sub.staffDoc.label} 업로드:
+                              {sub.staffDoc.label} 올리기:
                             </span>
                             <input
                               type="file"
@@ -119,7 +142,7 @@ export default function ProgressControl({
                               type="submit"
                               className="rounded-md bg-gold-600 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-gold-500"
                             >
-                              업로드
+                              올리기
                             </button>
                           </form>
                         )}
@@ -151,10 +174,59 @@ export default function ProgressControl({
                 );
               })}
             </ul>
-          </div>
+          </PhaseBlock>
         ))}
       </div>
     </section>
+  );
+}
+
+function PhaseBlock({
+  phase,
+  index,
+  complete,
+  isCurrent,
+  isFuture,
+  open,
+  onToggle,
+  children,
+}: {
+  phase: Phase;
+  index: number;
+  complete: boolean;
+  isCurrent: boolean;
+  isFuture: boolean;
+  open: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={isFuture && !open ? "opacity-55" : ""}>
+      <button
+        type="button"
+        onClick={onToggle}
+        className="mb-2 flex w-full items-center gap-2 text-left"
+      >
+        <span className="text-xs font-bold uppercase tracking-wider text-gold-600">
+          {index + 1}. {phase.label}
+        </span>
+        {complete ? (
+          <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">
+            ✓ 완료
+          </span>
+        ) : isCurrent ? (
+          <span className="rounded-full bg-navy-900 px-2 py-0.5 text-[10px] font-bold text-white">
+            진행 중
+          </span>
+        ) : (
+          <span className="rounded-full bg-cream-200 px-2 py-0.5 text-[10px] font-medium text-ink-500">
+            예정
+          </span>
+        )}
+        <span className="ml-auto text-[11px] text-ink-500">{open ? "▴ 접기" : "▾ 펼치기"}</span>
+      </button>
+      {open && children}
+    </div>
   );
 }
 

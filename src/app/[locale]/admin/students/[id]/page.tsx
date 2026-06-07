@@ -64,24 +64,18 @@ export default async function StudentBasicPage({
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <BasicInfoForm student={data} />
-
-      <div className="border-t border-cream-300 pt-2">
-        <p className="text-xs font-bold uppercase tracking-wider text-gold-600">
-          진행 단계
-        </p>
-        <h2 className="mt-1 font-display text-2xl font-bold text-navy-900">
-          🎯 진행 모델 · Lead Status
-        </h2>
-        <p className="mt-1 text-sm text-ink-500">
-          sub-step 상태를 바꾸면 학생 마이페이지와 Stage(current_stage)가 자동으로 반영됩니다.
-        </p>
-      </div>
-
+    <div className="flex flex-col gap-6">
       <ProgressControl studentId={data.id} statusMap={statusMap} docsBySubstep={docsBySubstep} />
 
-      <LeadStatusForm studentId={data.id} leadStatus={data.lead_status} />
+      <details className="rounded-2xl border border-cream-300 bg-white shadow-sm">
+        <summary className="cursor-pointer px-5 py-3 text-sm font-semibold text-navy-900">
+          기본 정보 · Lead 수정
+        </summary>
+        <div className="flex flex-col gap-6 border-t border-cream-200 p-5">
+          <LeadStatusForm studentId={data.id} leadStatus={data.lead_status} />
+          <BasicInfoForm student={data} />
+        </div>
+      </details>
     </div>
   );
 }
