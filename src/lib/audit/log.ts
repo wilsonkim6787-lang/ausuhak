@@ -24,6 +24,8 @@ export type ActionType =
   | "update_quote"
   | "update_student"
   | "advance_stage"
+  | "update_substep"
+  | "update_lead_status"
   | "upload_document"
   | "verify_document"
   // 보안
