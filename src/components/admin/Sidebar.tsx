@@ -11,6 +11,7 @@ import { logoutAction } from "@/app/[locale]/login/actions";
 // 모든 메뉴 클릭 가능 (P1=정식 / P2~4=placeholder 안내 페이지 / redirect 일부는 ↗ 표시).
 const menus = [
   { href: "/admin", label: "🌅 아침 대시보드", phase: 1 },
+  { href: "/admin/command", label: "⚡ 통합 명령창", phase: 1 },
   { href: "/admin/students", label: "📊 학생 관리", phase: 1 },
   { href: "/admin/quotes", label: "💵 견적서", phase: 1 },
   { href: "/admin/payments", label: "💰 결제·커미션", phase: 1 },

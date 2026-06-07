@@ -58,6 +58,7 @@ const UPLOAD_TYPES: Record<Group, { key: string; label: string }[]> = {
 };
 
 const STATUSES: [string, string][] = [
+  ["requested", "요청됨"],
   ["pending", "대기"],
   ["received", "받음"],
   ["verified", "확인"],
