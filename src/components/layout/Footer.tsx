@@ -63,12 +63,20 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Wilson 자매 서비스 */}
+          {/* Column 3: 자매 서비스 — EC 로고 */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("sisterEyebrow")}
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-cream-200">
+            <div className="mt-4 inline-flex rounded-xl bg-cream-100 px-4 py-3 shadow-sm ring-1 ring-cream-300/30">
+              <img
+                src="/ec-logo.png"
+                alt="Education Center — 출국 전 영어 준비 학원·화상영어 학습 센터"
+                className="h-9 w-auto"
+                loading="lazy"
+              />
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-cream-200">
               {t("sisterBody")}
             </p>
           </div>

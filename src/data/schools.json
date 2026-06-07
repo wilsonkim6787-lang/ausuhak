@@ -1342,7 +1342,7 @@
 "campus": "Canberra (ACT - Australian Capital Territory) Cat 1 (Metro / 가산점 0)",
 "cricos": "00120C",
 "anmac": true,
-"qs": 30,
+"qs": 32,
 "founded": 1946,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -4176,7 +4176,7 @@
 "campus": "Melbourne Burwood (Melbourne CBD 30분) Cat 2 +15 (Regional)",
 "cricos": "00113B",
 "anmac": true,
-"qs": 197,
+"qs": 207,
 "founded": 1974,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -5216,7 +5216,7 @@
 "campus": "**Gold Coast (Southport)** + Nathan (Brisbane 메인) + Mt Gravatt + Logan + South Bank + Brisbane CBD (2027 NEW) Cat 2 +15 (Regional)",
 "cricos": "00233E",
 "anmac": true,
-"qs": 201,
+"qs": 268,
 "founded": 1971,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -6379,7 +6379,7 @@
 "campus": "Melbourne Bundoora (Melbourne CBD 14km / 660 acres = 호주 最大 메트로 캠퍼스) Cat 2 +15 (Regional)",
 "cricos": "00115M",
 "anmac": true,
-"qs": 217,
+"qs": 233,
 "founded": 1967,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -6902,7 +6902,7 @@
 "campus": "Wallumattagal Campus (Macquarie Park) - Sydney CBD에서 25분 Cat 1 (Metro / 가산점 0)",
 "cricos": "00002J",
 "anmac": true,
-"qs": 178,
+"qs": 138,
 "founded": 1964,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -8635,7 +8635,7 @@
 "campus": "Gardens Point (Brisbane CBD 한복판) + Kelvin Grove (CBD 3km) Cat 1 (Metro / 가산점 0)",
 "cricos": "00213J",
 "anmac": true,
-"qs": 191,
+"qs": 226,
 "founded": 1989,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -12012,7 +12012,7 @@
 "campus": "Melbourne (VIC) Cat 1 (Metro / 가산점 0)",
 "cricos": "00116K",
 "anmac": null,
-"qs": 13,
+"qs": 19,
 "founded": null,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -12082,7 +12082,7 @@
 "campus": "Melbourne (VIC) Cat 1 (Metro / 가산점 0)",
 "cricos": "00116K",
 "anmac": true,
-"qs": 13,
+"qs": 19,
 "founded": null,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -12831,7 +12831,7 @@
 "campus": "Callaghan (Newcastle 외곽) + Newcastle CBD + Sydney CBD + Ourimbah (Central Coast) Cat 2 +15 (Regional)",
 "cricos": "00109J",
 "anmac": true,
-"qs": 175,
+"qs": 227,
 "founded": 1965,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -15440,7 +15440,7 @@
 "campus": "Ultimo / Haymarket (Sydney CBD 한복판) Cat 1 (Metro / 가산점 0)",
 "cricos": "00099F",
 "anmac": true,
-"qs": 88,
+"qs": 96,
 "founded": 1988,
 "operator": "연방 정부 / 주 정부",
 "programs": [
@@ -16750,7 +16750,7 @@
 "campus": "Wollongong (메인) + Sydney CBD + Liverpool Cat 2 +15 (Regional)",
 "cricos": "00102E",
 "anmac": true,
-"qs": 167,
+"qs": 184,
 "founded": 1951,
 "operator": "연방 정부 / 주 정부",
 "programs": [
