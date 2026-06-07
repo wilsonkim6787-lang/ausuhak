@@ -21,7 +21,7 @@ from pathlib import PurePosixPath, Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_SQL = ROOT / "supabase" / "migrations" / "005_data_faqs_seed.sql"
-ZIP_PATH = ROOT.parent / "ausuhak_v25" / "04_ASSETS" / "ausuhak_complete_package.zip"
+ZIP_PATH = ROOT / "_source" / "04_ASSETS" / "ausuhak_complete_package.zip"
 FAQ_ROOT_IN_ZIP = "ausuhak_faq/"
 
 

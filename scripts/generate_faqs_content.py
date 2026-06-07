@@ -10,7 +10,7 @@ FAQ 83개 .md 콘텐츠 파싱 → 006_data_faqs_content.sql 생성 (Phase 1.5)
 - matching_cards    = 모듈 타입별 기본값
 - required_modules  = 시나리오 파일의 '🔗 참조 모듈' 섹션 파싱
 
-입력: ausuhak_v25/04_ASSETS/ausuhak_complete_package.zip
+입력: _source/04_ASSETS/ausuhak_complete_package.zip
 출력: supabase/migrations/006_data_faqs_content.sql
 """
 
@@ -22,7 +22,7 @@ from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_SQL = ROOT / "supabase" / "migrations" / "006_data_faqs_content.sql"
-ZIP_PATH = ROOT.parent / "ausuhak_v25" / "04_ASSETS" / "ausuhak_complete_package.zip"
+ZIP_PATH = ROOT / "_source" / "04_ASSETS" / "ausuhak_complete_package.zip"
 FAQ_ROOT = "ausuhak_faq/"
 
 # 모듈 타입별 카드 번호 (PART F-3 카드 7장 배치)

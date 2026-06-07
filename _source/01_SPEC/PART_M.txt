@@ -1,0 +1,811 @@
+������ PART M. 위반 즉시 거절 체크리스트
+
+    목적: Claude Code가 빌드 시 자동 검증 + Wilson 운영 시 빠른 체크 원칙: 위반 1개라도 발견 시 즉시
+    거절 / 수정 후 재제출 자동화: Phase 1부터 빌드 검증 룰 박힘 (npm run validate) 수동: Wilson 검토
+
+    시 체크리스트 사용 심각도: ������ CRITICAL (즉시 차단) / ������ HIGH (Wilson 검토) / ⚪ LOW (자동
+
+    정정)
+
+M-1. 자동 검증 룰 (빌드 시 / Claude Code 자동)
+
+Claude Code가 빌드 전 자동 체크하는 4단계
+
+  [빌드 명령]
+       npm run build
+              ↓
+
+  [자동 검증 1: 콘텐츠 검증]
+       - 금지 표현 18종 검색
+       - 브랜드 표기 정확성
+       - 톤·금지 단어
+              ↓
+
+  [자동 검증 2: 데이터 검증]
+       - master_v2_clean 정합성
+       - 학교명 표준화
+       - 차단룰 39개 적용 확인
+       - Wilson Alert 24개 활성
+              ↓
+
+  [자동 검증 3: 보안 검증]
+       - Supabase RLS 정책 활성화
+       - 학생 internal_data 노출 X
+       - 학생 wilson_note 노출 X
+       - student_notes 학생 차단
+              ↓
+
+  [자동 검증 4: 디자인 검증]
+       - 컬러 팔레트 (Navy/Gold/Cream)
+       - 폰트 (Pretendard/Playfair)
+       - 모바일 반응형 (320px 깨짐 X)
+       - 접근성 (WCAG 2.1 AA / 4.5:1 대비)
+              ↓
+
+  모두 통과 → 빌드 성공 → Vercel 자동 배포
+  1개라도 실패 → 빌드 거부 + Wilson 알림
+
+빌드 거부 시 메시지 형식
+
+  ❌ BUILD REJECTED
+VIOLATION DETECTED:
+  Severity: ������ CRITICAL
+   Type: 콘텐츠 / 데이터 / 보안 / 디자인
+   Location: [파일 경로]:[줄 번호]
+   Detail: [구체적 위반 내용]
+
+SUGGESTED FIX:
+   [수정 제안]
+
+Wilson Action Required:
+   1) 자동 수정 적용 (Y)
+   2) 수동 수정 후 재빌드
+   3) 룰 재검토 (Wilson 결정 필요)
+
+M-2. 콘텐츠 위반 검사 (자동 / 17종 금지 표현)
+
+������ CRITICAL 금지 표현 (즉시 빌드 거부)
+
+# 금지 표현          이유              대체 표현
+
+1 "PR 100% 보장"   거짓 약속 / 법적 리스크 "PR 가능 경로" / "조건 충족 시 가능"
+
+2 "비자 100% 보장"   거짓 약속           "비자 신청 지원" / "거절 시 분석 제공"
+
+3 "환불 100%"      거짓 약속           "조건부 환불 가능 / 약관 참조"
+
+4 "1순위 학교"       ranking 표현 금지   학교명만 표시 (특징 1줄)
+
+5 "추천 학교"        ranking 표현 금지   "이런 학교가 있어요"
+
+6 "Wilson 비밀"    자기 자랑 금지        "Wilson 19년 경험"
+
+7 "Wilson 명언"    자기 자랑 금지        Wilson 인용 (스토리 형식)
+
+8 "Wilson 차별화"   자기 자랑 금지        (자연스러운 스토리에 녹임)
+
+9 "한국 부모가 잘 모름"  부모 비하 금지        (이런 표현 자체 X)
+
+10 "사파"          부정확 표현          "ANMAC 미인증 사립학교"
+
+11 "EAP 필수"      거짓 정보           "EAP는 권장 / Direct Entry 가능"
+
+12 "다른 유학원 거짓말"  비방 금지           (비방 자체 X)
+
+13 "다른 유학원 사기"   비방 금지           (비방 자체 X)
+# 금지 표현             이유             대체 표현
+
+14 "Ausuhak" (대문자)  브랜드 표기 위반      "ausuhak" (소문자)
+                                   "호주유학" (붙여쓰기)
+15 "호주 유학" (띄어쓰기) 브랜드 표기 위반        "ausuhak.com (호주유학)"
+                                   "ausuhak.com (호주유학)"
+16 "Wilson Study"   사이트명 X         카카오 채널만 (https://pf.kakao.com/_GadTX)
+
+17 "윌슨유학"           사이트명 X
+
+18 Wilson 개인 카톡 ID  노출 금지
+
+������ HIGH 위반 표현 (Wilson 검토 / 빌드 가능)  이유         처리
+                                   톤 위반
+ # 위반 표현                           메모리 위반     Wilson 검토 필요
+ 1 "삼촌"이 Wilson 스토리 외 사용           호기심 격차 부족  자동 제거 + 알림
+ 2 "Wilson EC 어학원" 카드/FAQ에 노출      가독성 저하     Wilson 검토
+ 3 카드 글자 수 100자 미만                 매칭 룰 위반    Wilson 검토
+ 4 카드 글자 수 500자 초과                            Wilson 검토
+ 5 학생 지역 무시한 추천 50%+
+
+M-3. 절대 원칙 위반 (PART 0 기반 자동 검증)
+
+������ 간호 IELTS 룰 (NMBA 통일 + Pathway 구분)
+
+  [중요] 간호 IELTS는 시점에 따라 다름:
+
+  1) Diploma of Health Care (Pathway / 대학부속 컬리지)
+      ✅ 입학 IELTS = 6.5 (정확히)
+      ✅ 학교: Griffith College / SIBT / UTS College / La Trobe College 등
+      ✅ 1년 (3 trimester) 과정
+      ⚠️ 본과 진입 시 = IELTS 7.0 (각 7.0) 별도 필요
+
+  2) Bachelor of Nursing 2학년 편입 (RN / 간호사)
+      ������ IELTS 7.0 (각 영역 7.0) 필수 (NMBA 통일)
+      ������ ELICOS Direct Entry로 면제 불가
+      ������ "전체 평균 7.0" X / "각 영역 7.0" 명시 필수
+
+  3) TAFE Diploma of Nursing (EN / 간호조무사)
+      ������ 입학부터 IELTS 7.0 (각 영역 7.0) 필수 (NMBA 통일)
+      ������ 1.5년 과정
+      ������ PR 불가 (MLTSSL X)
+
+  4) Master of Nursing
+      ������ IELTS 7.0 (각 영역 7.0) 필수
+
+  ────────────────────────────────────────
+  위반 케이스:
+
+     ❌ "Bachelor of Nursing 입학 IELTS 6.5"
+     ❌ "TAFE 간호 디플로마 입학 IELTS 6.0"
+     ❌ "Diploma of Health Care 입학 IELTS 6.0" (정확히 6.5)
+     ❌ "간호 학사 IELTS 7.0 (전체 평균)" ← 각 영역 명시 안 됨
+     ❌ "Bachelor of Nursing 2학년 편입 IELTS 6.5"
+     ❌ "간호 ELICOS Direct Entry로 IELTS 면제" (RN / EN 모두)
+
+  허용 케이스 (Pathway 시점):
+     ✅ "Diploma of Health Care 입학 IELTS 6.5"
+          (단, 본과 진입 시 7.0 필요 명시)
+     ✅ "Griffith College / SIBT / UTS College Diploma of Health Care = IELTS 6.5 입
+
+  학"
+          (단, Bachelor 2학년 편입 시 7.0 필요 명시)
+
+  정정:
+     ✅ Pathway: "디플로마 입학 IELTS 6.5 (단, 본과 진입 시 7.0)"
+     ✅ Bachelor: "Bachelor of Nursing 2학년 편입 = IELTS 7.0 (각 영역 7.0) / NMBA"
+     ✅ TAFE EN: "TAFE Diploma of Nursing = IELTS 7.0 (각 영역 7.0) / 입학부터"
+     ✅ "간호 본과는 ELICOS Direct Entry로 IELTS 면제 불가"
+
+  [자동 검증 룰]
+     - 간호 관련 콘텐츠 발견 시:
+        1) "Diploma of Health Care" / "Pathway" 단어 있으면 = 6.5 (정확히) 확인
+             (단, "본과 진입 시 7.0" 명시 확인)
+        2) "Bachelor of Nursing" / "본과" 단어 있으면 = 7.0 (각 7.0) 확인
+        3) "TAFE Diploma of Nursing" / "EN" 단어 있으면 = 7.0 (각 7.0) 확인
+        4) "Master of Nursing" 단어 있으면 = 7.0 (각 7.0) 확인
+
+������ EN ≠ RN 구분 (Korean 정확)
+
+  검증 룰:
+     - "간호조무사" = EN (TAFE Diploma 1.5년) / PR 불가
+     - "간호사" = RN (Bachelor) / PR 가능 (MLTSSL)
+
+  위반 케이스:
+     ❌ "EN으로 PR 가능"
+     ❌ "TAFE 간호 디플로마로 PR 가능"
+     ❌ "Diploma of Nursing = 간호사" (RN과 혼동)
+  정정:
+     ✅ "EN = 간호조무사 / PR 불가능 (MLTSSL X)"
+     ✅ "RN = 간호사 / PR 가능 (MLTSSL O)"
+     ✅ "EN→RN 편입 가능 (TAFE 1.5년 + 대학 2학년 편입)"
+
+������ 의료 직군 IELTS 7.0
+
+  검증 룰:
+     - 의대 / 약대 (호주 졸업) / 치대 / 사회복지 / 물리치료 / 작업치료
+     → IELTS 7.0 (각 영역 7.0) 박힘 확인
+
+  위반 케이스:
+     ❌ "의대 IELTS 6.5"
+     ❌ "약대 IELTS 7.0 (전체 평균)"
+
+  정정:
+     ✅ "의료 직군 모두 = IELTS 7.0 (각 영역 7.0)"
+
+������ 교사 IELTS (AITSL 기준)
+
+  검증 룰:
+     - 교사 자격 (AITSL) = R/W 7.0 + S/L 8.0
+     - "전체 평균 7.5" 표기 X
+
+  위반 케이스:
+     ❌ "교사 IELTS 7.5 (평균)"
+     ❌ "교사 IELTS 7.0 (각 영역 7.0)"
+
+  정정:
+     ✅ "교사 = R/W 7.0 + S/L 8.0 (AITSL 기준)"
+
+������ 폐교/미인증 학교 추천 차단
+
+  검증 룰:
+     - master_v2_clean.json 차단 학교 39개 자동 제외
+     - ANMAC 미인증 + 간호 추천 = 즉시 차단
+     - 폐교 학교 추천 = 즉시 차단
+
+  위반 케이스:
+     ❌ 차단 리스트에 있는 학교 추천
+     ❌ ANMAC 미인증 학교 + 간호 추천
+     ❌ CRICOS 등록만 보고 안전하다고 판단
+  자동 처리:
+     ✅ 차단 학교 매칭되면 → alternate 학교 자동 추가
+     ✅ "1:1 상담에서 정확히 안내" 폴백 메시지
+
+M-4. 데이터 검증 룰 (master_v2_clean 정합성)
+
+빌드 시 자동 체크
+
+  [학교 데이터]
+      ✅ 학교명 표준화 (UNSW / USyd / UMelb 등)
+      ✅ 깨진 학교명 자동 차단 (한 글자 / 숫자 시작)
+      ✅ 카운트 자동 재계산 (_majors_count)
+      ✅ 차단 39개 모두 active = true 확인
+      ✅ Wilson Alert 24개 모두 활성 확인
+
+  [전공 데이터]
+      ✅ 1,227개 전공 모두 학교 매핑 확인
+      ✅ IELTS 점수 명시 확인
+      ✅ 학비 (2026) 명시 확인
+      ✅ PR 가능성 (MLTSSL 매칭) 확인
+
+  [차단룰]
+      ✅ BLOCK-001 ~ BLOCK-039 모두 active
+      ✅ Wilson Alert ALERT-001 ~ ALERT-024 모두 active
+      ✅ 차단 사유 명시 (Wilson 메모 형식)
+
+자동 정정 룰
+
+  ✅ 학교명 자동 dedup
+       "UNSW (뉴사우스웨일스 대학교)" → "UNSW"
+       "USyd / Sydney Uni / Sydney University" → "USyd"
+       "UMelb / Melbourne Uni / Melbourne University" → "UMelb"
+
+  ✅ 깨진 학교명 자동 차단
+       - 한 글자 학교명 ("A:", "C:", "X:") = 차단
+       - 숫자로 시작 ("1 TAFE", "2024 학교") = 차단
+       - 빈 문자열 / null = 차단
+
+  ✅ 카운트 자동 재계산
+       - 빌드 시 _majors_count 자동 업데이트
+       - schools 카운트 (169) 자동 검증
+       - majors 카운트 (1,227) 자동 검증
+M-5. 보안 검증 룰 (3중 보안)
+
+Layer 1: DB Level (Supabase RLS)
+
+  [필수 RLS 정책 활성화 확인]
+
+  ✅ students 테이블
+       - 학생 본인 row만 SELECT
+       - 직원 = 담당 학생만 SELECT
+       - Wilson = 모든 row SELECT
+
+  ✅ student_notes 테이블
+       - 학생 = SELECT 불가 (절대)
+       - 직원 wilson_only 메모 = SELECT 불가
+       - 직원 shared 메모 = 담당 학생 한정 SELECT
+       - Wilson = 모든 row SELECT
+
+  ✅ internal_faqs 테이블
+       - 학생 = card_text 필드만 SELECT
+       - 학생 = internal_data, wilson_note 절대 SELECT 불가
+       - 직원 = internal_data까지 SELECT 가능
+       - Wilson = wilson_note까지 SELECT 가능
+
+  ✅ staff_manuals 테이블 (475개)
+       - 학생 = SELECT 불가 (절대)
+       - 직원 = SELECT 가능
+       - Wilson = SELECT + UPDATE
+
+  [빌드 시 자동 검증]
+       - 모든 테이블 RLS = enabled 확인
+       - 정책 SQL 매치 확인
+       - 비활성화된 RLS 발견 시 = 즉시 빌드 거부
+
+Layer 2: API Level (Next.js 미들웨어)
+
+  [필수 미들웨어 동작 확인]
+
+  ✅ /api/student/*
+       - role='student' JWT 검증
+       - internal_faqs.internal_data 응답에서 strip
+       - student_notes 응답 차단
+
+  ✅ /api/staff/*
+       - role IN ('staff', 'super_admin') JWT 검증
+       - 담당 학생 외 데이터 차단
+       - wilson_only 메모 응답에서 strip (직원 한정)
+
+  ✅ /api/admin/*
+       - role='super_admin' (Wilson) JWT 검증
+       - 전체 데이터 접근 가능
+
+  [빌드 시 자동 검증]
+       - 모든 API 라우트에 role 체크 미들웨어 적용 확인
+       - JWT 시크릿 환경변수 설정 확인
+       - 응답 페이로드에 민감 필드 누출 X 확인
+
+Layer 3: UI Level (Next.js 컴포넌트)
+
+  [학생 페이지 빌드 검증]
+
+  ✅ 학생 페이지 컴포넌트
+       - InternalFAQ 컴포넌트 import X (tree-shaking)
+       - StudentNotes 컴포넌트 import X
+       - StaffManuals 컴포넌트 import X
+       - admin URL 노출 X
+
+  ✅ 학생 페이지 API 호출
+       - /api/admin/* 호출 X
+       - /api/staff/* 호출 X
+       - /api/student/* 만 호출
+
+  [빌드 시 자동 검증]
+       - 학생 빌드 산출물 (.next/) 안에 직원/관리자 코드 X
+       - 학생 페이지 import 그래프 검증
+       - URL 추측 접근 차단 (next.config.js redirects)
+
+  [E2E 테스트 (자동)]
+       - 학생 계정으로 로그인 → /admin URL 직접 접근 시도
+       - → 401 Unauthorized 확인
+       - 학생 계정으로 internal_faqs.internal_data API 호출
+       - → 응답에서 internal_data 필드 없음 확인
+
+M-6. 카드 7장 위반 룰 (학생 노출 카드)
+
+카드별 검증 룰
+
+  카드 1 (학교 추천 3개):
+    ✅ 학교명 공개 OK
+    ✅ 학비 명시 OK
+    ❌ "1순위" / "추천" 표현 X
+    ❌ 폐교 학교 X
+    ❌ ANMAC 미인증 + 간호 X
+    ❌ 차단 39개 학교 X
+
+카드 2 (지역 정보):
+    ✅ 학생 선택 지역 일치
+    ✅ 한인 커뮤니티 정보 (모니터링 사이트 29 출처)
+    ❌ 다른 지역 정보 50% 초과 X
+    ❌ "최고 도시" ranking 표현 X
+
+카드 3 (예상 비용):
+    ✅ 학비 (master_v2_clean 출처)
+    ✅ 생활비 (지역별 / monitored_sites)
+    ✅ 환율 실시간 표시
+    ❌ 알바비 차감 표현 X (절대)
+    ❌ "용돈 / 생활비 일부 충당" 표현만 OK
+
+카드 4 (취업 + 연봉):
+    ✅ 직군 평균 연봉 (출처: PayScale / SEEK / Glassdoor)
+    ✅ 사이트 이름만 표시
+    ❌ 외부 URL 직접 링크 X (Ausuhak 안에 잡아두기)
+    ❌ "1순위 직종" ranking 표현 X
+
+카드 5 (PR 로드맵):
+    ✅ 학생 지역 맞춤 PR 로드맵 (189/190/491)
+    ✅ 점수 추정 명시
+    ❌ "PR 100% 보장" X (절대)
+    ❌ 정부 정책 추측 X
+    ❌ "Wilson 비법" X
+
+카드 6 (영어 준비):
+    ✅ IELTS 목표 + 일반 영어 학습 안내
+    ❌ "Wilson EC 어학원" X (절대)
+    ❌ "EAP 필수" X (권장만)
+
+카드 7 (유학 절차 + 비자 + CTA):
+    ✅ 학생비자 500 + GS 4질문
+    ✅ 카카오 채널 = https://pf.kakao.com/_GadTX
+    ✅ 부가 옵션 4개 (������ 카톡 공유 / ������ 이메일 / ������ 저장 / ������ 링크 복사)
+    ✅ 영업 시간 = 평일 10:00~18:00
+    ❌ Wilson 개인 카톡 ID X (절대)
+    ❌ 카카오 채널 URL 누락 = 빌드 거부
+카드 글자 수 룰
+
+  ✅ 카드당 200~300자 (호기심 격차 + 마케팅)
+  ������ 100자 미만 = Wilson 검토 (정보 부족)
+  ������ 500자 초과 = Wilson 검토 (가독성 저하)
+  ������ 0자 (빈 카드) = 빌드 거부
+
+M-7. Wilson 수동 검토 체크리스트
+
+모바일 먼저 (320px / 모든 디바이스 대응)
+
+  ☐ 깨짐 X
+  ☐ 가로 스크롤 X
+  ☐ 글자 16px 이상 (Pretendard)
+  ☐ 버튼 44×44px 이상 (탭 영역)
+
+   ☐ 폼 입력 시 키보드가 입력 영역 가리지 않음
+
+  ☐ 카톡 진입 (카드 7번) = 1초 내 응답
+  ☐ 카드 7장 = 스와이프로 자연스럽게
+  ☐ 진단 6변수 = 모바일 한 손 입력 가능
+
+PC (1280px+)
+
+  ☐ 가로 늘어짐 X (max-width 1200px)
+  ☐ Tab 키 네비게이션 자연스러움
+  ☐ 다크모드 (옵션 / 학생 선호 시)
+  ☐ 호버 효과 (카드 / 버튼) 자연스러움
+
+   ☐ 마우스 클릭 영역 충분
+
+디자인 (PART O 기반)
+
+  ☐ Navy (#1a365d 계열) / Gold (#d4a64a 계열) / Cream (#faf7f2 계열)
+  ☐ Pretendard (한글) / Playfair Display (영문 헤더)
+  ☐ 부드러운 그림자 (shadow-sm 또는 shadow-md)
+  ☐ 둥근 모서리 (border-radius 8px / 12px)
+  ☐ 톤 = "전문가 + 따뜻한 신뢰" (삼촌 톤)
+  ☐ 컬러 대비 4.5:1 이상 (WCAG 2.1 AA)
+  ☐ 호주 자연 톤 (블루 + 골드) 일관성
+
+콘텐츠 톤
+
+  ☐ "삼촌" = Wilson 스토리에만 사용
+  ☐ "1순위 / 추천" 없음
+  ☐ "100% 보장" 없음 (PR / 비자 / 환불)
+  ☐ "Wilson 비밀 / 명언 / 차별화" 없음
+  ☐ 알바비 자동 차감 X (용돈 표현만)
+  ☐ Wilson EC 어학원 = 카드/FAQ X (푸터 자매학교 로고만)
+  ☐ "Ausuhak" 대문자 X (소문자 ausuhak)
+  ☐ "호주 유학" 띄어쓰기 X (호주유학 붙여쓰기)
+  ☐ Wilson 개인 카톡 ID 노출 X (채널만 https://pf.kakao.com/_GadTX)
+  ☐ 다른 유학원 비방 X
+  ☐ 한국 부모 비하 표현 X
+  ☐ "사파" 표현 X (ANMAC 미인증 사립학교)
+
+기능 동작
+
+  ☐ 진단 6변수 입력 작동
+  ☐ 학생 6변수 → 시나리오 36개 中 1개 매칭
+  ☐ 카드 7장 = 학생 지역 우선
+  ☐ 차단 39개 학교 자동 제외
+  ☐ Wilson Alert 24개 활성
+  ☐ 사실 오류 X (UNSW 간호 등)
+  ☐ 부가 옵션 4개 작동 (������ / ������ / ������ / ������)
+  ☐ 카카오 채널 URL = https://pf.kakao.com/_GadTX
+  ☐ 영업 시간 표시 (평일 10:00~18:00)
+  ☐ 카톡 진입 1초 내
+  ☐ 견적서 = 관리자 페이지에서만 생성
+
+보안 (3중 보안 동작)
+
+  ☐ 학생 계정 → internal_data 노출 X
+  ☐ 학생 계정 → wilson_note 노출 X
+  ☐ 학생 계정 → student_notes 노출 X
+  ☐ 학생 계정 → /admin URL 추측 접근 시 401
+  ☐ 학생 계정 → /staff URL 추측 접근 시 401
+  ☐ 직원 계정 → 다른 학생 데이터 접근 X
+  ☐ 직원 계정 → wilson_only 메모 노출 X
+  ☐ Supabase RLS = 모든 테이블 enabled
+  ☐ activity_logs = 모든 접근 기록
+
+데이터 정확성
+
+  ☐ master_v2_clean.json 정본 사용
+  ☐ 학교 169개 / 전공 1,227개 / 차단 39개 / Alert 24개
+  ☐ 학교명 표준화 완료 (UNSW / USyd / UMelb 등)
+
+   ☐ 깨진 학교명 자동 차단
+  ☐ 간호 IELTS 7.0 (각 영역) 모든 과정 동일
+  ☐ 의료 직군 IELTS 7.0 (각 영역)
+  ☐ 교사 IELTS R/W 7.0 + S/L 8.0
+  ☐ EN / RN 정확 구분
+  ☐ Adelaide University = 합병 (2026.01) 반영
+
+M-8. 위반 발견 시 즉시 처리 흐름
+
+빌드 中 위반 발견
+
+  [Claude Code 빌드 실행]
+              ↓
+
+  [자동 검증 4단계 실행]
+              ↓
+
+  [위반 발견]
+       "VIOLATION DETECTED:
+        Severity: ������ CRITICAL
+        Type: 콘텐츠 (간호 IELTS 6.5)
+        Location: PART_H_CARD_MATCHING.md:142
+        Detail: 간호 디플로마 IELTS 6.5로 박힘 / NMBA 위반
+
+        SUGGESTED FIX:
+        IELTS 7.0 (각 영역 7.0) 으로 정정"
+
+              ↓
+  [Wilson 알림]
+
+       - 폰 푸시
+       - 이메일
+       - 관리자 페이지 알림 배지
+
+              ↓
+  [Wilson 결정]
+
+       1) 자동 수정 적용 (Y) → Claude Code 즉시 정정 → 재빌드
+       2) 수동 수정 (Wilson 직접 master_v2_clean 정정)
+       3) 룰 재검토 (이 케이스만 예외 처리 / Wilson 책임)
+
+              ↓
+  [정정 완료]
+
+              ↓
+  [재빌드 → 통과 → 배포]
+
+운영 中 위반 발견 (사이트 라이브 中)
+
+  [학생 카드 생성 요청]
+              ↓
+
+  [자동 검증]
+       - 차단 39개 학교 매칭 검사
+       - Wilson Alert 24개 트리거 검사
+       - 사실 오류 검사
+
+              ↓
+  [위반 발견]
+
+       - 위반 학교 자동 제외
+       - alternate 학교 자동 추가
+       - 또는 "정확한 진단은 1:1 상담에서" 폴백
+
+              ↓
+  [Wilson Alert 발생]
+
+       - 어떤 케이스에서 위반이 발견되었는지 로그
+       - master_v2 정정 필요 시 알림
+
+              ↓
+  [Wilson 검토]
+
+       - master_v2_clean 업데이트
+       - 또는 차단룰 / Alert 보완
+       - "master_v2 업데이트했어" Claude Code 명령
+
+              ↓
+  [DB 자동 반영 / 즉시 적용]
+
+M-9. 위반 심각도 3단계 (자동 분류)
+
+������ CRITICAL (즉시 빌드 거부 / 운영 차단)
+
+  - 학생 internal_data 노출
+  - 학생 wilson_note 노출
+  - 학생 student_notes 노출
+  - Supabase RLS 비활성화
+  - API 응답에 민감 필드 누출
+  - "PR 100% 보장" / "비자 100% 보장" / "환불 100%"
+  - Wilson 개인 카톡 ID 노출
+  - 사실 오류 학교 추천 (UNSW 간호 / Holmesglen 사립 등)
+  - 폐교 학교 추천
+  - ANMAC 미인증 + 간호 추천
+  - 간호 IELTS 7.0 미만 박힘
+  - 의료 직군 IELTS 7.0 미만 박힘
+  - 카카오 채널 URL 누락
+  - 다른 유학원 비방 표현
+
+������ HIGH (Wilson 검토 / 빌드 가능 / 운영 가능)
+
+  - 카드 글자 수 부적절 (100자 미만 / 500자 초과)
+  - 학생 지역 무시한 추천 50% 초과
+  - "삼촌" 표현이 Wilson 스토리 외 사용
+  - 모바일 320px 깨짐
+  - 색상 대비 4.5:1 미만
+  - 카드 6 (영어) Wilson EC 표현
+  - "1순위 / 추천" 표현 부분 발견
+  - 학교명 표준화 안 됨
+  - 카운트 불일치
+
+⚪ LOW (자동 정정 / Wilson 알림만)
+
+  - 학교명 자동 dedup ("UNSW (뉴사우스웨일스)" → "UNSW")
+  - 깨진 학교명 자동 차단 (한 글자 / 숫자 시작)
+  - 카운트 자동 재계산 (_majors_count)
+  - 미세한 디자인 이슈 (그림자 깊이 / 둥근 모서리 px)
+  - 인증 검증 미통과 (master_v2 정정)
+  - 환율 자동 업데이트
+  - 학비 변경 자동 감지 (모니터링 사이트)
+
+M-10. 자동 정정 룰 (Claude Code 빌드 시)
+
+  ✅ 학교명 자동 dedup
+       - "UNSW (뉴사우스웨일스 대학교)" → "UNSW"
+       - "USyd / Sydney Uni / The University of Sydney" → "USyd"
+       - "UMelb / Melbourne Uni" → "UMelb"
+       - "Adelaide / Adelaide Uni / The University of Adelaide" → "Adelaide
+
+  University" (2026.01 합병)
+
+  ✅ 깨진 학교명 자동 차단
+       - 한 글자 학교명 ("A:", "C:", "X:") = active = false
+       - 숫자로 시작 ("1 TAFE", "2024 학교") = active = false
+       - 빈 문자열 / null = active = false
+       - Wilson Alert 발생 (수동 정정 필요)
+
+  ✅ 카드 7장 폴백
+       - 위반 시 = "정확한 진단은 1:1 상담에서" 메시지
+       - 카카오 채널 CTA 유지
+       - Wilson Alert 발생 (master_v2 정정 필요)
+
+  ✅ 카운트 자동 재계산
+       - 빌드 시 _majors_count 자동 업데이트
+       - schools 169 자동 검증
+       - majors 1,227 자동 검증
+       - 차단 39 / Alert 24 자동 검증
+  ✅ 시나리오 매칭 안 되면
+       - 가장 가까운 시나리오 + Wilson 카톡 강조
+       - "이 케이스는 Wilson 직접 진단" 폴백
+       - Wilson Alert 발생 (시나리오 추가 필요)
+
+  ✅ 환율 자동 업데이트
+       - 매일 새벽 1회 (크론 작업)
+       - AUD → KRW 실시간 (한국은행 API)
+       - 카드 3 (예상 비용) 자동 반영
+
+  ✅ 학교 사이트 모니터링 (345개)
+       - 학비 변경 자동 감지
+       - Wilson 1-Click 승인 → master_v2 자동 반영
+       - 변경 미승인 시 알림 유지
+
+M-11. Wilson 검토 권한 (최종 결정자)
+
+Wilson 단독 권한 (직원 / Claude Code 못 함)
+
+  ✅ 위반 케이스 룰 재검토 (예외 처리 / 룰 보완)
+  ✅ master_v2_clean 직접 정정 (사실 검증 19년 노하우)
+  ✅ 차단룰 / Alert 추가 / 수정 / 삭제
+  ✅ 자동 정정 룰 보완 / 추가
+  ✅ 카드 7장 톤 최종 검토
+  ✅ 새로운 금지 표현 추가 (메모리 박기)
+  ✅ 보안 정책 변경 (RLS / 미들웨어)
+  ✅ 빌드 거부 룰 → 일시 통과 (긴급 패치)
+
+직원 권한 (Wilson 위임 받은 경우)
+
+  ✅ 학생 케이스 위반 발견 시 Wilson 알림
+  ✅ 사이트 콘텐츠 위반 발견 시 Wilson 알림
+  ������ master_v2 직접 정정 X
+  ������ 차단룰 / Alert 변경 X
+  ������ 보안 정책 변경 X
+
+Claude Code 권한 (자동화)
+
+  ✅ 자동 정정 룰 실행 (LOW 위반)
+  ✅ 빌드 거부 (CRITICAL 위반)
+  ✅ Wilson 알림 발송 (HIGH / CRITICAL)
+  ✅ activity_logs 기록
+  ������ Wilson 결정 없이 룰 변경 X
+  ������ master_v2 직접 정정 X (Wilson 명령 시만)
+
+M-12. 위반 발생 시 알림 시스템
+
+알림 채널 (3가지)
+
+  1. 폰 푸시 알림
+       - Wilson 폰 (관리자 페이지 PWA)
+       - 즉시 (CRITICAL) / 5분 지연 (HIGH) / 24시간 모음 (LOW)
+
+  2. 이메일
+       - wilson@ausuhak.com
+       - CRITICAL 즉시 / HIGH 1시간 모음 / LOW 일간 모음
+
+  3. 관리자 페이지 알림 배지
+       - 빨간 배지 (CRITICAL)
+       - 노란 배지 (HIGH)
+       - 회색 배지 (LOW / 자동 정정 완료)
+
+알림 형식 (예시)
+
+  ������ CRITICAL VIOLATION
+
+  발생: 2026-05-09 14:23
+  타입: 콘텐츠 위반
+  위치: 카드 5 (PR 로드맵) / 학생 김OO 케이스
+  상세: "PR 100% 보장" 표현 발견
+  영향: 학생 1명 카드 생성 차단됨
+
+  Wilson 액션:
+  [자동 수정] [수동 검토] [룰 재검토]
+
+  대체 메시지: "PR 가능 경로 / 조건 충족 시 가능"
+
+M-13. 위반 통계 (관리자 대시보드)
+
+Wilson 매일 아침 확인
+
+  [빌드 검증 (24시간)]
+       - 통과: 23회
+       - 거부: 1회 (간호 IELTS 6.5 발견 → 자동 정정 후 재빌드)
+
+  [운영 검증 (24시간)]
+       - 학생 카드 생성: 47건
+       - 위반 발견: 2건
+          - HIGH: 1건 (학생 지역 무시 매칭 → 수동 정정)
+          - LOW: 1건 (학교명 표준화 → 자동 정정)
+
+  [차단 학교 매칭 시도]
+       - 폐교 학교 매칭: 0건
+       - ANMAC 미인증 + 간호: 0건
+       - Wilson Alert 트리거: 3건 (검정고시 위험 패턴 감지)
+
+  [보안 위반 시도]
+       - 학생 internal_data 접근 시도: 0건
+       - 학생 admin URL 직접 접근: 1건 (자동 차단 + 로그)
+
+  [데이터 무결성]
+      - master_v2 카운트 일치: ✅
+      - 학교 표준화: ✅
+      - RLS 정책 활성: ✅
+
+M-14. 위반 룰 업데이트 흐름
+
+  [Wilson 새 위반 케이스 발견]
+       "이 표현도 금지로 박아야겠어"
+              ↓
+
+  [Wilson Claude Code 명령]
+       "PART M에 금지 표현 추가:
+        '[새 표현]' = ������ CRITICAL
+        이유: [Wilson 19년 경험]
+        대체: [정정 표현]"
+              ↓
+
+  [Claude Code 자동 처리]
+       1. PART M 업데이트
+       2. 빌드 검증 룰 추가
+       3. 사이트 재빌드
+       4. 메모리에 박기 (장기 보존)
+       5. activity_logs 기록
+              ↓
+
+  [즉시 적용]
+       - 새 위반 케이스 = 다음 빌드부터 차단
+M-15. 빌드 검증 명령어 (Wilson 사용)
+
+빌드 전 수동 검증
+
+   bash
+
+  # 모든 검증 실행
+  npm run validate
+
+  # 콘텐츠 검증만
+  npm run validate:content
+
+  # 데이터 검증만
+  npm run validate:data
+
+  # 보안 검증만
+  npm run validate:security
+
+  # 디자인 검증만
+  npm run validate:design
+
+빌드 + 자동 검증 + 배포
+
+   bash
+
+  # 검증 + 빌드 + 배포
+  npm run deploy
+
+  # 검증 실패 시 빌드 X
+  # 검증 통과 시 → Vercel 자동 배포
+
+Wilson 긴급 패치 (검증 일시 통과)
+
+   bash
+
+  # 검증 무시하고 강제 빌드 (Wilson만 가능)
+  WILSON_OVERRIDE=true npm run deploy
+
+  # activity_logs에 기록됨
+  # 24시간 후 자동 검증 다시 활성
+✅ PART M 끝
+
+누적: 14개 PART 완료
+
+  PART 0~M = 약 8,000줄
+  남은: PART N (핵심 차별화) / PART O (디자인 시스템) / PART P (영문 사이트)
+
+다음 = PART N (핵심 차별화)
+

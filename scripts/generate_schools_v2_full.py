@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MASTER_JSON = ROOT.parent / "ausuhak_v25" / "02_DATABASE" / "ausuhak_master_v2_clean.json"
+MASTER_JSON = ROOT / "_source" / "02_DATABASE" / "ausuhak_master_v2_clean.json"
 OUT_SQL = ROOT / "supabase" / "migrations" / "020_fix_schools_import.sql"
 
 # ──────────────────────────────────────────────────────────

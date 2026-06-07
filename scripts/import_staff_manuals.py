@@ -12,7 +12,7 @@ import sys
 import tarfile
 from pathlib import Path
 
-TAR_PATH = Path("C:/Users/Wilson/Desktop/ausuhak_v25/04_ASSETS/ausuhak_staff_manuals_475_tar.gz")
+TAR_PATH = Path(__file__).resolve().parent.parent / "_source" / "04_ASSETS" / "ausuhak_staff_manuals_475_tar.gz"
 
 # 카테고리 매핑 — 파일명에 키워드 있으면 해당 카테고리 (우선순위 순)
 CATEGORY_MAP = [

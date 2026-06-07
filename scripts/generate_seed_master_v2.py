@@ -2,7 +2,7 @@
 """
 master_v2_clean.json → 002_data_schools_seed.sql 생성
 
-입력: C:\\Users\\Wilson\\Desktop\\ausuhak_v25\\02_DATABASE\\ausuhak_master_v2_clean.json
+입력: _source/02_DATABASE/ausuhak_master_v2_clean.json
 출력: C:\\Users\\Wilson\\Desktop\\ausuhak\\supabase\\migrations\\002_data_schools_seed.sql
 
 생성 내용 (PART D-4):
@@ -24,7 +24,7 @@ from pathlib import Path
 from collections import defaultdict
 
 ROOT = Path(__file__).resolve().parent.parent
-MASTER_JSON = ROOT.parent / "ausuhak_v25" / "02_DATABASE" / "ausuhak_master_v2_clean.json"
+MASTER_JSON = ROOT / "_source" / "02_DATABASE" / "ausuhak_master_v2_clean.json"
 OUTPUT_SQL = ROOT / "supabase" / "migrations" / "002_data_schools_seed.sql"
 
 

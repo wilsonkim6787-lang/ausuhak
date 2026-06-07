@@ -23,7 +23,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-MASTER = Path("C:/Users/Wilson/Desktop/ausuhak_v25/02_DATABASE/ausuhak_master_v2_clean.json")
+MASTER = Path(__file__).resolve().parent.parent / "_source" / "02_DATABASE" / "ausuhak_master_v2_clean.json"
 VERIFIED_AT = "2026-05-19"
 VERIFIED_BY = "Wilson Phase 2 scaffold (IELTS 6.0/6.5 표준 / TAFE 11 + 사립 specialist 8 / Cookery·Hospitality 라인업 보강)"
 

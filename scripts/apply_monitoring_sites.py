@@ -28,7 +28,7 @@ from pathlib import Path
 
 import openpyxl
 
-XLSX_PATH = Path("C:/Users/Wilson/Desktop/ausuhak_v25/04_ASSETS/AUSUHAK_monitoring_sites_v2.xlsx")
+XLSX_PATH = Path(__file__).resolve().parent.parent / "_source" / "04_ASSETS" / "AUSUHAK_monitoring_sites_v2.xlsx"
 ENV_PATH = Path(".env.local")
 
 # 📌 목차는 데이터 X — 스킵. 데이터 시트는 항상 이름이 "숫자." 로 시작.

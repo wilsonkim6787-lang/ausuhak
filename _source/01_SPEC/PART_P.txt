@@ -1,0 +1,1048 @@
+������ PART P. 영문 사이트 (학교 파트너용)
+
+    URL: ausuhak.com/en (Next.js i18n) 목적: 호주 학교 파트너십 확장 (B2B) 타겟: 호주 학교 입학 사
+    정관 / 마케팅 디렉터 / 한국 시장 담당자 콘텐츠: 1페이지 (단일 페이지 / Long Scroll) 언어: 영어
+    (English) 운영: 한글 사이트와 동일 코드 베이스 (i18n)
+
+P-1. 영문 사이트 목적 (Wilson 결정 / 사양서 결정사항)
+
+왜 영문 사이트가 필요한가?
+
+  [B2B 목적]
+      ✅ 호주 학교 = ausuhak.com 한국어 사이트만 봐도
+           = "이 유학원 누구지?" 모름
+      ✅ 영문 페이지 = 학교에게 "정식 파트너십 가능" 어필
+      ✅ 한국 학생 시장 = ausuhak.com이 게이트웨이
+
+  [Wilson 자산]
+      ✅ Wilson 19년 컨설팅 + 호주 학교 교직원 경력
+      ✅ 950명+ 누적 학생 (호주 학교 입학 실적)
+      ✅ QEAC E240 자격
+      ✅ 한국 검정고시·워홀러·대졸 다양한 학생 풀
+
+  [학교 입장]
+       - 한국 시장 진입 = 새 학생 풀
+       - Wilson = 검증된 파트너 (19년 + 학교 경력)
+       - Brochure PDF = 의사결정 자료
+
+영문 사이트 = 1페이지 (Long Scroll)
+
+  [Wilson 결정]
+      ✅ 1페이지 (단일 페이지 / Long Scroll)
+      ❌ 다중 페이지 X (관리 부담)
+
+  [이유]
+       - 학교 = 빠른 평가 / 한 번에 다 보고 싶음
+       - 다중 페이지 = 클릭 부담
+       - 1페이지 = 스크롤 = 자연스러움
+P-2. 영문 사이트 구조 (1페이지 / 6개 섹션)
+
+┌────────────────────────────────────────┐
+
+│ 1. Hero                          │
+
+│ "Wilson Kim - Australia Study    │
+
+│ Consultant for Korean Students" │
+
+│ + 19 years + 950+ students + QEAC │
+
+├────────────────────────────────────────┤
+
+│ 2. About Wilson                     │
+
+│ - 19 years experience            │
+
+│ - Australian school staff exp.   │
+
+│ - QEAC E240                      │
+
+│ - 950+ students placed           │
+
+├────────────────────────────────────────┤
+
+│ 3. Korean Student Market            │
+
+│ - Market size / segments         │
+
+│ - Why Korean students = great fit │
+
+│ - Wilson's strengths             │
+
+├────────────────────────────────────────┤
+
+│ 4. Partnership Opportunities        │
+
+│ - What Wilson offers             │
+
+│ - What we look for in partners   │
+
+│ - How to start                   │
+
+├────────────────────────────────────────┤
+
+│ 5. Brochure Download                │
+
+│ - PDF download (Partnership Pack) │
+
+│ - Form: school name / contact    │
+
+├────────────────────────────────────────┤
+
+│ 6. Contact                          │
+
+│ - Email / KakaoTalk channel      │
+
+│ - Working hours                  │
+
+└────────────────────────────────────────┘
+
+P-3. Section 1: Hero (영문)
+
+데스크톱 Hero (영문)
+
+┌──────────────────────────────────────────┐
+
+│ [Header: ENG / KO toggle]                 │
+
+├──────────────────────────────────────────┤
+
+│                                           │
+
+│ Connecting Korean Students with           │
+
+│ Australian Education Excellence           │
+│ (H1 / Playfair Display / Navy 800)          │
+
+│                                             │
+
+│ 19 years of consulting +                    │
+
+│ Australian school staff experience │
+
+│ (H2 / Pretendard / Ink 700)                 │
+
+│                                             │
+
+│ [������ Download Partnership Brochure]             │
+
+│ [������ Contact Wilson]                            │
+
+│                                             │
+
+│ ✓ 950+ students placed                      │
+
+│ ✓ QEAC E240 certified                       │
+
+│ ✓ Australian school staff experience │
+
+│                                             │
+
+│ [Hero Image: Australian campus]             │
+
+│                                             │
+
+└──────────────────────────────────────────┘
+
+Hero 카피 (영문)
+
+  [H1 - Headline]
+       "Connecting Korean Students with
+        Australian Education Excellence"
+
+  [H2 - Subhead]
+       "19 years of expertise + Australian school
+        staff experience = Trusted partnership for
+        your Korean student recruitment"
+
+  [Trust Signals]
+       ✓ 950+ students successfully placed
+       ✓ QEAC E240 certified consultant
+       ✓ Australian school staff experience
+       ✓ Korean diverse market expertise
+
+  [CTA Buttons]
+      [Primary] ������ Download Partnership Brochure
+      [Secondary] ������ Contact Wilson
+
+P-4. Section 2: About Wilson (영문)
+
+콘텐츠 구조
+  ┌────────────────────────────────────────┐
+│ About Wilson                       │
+
+│ ────────                           │
+
+│                                    │
+
+│ Wilson Kim                         │
+
+│ Australia Study Consultant         │
+
+│                                    │
+
+│ ┌──────────────────────────────┐   │
+
+│ │ [Wilson photo or QEAC cert] │    │
+
+│ │ 480×640                       │  │
+
+│ └──────────────────────────────┘   │
+
+│                                    │
+
+│ Background:                        │
+
+│ ✓ 19 years in Australia study      │
+
+│ consulting (2007~present)          │
+
+│ ✓ Australian school staff experience │
+
+│ (institutional knowledge)          │
+
+│ ✓ QEAC E240 - Australian Government │
+
+│ certified consultant               │
+
+│ ✓ 950+ Korean students placed      │
+
+│ ✓ Bilingual (Korean / English)     │
+
+│                                    │
+
+│ Difference:                        │
+
+│ - Inside school perspective        │
+
+│ (not just external partner)        │
+
+│ - Long-term care (until graduation, │
+
+│ not just enrollment)               │
+
+│ - Diverse Korean student segments │
+
+│ (high school graduates, working │
+
+│ holiday makers, university grads) │
+
+│                                    │
+
+└────────────────────────────────────────┘
+
+About 카피 (영문)
+
+  [Section Title]
+       About Wilson
+
+  [Heading]
+       Wilson Kim - Australia Study Consultant
+
+  [Background]
+       With 19 years of experience in Australia
+       study consulting and prior staff experience
+       at Australian educational institutions,
+       Wilson Kim brings unique inside-perspective
+       to international student recruitment.
+[Key Credentials]
+    ✓ 19 years (2007 ~ present)
+    ✓ Australian school staff experience
+    ✓ QEAC E240 (Australian Government certified)
+    ✓ 950+ Korean students placed
+    ✓ Bilingual: Korean & English
+
+[Differentiator]
+    Unlike typical Korean agencies that view
+    schools from the outside (catalog-based),
+    Wilson has worked inside Australian schools,
+    understanding admission criteria, student
+    care systems, and graduation outcomes
+    firsthand.
+
+[Long-term Care]
+    ausuhak.com follows students from initial
+    consultation through graduation - building
+    relationships that last (many former students
+    still keep in touch, sending wedding
+    invitations years after graduation).
+
+P-5. Section 3: Korean Student Market (영문)
+
+콘텐츠 구조
+
+┌────────────────────────────────────────┐
+
+│ Korean Student Market                │
+
+│ ────────                             │
+
+│                                      │
+
+│ Why Korean students are a strong fit │
+
+│ for Australian institutions          │
+
+│                                      │
+
+│ ������ Market Segments                        │
+
+│                                      │
+
+│ ┌──────────────────────────────┐     │
+
+│ │ 1. High School Graduates   │       │
+
+│ │ (Including 검정고시)           │       │
+
+│ │ Foundation → Bachelor           │       │
+
+│ │ Most common pathway             │       │
+
+│ └──────────────────────────────┘     │
+
+│                                      │
+
+│ ┌──────────────────────────────┐     │
+│ │ 2. Working Holiday Makers │        │
+
+│ │ Already in Australia            │       │
+
+│ │ Pathway: WHV → Student Visa │           │
+
+│ │ → Bachelor / TAFE → PR          │       │
+
+│ └──────────────────────────────┘     │
+
+│                                      │
+
+│ ┌──────────────────────────────┐     │
+
+│ │ 3. University Graduates     │      │
+
+│ │ Master's degrees                │       │
+
+│ │ PR-focused programs             │       │
+
+│ └──────────────────────────────┘     │
+
+│                                      │
+
+│ Why Korean Students?                 │
+
+│ ✓ Strong academic discipline         │
+
+│ ✓ High English proficiency goals     │
+
+│ ✓ Long-term Australia commitment     │
+
+│ (PR pathway focus)                   │
+
+│ ✓ Family financial support           │
+
+│                                      │
+
+└────────────────────────────────────────┘
+
+Market 카피 (영문)
+
+  [Section Title]
+       Korean Student Market
+
+  [Subtitle]
+       Why Korean students are a strong fit
+       for Australian institutions
+
+  [Market Segments]
+       1. High School Graduates (including
+           Korean GED / 검정고시 students)
+           → Foundation programs → Bachelor's degrees
+           → Most common pathway with strong success rate
+
+       2. Working Holiday Makers (already in Australia)
+           → WHV → Student Visa transition
+           → Bachelor's / TAFE → 485 visa → PR
+           → Wilson's specialty area
+
+       3. University Graduates
+           → Master's degree programs
+           → PR-focused career pathways
+           → Healthcare / IT / Business / Engineering
+[Why Korean Students?]
+    ✓ Strong academic discipline and dedication
+    ✓ Clear English proficiency goals
+       (IELTS preparation focus)
+    ✓ Long-term Australia commitment
+       (most pursue PR pathway)
+    ✓ Strong family financial support
+    ✓ Cultural adaptability with proper guidance
+
+[Wilson's Coverage]
+    - All 8 major Australian states
+    - Sydney / Melbourne / Brisbane /
+       Gold Coast / Perth / Adelaide /
+       Hobart / Canberra
+    - Universities + TAFE + Private Colleges +
+       ELICOS schools
+
+P-6. Section 4: Partnership Opportunities (영문)
+
+콘텐츠 구조
+
+┌────────────────────────────────────────┐
+
+│ Partnership Opportunities         │
+
+│ ────────                          │
+
+│                                   │
+
+│ What Wilson Offers                │
+
+│ ────                              │
+
+│ ✓ Pre-screened, qualified students │
+
+│ ✓ IELTS-prepared candidates       │
+
+│ ✓ GS (Genuine Student) documentation │
+
+│ ✓ Long-term student support       │
+
+│ ✓ Graduation rate focused approach │
+
+│ ✓ Korean parent communication     │
+
+│                                   │
+
+│ What We Look For in Partners      │
+
+│ ────                              │
+
+│ ✓ Quality education programs      │
+
+│ ✓ Student support services        │
+
+│ ✓ Clear admission criteria        │
+
+│ ✓ Reasonable commission structure │
+
+│ ✓ Korean student care commitment  │
+
+│                                   │
+
+│ Partnership Process               │
+
+│ ────                              │
+│ 1. Initial inquiry (this page)  │
+
+│ 2. Brochure & introduction      │
+
+│ 3. Detailed discussion (online/visit) │
+
+│ 4. Agreement & onboarding       │
+
+│ 5. Student referrals begin      │
+
+│                                 │
+
+└────────────────────────────────────────┘
+
+Partnership 카피 (영문)
+
+  [Section Title]
+       Partnership Opportunities
+
+  [What Wilson Offers]
+       Pre-Screened Students:
+       - Genuine Student (GS) verified candidates
+       - IELTS preparation completed
+       - Academic background verified
+       - Financial capacity confirmed
+
+       Quality Documentation:
+       - GS statement preparation
+       - Visa application support
+       - Academic transcripts translation
+       - All required certifications
+
+       Long-term Support:
+       - Pre-departure orientation
+       - Arrival support (housing, banking)
+       - Academic monitoring during studies
+       - Graduation pathway planning
+       - Career / PR pathway guidance
+
+       Korean Parent Communication:
+       - Bilingual progress reports
+       - Parent consultation in Korean
+       - Cultural bridge between school and family
+
+  [What We Look For]
+       - Quality education programs aligned with
+          student career goals
+       - Strong student support services
+          (academic, mental health, career)
+       - Transparent admission criteria
+       - Fair and competitive commission structure
+       - Genuine commitment to Korean student care
+[Partnership Process]
+    Step 1: Initial inquiry through this page
+    Step 2: Receive Partnership Brochure &
+                introduction materials
+    Step 3: Detailed discussion
+                (online video meeting or in-person visit)
+    Step 4: Partnership agreement & onboarding
+    Step 5: Begin student referrals
+
+[Timeline]
+    Initial inquiry → First students within 4-8 weeks
+
+P-7. Section 5: Brochure Download (영문)
+
+콘텐츠 구조
+
+┌────────────────────────────────────────┐
+
+│ Download Partnership Brochure         │
+
+│ ────────                              │
+
+│                                       │
+
+│ ������ Wilson Kim Partnership Pack        │
+
+│ (PDF / English)                       │
+
+│                                       │
+
+│ Contents:                             │
+
+│ ✓ Wilson's profile & credentials      │
+
+│ ✓ 19-year track record                │
+
+│ ✓ Korean student market data          │
+
+│ ✓ Partnership terms & conditions      │
+
+│ ✓ Student referral process            │
+
+│ ✓ Success case studies                │
+
+│                                       │
+
+│ ┌──────────────────────────────┐      │
+
+│ │ Quick Form                    │     │
+
+│ │ ────                          │     │
+
+│ │ School Name: [_________]      │     │
+
+│ │ Your Name: [_________]        │     │
+
+│ │ Position: [_________]         │     │
+
+│ │ Email:      [_________]       │     │
+
+│ │ Country: [Australia ▼] │            │
+
+││                                │     │
+
+│ │ [������ Download Brochure]          │       │
+
+│ └──────────────────────────────┘      │
+
+│                                       │
+│ * Brochure auto-sent to email              │
+
+│ * Wilson will follow up within 48 hrs │
+
+│                                            │
+
+└────────────────────────────────────────┘
+
+Brochure PDF 구성 (별도 PDF / 영문)
+
+  [Wilson Kim Partnership Pack]
+  20~30 pages PDF (영문)
+
+  ������ Page 1: Cover
+       - Wilson Kim
+       - Australia Study Consultant
+       - Partnership Pack 2026
+
+  ������ Page 2: Introduction
+       - Wilson's mission
+       - Why this partnership matters
+
+  ������ Page 3-4: About Wilson
+       - 19 years experience
+       - Australian school staff experience
+       - QEAC E240
+       - 950+ students
+
+  ������ Page 5-6: Korean Student Market
+       - Market size / segments
+       - Why Korean students fit Australia
+       - Cultural considerations
+
+  ������ Page 7-8: Wilson's Service Model
+       - Pre-screening process
+       - GS documentation
+       - Long-term support
+       - Korean parent communication
+
+  ������ Page 9-10: Success Cases (anonymized)
+       - 3-5 case studies
+       - Different student types
+       - Outcomes achieved
+
+  ������ Page 11-12: Partnership Structure
+       - What Wilson offers
+       - What we look for
+       - Commission framework
+������ Page 13-14: Partnership Process
+    - Step-by-step
+    - Timeline
+    - Communication channels
+
+������ Page 15: Wilson's Coverage Areas
+    - 8 Australian states
+    - Schools / TAFE / Colleges / ELICOS
+
+������ Page 16: Contact Information
+    - Email / Phone / Website
+    - Working hours
+    - Time zone (Korea)
+
+������ Page 17-18: FAQ
+    - Common partnership questions
+
+������ Page 19-20: Appendix
+    - Sample student profile
+    - Sample placement timeline
+
+* PDF는 Wilson이 직접 작성 또는 Claude Code로 생성
+* 영문 / 전문적 디자인 / 학교 파트너십에 적합한 톤
+
+P-8. Section 6: Contact (영문)
+
+콘텐츠 구조
+
+┌────────────────────────────────────────┐
+
+│ Contact                              │
+
+│ ────────                             │
+
+│                                      │
+
+│ Wilson Kim                           │
+
+│ Australia Study Consultant           │
+
+│                                      │
+
+│ ┌──────────────────────────────┐     │
+
+│ │ ������ Email                        │       │
+
+│ │ partnership@ausuhak.com   │        │
+
+│ └──────────────────────────────┘     │
+
+│                                      │
+
+│ ┌──────────────────────────────┐     │
+
+│ │ ������ KakaoTalk Channel            │       │
+
+│ │ pf.kakao.com/_GadTX       │        │
+
+│ └──────────────────────────────┘     │
+│                                  │
+
+│ ⏰ Working Hours                           │
+
+│ Monday ~ Friday                  │
+
+│ 10:00 AM ~ 6:00 PM (Korea Time)  │
+
+│                                  │
+
+│ Languages:                       │
+
+│ Korean (primary) / English       │
+
+│                                  │
+
+│ Response Time:                   │
+
+│ Within 48 hours                  │
+
+│                                  │
+
+└────────────────────────────────────────┘
+
+Contact 카피 (영문)
+
+  [Section Title]
+       Get in Touch
+
+  [Email]
+       partnership@ausuhak.com
+
+  [KakaoTalk Channel]
+       https://pf.kakao.com/_GadTX
+       (Korean instant messenger -
+        most accessible for Wilson)
+
+  [Working Hours]
+       Monday ~ Friday
+       10:00 AM ~ 6:00 PM
+       (Korea Standard Time / KST)
+
+  [Languages]
+       Korean (primary) / English
+
+  [Response Time]
+       Within 48 hours during business days
+
+  [Note]
+       For urgent matters, please use email
+       with "URGENT" in subject line.
+       Wilson will respond as soon as possible.
+P-9. 영문 사이트 디자인 (한글 사이트와 일관성)
+
+디자인 시스템 (PART O 그대로 적용)
+
+  [컬러]
+      ✅ Navy 900 (#1a365d) - 헤더/제목
+      ✅ Gold 600 (#c9962a) - CTA 버튼
+      ✅ Cream 100 (#faf7f2) - 배경
+       = 한글 사이트와 동일
+
+  [폰트 (영문)]
+      ✅ 헤딩: Playfair Display (영문 헤딩)
+      ✅ 본문: Inter (영문 본문)
+           또는 Pretendard (한영 모두 지원)
+
+       = Pretendard만으로도 OK
+       = Playfair Display = 헤딩 강조용
+
+영문 폰트 선택
+
+  [옵션 A: Pretendard만 사용]
+      ✅ 한영 통일성
+      ✅ 단일 폰트 = 로딩 빠름
+      ✅ 깔끔
+
+  [옵션 B: Pretendard + Playfair Display]
+      ✅ 헤딩 = Playfair (전문성)
+      ✅ 본문 = Pretendard
+      ✅ 한글 사이트와 동일
+
+  [Wilson 결정]
+       = 옵션 B (한글 사이트와 동일)
+
+영문 사이트 헤더 (i18n Toggle)
+
+[데스크톱 헤더]
+
+┌────────────────────────────────────┐
+
+│ [Logo: ausuhak] [Korean] [English]│
+
+│                        [������ PDF] │
+
+└────────────────────────────────────┘
+
+[모바일 헤더]
+
+┌─────────────────┐
+
+│ [Logo] [☰]  │
+       └─────────────────┘
+       햄버거 메뉴 안:
+       - Korean (한글 사이트로)
+       - English (영문 사이트)
+       - Download PDF
+       - Contact
+
+  [Toggle 동작]
+       - URL: ausuhak.com → 한글
+       - URL: ausuhak.com/en → 영문
+       - 자동 감지: 브라우저 언어
+       - 사용자 선택 = localStorage 저장
+
+P-10. 영문 사이트 SEO
+
+영문 메타 태그
+
+   html
+
+  <title>Wilson Kim - Korean Student Recruitment
+             Partner for Australian Schools</title>
+
+  <meta name="description" content="Connecting Korean
+             students with Australian education excellence.
+             19 years experience + Australian school staff
+             background. QEAC E240 certified. 950+ students
+             placed. Partnership opportunities available.">
+
+  <meta name="keywords" content="Korean student recruitment,
+             Australia education partnership, Korean market,
+             student agency Korea, QEAC consultant,
+             Wilson Kim, ausuhak">
+
+  <!-- OG -->
+  <meta property="og:title" content="Wilson Kim - Korean
+
+             Student Recruitment Partner">
+  <meta property="og:description" content="19 years +
+
+             Australian school staff experience + 950+
+             students. Partnership for Australian institutions.">
+  <meta property="og:locale" content="en_AU">
+  <meta property="og:type" content="website">
+영문 SEO 키워드 (학교 검색 키워드)
+
+  [학교가 검색할 키워드]
+      ✅ Korean student recruitment Australia
+      ✅ Korean market education agency
+      ✅ Australia education partnership Korea
+      ✅ QEAC certified Korean consultant
+      ✅ Korean international student agency
+
+  [학교 의사결정자 검색]
+      ✅ Korean student recruitment partner
+      ✅ Korea market entry education
+      ✅ Korean student visa agency
+      ✅ Wilson Kim Korean students
+
+P-11. 영문 사이트 자동화 (Brochure 발송)
+
+Brochure 자동 발송 흐름
+
+  [학교 측 액션]
+       1. 영문 사이트 진입
+       2. Section 5 (Brochure Download) 도달
+       3. Form 작성 (학교명/이름/이메일/직책/국가)
+       4. [Download Brochure] 클릭
+
+  [자동화 흐름]
+       ↓
+       Form 제출
+       ↓
+       1. 데이터 저장 (Supabase: partner_inquiries 테이블)
+       2. PDF 자동 첨부 이메일 발송 (학교에)
+       3. Wilson 알림 발송 (관리자 페이지 + 이메일)
+       4. CRM 등록 (Lead 자동 생성)
+       ↓
+       Wilson 48시간 내 follow-up
+
+  [자동 이메일 템플릿]
+       Subject: Wilson Kim Partnership Pack -
+                    [학교명] inquiry confirmation
+
+       Body:
+       Dear [Name],
+
+       Thank you for your interest in partnership
+       with Wilson Kim's ausuhak.com.
+
+       Please find the Partnership Pack PDF attached
+       to this email.
+
+       Wilson will follow up with you personally
+       within 48 hours to discuss potential
+       collaboration.
+
+       Should you have urgent matters, please reply
+       directly to this email.
+
+       Best regards,
+       ausuhak.com Team
+
+       [Attachment: Wilson_Kim_Partnership_Pack.pdf]
+
+Wilson 관리자 페이지 (Partner Inquiry)
+
+  [관리자 페이지 - Partner Inquiry 메뉴]
+       - 새 inquiry 알림 (빨간 배지)
+       - 학교명 / 담당자 / 직책 / 국가 / 일시
+       - 상태: 신규 / 응답 / 미팅 / 계약 / 거절
+       - Wilson 메모 (팔로우업 내용)
+       - 자동 follow-up 스케줄 (48시간 / 1주일 / 1달)
+
+P-12. 영문 사이트 Phase 빌드 순서
+
+Phase 1 (Wilson 빌드 시작)
+
+  [빌드 순서]
+       1. 한글 사이트 (ausuhak.com) 먼저 완성
+       2. Next.js i18n 설정 (영문 라우팅)
+       3. 영문 사이트 1페이지 구축 (P-2~P-8)
+       4. Brochure PDF 작성 (Wilson 또는 Claude Code)
+       5. 자동화 흐름 (Form → 이메일 → CRM)
+       6. SEO 메타 태그 + 구조화 데이터
+       7. 테스트 + 배포
+
+Phase 2 (확장 / 추후)
+
+  [향후 확장]
+       - 학교 파트너 로고 표시 (계약 학교 추가 시)
+       - Success Stories 섹션 (학교 간증)
+       - Webinar / 온라인 미팅 예약 기능
+       - 다국어 확장 (중국어 / 일본어)
+       - LinkedIn 통합 (학교 의사결정자 타겟)
+
+P-13. 영문 사이트 디자인 검증 체크리스트
+
+Wilson 검토 (영문)
+
+  ☐ Hero 헤드라인 = 1초 임팩트
+  ☐ Wilson 19년 + 학교 교직원 = 명확
+  ☐ 950+ students = 강조
+  ☐ QEAC E240 = 표시
+  ☐ 영문 자연스러움 (Native 검토 필요)
+  ☐ Brochure PDF = 다운로드 작동
+  ☐ Form = 자동 발송 작동
+  ☐ 이메일 자동 발송 = 학교 측 도달
+  ☐ Wilson 알림 = 관리자 페이지 도달
+  ☐ 한영 toggle = 자연스러움
+  ☐ 모바일 + 데스크톱 = 둘 다 자연스러움
+  ☐ Brochure 첨부 = 깨짐 X
+  ☐ 영문 SEO 메타 태그 = 정확
+  ☐ 카카오 채널 URL = https://pf.kakao.com/_GadTX
+
+Native 영어 검토 (필수)
+
+  [Wilson 결정]
+      ✅ 영문 카피 = Native 검토 필수
+      ✅ 학교 의사결정자 = 영문 전문가
+      ✅ 어색한 영문 = 신뢰 ↓
+
+  [검토 옵션]
+       1. Wilson 본인 (영어 가능 시)
+       2. 호주 현지 영어 원어민 친구
+       3. 외주 (영문 카피 검토 / 50~100$)
+
+  [검토 포인트]
+       - 자연스러운 영어
+       - 비즈니스 톤
+       - 호주 영어 (미국 영어 X)
+       - 학교 의사결정자가 익숙한 표현
+P-14. 영문 사이트 위반 시 차단
+
+PART M 룰 (영문 적용)
+
+  [자동 차단 룰]
+       - "100% guarantee" 표현 = 빌드 거부 (한글과 동일)
+       - 다른 유학원 비방 = 빌드 거부
+       - Wilson 개인 정보 노출 = 빌드 거부
+       - 카카오 채널 URL 누락 = 빌드 거부
+       - Brochure PDF 누락 = 빌드 거부
+       - 영문 어색 (자동 감지 어려움) = Wilson 검토 필요
+
+  [자동 정정]
+       - 영문 SEO 메타 태그 자동 적용
+       - Brochure PDF 자동 첨부
+       - 자동 이메일 발송
+
+P-15. 영문 사이트 향후 확장 (Phase 2~)
+
+Phase 2 확장 가능 항목
+
+  [학교 파트너 로고]
+       - Phase 1 = 영역만 마련
+       - 계약 학교 추가 시 = Wilson 1-Click 로고 추가
+       - 푸터 또는 별도 섹션
+
+  [Success Stories (학교 간증)]
+       - 파트너 학교 인터뷰
+       - 한국 학생 placement 성공 케이스
+       - 영문 비디오 / 텍스트
+
+  [Online Meeting 예약]
+       - Calendly 또는 Cal.com 통합
+       - 학교 측 = 1-Click 미팅 예약
+       - Wilson 일정 자동 동기화
+
+  [LinkedIn 통합]
+       - Wilson LinkedIn 프로필 링크
+       - 학교 의사결정자 = LinkedIn 검색 多
+       - B2B 신뢰 ↑
+
+  [다국어 확장 (선택)]
+       - 중국어 (중국 학생 시장)
+       - 일본어 (일본 학생 시장)
+       - 단, Wilson 한국 시장 집중 = 우선순위 X
+
+P-16. 영문 사이트 핵심 정리
+
+  [Wilson 결정사항 (사양서 박힘)]
+      ✅ 1페이지 / Long Scroll
+      ✅ Next.js i18n (한글 사이트와 동일 코드)
+      ✅ Brochure PDF 만들기
+      ✅ 학교 파트너 로고 = Phase 2 (추후)
+      ✅ 영문 SEO + Native 검토
+
+  [학교 측 흐름]
+       영문 사이트 진입 → Brochure 다운로드
+       → Wilson 48h 내 응답 → 미팅 → 파트너십
+
+  [Wilson 측 자동화]
+       학교 inquiry → Supabase 저장
+       → Brochure 자동 발송
+       → Wilson 알림
+       → 48h 내 follow-up
+       → CRM Lead 등록
+
+  [비즈니스 가치]
+       - B2B 채널 = 한국 학생 시장 게이트웨이
+       - Wilson 19년 + 학교 교직원 = 검증된 파트너
+       - 학교 = "검증된 한국 시장 진입" 확신
+
+✅ PART P 끝
+
+누적: 17개 PART 완료 (사양서 v2.5 완성!)
+✅ PART 0  핵심 원칙
+✅ PART A  시스템 전체 그림
+✅ PART B  학생 라이프사이클
+✅ PART C  권한 시스템
+✅ PART D
+✅ PART E  DB 스키마
+✅ PART F
+✅ PART G  관리자 페이지
+✅ PART H  학생 인터페이스
+✅ PART I  직원 페이지
+✅ PART J  카드 매칭
+✅ PART K  의대 도구
+✅ PART L  자동화
+✅ PART M
+✅ PART N  Phase 빌드 순서
+✅ PART O  Claude Code 명령서
+✅ PART P
+          위반 거절 체크리스트
+          핵심 차별화
+          디자인 시스템
+
+          영문 사이트 ⭐ 신규
+
+[누적 분량]
+    약 12,500줄 / 17개 PART
+    사양서 v2.5 완성 ������
+
+������ 사양서 v2.5 = 완성
+
+다음 단계 = Claude Code 빌드 시작
+
+  Wilson 다음 액션:
+       1. 사양서 v2.5 통합 (PART 0 ~ PART P)
+       2. Claude Code 첫 명령어 (PART L 참조)
+       3. Phase 1 빌드 시작
+       4. 점진적 검토 + 수정
+
