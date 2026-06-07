@@ -1,9 +1,9 @@
 "use client";
 
 import { useActionState } from "react";
-import { applyStageCommand, type CommandState } from "./actions";
+import { applyTextCommand, applyStageCommand, type CommandState } from "./actions";
 
-// 구조화 입력 명령창: 학생 선택 + 단계 선택 → 반영 + 발송 대기.
+// 명령어 한 줄 입력(기본) + 드롭다운(인식 실패 시 fallback).
 export default function CommandBar({
   students,
   actions,
@@ -11,64 +11,44 @@ export default function CommandBar({
   students: { id: string; name: string }[];
   actions: { stage_key: string; label: string }[];
 }) {
-  const [state, formAction, pending] = useActionState(
+  const [textState, textAction, textPending] = useActionState(
+    applyTextCommand,
+    {} as CommandState,
+  );
+  const [pickState, pickAction, pickPending] = useActionState(
     applyStageCommand,
     {} as CommandState,
   );
 
+  const state = textState.ok || textState.error ? textState : pickState;
+
   return (
-    <form
-      action={formAction}
-      className="flex flex-col gap-3 rounded-2xl border-l-4 border-gold-500 bg-white p-5 shadow-sm"
-    >
-      <div className="flex flex-wrap items-end gap-2">
-        <label className="flex flex-1 flex-col gap-1">
-          <span className="text-[11px] font-semibold text-ink-500">학생</span>
-          <select
-            name="student_id"
-            required
-            defaultValue=""
-            className="rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm text-navy-900"
+    <div className="flex flex-col gap-3 rounded-2xl border-l-4 border-gold-500 bg-white p-5 shadow-sm">
+      {/* 명령어 한 줄 입력 */}
+      <form action={textAction} className="flex flex-col gap-2">
+        <label className="text-[11px] font-semibold text-ink-500">명령어</label>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            name="command"
+            autoComplete="off"
+            placeholder="예: 김민지 비자 신청 / 김민지 견적서 발송"
+            className="flex-1 rounded-lg border border-cream-300 bg-cream-100 px-3 py-2.5 text-sm text-navy-900 outline-none focus:border-gold-500"
+          />
+          <button
+            type="submit"
+            disabled={textPending}
+            className="shrink-0 rounded-lg bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-700 disabled:opacity-60"
           >
-            <option value="" disabled>
-              학생 선택
-            </option>
-            {students.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </label>
+            {textPending ? "반영 중…" : "반영"}
+          </button>
+        </div>
+        <p className="text-[11px] text-ink-500">
+          학생 이름 + 단계를 한 줄로 치면 자동으로 인식·반영합니다. 마이페이지에 즉시 표시.
+        </p>
+      </form>
 
-        <label className="flex flex-1 flex-col gap-1">
-          <span className="text-[11px] font-semibold text-ink-500">단계</span>
-          <select
-            name="stage_key"
-            required
-            defaultValue=""
-            className="rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm text-navy-900"
-          >
-            <option value="" disabled>
-              단계 선택
-            </option>
-            {actions.map((a) => (
-              <option key={a.stage_key} value={a.stage_key}>
-                {a.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-lg bg-navy-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-navy-700 disabled:opacity-60"
-        >
-          {pending ? "반영 중…" : "반영 + 발송 대기"}
-        </button>
-      </div>
-
+      {/* 결과 */}
       {state.ok && (
         <p className="rounded-lg bg-success/10 px-3 py-2 text-sm font-medium text-success">
           ✓ {state.ok}
@@ -79,10 +59,52 @@ export default function CommandBar({
           {state.error}
         </p>
       )}
-      <p className="text-[11px] text-ink-500">
-        단계를 반영하면 학생 마이페이지에 즉시 표시되고, 카톡 문구가 아래 “발송 대기”에 쌓입니다.
-        (알림톡 자동 발송은 사업자등록 후 활성화)
-      </p>
-    </form>
+
+      {/* fallback: 드롭다운 직접 선택 */}
+      <details className="rounded-lg border border-cream-200">
+        <summary className="cursor-pointer px-3 py-2 text-xs font-medium text-ink-500">
+          인식이 안 되면 직접 선택 ▾
+        </summary>
+        <form action={pickAction} className="flex flex-wrap items-end gap-2 border-t border-cream-200 p-3">
+          <select
+            name="student_id"
+            required
+            defaultValue=""
+            className="flex-1 rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm text-navy-900"
+          >
+            <option value="" disabled>
+              학생 선택
+            </option>
+            {students.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name}
+              </option>
+            ))}
+          </select>
+          <select
+            name="stage_key"
+            required
+            defaultValue=""
+            className="flex-1 rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm text-navy-900"
+          >
+            <option value="" disabled>
+              단계 선택
+            </option>
+            {actions.map((a) => (
+              <option key={a.stage_key} value={a.stage_key}>
+                {a.label}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            disabled={pickPending}
+            className="rounded-lg bg-navy-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-navy-900 disabled:opacity-60"
+          >
+            {pickPending ? "반영 중…" : "반영"}
+          </button>
+        </form>
+      </details>
+    </div>
   );
 }

@@ -5,7 +5,13 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { canEditStudent } from "@/lib/auth/canEditStudent";
 import { getCurrentUser } from "@/lib/auth/getUser";
 import { logActivity } from "@/lib/audit/log";
-import { buildStatusMap, deriveCurrentStage, VALID_SUBSTEP_KEYS } from "@/lib/progress";
+import {
+  ALL_SUBSTEPS,
+  buildStatusMap,
+  deriveCurrentStage,
+  VALID_SUBSTEP_KEYS,
+} from "@/lib/progress";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 export type CommandState = { ok?: string; error?: string };
 
@@ -18,53 +24,88 @@ type StageAction = {
   required_documents: string[] | null;
 };
 
+// 명령어 → 단계 키워드 (자연어 인식). 비자: 신청 vs 승인 구분.
+const STAGE_KEYWORDS: Record<string, string[]> = {
+  visa_granted: ["비자 승인", "비자승인", "비자 나왔", "비자 받", "grant"],
+  visa_submitted: ["비자 신청", "비자신청", "비자 접수", "비자 넣"],
+  quote_sent: ["견적"],
+  apply_done: ["학교 지원", "원서 접수", "지원 완료", "지원했", "지원함"],
+  offer_received: ["오퍼", "offer", "합격증", "합격 통보"],
+  coe_issued: ["coe", "씨오이", "입학허가"],
+  departed: ["도착", "출국"],
+};
+
 function render(msg: string | null, name: string): string {
   return (msg ?? "").replace(/\{name\}/g, name || "학생");
 }
 
-// 단계 적용 → 마이페이지 반영 → (성공 후에만) 카톡 발송 대기 알림 생성.
-export async function applyStageCommand(
-  _prev: CommandState,
-  formData: FormData,
+// 명령어 텍스트 → { studentId, stageKey } 인식
+function parseCommand(
+  text: string,
+  students: { id: string; name: string | null }[],
+  actions: StageAction[],
+): { studentId?: string; studentName?: string; stageKey?: string; error?: string } {
+  const t = text.trim();
+  if (!t) return { error: "명령어를 입력하세요. 예: 김민지 비자 신청" };
+  const lower = t.toLowerCase();
+
+  // 학생: 이름이 명령어에 포함된 학생 (가장 긴 이름 우선)
+  const matchedStudents = students
+    .filter((s) => s.name && s.name.trim() && t.includes(s.name.trim()))
+    .sort((a, b) => (b.name?.length ?? 0) - (a.name?.length ?? 0));
+  if (matchedStudents.length === 0)
+    return { error: "학생 이름을 인식하지 못했어요. 명령어에 학생 이름을 정확히 넣어주세요." };
+
+  const student = matchedStudents[0];
+
+  // 단계: 키워드 매칭 (정의 순서 = 우선순위, 비자 승인이 신청보다 먼저 체크됨)
+  const validKeys = new Set(actions.map((a) => a.stage_key));
+  let stageKey: string | undefined;
+  for (const [key, kws] of Object.entries(STAGE_KEYWORDS)) {
+    if (!validKeys.has(key)) continue;
+    if (kws.some((kw) => lower.includes(kw.toLowerCase()))) {
+      stageKey = key;
+      break;
+    }
+  }
+  if (!stageKey)
+    return {
+      studentId: student.id,
+      studentName: student.name ?? "",
+      error: `'${student.name}' 학생은 인식했는데 단계를 못 잡았어요. (견적/학교지원/오퍼/CoE/비자 신청/비자 승인/도착 중 하나를 포함해 주세요)`,
+    };
+
+  return { studentId: student.id, studentName: student.name ?? "", stageKey };
+}
+
+// 단계 적용 핵심 (구조화·명령어 공용): 앞 단계까지 따라잡기 + current_stage + 서류요청 + 알림.
+async function applyStageToStudent(
+  admin: SupabaseClient,
+  studentId: string,
+  action: StageAction,
+  userId: string,
 ): Promise<CommandState> {
-  const studentId = String(formData.get("student_id") ?? "");
-  const stageKey = String(formData.get("stage_key") ?? "");
-  if (!studentId || !stageKey) return { error: "학생과 단계를 선택하세요." };
+  const { data: student } = await admin
+    .from("students")
+    .select("id, name, current_stage")
+    .eq("id", studentId)
+    .single();
+  if (!student) return { error: "학생을 찾을 수 없습니다." };
 
-  const { ok, user } = await canEditStudent(studentId);
-  if (!ok || !user) return { error: "권한이 없습니다." };
-
-  const admin = createAdminClient();
-
-  // 단계 액션 + 학생 조회
-  const [actionRes, studentRes] = await Promise.all([
-    admin
-      .from("stage_actions")
-      .select("stage_key, label, target_substep, mypage_text, kakao_message, required_documents")
-      .eq("stage_key", stageKey)
-      .single(),
-    admin.from("students").select("id, name, current_stage").eq("id", studentId).single(),
-  ]);
-
-  if (actionRes.error || !actionRes.data) return { error: "단계 정의를 찾을 수 없습니다." };
-  if (studentRes.error || !studentRes.data) return { error: "학생을 찾을 수 없습니다." };
-
-  const action = actionRes.data as StageAction;
-  const student = studentRes.data;
-
-  // ── 1) DB 갱신 (마이페이지 반영) ──
-  // 1a. target sub-step 완료 처리 → current_stage 재산출
+  // 1) 선택 단계 + 그 앞 단계 전부 done → current_stage 재산출
   if (action.target_substep && VALID_SUBSTEP_KEYS.has(action.target_substep)) {
-    const up = await admin.from("student_substeps").upsert(
-      {
-        student_id: studentId,
-        substep_key: action.target_substep,
-        status: "done",
-        updated_by: user.id,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "student_id,substep_key" },
-    );
+    const targetIdx = ALL_SUBSTEPS.findIndex((s) => s.key === action.target_substep);
+    const nowIso = new Date().toISOString();
+    const toMark = ALL_SUBSTEPS.slice(0, targetIdx + 1).map((s) => ({
+      student_id: studentId,
+      substep_key: s.key,
+      status: "done",
+      updated_by: userId,
+      updated_at: nowIso,
+    }));
+    const up = await admin
+      .from("student_substeps")
+      .upsert(toMark, { onConflict: "student_id,substep_key" });
     if (up.error) return { error: `단계 반영 실패: ${up.error.message}` };
 
     const { data: rows } = await admin
@@ -76,12 +117,12 @@ export async function applyStageCommand(
     if (nextStage !== student.current_stage) {
       await admin
         .from("students")
-        .update({ current_stage: nextStage, updated_at: new Date().toISOString() })
+        .update({ current_stage: nextStage, updated_at: nowIso })
         .eq("id", studentId);
     }
   }
 
-  // 1b. required_documents → status "requested"(요청됨) 표시 (없는 유형만)
+  // 2) required_documents → status "requested"(요청됨)
   const reqDocs = Array.isArray(action.required_documents) ? action.required_documents : [];
   if (reqDocs.length > 0) {
     const { data: existing } = await admin
@@ -95,25 +136,23 @@ export async function applyStageCommand(
     if (toInsert.length > 0) await admin.from("documents").insert(toInsert);
   }
 
-  // ── 2) 반영 성공 후에만 카톡 발송 대기 알림 생성 (순서 보장) ──
+  // 3) 반영 성공 후에만 카톡 발송 대기 알림 생성
   const message = render(action.kakao_message, student.name ?? "");
   const notif = await admin.from("notifications").insert({
     student_id: studentId,
     channel: "kakao_manual",
-    stage_key: stageKey,
+    stage_key: action.stage_key,
     message,
     status: "pending",
-    created_by: user.id,
+    created_by: userId,
   });
-  if (notif.error) {
-    return { error: `반영은 됐지만 알림 생성 실패: ${notif.error.message}` };
-  }
+  if (notif.error) return { error: `반영은 됐지만 알림 생성 실패: ${notif.error.message}` };
 
   await logActivity({
     action_type: "update_substep",
     target_table: "students",
     target_id: studentId,
-    details: { command: stageKey, label: action.label },
+    details: { command: action.stage_key, label: action.label },
   });
 
   revalidatePath("/admin/command");
@@ -121,7 +160,59 @@ export async function applyStageCommand(
   revalidatePath("/admin/students");
   revalidatePath("/mypage");
 
-  return { ok: `${student.name ?? "학생"} · ${action.label} 반영 완료. 카톡 발송 대기에 추가됨.` };
+  return { ok: `${student.name ?? "학생"} · ${action.label} 반영 완료 → 마이페이지 즉시 반영, 카톡 발송 대기에 추가됨.` };
+}
+
+// ── 명령어 한 줄 입력 (기본) ──
+export async function applyTextCommand(
+  _prev: CommandState,
+  formData: FormData,
+): Promise<CommandState> {
+  const text = String(formData.get("command") ?? "");
+  const admin = createAdminClient();
+
+  const [studentsRes, actionsRes] = await Promise.all([
+    admin.from("students").select("id, name").limit(2000),
+    admin
+      .from("stage_actions")
+      .select("stage_key, label, target_substep, mypage_text, kakao_message, required_documents"),
+  ]);
+  const students = studentsRes.data ?? [];
+  const actions = (actionsRes.data ?? []) as StageAction[];
+
+  const parsed = parseCommand(text, students, actions);
+  if (parsed.error) return { error: parsed.error };
+
+  const { ok, user } = await canEditStudent(parsed.studentId!);
+  if (!ok || !user) return { error: "권한이 없습니다." };
+
+  const action = actions.find((a) => a.stage_key === parsed.stageKey);
+  if (!action) return { error: "단계 정의를 찾을 수 없습니다." };
+
+  return applyStageToStudent(admin, parsed.studentId!, action, user.id);
+}
+
+// ── 구조화 입력 (fallback: 드롭다운) ──
+export async function applyStageCommand(
+  _prev: CommandState,
+  formData: FormData,
+): Promise<CommandState> {
+  const studentId = String(formData.get("student_id") ?? "");
+  const stageKey = String(formData.get("stage_key") ?? "");
+  if (!studentId || !stageKey) return { error: "학생과 단계를 선택하세요." };
+
+  const { ok, user } = await canEditStudent(studentId);
+  if (!ok || !user) return { error: "권한이 없습니다." };
+
+  const admin = createAdminClient();
+  const { data: action } = await admin
+    .from("stage_actions")
+    .select("stage_key, label, target_substep, mypage_text, kakao_message, required_documents")
+    .eq("stage_key", stageKey)
+    .single();
+  if (!action) return { error: "단계 정의를 찾을 수 없습니다." };
+
+  return applyStageToStudent(admin, studentId, action as StageAction, user.id);
 }
 
 // 카톡 수동 발송 완료 표시 (B)
