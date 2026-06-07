@@ -76,11 +76,21 @@ export async function signInWithOAuthAction(formData: FormData): Promise<void> {
   const host = h.get("host") ?? "www.ausuhak.com";
   const origin = `${proto}://${host}`;
 
+  // provider 세션이 남아 직전 계정으로 자동 로그인되는 것 방지 →
+  // 매번 계정 선택 / 재로그인 화면을 강제.
+  const queryParams: Record<string, string> =
+    provider === "google"
+      ? { prompt: "select_account" }
+      : provider === "kakao"
+        ? { prompt: "login" }
+        : {};
+
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
       redirectTo: `${origin}/auth/callback`,
+      queryParams,
     },
   });
 
