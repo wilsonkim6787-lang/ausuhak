@@ -31,9 +31,34 @@ const ACTION_GROUPS: Record<string, string[]> = {
   인증: ["login", "logout", "signup", "password_recovery"],
   결제: ["create_payment", "confirm_payment", "refund_payment"],
   견적: ["create_quote", "update_quote"],
-  학생: ["update_student", "advance_stage", "view_student"],
+  학생: ["update_student", "advance_stage", "update_substep", "update_lead_status", "view_student"],
   서류: ["upload_document", "verify_document"],
 };
+
+// action_type → 한글 라벨 (영문 코드 대신 표시 / 원본 코드는 title 속성에 유지)
+const ACTION_LABELS: Record<string, string> = {
+  unauthorized_access: "무단 접근",
+  role_mismatch: "권한 불일치",
+  rls_denied: "RLS 거부",
+  login: "로그인",
+  logout: "로그아웃",
+  signup: "회원가입",
+  password_recovery: "비밀번호 복구",
+  create_payment: "결제 생성",
+  confirm_payment: "결제 확인",
+  refund_payment: "환불",
+  create_quote: "견적 생성",
+  update_quote: "견적 수정",
+  update_student: "학생 정보 수정",
+  advance_stage: "Stage 변경",
+  update_substep: "진행 단계 변경",
+  update_lead_status: "Lead 변경",
+  view_student: "학생 조회",
+  upload_document: "서류 업로드",
+  verify_document: "서류 확인",
+};
+
+const labelOf = (action: string) => ACTION_LABELS[action] ?? action;
 
 const SECURITY_ACTIONS = new Set(ACTION_GROUPS.보안);
 
@@ -130,7 +155,7 @@ export default async function AdminActivityPage({
               key={a}
               current={sp.action}
               value={a}
-              label={`${group}: ${a}`}
+              label={`${group}: ${labelOf(a)}`}
             />
           )),
         )}
@@ -223,13 +248,14 @@ function LogRowItem({ log, user }: { log: LogRow; user: UserRow | null }) {
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div className="flex flex-wrap items-baseline gap-2">
           <span
+            title={log.action_type}
             className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
               security
                 ? "bg-error text-white"
                 : "bg-navy-900 text-gold-400"
             }`}
           >
-            {log.action_type}
+            {labelOf(log.action_type)}
           </span>
           {user?.name ? (
             <span className="text-xs text-navy-700">

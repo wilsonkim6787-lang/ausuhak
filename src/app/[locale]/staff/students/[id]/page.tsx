@@ -1,13 +1,20 @@
 // 직원이 본인 담당 학생 1명을 보는 페이지 (read-only).
 // RLS = students_assigned_select가 본인 담당 학생만 허용.
-// 학생 정보 수정 / Wilson 메모 / 결제 / 비자 / 설정 = X.
+// 진행 상황 = 5 phase × sub-step 모델 (학생·admin 과 동일), 직원은 보기 전용.
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth/requireStaff";
-import { STAGES } from "@/lib/stages";
 import StudentAvatar from "@/components/admin/StudentAvatar";
+import {
+  PHASES,
+  buildStatusMap,
+  phaseIsComplete,
+  currentPhaseIndex,
+  isStaffDocType,
+  type SubstepStatus,
+} from "@/lib/progress";
 
 type Student = {
   id: string;
@@ -32,23 +39,23 @@ type Student = {
   created_at: string;
 };
 
-type Assignment = {
-  role: "primary" | "shared" | "observer";
-};
-
+type Assignment = { role: "primary" | "shared" | "observer" };
 type Deadline = {
   id: string;
   deadline_type: string;
   deadline_date: string | null;
   status: string | null;
 };
-
-type Document = {
+type SubstepRow = { substep_key: string; status: string };
+type DocRow = {
   id: string;
   doc_type: string;
-  status: string | null;
-  note: string | null;
+  substep_key: string | null;
+  storage_path: string | null;
+  file_url: string | null;
+  original_filename: string | null;
 };
+type DocTag = { label: string; filename: string | null; staff: boolean };
 
 export default async function StaffStudentDetailPage({
   params,
@@ -60,7 +67,7 @@ export default async function StaffStudentDetailPage({
 
   const supabase = await createClient();
 
-  const [studentRes, assignRes, deadlinesRes, docsRes] = await Promise.all([
+  const [studentRes, assignRes, deadlinesRes, subsRes, docsRes] = await Promise.all([
     supabase
       .from("students")
       .select(
@@ -82,11 +89,11 @@ export default async function StaffStudentDetailPage({
       .not("status", "in", "(completed,expired)")
       .order("deadline_date", { ascending: true })
       .limit(10),
+    supabase.from("student_substeps").select("substep_key, status").eq("student_id", id),
     supabase
       .from("documents")
-      .select("id, doc_type, status, note")
-      .eq("student_id", id)
-      .order("created_at", { ascending: false }),
+      .select("id, doc_type, substep_key, storage_path, file_url, original_filename")
+      .eq("student_id", id),
   ]);
 
   if (studentRes.error || !studentRes.data) notFound();
@@ -94,10 +101,24 @@ export default async function StaffStudentDetailPage({
   const s = studentRes.data as Student;
   const role = (assignRes.data as Assignment | null)?.role ?? "observer";
   const deadlines = (deadlinesRes.data ?? []) as Deadline[];
-  const docs = (docsRes.data ?? []) as Document[];
-
-  const stage = STAGES.find((st) => st.num === s.current_stage);
   const alerts = s.wilson_alerts ?? [];
+
+  const statusMap = buildStatusMap((subsRes.data ?? []) as SubstepRow[], s.current_stage);
+  const curIdx = currentPhaseIndex(statusMap);
+
+  // 서류 → sub-step 별 태그 묶기
+  const docsBySubstep: Record<string, DocTag[]> = {};
+  for (const d of (docsRes.data ?? []) as DocRow[]) {
+    if (!(d.storage_path || d.file_url)) continue;
+    const staff = isStaffDocType(d.doc_type);
+    const key = d.substep_key ?? (staff ? null : "a_docs");
+    if (!key) continue;
+    (docsBySubstep[key] ??= []).push({
+      label: staff ? "제공됨" : "학생 제출",
+      filename: d.original_filename,
+      staff,
+    });
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -120,7 +141,7 @@ export default async function StaffStudentDetailPage({
             </span>
           )}
           <span className="rounded-full bg-navy-900 px-3 py-1 text-xs font-semibold text-white">
-            Stage {s.current_stage}
+            {PHASES[curIdx]?.label ?? "-"}
           </span>
           <span className="rounded-full bg-cream-200 px-3 py-1 text-xs font-medium text-navy-700">
             {s.lead_status ?? "-"}
@@ -130,8 +151,8 @@ export default async function StaffStudentDetailPage({
               role === "primary"
                 ? "bg-navy-900 text-white"
                 : role === "shared"
-                ? "bg-success/15 text-success"
-                : "bg-cream-300 text-ink-700"
+                  ? "bg-success/15 text-success"
+                  : "bg-cream-300 text-ink-700"
             }`}
           >
             본인 권한: {role}
@@ -146,7 +167,7 @@ export default async function StaffStudentDetailPage({
 
       {role === "observer" && (
         <p className="rounded-2xl border border-cream-300 bg-cream-100/40 px-4 py-3 text-xs text-ink-700">
-          ⚠️ 관찰 권한입니다 — 학생 정보 수정 / 메모 작성은 차단됩니다. 학습 목적.
+          ⚠️ 관찰 권한입니다 — 보기 전용. 학생 정보 수정 / 메모 작성은 차단됩니다.
         </p>
       )}
 
@@ -164,12 +185,70 @@ export default async function StaffStudentDetailPage({
           <Field label="전화" value={s.phone ?? "-"} />
           <Field label="이메일" value={s.email ?? "-"} />
           <Field label="진입 경로" value={s.source ?? "-"} />
-          <Field label="현재 단계" value={stage?.label ?? "-"} />
           <Field
             label="등록일"
             value={new Date(s.created_at).toLocaleDateString("ko-KR")}
           />
         </dl>
+      </section>
+
+      {/* 진행 상황 (5 phase × sub-step, 보기 전용) */}
+      <section className="rounded-2xl border border-cream-300 bg-white p-5">
+        <h2 className="mb-3 font-display text-base font-bold text-navy-900">📍 진행 상황</h2>
+        <div className="flex flex-col gap-4">
+          {PHASES.map((phase, i) => {
+            const complete = phaseIsComplete(phase, statusMap);
+            const current = i === curIdx;
+            return (
+              <div key={phase.key}>
+                <p
+                  className={`mb-1.5 text-xs font-bold ${
+                    current ? "text-navy-900" : complete ? "text-gold-600" : "text-ink-400"
+                  }`}
+                >
+                  {complete ? "✓ " : `${i + 1}. `}
+                  {phase.label}
+                  {complete && " (완료)"}
+                  {current && " (진행 중)"}
+                </p>
+                <ul className="ml-1 flex flex-col gap-1 border-l-2 border-cream-200 pl-3">
+                  {phase.substeps.map((sub) => {
+                    const st = (statusMap[sub.key] ?? "pending") as SubstepStatus;
+                    const tags = docsBySubstep[sub.key] ?? [];
+                    return (
+                      <li key={sub.key} className="flex flex-wrap items-center gap-2 text-sm">
+                        <StatusDot status={st} />
+                        <span
+                          className={
+                            st === "done"
+                              ? "text-navy-700"
+                              : st === "in_progress"
+                                ? "font-semibold text-navy-900"
+                                : "text-ink-400"
+                          }
+                        >
+                          {sub.label}
+                        </span>
+                        {tags.map((t, idx) => (
+                          <span
+                            key={idx}
+                            className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
+                              t.staff
+                                ? "bg-navy-900/10 text-navy-700"
+                                : "bg-gold-100 text-gold-600"
+                            }`}
+                          >
+                            📎 {t.filename ?? t.label}
+                          </span>
+                        ))}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       {/* 마감일 */}
@@ -196,30 +275,8 @@ export default async function StaffStudentDetailPage({
         )}
       </section>
 
-      {/* 서류 */}
-      <section className="rounded-2xl border border-cream-300 bg-white p-5">
-        <h2 className="mb-3 font-display text-base font-bold text-navy-900">
-          📁 서류 ({docs.length})
-        </h2>
-        {docs.length === 0 ? (
-          <p className="text-sm text-ink-500">제출된 서류가 없습니다.</p>
-        ) : (
-          <ul className="space-y-1.5 text-sm">
-            {docs.map((d) => (
-              <li
-                key={d.id}
-                className="flex items-center justify-between rounded-lg border border-cream-200 bg-cream-100/40 px-3 py-2"
-              >
-                <span className="font-medium text-navy-900">{d.doc_type}</span>
-                <span className="text-xs text-ink-500">{d.status ?? "-"}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
       <p className="text-center text-[11px] text-ink-500">
-        ⚠️ 직원 페이지는 read-only. 학생 정보 수정·메모 작성은 Wilson 또는 본인 담당 학생의 admin 위임 권한 부여 후.
+        ⚠️ 직원 페이지는 보기 전용입니다. 진행 단계·서류 변경은 Wilson 또는 위임 권한이 있는 admin 화면에서.
       </p>
     </div>
   );
@@ -234,4 +291,14 @@ function Field({ label, value }: { label: string; value: string }) {
       <dd className="mt-0.5 text-navy-900">{value}</dd>
     </div>
   );
+}
+
+function StatusDot({ status }: { status: SubstepStatus }) {
+  if (status === "done") {
+    return <span className="text-xs text-gold-600">✓</span>;
+  }
+  if (status === "in_progress") {
+    return <span className="h-2 w-2 rounded-full bg-gold-500" aria-hidden />;
+  }
+  return <span className="h-2 w-2 rounded-full bg-cream-300" aria-hidden />;
 }

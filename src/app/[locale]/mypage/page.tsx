@@ -21,16 +21,32 @@ type DocRow = {
   file_url: string | null;
   original_filename: string | null;
 };
+type DeadlineRow = {
+  id: string;
+  deadline_type: string;
+  deadline_date: string | null;
+  note: string | null;
+};
+
+function daysLeft(iso: string | null): number | null {
+  if (!iso) return null;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const d = new Date(iso);
+  d.setHours(0, 0, 0, 0);
+  return Math.round((d.getTime() - today.getTime()) / 86_400_000);
+}
 
 export default async function MypageHome() {
   const { student } = await requireStudent();
 
   let substepRows: SubstepRow[] = [];
   let docRows: DocRow[] = [];
+  let deadlines: DeadlineRow[] = [];
 
   if (student.id) {
     const admin = createAdminClient();
-    const [subsRes, docsRes] = await Promise.all([
+    const [subsRes, docsRes, deadlinesRes] = await Promise.all([
       admin
         .from("student_substeps")
         .select("substep_key, status")
@@ -39,9 +55,17 @@ export default async function MypageHome() {
         .from("documents")
         .select("id, doc_type, substep_key, storage_path, file_url, original_filename")
         .eq("student_id", student.id),
+      admin
+        .from("critical_deadlines")
+        .select("id, deadline_type, deadline_date, note")
+        .eq("student_id", student.id)
+        .not("status", "in", "(completed,expired)")
+        .order("deadline_date", { ascending: true })
+        .limit(4),
     ]);
     substepRows = (subsRes.data ?? []) as SubstepRow[];
     docRows = (docsRes.data ?? []) as DocRow[];
+    deadlines = (deadlinesRes.data ?? []) as DeadlineRow[];
   }
 
   const statusMap = buildStatusMap(substepRows, student.current_stage);
@@ -97,6 +121,49 @@ export default async function MypageHome() {
 
       {/* 3. STAGE ACCORDION */}
       <PhaseAccordion statusMap={statusMap} docsBySubstep={docsBySubstep} />
+
+      {/* 3.5 다가오는 마감일 (있을 때만) */}
+      {deadlines.length > 0 && (
+        <section className="rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">
+          <h2 className="mb-3 font-display text-base font-bold text-navy-900">
+            ⏰ 다가오는 마감일
+          </h2>
+          <ul className="flex flex-col gap-2">
+            {deadlines.map((d) => {
+              const days = daysLeft(d.deadline_date);
+              const urgent = days !== null && days <= 3;
+              return (
+                <li
+                  key={d.id}
+                  className={`flex items-center justify-between gap-3 rounded-xl border px-3 py-2.5 text-sm ${
+                    urgent ? "border-error/30 bg-error/5" : "border-cream-300 bg-cream-100/40"
+                  }`}
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-navy-900">{d.deadline_type}</p>
+                    {d.note && (
+                      <p className="mt-0.5 truncate text-xs text-ink-500">{d.note}</p>
+                    )}
+                  </div>
+                  {days !== null && (
+                    <span
+                      className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold ${
+                        urgent
+                          ? "bg-error text-white"
+                          : days <= 7
+                            ? "bg-warning/20 text-warning"
+                            : "bg-cream-300 text-ink-700"
+                      }`}
+                    >
+                      {days < 0 ? "지남" : days === 0 ? "오늘" : `D-${days}`}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {/* 4. KAKAO CTA */}
       <a
