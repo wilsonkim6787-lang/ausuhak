@@ -72,7 +72,7 @@ export default function Hero() {
       </div>
 
       <div className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 animate-bounce text-white/60">
-        <a href="#offers" aria-label="스크롤">
+        <a href="#offers" aria-label="아래로 스크롤" className="inline-flex p-2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 5v14M19 12l-7 7-7-7" />
           </svg>

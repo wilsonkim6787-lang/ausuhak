@@ -106,7 +106,7 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
             >
               <h4 className="flex items-baseline gap-3 text-lg font-bold text-ink-900 sm:text-xl">
                 <span className="font-display text-2xl text-gold-600 sm:text-3xl">{m.n}</span>
-                <span className="whitespace-nowrap">{m.title}</span>
+                <span className="sm:whitespace-nowrap">{m.title}</span>
               </h4>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-700 sm:text-[15px]">
                 {m.body}

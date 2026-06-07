@@ -87,19 +87,20 @@ export default function DiagnoseCTA() {
 
         {/* 검색창 */}
         <div className="mx-auto mt-10 max-w-2xl">
-          <div className="flex overflow-hidden rounded-xl border border-cream-300 bg-white shadow-sm">
+          <div className="flex overflow-hidden rounded-xl border border-cream-300 bg-white shadow-sm focus-within:ring-2 focus-within:ring-gold-600/40">
             <input
               type="text"
               value={query}
               onChange={(e) => { setQuery(e.target.value); setSelected(null); }}
               onKeyDown={(e) => e.key === "Enter" && onSearch()}
+              aria-label="FAQ 검색"
               placeholder={t("searchPlaceholder")}
               className="min-w-0 flex-1 bg-transparent px-5 py-4 text-sm text-ink-900 placeholder:text-ink-400 focus:outline-none sm:text-base"
             />
             <button
               type="button"
               onClick={onSearch}
-              className="shrink-0 bg-gold-600 px-6 text-sm font-bold text-white transition hover:bg-gold-500 sm:text-base"
+              className="shrink-0 bg-gold-600 px-6 text-sm font-bold text-white transition hover:bg-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-navy-900 sm:text-base"
             >
               {t("searchButton")}
             </button>
@@ -109,7 +110,7 @@ export default function DiagnoseCTA() {
         {/* 결과 모드 */}
         {results !== null ? (
           <div className="mx-auto mt-10 max-w-3xl">
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-ink-500">
                 &lsquo;<strong className="text-ink-900">{activeQuery}</strong>&rsquo;
                 {results.length > 0
@@ -127,7 +128,7 @@ export default function DiagnoseCTA() {
 
             {results.length > 0 && <FaqAccordion items={results} />}
 
-            <div className="mt-8 rounded-2xl bg-white px-6 py-7 text-center sm:px-8">
+            <div className="mt-8 rounded-xl bg-white px-6 py-7 text-center sm:px-8">
               <p className="text-sm font-semibold text-ink-900 sm:text-base">
                 {results.length === 0
                   ? "원하는 답을 못 찾으셨나요?"

@@ -50,7 +50,7 @@ export default function MedicalCTA() {
             <a
               key={c.eyebrow}
               href={c.href}
-              className="group flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-gold-600 hover:shadow-lg sm:p-8"
+              className="group flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-gold-600 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600/40 focus-visible:ring-offset-2 sm:p-8"
             >
               <p className="text-[11px] font-bold tracking-[0.15em] text-gold-600">
                 {c.eyebrow}

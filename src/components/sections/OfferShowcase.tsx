@@ -88,7 +88,7 @@ export default async function OfferShowcase() {
         <div className="mt-10 text-center">
           <a
             href="#diagnose"
-            className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-semibold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
+            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 focus-visible:ring-offset-2 sm:text-lg"
           >
             {t("ctaPrimary")} <span aria-hidden>↓</span>
           </a>

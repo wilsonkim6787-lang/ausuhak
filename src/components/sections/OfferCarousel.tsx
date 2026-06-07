@@ -58,6 +58,8 @@ export default function OfferCarousel({
     <div
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
     >
       {/* 모바일 = 가로 스와이프 전체 / PC = 현재 페이지 3개 + 좌우 화살표 */}
       <div className="relative">
@@ -67,7 +69,7 @@ export default function OfferCarousel({
               type="button"
               onClick={goPrev}
               aria-label="이전"
-              className="absolute -left-5 top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-cream-300 bg-white text-lg text-ink-700 shadow-sm transition hover:border-gold-600 hover:text-gold-600 hover:shadow-md sm:flex"
+              className="absolute -left-5 top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-cream-300 bg-white text-lg text-ink-700 shadow-sm transition hover:border-gold-600 hover:text-gold-600 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 sm:flex"
             >
               ‹
             </button>
@@ -75,7 +77,7 @@ export default function OfferCarousel({
               type="button"
               onClick={goNext}
               aria-label="다음"
-              className="absolute -right-5 top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-cream-300 bg-white text-lg text-ink-700 shadow-sm transition hover:border-gold-600 hover:text-gold-600 hover:shadow-md sm:flex"
+              className="absolute -right-5 top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-cream-300 bg-white text-lg text-ink-700 shadow-sm transition hover:border-gold-600 hover:text-gold-600 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 sm:flex"
             >
               ›
             </button>

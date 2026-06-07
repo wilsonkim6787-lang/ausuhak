@@ -129,7 +129,7 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
                       type="button"
                       onClick={() => setActive(i)}
                       aria-pressed={isActive}
-                      className={`flex h-full w-full flex-col items-start gap-1 rounded-2xl border-2 px-4 py-3.5 text-left transition ${
+                      className={`flex h-full w-full flex-col items-start gap-1 rounded-2xl border-2 px-4 py-3.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 focus-visible:ring-offset-2 ${
                         isActive
                           ? "border-gold-600 bg-gold-600 text-white shadow-md"
                           : "border-cream-300 bg-white text-navy-900 hover:border-gold-600/50 hover:bg-cream-100/60"

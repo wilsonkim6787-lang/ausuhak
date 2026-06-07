@@ -26,7 +26,8 @@ export default function FaqAccordion({ items }: { items: Item[] }) {
               type="button"
               onClick={() => setOpenIdx(open ? null : i)}
               aria-expanded={open}
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-cream-100/60 sm:px-7 sm:py-5"
+              aria-controls={`faq-panel-${i}`}
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-cream-100/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold-600/50 sm:px-7 sm:py-5"
             >
               <span className="text-base font-semibold text-navy-900 sm:text-lg">
                 {it.q}
@@ -41,7 +42,10 @@ export default function FaqAccordion({ items }: { items: Item[] }) {
               </span>
             </button>
             {open && (
-              <div className="border-t border-cream-300 bg-cream-100/40 px-5 py-5 sm:px-7 sm:py-6">
+              <div
+                id={`faq-panel-${i}`}
+                className="border-t border-cream-300 bg-cream-100/40 px-5 py-5 sm:px-7 sm:py-6"
+              >
                 {renderAnswer(it.a)}
               </div>
             )}

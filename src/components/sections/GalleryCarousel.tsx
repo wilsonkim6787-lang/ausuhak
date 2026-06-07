@@ -38,6 +38,8 @@ export default function GalleryCarousel({ items }: { items: GalleryItem[] }) {
       className="relative mx-auto max-w-3xl"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
     >
       <div className="overflow-hidden rounded-2xl">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -56,7 +58,7 @@ export default function GalleryCarousel({ items }: { items: GalleryItem[] }) {
             type="button"
             onClick={goPrev}
             aria-label="이전"
-            className="absolute left-3 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-navy-900 shadow-sm backdrop-blur-sm transition hover:bg-white"
+            className="absolute left-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-navy-900 shadow-sm backdrop-blur-sm transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600"
           >
             <ChevronLeft size={20} />
           </button>
@@ -64,7 +66,7 @@ export default function GalleryCarousel({ items }: { items: GalleryItem[] }) {
             type="button"
             onClick={goNext}
             aria-label="다음"
-            className="absolute right-3 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-navy-900 shadow-sm backdrop-blur-sm transition hover:bg-white"
+            className="absolute right-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-navy-900 shadow-sm backdrop-blur-sm transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600"
           >
             <ChevronRight size={20} />
           </button>

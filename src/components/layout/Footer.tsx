@@ -18,7 +18,7 @@ export default function Footer() {
   const kakaoUrl = "https://pf.kakao.com/_GadTX";
 
   return (
-    <footer className="mt-auto bg-navy-900 text-cream-100">
+    <footer className="mt-auto bg-navy-900 pb-20 text-cream-100 sm:pb-0">
       <div className="container mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
           {/* Column 1: 브랜드 */}
