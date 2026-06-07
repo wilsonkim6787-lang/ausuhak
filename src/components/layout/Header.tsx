@@ -1,15 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { logoutAction } from "@/app/[locale]/login/actions";
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
+
+// role → 로그인 후 "내 페이지" 목적지
+function dashHref(role: string): string {
+  if (role === "super_admin") return "/admin";
+  if (role === "staff") return "/staff";
+  return "/mypage";
+}
 
 export default function Header() {
   const t = useTranslations("Header");
   const [open, setOpen] = useState(false);
+  // undefined = 확인 중 / null = 비로그인 / {role} = 로그인
+  const [auth, setAuth] = useState<{ role: string } | null | undefined>(undefined);
+
+  useEffect(() => {
+    const supabase = createClient();
+    let active = true;
+    (async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        if (active) setAuth(null);
+        return;
+      }
+      const { data: profile } = await supabase
+        .from("users")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+      if (active) setAuth({ role: profile?.role ?? "student" });
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const menuItems = [
     { key: "diagnose", label: t("menuDiagnose"), href: "/diagnose" },
@@ -45,20 +79,41 @@ export default function Header() {
               </a>
             ))}
 
-            {/* 로그인 / 회원가입 (구분선으로 분리) */}
-            <div className="flex items-center gap-3 border-l border-cream-300 pl-5">
-              <Link
-                href="/login"
-                className="text-sm font-medium text-navy-700 transition hover:text-gold-600"
-              >
-                {t("menuLogin")}
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-full border border-navy-700 px-4 py-1.5 text-sm font-semibold text-navy-700 transition hover:border-gold-600 hover:bg-gold-600 hover:text-white"
-              >
-                {t("menuSignup")}
-              </Link>
+            {/* 로그인 상태에 따라: 비로그인 = 로그인/회원가입 / 로그인 = 내 페이지/로그아웃 */}
+            <div className="flex min-h-[34px] items-center gap-3 border-l border-cream-300 pl-5">
+              {auth === undefined ? null : auth ? (
+                <>
+                  <Link
+                    href={dashHref(auth.role)}
+                    className="text-sm font-medium text-navy-700 transition hover:text-gold-600"
+                  >
+                    내 페이지
+                  </Link>
+                  <form action={logoutAction}>
+                    <button
+                      type="submit"
+                      className="rounded-full border border-navy-700 px-4 py-1.5 text-sm font-semibold text-navy-700 transition hover:border-gold-600 hover:bg-gold-600 hover:text-white"
+                    >
+                      로그아웃
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="text-sm font-medium text-navy-700 transition hover:text-gold-600"
+                  >
+                    {t("menuLogin")}
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="rounded-full border border-navy-700 px-4 py-1.5 text-sm font-semibold text-navy-700 transition hover:border-gold-600 hover:bg-gold-600 hover:text-white"
+                  >
+                    {t("menuSignup")}
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* 카톡 = 노란 카카오 색 (가시성 명확) */}
@@ -121,22 +176,44 @@ export default function Header() {
               </a>
             ))}
 
-            {/* 모바일 로그인 / 회원가입 */}
+            {/* 모바일: 로그인 상태에 따라 분기 */}
             <div className="mt-2 flex gap-3">
-              <Link
-                href="/login"
-                onClick={() => setOpen(false)}
-                className="flex-1 rounded-full border border-cream-100/40 py-3 text-center text-sm font-semibold text-cream-100"
-              >
-                {t("menuLogin")}
-              </Link>
-              <Link
-                href="/signup"
-                onClick={() => setOpen(false)}
-                className="flex-1 rounded-full bg-gold-600 py-3 text-center text-sm font-bold text-white"
-              >
-                {t("menuSignup")}
-              </Link>
+              {auth === undefined ? null : auth ? (
+                <>
+                  <Link
+                    href={dashHref(auth.role)}
+                    onClick={() => setOpen(false)}
+                    className="flex-1 rounded-full bg-gold-600 py-3 text-center text-sm font-bold text-white"
+                  >
+                    내 페이지
+                  </Link>
+                  <form action={logoutAction} className="flex-1">
+                    <button
+                      type="submit"
+                      className="w-full rounded-full border border-cream-100/40 py-3 text-center text-sm font-semibold text-cream-100"
+                    >
+                      로그아웃
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 rounded-full border border-cream-100/40 py-3 text-center text-sm font-semibold text-cream-100"
+                  >
+                    {t("menuLogin")}
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 rounded-full bg-gold-600 py-3 text-center text-sm font-bold text-white"
+                  >
+                    {t("menuSignup")}
+                  </Link>
+                </>
+              )}
             </div>
 
             <a
