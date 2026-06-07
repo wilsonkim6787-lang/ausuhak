@@ -5,14 +5,6 @@ import { useTranslations } from "next-intl";
 // PART N-11: 자매학교 EC 어학원·화상영어 = 푸터 로고만 (카드/FAQ X)
 // PART 0-1: Wilson 개인 카톡 ID 노출 X / 채널 URL만
 
-const VISAS = [
-  { name: "학생비자", code: "500" },
-  { name: "졸업생 임시비자", code: "485" },
-  { name: "연수비자", code: "407" },
-  { name: "단기 전문활동", code: "408" },
-  { name: "방문비자", code: "600" },
-];
-
 export default function Footer() {
   const t = useTranslations("Footer");
   const kakaoUrl = "https://pf.kakao.com/_GadTX";
@@ -68,14 +60,19 @@ export default function Footer() {
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("sisterEyebrow")}
             </p>
-            <div className="mt-4 inline-flex rounded-xl bg-cream-100 px-4 py-3 shadow-sm ring-1 ring-cream-300/30">
+            <a
+              href="https://educennow.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex rounded-xl bg-cream-100 px-4 py-3 shadow-sm ring-1 ring-cream-300/30 transition hover:shadow-md"
+            >
               <img
                 src="/ec-logo.png"
                 alt="Education Center — 출국 전 영어 준비 학원·화상영어 학습 센터"
                 className="h-9 w-auto"
                 loading="lazy"
               />
-            </div>
+            </a>
             <p className="mt-3 text-sm leading-relaxed text-cream-200">
               {t("sisterBody")}
             </p>
@@ -98,9 +95,6 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-          <p>
-            비자 대행: {VISAS.map((v) => `${v.name}(${v.code})`).join(" · ")} — 발급 여부는 호주 이민성 결정에 따릅니다.
-          </p>
         </div>
       </div>
     </footer>
