@@ -6,7 +6,6 @@
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import OfferCarousel from "./OfferCarousel";
-import { GO8, OTHER_UNIVERSITIES } from "@/lib/schools/universities";
 
 type OfferRow = {
   id: string;
@@ -95,36 +94,13 @@ export default async function OfferShowcase() {
           </a>
         </div>
 
-        {/* 함께하는 호주 대학 — 커버리지·권위 (배지 → 추후 로고 교체) */}
-        <div className="mt-16 border-t border-cream-200 pt-12">
-          <div className="text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
-              함께하는 호주 대학
-            </p>
-            <p className="mx-auto mt-2 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
-              호주 전역 대학 진학을 지원합니다.
-            </p>
-          </div>
-          <ul className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-2">
-            {GO8.map((u) => (
-              <li
-                key={u}
-                className="rounded-full border border-gold-600/30 bg-gold-100 px-3.5 py-1.5 text-xs font-bold text-gold-700 sm:text-sm"
-              >
-                {u}
-              </li>
-            ))}
-            {OTHER_UNIVERSITIES.map((u) => (
-              <li
-                key={u}
-                className="rounded-full border border-cream-300 bg-cream-100/60 px-3.5 py-1.5 text-xs font-semibold text-navy-800 sm:text-sm"
-              >
-                {u}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-center text-[11px] text-ink-500">
-            Go8(8개 명문 대학) 포함 호주 전역 대학
+        {/* 함께하는 호주 대학 — 한 문장(모바일 친화) */}
+        <div className="mt-12 border-t border-cream-200 pt-10 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">
+            함께하는 호주 대학
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-base font-semibold leading-relaxed text-navy-900 sm:text-lg">
+            Go8(8개 명문 대학)을 포함한 호주 전역 대학 진학을 지원합니다.
           </p>
         </div>
       </div>
