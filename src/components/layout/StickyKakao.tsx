@@ -7,15 +7,15 @@ const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 export default function StickyKakao() {
   return (
     <>
-      {/* 모바일 — 하단 가로 풀 너비 2버튼 (진단 + 카카오) */}
+      {/* 모바일 — 하단 가로 풀 너비 2버튼 (고민 찾기 + 카카오) */}
       <div className="fixed inset-x-0 bottom-0 z-30 flex gap-1 border-t border-cream-300 bg-white/95 p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-4px_20px_rgba(10,22,40,0.08)] backdrop-blur sm:hidden">
         <Link
-          href="/diagnose"
-          aria-label="30초 가능성 진단 시작"
+          href="/#diagnose"
+          aria-label="내 상황과 비슷한 고민 찾기"
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-gold-600 px-3 py-3.5 text-sm font-bold text-white shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-900 focus-visible:ring-offset-2"
         >
           <span aria-hidden>{"\u{1F3AF}"}</span>
-          30초 진단
+          고민 찾기
         </Link>
         <a
           href={KAKAO_URL}

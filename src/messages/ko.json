@@ -5,7 +5,7 @@
   },
   "Header": {
     "subBrand": "(호주유학)",
-    "menuDiagnose": "30초 진단",
+    "menuDiagnose": "내 상황 찾기",
     "menuStory": "Wilson 19년",
     "menuMedical": "의대 준비",
     "menuFaq": "자주 묻는 질문",
@@ -56,7 +56,7 @@
     "ctaBody": ""
   },
   "DiagnoseCTA": {
-    "eyebrow": "30초 진단",
+    "eyebrow": "고민별 진학 가이드",
     "title": "비슷한 고민을 고르면, 가능한 호주 진학 루트가 보입니다",
     "subtitle": "",
     "searchPlaceholder": "궁금한 키워드를 입력하세요 — 검정고시, 간호, 영주권…",
@@ -105,7 +105,7 @@
     "subtitle": "",
     "placeholderLabel": "오퍼 이미지",
     "swipeHint": "← 좌우로 스와이프해서 더 보기 →",
-    "ctaPrimary": "30초 진학 가능성 확인",
+    "ctaPrimary": "내 상황과 비슷한 고민 찾기",
     "ctaNote": "본인 상황에 맞는 진학 루트를 바로 확인하세요"
   },
   "FAQPreview": {

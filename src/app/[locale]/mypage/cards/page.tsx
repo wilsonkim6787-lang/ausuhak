@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { requireStudent } from "@/lib/auth/requireStudent";
 import {
   BlocksBanner,
@@ -34,14 +33,16 @@ export default async function MypageCardsPage() {
           📄 카드 7장 결과
         </h1>
         <p className="mt-3 rounded-lg border border-warning/30 bg-warning/5 px-4 py-3 text-sm text-ink-700">
-          아직 6변수 진단을 완료하지 않으셨습니다. 진단을 먼저 하시면 여기서 결과를 다시 보실 수 있어요.
+          아직 상담 정보가 등록되지 않았습니다. 카카오톡으로 상담하시면 Wilson이 직접 확인 후 결과를 채워드립니다.
         </p>
-        <Link
-          href="/diagnose"
+        <a
+          href={KAKAO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-4 inline-flex rounded-xl bg-gold-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-gold-500"
         >
-          🎯 30초 진단하러 가기
-        </Link>
+          카카오톡 상담하기
+        </a>
       </div>
     );
   }
