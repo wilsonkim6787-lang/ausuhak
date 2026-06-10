@@ -11,25 +11,25 @@ export default function Hero() {
         className="absolute inset-0 h-full w-full object-cover"
         loading="eager"
       />
-      {/* 가운데 어둡고 양옆은 밝게 — 비네팅 효과 */}
+      {/* 시네마틱 오버레이 — 하단 다크(가독성) + 상단 골드 글로우(프리미엄) */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 100% at 50% 50%, rgba(15,23,42,0.75) 0%, rgba(15,23,42,0.35) 70%, rgba(15,23,42,0.10) 100%)",
+            "radial-gradient(ellipse 55% 45% at 18% 12%, rgba(201,150,42,0.20) 0%, transparent 55%), linear-gradient(to top, rgba(5,13,26,0.92) 0%, rgba(10,22,40,0.5) 42%, rgba(10,22,40,0.28) 100%)",
         }}
       />
 
       <div className="container relative z-10 mx-auto flex max-w-3xl items-center justify-center px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
-        <div className="text-center">
-          <span className="inline-block rounded-full border border-gold-500/40 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold-400 backdrop-blur-sm">
+        <div className="text-center animate-[heroRise_0.7s_ease-out_both]">
+          <span className="inline-block rounded-full border border-gold-500/40 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-gold-400 backdrop-blur-sm">
             {t("badge")}
           </span>
 
           <p className="mt-6 text-lg font-medium text-cream-200 sm:text-xl">
             {t("titleLine1")}
           </p>
-          <h1 className="mt-2 font-display text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-3 font-display text-4xl font-bold leading-[1.1] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)] sm:text-6xl lg:text-7xl">
             {t("titlePrefix")}
             <span className="text-gold-400">{t("titleEm")}</span>
             {t("titleSuffix")}
@@ -44,7 +44,7 @@ export default function Hero() {
           <div className="mt-8">
             <a
               href="#diagnose"
-              className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-10 py-5 text-lg font-extrabold text-white shadow-lg transition hover:bg-gold-500 hover:shadow-xl sm:text-xl"
+              className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-10 py-5 text-lg font-extrabold text-white shadow-[0_8px_30px_rgba(201,150,42,0.45)] ring-1 ring-gold-400/40 transition hover:scale-[1.02] hover:bg-gold-500 hover:shadow-[0_10px_36px_rgba(201,150,42,0.55)] sm:text-xl"
             >
               내 상황과 비슷한 고민 찾기 <span aria-hidden>↓</span>
             </a>

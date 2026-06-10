@@ -114,6 +114,15 @@
   }
 }
 
+/* Hero 등장 애니메이션 — 로드 시 부드럽게 떠오름 */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[heroRise_0\.7s_ease-out_both\] { animation: none !important; }
+}
+
 /* Quote PDF print stylesheet (Step 2.4) */
 @media print {
   @page { margin: 12mm; size: A4; }
