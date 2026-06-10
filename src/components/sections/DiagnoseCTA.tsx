@@ -74,6 +74,27 @@ export default function DiagnoseCTA() {
           </p>
         </div>
 
+        {/* 입학 캘린더 — 사실 기반 긴급성(손실 회피) */}
+        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-gold-600/20 bg-gold-100/40 p-5 sm:p-6">
+          <p className="text-center text-sm font-bold text-navy-900 sm:text-base">
+            ⏰ 호주 입학은 <span className="text-gold-700">2월 · 7월</span>, 1년에 두 번뿐입니다
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-xl border border-cream-300 bg-white px-4 py-3 text-center">
+              <p className="text-xs font-semibold text-ink-500">2월 입학 (1학기)</p>
+              <p className="mt-1 text-sm font-bold text-navy-900">전년 10~11월부터 준비</p>
+            </div>
+            <div className="rounded-xl border border-cream-300 bg-white px-4 py-3 text-center">
+              <p className="text-xs font-semibold text-ink-500">7월 입학 (2학기)</p>
+              <p className="mt-1 text-sm font-bold text-navy-900">그 해 3~4월부터 준비</p>
+            </div>
+          </div>
+          <p className="mt-4 text-center text-xs leading-relaxed text-ink-700">
+            학교 결정·서류·비자에 보통 3개월.{" "}
+            <strong className="text-navy-900">지금 시작하면 가장 가까운 입학</strong>, 늦으면 다음 기회는 6개월~1년 뒤입니다.
+          </p>
+        </div>
+
         {/* 검색창 */}
         <div className="mx-auto mt-10 max-w-2xl">
           <div className="flex overflow-hidden rounded-xl border border-cream-300 bg-white shadow-sm focus-within:ring-2 focus-within:ring-gold-600/40">
