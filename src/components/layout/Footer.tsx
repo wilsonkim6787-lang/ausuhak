@@ -22,10 +22,10 @@ export default function Footer() {
               {t("tagline")}
             </p>
 
-            {/* QEAC 배지 placeholder */}
-            <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-cream-300/20 bg-white/5 px-3 py-2">
-              <span className="size-2 rounded-full bg-gold-500" />
-              <span className="text-[11px] font-bold tracking-wider text-gold-500">
+            {/* QEAC 자격 배지 (추후 공식 로고 이미지로 교체 가능) */}
+            <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-gold-500/40 bg-gold-500/10 px-3.5 py-2">
+              <span aria-hidden className="text-base leading-none">🛡️</span>
+              <span className="text-[11px] font-bold tracking-wider text-gold-400">
                 QEAC E240 · 호주 정부 인증
               </span>
             </div>

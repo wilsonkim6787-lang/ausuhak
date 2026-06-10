@@ -167,6 +167,9 @@ export default function DiagnoseCTA() {
               >
                 {t("ctaPrimary")} <span aria-hidden>→</span>
               </a>
+              <p className="mt-3 text-xs text-ink-500">
+                부담 없이 물어보세요 · Wilson이 직접 답변합니다
+              </p>
             </div>
           </>
         )}

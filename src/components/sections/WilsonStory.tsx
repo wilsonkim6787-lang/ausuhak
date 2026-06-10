@@ -61,6 +61,16 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
             <p className="mt-5 text-base leading-relaxed text-ink-700">
               {t("profileBody")}
             </p>
+
+            {/* 정직 포지셔닝 — 위험 제거(강매·과장 불안 해소) */}
+            <div className="mt-6 rounded-xl border-l-4 border-gold-500 bg-gold-100/50 p-4">
+              <p className="font-display text-base font-bold text-navy-900">
+                &ldquo;{t("honestQuote")}&rdquo;
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-700">
+                {t("honestBody")}
+              </p>
+            </div>
           </div>
 
           {gallery.length > 0 ? (
