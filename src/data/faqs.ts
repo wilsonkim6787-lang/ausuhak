@@ -34,3 +34,34 @@ export function getCategoryBySlug(idx: number): FaqCategory | undefined {
 export function getTotalCount(): number {
   return FAQ_CATEGORIES.reduce((sum, c) => sum + c.items.length, 0);
 }
+
+export interface FaqSearchHit {
+  catIdx: number;
+  icon: string;
+  item: FaqItem;
+  score: number;
+}
+
+/**
+ * FAQ 통합 검색 — DiagnoseCTA / FAQPreview 공용.
+ * 공백으로 분리한 단어 중 하나라도 q+a 에 포함되면 hit (OR),
+ * 단 일치한 단어 수(score)가 많은 항목을 우선 정렬한다.
+ */
+export function searchFaqs(
+  query: string,
+  categories: { icon: string; items: FaqItem[] }[] = FAQ_CATEGORIES,
+  limit = 12,
+): FaqSearchHit[] {
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return [];
+  const hits: FaqSearchHit[] = [];
+  categories.forEach((c, catIdx) => {
+    c.items.forEach((item) => {
+      const text = `${item.q} ${item.a}`.toLowerCase();
+      const score = words.reduce((n, w) => (text.includes(w) ? n + 1 : n), 0);
+      if (score > 0) hits.push({ catIdx, icon: c.icon, item, score });
+    });
+  });
+  hits.sort((a, b) => b.score - a.score);
+  return hits.slice(0, limit);
+}

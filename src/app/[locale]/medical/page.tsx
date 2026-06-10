@@ -21,7 +21,7 @@ export default async function MedicalPage({
   return (
     <>
       <Header />
-      <main className="flex-1 bg-cream-100">
+      <main className="flex-1 bg-cream-100 pb-20 sm:pb-0">
         {/* Hero */}
         <section className="bg-navy-900 py-14 text-cream-100 sm:py-20">
           <div className="container mx-auto max-w-4xl px-4 sm:px-6">

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { FAQ_CATEGORIES } from "@/data/faqs";
+import { searchFaqs } from "@/data/faqs";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 
 const KAKAO = "https://pf.kakao.com/_GadTX";
@@ -32,20 +32,6 @@ const CONCERNS: { icon: string; key: ConcernKey; q: string }[] = [
   { icon: "\u{1F6EB}", key: "concern10", q: "영주권 전공" },
 ];
 
-function searchFaqs(query: string) {
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
-  const hits: { q: string; a: string }[] = [];
-  FAQ_CATEGORIES.forEach((cat) => {
-    cat.items.forEach((item) => {
-      const text = `${item.q} ${item.a}`.toLowerCase();
-      if (words.some((w) => text.includes(w))) {
-        hits.push({ q: `${cat.icon} ${item.q}`, a: item.a });
-      }
-    });
-  });
-  return hits.slice(0, 8);
-}
-
 export default function DiagnoseCTA() {
   const t = useTranslations("DiagnoseCTA");
   const [selected, setSelected] = useState<string | null>(null);
@@ -55,7 +41,10 @@ export default function DiagnoseCTA() {
 
   const results = useMemo(() => {
     if (!activeQuery) return null;
-    return searchFaqs(activeQuery);
+    return searchFaqs(activeQuery).map((h) => ({
+      q: `${h.icon} ${h.item.q}`,
+      a: h.item.a,
+    }));
   }, [activeQuery]);
 
   const onSearch = () => {

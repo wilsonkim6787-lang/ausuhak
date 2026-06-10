@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import FaqAccordion from "@/components/faq/FaqAccordion";
-import type { FaqItem } from "@/data/faqs";
+import { searchFaqs, type FaqItem } from "@/data/faqs";
 
 interface CategoryPreview {
   icon: string;
@@ -32,20 +32,8 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
   const activeCat = categories[active];
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return null;
-    const hits: { cat: CategoryPreview; catIdx: number; item: FaqItem }[] = [];
-    categories.forEach((c, ci) => {
-      c.items.forEach((it) => {
-        if (
-          it.q.toLowerCase().includes(q) ||
-          it.a.toLowerCase().includes(q)
-        ) {
-          hits.push({ cat: c, catIdx: ci, item: it });
-        }
-      });
-    });
-    return hits;
+    if (!query.trim()) return null;
+    return searchFaqs(query, categories, 12);
   }, [query, categories]);
 
   return (
@@ -95,8 +83,8 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
             </p>
             {filtered.length > 0 && (
               <FaqAccordion
-                items={filtered.slice(0, 12).map((h) => ({
-                  q: `${h.cat.icon} ${h.item.q}`,
+                items={filtered.map((h) => ({
+                  q: `${h.icon} ${h.item.q}`,
                   a: h.item.a,
                 }))}
               />

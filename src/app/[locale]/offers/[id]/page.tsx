@@ -76,7 +76,7 @@ export default async function OfferDetailPage({
   return (
     <>
       <HeaderCmp />
-      <main className="flex-1 bg-cream-100">
+      <main className="flex-1 bg-cream-100 pb-20 sm:pb-0">
         <section className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
           <Link
             href="/#offers"

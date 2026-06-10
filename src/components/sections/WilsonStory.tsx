@@ -69,22 +69,15 @@ export default function WilsonStory({ gallery = [] }: { gallery?: GalleryItem[] 
             </div>
           ) : (
             <div
-              className="flex aspect-[4/5] items-center justify-center rounded-2xl border-2 border-dashed border-cream-300 bg-cream-200 text-center"
+              className="flex aspect-[4/5] items-center justify-center rounded-2xl"
               style={{
                 background:
-                  "repeating-linear-gradient(45deg, rgba(201,150,42,0.04) 0, rgba(201,150,42,0.04) 12px, rgba(201,150,42,0.08) 12px, rgba(201,150,42,0.08) 24px)",
+                  "linear-gradient(135deg, rgba(201,150,42,0.14) 0%, rgba(10,22,40,0.06) 100%)",
               }}
             >
-              <div className="p-8">
-                <p className="text-xs font-bold tracking-wider text-gold-600">
-                  WILSON 프로필
-                </p>
-                <p className="mt-2 text-sm text-ink-700">
-                  정면 프로필 사진
-                  <br />
-                  4:5 세로 비율
-                </p>
-              </div>
+              <span className="font-display text-5xl italic text-gold-600/70 sm:text-6xl">
+                ausuhak
+              </span>
             </div>
           )}
         </div>
