@@ -48,7 +48,7 @@ export default function Header() {
   const menuItems = [
     { key: "diagnose", label: t("menuDiagnose"), href: "/#diagnose" },
     { key: "story", label: t("menuStory"), href: "/#story" },
-    { key: "medical", label: t("menuMedical"), href: "/medical.html" },
+    { key: "medical", label: t("menuMedical"), href: "/medical" },
     { key: "faq", label: t("menuFaq"), href: "/faq" },
   ];
 

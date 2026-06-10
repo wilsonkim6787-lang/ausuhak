@@ -11,7 +11,7 @@ export default function MedicalCTA() {
       body: t("card1Body"),
       tag1: t("card1Tag1"),
       tag2: t("card1Tag2"),
-      href: "/medical.html#isat",
+      href: "/medical/isat",
     },
     {
       icon: t("card2Icon"),
@@ -20,7 +20,7 @@ export default function MedicalCTA() {
       body: t("card2Body"),
       tag1: t("card2Tag1"),
       tag2: t("card2Tag2"),
-      href: "/medical.html#mmi",
+      href: "/medical/mmi",
     },
     {
       icon: t("card3Icon"),
@@ -29,7 +29,7 @@ export default function MedicalCTA() {
       body: t("card3Body"),
       tag1: t("card3Tag1"),
       tag2: t("card3Tag2"),
-      href: "/medical.html#strategy",
+      href: "/medical#routes",
     },
   ];
 
@@ -78,7 +78,7 @@ export default function MedicalCTA() {
 
         <div className="mt-12 text-center">
           <a
-            href="/medical.html"
+            href="/medical"
             className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
           >
             {t("ctaPrimary")} <span aria-hidden>→</span>
