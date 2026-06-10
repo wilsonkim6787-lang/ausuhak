@@ -16,7 +16,7 @@
   "Hero": {
     "badge": "호주 전문 유학원 · QEAC E240",
     "titleLine1": "호주 유학, 학교 이름보다 중요한 건",
-    "titlePrefix": "’",
+    "titlePrefix": "‘",
     "titleEm": "나에게 맞는 진학 루트",
     "titleSuffix": "’입니다",
     "subtitleBold": "학력 · 영어 · 예산 · 목표에 따라 가능한 호주 진학 방법이 완전히 달라집니다.",
@@ -119,7 +119,7 @@
   },
   "FaqPage": {
     "title": "자주 묻는 질문",
-    "subtitle": "Wilson이 19년 동안 가장 많이 받은 질문 264개. 카테고리를 골라 펼쳐보세요.",
+    "subtitle": "Wilson이 19년 동안 가장 많이 받은 질문 365개. 카테고리를 골라 펼쳐보세요.",
     "totalLabel": "총 {n}개 질문",
     "backToHome": "메인으로",
     "backToIndex": "전체 카테고리",
