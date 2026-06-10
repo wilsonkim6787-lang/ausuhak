@@ -31,9 +31,9 @@ export default async function MedicalIsatPage({
         <section className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
           <Link
             href="/medical"
-            className="text-xs font-semibold text-navy-700 hover:text-gold-600"
+            className="inline-flex items-center gap-1.5 rounded-full border border-navy-900/15 bg-white px-4 py-2 text-sm font-bold text-navy-900 shadow-sm transition hover:border-gold-600 hover:text-gold-600 sm:text-base"
           >
-            ← 의대 준비 센터
+            <span aria-hidden>←</span> 의대 준비 센터
           </Link>
 
           <h1 className="mt-3 font-display text-3xl font-bold text-navy-900 sm:text-4xl">
