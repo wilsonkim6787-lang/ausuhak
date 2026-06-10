@@ -6,6 +6,8 @@ import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 import PermissionPanel from "./PermissionPanel";
+import GradeButtons from "./GradeButtons";
+import { detectGrade } from "@/lib/staff/grades";
 
 type StaffRow = {
   id: string;
@@ -106,6 +108,11 @@ export default async function StaffDetailPage({
   for (const p of perms) {
     permMap[p.permission_key] = p.value && !p.revoked_at;
   }
+  const activeKeys = new Set(
+    Object.entries(permMap).filter(([, v]) => v).map(([k]) => k),
+  );
+  const currentGrade = detectGrade(activeKeys);
+  const permSig = [...activeKeys].sort().join(","); // 등급 적용 후 패널 remount용
 
   const assignedRaw = (assignRes.data ?? []) as unknown as AssignedRow[];
 
@@ -142,8 +149,12 @@ export default async function StaffDetailPage({
         </Link>
       </div>
 
-      {/* 권한 panel */}
+      {/* 등급 빠른 지정 */}
+      <GradeButtons staffId={staff.id} currentGrade={currentGrade?.key ?? null} />
+
+      {/* 권한 panel — 등급 적용 후 key 변경으로 체크박스 자동 갱신 */}
       <PermissionPanel
+        key={permSig}
         staffId={staff.id}
         initialPerms={permMap}
         groups={PERM_GROUPS}

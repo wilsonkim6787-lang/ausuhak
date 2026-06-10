@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentUser } from "@/lib/auth/getUser";
 import { logActivity } from "@/lib/audit/log";
+import { ALL_PERM_KEYS, STAFF_GRADES } from "@/lib/staff/grades";
 
 export type PermActionState = { ok?: boolean; error?: string };
 export type CreateStaffState = {
@@ -94,6 +95,54 @@ export async function createStaffAction(
 
   revalidatePath("/admin/staff");
   return { ok: true, recoveryUrl, email, isNewAccount };
+}
+
+// 등급 프리셋 한 번에 적용 — 등급의 권한 묶음을 staff_permissions 16키로 upsert.
+// FormData: staff_id, grade(등급 key). 적용 후에도 개별 체크박스로 미세조정 가능.
+export async function applyStaffGradeAction(
+  _prev: PermActionState,
+  formData: FormData,
+): Promise<PermActionState> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") return { error: "권한 없음" };
+
+  const staffId = String(formData.get("staff_id") ?? "");
+  const gradeKey = String(formData.get("grade") ?? "");
+  const grade = STAFF_GRADES.find((g) => g.key === gradeKey);
+  if (!staffId) return { error: "staff_id 누락" };
+  if (!grade) return { error: "등급 정보를 찾을 수 없습니다." };
+
+  const supabase = await createClient();
+  const now = new Date().toISOString();
+  const permSet = new Set<string>(grade.perms);
+
+  const rows = ALL_PERM_KEYS.map((key) => {
+    const checked = permSet.has(key);
+    return {
+      user_id: staffId,
+      permission_key: key,
+      value: checked,
+      granted_by: user.id,
+      granted_at: now,
+      revoked_at: checked ? null : now,
+    };
+  });
+
+  const { error } = await supabase
+    .from("staff_permissions")
+    .upsert(rows, { onConflict: "user_id,permission_key" });
+  if (error) return { error: `등급 적용 실패: ${error.message}` };
+
+  await logActivity({
+    action_type: "update_student",
+    target_table: "staff_permissions",
+    target_id: staffId,
+    details: { action: "grade_applied", grade: grade.key, label: grade.label },
+  });
+
+  revalidatePath(`/admin/staff/${staffId}`);
+  revalidatePath("/admin/staff");
+  return { ok: true };
 }
 
 // staff_permissions 16 키 일괄 update.

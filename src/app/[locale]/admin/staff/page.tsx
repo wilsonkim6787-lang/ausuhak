@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 import CreateStaffForm from "./CreateStaffForm";
+import { detectGrade } from "@/lib/staff/grades";
 
 type StaffRow = {
   id: string;
@@ -67,9 +68,12 @@ export default async function AdminStaffPage({
   const activities = (actRes.data ?? []) as ActivityRow[];
 
   const activePermsByStaff = new Map<string, number>();
+  const activeKeysByStaff = new Map<string, Set<string>>();
   for (const p of perms) {
     if (p.value && !p.revoked_at) {
       activePermsByStaff.set(p.user_id, (activePermsByStaff.get(p.user_id) ?? 0) + 1);
+      if (!activeKeysByStaff.has(p.user_id)) activeKeysByStaff.set(p.user_id, new Set());
+      activeKeysByStaff.get(p.user_id)!.add(p.permission_key);
     }
   }
   const assignedByStaff = new Map<string, number>();
@@ -115,6 +119,8 @@ export default async function AdminStaffPage({
             const permCount = activePermsByStaff.get(s.id) ?? 0;
             const assignedCount = assignedByStaff.get(s.id) ?? 0;
             const activityCount = activityByStaff.get(s.id) ?? 0;
+            const grade = detectGrade(activeKeysByStaff.get(s.id) ?? new Set());
+            const gradeLabel = grade ? grade.label : permCount > 0 ? "커스텀" : "권한 없음";
             return (
               <li key={s.id}>
                 <Link
@@ -132,9 +138,20 @@ export default async function AdminStaffPage({
                           <span className="ml-2 text-xs text-ink-500">{s.email}</span>
                         )}
                       </div>
-                      <span className="rounded-full bg-navy-900 px-2.5 py-0.5 text-[10px] font-semibold text-gold-500">
-                        STAFF
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold ${
+                            grade
+                              ? "bg-gold-100 text-gold-700"
+                              : "bg-cream-200 text-ink-500"
+                          }`}
+                        >
+                          🏅 {gradeLabel}
+                        </span>
+                        <span className="rounded-full bg-navy-900 px-2.5 py-0.5 text-[10px] font-semibold text-gold-500">
+                          STAFF
+                        </span>
+                      </div>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-3 text-xs">
                       <span className="text-ink-700">
