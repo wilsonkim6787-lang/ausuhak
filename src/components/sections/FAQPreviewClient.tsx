@@ -183,7 +183,7 @@ export default function FAQPreviewClient({ categories, labels }: Props) {
             {labels.ctaKakao} <span aria-hidden>→</span>
           </a>
           <p className="mt-4 text-xs text-cream-200/70">
-            부담 없이 물어보세요 · Wilson이 직접 답변합니다
+            학생·학부모 모두 부담 없이 물어보세요 · Wilson이 직접 답변합니다
           </p>
         </div>
       </div>
