@@ -29,7 +29,7 @@ export default function Hero() {
           <p className="mt-6 text-lg font-medium text-cream-200 sm:text-xl">
             {t("titleLine1")}
           </p>
-          <h1 className="mt-3 whitespace-nowrap font-display text-[clamp(1.25rem,5.6vw,3.25rem)] font-bold leading-[1.15] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
+          <h1 className="mt-3 whitespace-nowrap font-display text-[clamp(1.2rem,5vw,2.9rem)] font-bold leading-[1.15] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
             {t("titlePrefix")}
             <span className="text-gold-400">{t("titleEm")}</span>
             {t("titleSuffix")}
