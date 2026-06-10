@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
+import { loadStudentsForCare } from "@/lib/care/load";
+import { evaluateCareRules } from "@/lib/care/rules";
 
 // 아침 대시보드 위젯용 카운트 쿼리 모음 (PART E-2).
 // Phase 1 활성: students / consultations / school_applications / payments / critical_deadlines / quotes.
@@ -6,7 +8,8 @@ import { createClient } from "@/lib/supabase/server";
 export type DashboardCounts = {
   // 🚨 긴급
   newKakaoToday: number;       // 신규 학생 카톡 (오늘)
-  wilsonAlerts: number;         // Wilson Alerts 발생 학생
+  wilsonAlerts: number;         // Wilson 점검 필요 (케어 wilson 히트 학생 distinct)
+  leadsUncontacted: number;     // 'lead' 상태 2일+ 방치 (팔로업 필요)
   deadlineD1: number;           // Critical Deadline D-1
   stuckStage14d: number;        // Stage 정체 14일+
 
@@ -54,6 +57,8 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
   void day;
 
   const fourteenDaysAgo = new Date(startOfDay.getTime() - 14 * 24 * 3600 * 1000);
+  const twoDaysAgo = new Date(startOfDay.getTime() - 2 * 24 * 3600 * 1000);
+  const isoTwoDaysAgo = twoDaysAgo.toISOString();
 
   const isoToday = startOfDay.toISOString();
   const isoEndOfDay = endOfDay.toISOString();
@@ -74,7 +79,7 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
 
   const [
     newKakaoToday,
-    wilsonAlerts,
+    leadsUncontacted,
     deadlineD1,
     stuckStage14d,
     consultationsToday,
@@ -97,8 +102,8 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
       supabase
         .from("students")
         .select("id", { count: "exact", head: true })
-        .not("wilson_alerts", "is", null)
-        .neq("lead_status", "pr"),
+        .eq("lead_status", "lead")
+        .lt("created_at", isoTwoDaysAgo),
     ),
     cnt(
       supabase
@@ -172,9 +177,19 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
   void isoTomorrowStart;
   void isoTomorrowEnd;
 
+  // 🚨 Wilson 점검 필요 = 케어 엔진 wilson-severity 히트가 있는 학생 (distinct)
+  // (죽어 있던 students.wilson_alerts 컬럼 대체 — /admin/care 와 동일 로직)
+  const careStudents = await loadStudentsForCare(supabase);
+  const wilsonAlerts = new Set(
+    evaluateCareRules(careStudents)
+      .filter((h) => h.severity === "wilson")
+      .map((h) => h.student_id),
+  ).size;
+
   return {
     newKakaoToday,
     wilsonAlerts,
+    leadsUncontacted,
     deadlineD1,
     stuckStage14d,
     consultationsToday,

@@ -39,7 +39,15 @@ export default async function AdminHomePage({
       label: "Wilson 점검 필요",
       sentence: "Wilson이 직접 봐야 할 학생이 있어요",
       count: counts.wilsonAlerts,
-      href: "/admin/students?filter=alerts",
+      href: "/admin/care",
+      alert: true,
+    },
+    {
+      icon: "📞",
+      label: "팔로업 필요",
+      sentence: "이틀 넘게 신규(lead) 상태인 학생 — 첫 연락이 필요해요",
+      count: counts.leadsUncontacted,
+      href: "/admin/students",
       alert: true,
     },
     {
