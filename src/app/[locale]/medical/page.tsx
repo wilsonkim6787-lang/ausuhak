@@ -182,41 +182,45 @@ export default async function MedicalPage({
           </ul>
         </section>
 
-        {/* ── 패키지 + 카톡 CTA ── */}
-        <section className="relative overflow-hidden bg-navy-900 text-cream-100">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,150,42,0.15) 0%, transparent 60%)",
-            }}
-          />
-          <div className="container relative z-10 mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-24">
-            <span className="inline-flex items-center rounded-full border border-gold-400/30 bg-gold-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-gold-400">
-              패키지
-            </span>
-            <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl">
-              의대 패키지 <span className="text-gold-400">₩300,000</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-cream-200 sm:text-base">
-              ISAT 200문제 전체 · MMI 40 스테이션 전체 · Wilson 직접 피드백 · 학습
-              진행률 자동 추적. 결제 안내와 정확한 케이스 진단은 카톡 1:1 상담에서.
-            </p>
-            <div className="mt-7 flex justify-center">
-              <a
-                href={KAKAO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-kakao-source="medical_package_cta"
-                className="inline-flex min-h-[56px] items-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-lg transition hover:bg-gold-500 hover:shadow-xl"
-              >
-                💬 카톡으로 의대 패키지 문의 <span aria-hidden>→</span>
-              </a>
+        {/* ── 패키지 + 카톡 CTA (cream 위 navy 카드 — 풋터와 분리) ── */}
+        <section className="bg-cream-100 py-16 sm:py-20">
+          <div className="container mx-auto max-w-3xl px-4 sm:px-6">
+            <div className="relative overflow-hidden rounded-3xl bg-navy-900 px-6 py-14 text-center text-cream-100 shadow-lg sm:px-10 sm:py-16">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,150,42,0.18) 0%, transparent 60%)",
+                }}
+              />
+              <div className="relative z-10">
+                <span className="inline-flex items-center rounded-full border border-gold-400/30 bg-gold-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-gold-400">
+                  패키지
+                </span>
+                <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl">
+                  의대 패키지 <span className="text-gold-400">₩300,000</span>
+                </h2>
+                <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-cream-200 sm:text-base">
+                  ISAT 200문제 전체 · MMI 40 스테이션 전체 · Wilson 직접 피드백 · 학습
+                  진행률 자동 추적. 결제 안내와 정확한 케이스 진단은 카톡 1:1 상담에서.
+                </p>
+                <div className="mt-7 flex justify-center">
+                  <a
+                    href={KAKAO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-kakao-source="medical_package_cta"
+                    className="inline-flex min-h-[56px] items-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-lg transition hover:bg-gold-500 hover:shadow-xl"
+                  >
+                    💬 카톡으로 의대 패키지 문의 <span aria-hidden>→</span>
+                  </a>
+                </div>
+                <p className="mt-5 text-[11px] text-cream-200/70">
+                  ⏰ Wilson 응대 시간: 평일 10:00~18:00 KST · 의대 = Wilson 직접 (직원 위임 X)
+                </p>
+              </div>
             </div>
-            <p className="mt-5 text-[11px] text-cream-200/70">
-              ⏰ Wilson 응대 시간: 평일 10:00~18:00 KST · 의대 = Wilson 직접 (직원 위임 X)
-            </p>
           </div>
         </section>
       </main>
