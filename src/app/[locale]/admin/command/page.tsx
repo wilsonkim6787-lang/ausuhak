@@ -91,7 +91,7 @@ export default async function AdminCommandPage({
                         {n.students?.name?.trim() || "이름 미입력"}
                       </span>
                       <span className="rounded-full bg-cream-200 px-2 py-0.5 text-[10px] font-medium text-navy-700">
-                        {n.stage_key}
+                        {n.stage_key?.startsWith("care:") ? "🩺 자동 케어" : n.stage_key}
                       </span>
                       <span className="ml-auto text-[11px] text-ink-500">
                         {new Date(n.created_at).toLocaleString("ko-KR")}
