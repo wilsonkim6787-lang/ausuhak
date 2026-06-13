@@ -289,11 +289,12 @@ function OfferForm({
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1">
-            <span className="text-xs font-semibold text-navy-900">정렬 (작을수록 먼저)</span>
+            <span className="text-xs font-semibold text-navy-900">정렬 (작을수록 먼저 · 비우면 자동)</span>
             <input
               name="display_order"
               type="number"
-              defaultValue={editing?.display_order != null ? String(editing.display_order) : "0"}
+              defaultValue={editing?.display_order != null ? String(editing.display_order) : ""}
+              placeholder="자동 (맨 뒤)"
               className="rounded-md border border-cream-300 px-2 py-1 text-sm"
             />
           </label>

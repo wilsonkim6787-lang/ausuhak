@@ -53,9 +53,20 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
   }
 
   const year = yearRaw ? parseInt(yearRaw, 10) : null;
-  const displayOrder = orderRaw ? parseInt(orderRaw, 10) : 0;
+  let displayOrder = orderRaw ? parseInt(orderRaw, 10) : 0;
 
   const supabase = await createClient();
+
+  // 신규 + 순서 미입력 → 자동 채번 (max+1, 맨 뒤). sites 패턴과 동일.
+  if (!id && !orderRaw) {
+    const { data: maxRow } = await supabase
+      .from("offers")
+      .select("display_order")
+      .order("display_order", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    displayOrder = (maxRow?.display_order ?? 0) + 1;
+  }
 
   // 기존 image_path 조회 (재업로드 시 정리)
   let existingPath: string | null = null;
