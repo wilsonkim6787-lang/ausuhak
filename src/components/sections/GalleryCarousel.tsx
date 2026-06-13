@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export type GalleryItem = {
@@ -41,14 +42,15 @@ export default function GalleryCarousel({ items }: { items: GalleryItem[] }) {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="overflow-hidden rounded-2xl">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
+        {/* fold 아래 캐러셀 → 기본 lazy 유지. 원격(Supabase) 이미지라 fill + sizes. */}
+        <Image
           key={current.id}
           src={current.image_url}
           alt={current.caption ?? "갤러리 사진"}
-          className="aspect-[4/3] w-full object-cover transition-opacity duration-500"
-          loading="lazy"
+          fill
+          sizes="(max-width: 768px) 100vw, 768px"
+          className="object-cover transition-opacity duration-500"
         />
       </div>
 
