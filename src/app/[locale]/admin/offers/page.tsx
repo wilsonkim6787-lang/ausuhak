@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
+import OfferStoryField from "@/components/admin/OfferStoryField";
 import { upsertOfferAction, deleteOfferAction } from "./actions";
 
 type Offer = {
@@ -281,16 +282,10 @@ function OfferForm({
           />
         </label>
 
-        <label className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1">
           <span className="text-xs font-semibold text-navy-900">학생 후기·합격 과정 (markdown / 상세 페이지)</span>
-          <textarea
-            name="story"
-            defaultValue={editing?.story ?? ""}
-            rows={10}
-            placeholder={"## 학생 배경\n- 검정고시 / 19세 / IELTS 6.5\n\n## 지원 과정\n1. Wilson 1:1 상담 (2024.04)\n2. Foundation 6개월 ...\n\n## Wilson 노하우\n- ..."}
-            className="rounded-md border border-cream-300 px-2 py-1 text-sm font-mono"
-          />
-        </label>
+          <OfferStoryField defaultValue={editing?.story ?? ""} />
+        </div>
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1">
