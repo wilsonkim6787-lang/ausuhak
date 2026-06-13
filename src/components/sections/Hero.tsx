@@ -1,15 +1,21 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
+import heroCampus from "../../../public/hero-campus.jpg";
 
 export default function Hero() {
   const t = useTranslations("Hero");
 
   return (
     <section className="relative min-h-[85svh] overflow-hidden">
-      <img
-        src="/hero-campus.jpg"
+      {/* LCP 히어로 — next/image fill 로 리사이즈+webp 최적화. preload 로 head 선로딩(Next 16: priority deprecated). */}
+      <Image
+        src={heroCampus}
         alt="호주 대학교 캠퍼스에서 대화하는 학생들"
-        className="absolute inset-0 h-full w-full object-cover"
-        loading="eager"
+        fill
+        sizes="100vw"
+        placeholder="blur"
+        preload
+        className="object-cover"
       />
       {/* 시네마틱 오버레이 — 하단 다크(가독성) + 상단 골드 글로우(프리미엄) */}
       <div
@@ -29,7 +35,7 @@ export default function Hero() {
           <p className="mt-6 text-lg font-medium text-cream-200 sm:text-xl">
             {t("titleLine1")}
           </p>
-          <h1 className="mt-3 whitespace-nowrap font-display text-[clamp(1.2rem,5vw,2.9rem)] font-bold leading-[1.15] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
+          <h1 className="mt-3 text-balance font-display text-[clamp(1.2rem,5vw,2.9rem)] font-bold leading-[1.15] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
             {t("titlePrefix")}
             <span className="text-gold-400">{t("titleEm")}</span>
             {t("titleSuffix")}

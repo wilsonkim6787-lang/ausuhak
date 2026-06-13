@@ -16,6 +16,17 @@ type OfferRow = {
   image_path: string | null;
 };
 
+// Fisher-Yates 셔플 — 방문마다 노출 순서 다양화.
+// 모듈 스코프로 분리: 서버 컴포넌트라 요청당 랜덤은 안전하나, render 본문의 Math.random 은 purity 규칙 위반.
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 const FALLBACK: Pick<OfferRow, "school" | "program" | "year" | "student_alias">[] = [
   { school: "The University of Sydney", program: "Bachelor of Nursing",   year: 2025, student_alias: "K.J.Y" },
   { school: "UNSW Sydney",              program: "Bachelor of Commerce",  year: 2025, student_alias: "L.S.H" },
@@ -32,12 +43,7 @@ export default async function OfferShowcase() {
     .select("id, school, program, year, student_alias, image_path")
     .eq("status", "published");
 
-  const all = (data ?? []) as OfferRow[];
-  for (let i = all.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [all[i], all[j]] = [all[j], all[i]];
-  }
-  const rows = all.slice(0, 12);
+  const rows = shuffle((data ?? []) as OfferRow[]).slice(0, 12);
   const useFallback = rows.length === 0;
   const items: Array<{
     id?: string;
@@ -85,10 +91,11 @@ export default async function OfferShowcase() {
           </p>
         )}
 
+        {/* 보조(네비게이션) CTA — 아웃라인. 핵심 전환(카카오·Hero 진단)의 골드 채움과 위계 분리. */}
         <div className="mt-10 text-center">
           <a
             href="#diagnose"
-            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 focus-visible:ring-offset-2 sm:text-lg"
+            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl border-2 border-gold-600 bg-white px-8 py-4 text-base font-bold text-gold-600 transition hover:border-gold-500 hover:bg-cream-100 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 focus-visible:ring-offset-2 sm:text-lg"
           >
             {t("ctaPrimary")} <span aria-hidden>↓</span>
           </a>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export default function MedicalCTA() {
@@ -47,7 +48,7 @@ export default function MedicalCTA() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
           {cards.map((c) => (
-            <a
+            <Link
               key={c.eyebrow}
               href={c.href}
               className="group flex flex-col rounded-2xl border border-cream-300 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-gold-600 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600/40 focus-visible:ring-offset-2 sm:p-8"
@@ -72,17 +73,18 @@ export default function MedicalCTA() {
               <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-gold-600">
                 자세히 보기 <span aria-hidden className="transition group-hover:translate-x-1">→</span>
               </span>
-            </a>
+            </Link>
           ))}
         </div>
 
+        {/* 보조(네비게이션) CTA — 아웃라인. 핵심 전환(카카오·Hero 진단)의 골드 채움과 위계 분리. */}
         <div className="mt-12 text-center">
-          <a
+          <Link
             href="/medical"
-            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl bg-gold-600 px-8 py-4 text-base font-bold text-white shadow-md transition hover:bg-gold-500 hover:shadow-lg sm:text-lg"
+            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl border-2 border-gold-600 bg-white px-8 py-4 text-base font-bold text-gold-600 transition hover:border-gold-500 hover:bg-cream-100 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-600 focus-visible:ring-offset-2 sm:text-lg"
           >
             {t("ctaPrimary")} <span aria-hidden>→</span>
-          </a>
+          </Link>
           <p className="mt-4 text-sm text-ink-500">{t("ctaSubtext")}</p>
         </div>
       </div>
