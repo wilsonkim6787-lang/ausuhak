@@ -13,6 +13,24 @@ marked.setOptions({ gfm: true, breaks: false });
 const PLACEHOLDER =
   "## 학생 배경\n- 검정고시 / 19세 / IELTS 6.5\n\n## 지원 과정\n1. Wilson 1:1 상담 (2024.04)\n2. Foundation 6개월 ...\n\n## Wilson 노하우\n- ...";
 
+// 후기 골격 — 30장 구조 통일용. 빈칸 채우기 식.
+const TEMPLATE = `## 학생 배경
+- 학력: (검정고시 / 고졸 / 대학 중퇴 등)
+- 나이 / 영어: (예: 20세 / IELTS 6.5)
+- 출발 상황·고민:
+
+## 지원 과정
+1. Wilson 1:1 상담 (YYYY.MM)
+2. (Foundation / 어학 / 서류 준비 등)
+3. 지원·합격:
+
+## 결과 & 한마디
+- 합격: (학교 · 전공)
+- 학생/학부모 후기:
+
+## Wilson 노하우
+- (이 케이스의 핵심 판단·전략)`;
+
 // 공개 상세페이지의 .offer-story 블록과 동일 (드리프트 주의 — 한쪽 바꾸면 양쪽 갱신).
 const STORY_CSS = `
 .offer-story { color: #1A1A1A; line-height: 1.75; }
@@ -43,8 +61,21 @@ export default function OfferStoryField({ defaultValue }: { defaultValue: string
   // 기본 옵션(async 미사용)에서 marked.parse 는 동기 string 반환.
   const html = trimmed ? (marked.parse(trimmed) as string) : "";
 
+  // 비파괴: 비어있으면 채우고, 내용 있으면 뒤에 덧붙임 (덮어쓰기 사고 방지).
+  const insertTemplate = () =>
+    setValue((v) => (v.trim() ? `${v.replace(/\s*$/, "")}\n\n${TEMPLATE}` : TEMPLATE));
+
   return (
     <div className="flex flex-col gap-2">
+      <div className="flex items-center justify-end">
+        <button
+          type="button"
+          onClick={insertTemplate}
+          className="rounded-full border border-cream-300 px-2.5 py-1 text-[11px] font-semibold text-navy-900 transition hover:border-gold-600 hover:text-gold-600"
+        >
+          📋 후기 템플릿 삽입
+        </button>
+      </div>
       <textarea
         name="story"
         value={value}
