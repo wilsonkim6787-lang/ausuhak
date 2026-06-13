@@ -9,6 +9,7 @@ import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
+import OfferViewTracker from "@/components/analytics/OfferViewTracker";
 import { createClient } from "@/lib/supabase/server";
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
@@ -76,6 +77,7 @@ export default async function OfferDetailPage({
   return (
     <>
       <HeaderCmp />
+      <OfferViewTracker offerId={o.id} school={o.school} hasStory={!!o.story} />
       <main className="flex-1 bg-cream-100 pb-20 sm:pb-0">
         <section className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
           <Link

@@ -14,6 +14,7 @@ type OfferRow = {
   year: number | null;
   student_alias: string | null;
   image_path: string | null;
+  story: string | null;
 };
 
 // Fisher-Yates 셔플 — 방문마다 노출 순서 다양화.
@@ -40,7 +41,7 @@ export default async function OfferShowcase() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("offers")
-    .select("id, school, program, year, student_alias, image_path")
+    .select("id, school, program, year, student_alias, image_path, story")
     .eq("status", "published");
 
   const rows = shuffle((data ?? []) as OfferRow[]).slice(0, 12);
@@ -52,6 +53,8 @@ export default async function OfferShowcase() {
     year: number | null;
     student_alias: string | null;
     image_url: string | null;
+    is_pdf?: boolean;
+    has_story?: boolean;
   }> = useFallback
     ? FALLBACK.map((f) => ({ ...f, image_url: null }))
     : rows.map((r) => ({
@@ -64,6 +67,8 @@ export default async function OfferShowcase() {
           ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${r.image_path}`
           : null,
         is_pdf: r.image_path ? r.image_path.toLowerCase().endsWith(".pdf") : false,
+        // story 텍스트는 클라이언트로 보내지 않고 존재 여부(boolean)만 — 카드 "후기 보기" 신호용
+        has_story: !!r.story,
       }));
 
   return (

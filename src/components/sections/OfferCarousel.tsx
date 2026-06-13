@@ -5,6 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 
 export type OfferItem = {
   id?: string;
@@ -14,6 +15,7 @@ export type OfferItem = {
   student_alias: string | null;
   image_url: string | null;
   is_pdf?: boolean;
+  has_story?: boolean;
 };
 
 const ROTATE_MS = 5000;
@@ -171,8 +173,9 @@ function CardLi({ o, placeholderLabel }: { o: OfferItem; placeholderLabel: strin
           </div>
         )}
         {o.id && (
-          <div className="absolute bottom-3 left-3 rounded-full bg-gold-600/90 px-3 py-1 text-[10px] font-bold tracking-wider text-white opacity-0 transition group-hover:opacity-100">
-            후기 보기 →
+          // 모바일은 상시 노출(호버 없음), PC는 호버 시. story 있으면 "후기", 없으면 "합격증"으로 정직하게.
+          <div className="absolute bottom-3 left-3 rounded-full bg-gold-600/90 px-3 py-1 text-[10px] font-bold tracking-wider text-white opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
+            {o.has_story ? "후기 보기 →" : "합격증 보기 →"}
           </div>
         )}
       </div>
@@ -194,7 +197,17 @@ function CardLi({ o, placeholderLabel }: { o: OfferItem; placeholderLabel: strin
   return (
     <li className="w-[80vw] max-w-[340px] shrink-0 list-none snap-center sm:w-auto sm:max-w-none">
       {o.id ? (
-        <Link href={`/offers/${o.id}`} className="block h-full">
+        <Link
+          href={`/offers/${o.id}`}
+          className="block h-full"
+          onClick={() =>
+            track("offer_card_click", {
+              offer_id: o.id ?? "",
+              school: o.school,
+              has_story: !!o.has_story,
+            })
+          }
+        >
           {card}
         </Link>
       ) : (
