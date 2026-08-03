@@ -9,6 +9,7 @@ import WilsonStory from "@/components/sections/WilsonStory";
 import OfferShowcase from "@/components/sections/OfferShowcase";
 import DiagnoseCTA from "@/components/sections/DiagnoseCTA";
 import MedicalCTA from "@/components/sections/MedicalCTA";
+import NewsPreview from "@/components/sections/NewsPreview";
 import FAQPreview from "@/components/sections/FAQPreview";
 import EnglishLanding from "@/components/sections/EnglishLanding";
 import { createClient } from "@/lib/supabase/server";
@@ -70,6 +71,7 @@ export default async function Home({
         <DiagnoseCTA />
         <WilsonStory gallery={gallery} />
         <MedicalCTA />
+        <NewsPreview />
         <FAQPreview />
       </main>
       <Footer />
