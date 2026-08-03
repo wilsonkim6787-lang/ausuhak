@@ -19,6 +19,9 @@ const data = raw as FaqData;
 
 export const FAQ_CATEGORIES: FaqCategory[] = data.categories;
 
+/** 비자·수수료 수치를 마지막으로 검증한 날짜 — 이민성 변경 반영 시 갱신 */
+export const FAQ_LAST_UPDATED = "2026.08.03";
+
 export function getCategoryPreview(limit = 5): { icon: string; name: string; items: FaqItem[] }[] {
   return FAQ_CATEGORIES.map((c) => ({
     icon: c.icon,
