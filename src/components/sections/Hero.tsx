@@ -1,36 +1,25 @@
-import { getImageProps } from "next/image";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import heroCampus from "../../../public/hero-campus.jpg";
 import heroPoster from "../../../public/hero-poster.jpg";
 import HeroVideo from "./HeroVideo";
 
 export default function Hero() {
   const t = useTranslations("Hero");
 
-  // 모바일: 캠퍼스 사진 / 데스크탑(≥640px, 영상 재생 구간): 영상 첫 프레임.
-  // 영상이 동일 프레임 위로 이어 재생되므로 사진→영상 전환이 보이지 않는다.
-  // (<picture> 분기라 preload 링크는 못 쓰지만 최상단 SSR 마크업이라 발견 지연 없음)
-  const common = {
-    alt: "시드니와 호주 대학 캠퍼스 전경",
-    fill: true,
-    sizes: "100vw",
-  } as const;
-  const {
-    props: { srcSet: posterSrcSet },
-  } = getImageProps({ ...common, src: heroPoster });
-  const { props: imgProps } = getImageProps({
-    ...common,
-    src: heroCampus,
-    placeholder: "blur",
-  });
-
   return (
     <section className="relative min-h-[85svh] overflow-hidden">
-      <picture>
-        <source media="(min-width: 640px)" srcSet={posterSrcSet} />
-        {/* eslint-disable-next-line @next/next/no-img-element -- 아트 디렉션은 getImageProps+<picture> 공식 패턴 */}
-        <img {...imgProps} className="object-cover" />
-      </picture>
+      {/* LCP 히어로 — 영상 첫 프레임 포스터(next/image fill, preload 선로딩).
+          영상 재생 기기(데스크탑·한국 IP 모바일)는 동일 프레임 위로 영상이 이어져
+          전환이 보이지 않고, 미재생 기기는 이 정지컷을 그대로 유지 */}
+      <Image
+        src={heroPoster}
+        alt="시드니 하버와 오페라 하우스 전경"
+        fill
+        sizes="100vw"
+        placeholder="blur"
+        preload
+        className="object-cover"
+      />
       {/* 배경 영상(데스크탑 전용) — 파일 없으면 위 이미지 유지. 제작: scripts/build-hero-video.sh */}
       <HeroVideo src="/videos/hero.mp4" />
       {/* 시네마틱 오버레이 — 상단 골드 글로우(프리미엄) + 중앙 텍스트 존 국소 음영 + 하단 다크.

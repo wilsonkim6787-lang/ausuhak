@@ -29,6 +29,17 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  // 4) 국가 코드 쿠키 — HeroVideo가 클라이언트에서 읽어 한국 IP 모바일에만
+  //    배경 영상을 허용. Vercel 엣지 헤더 기반(로컬 개발 등 헤더 없으면 미설정 → 미재생).
+  const country = request.headers.get("x-vercel-ip-country");
+  if (country) {
+    intlResponse.cookies.set("ip-country", country, {
+      path: "/",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24,
+    });
+  }
+
   return intlResponse;
 }
 
