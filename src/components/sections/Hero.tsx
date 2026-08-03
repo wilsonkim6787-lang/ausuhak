@@ -1,32 +1,46 @@
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { useTranslations } from "next-intl";
 import heroCampus from "../../../public/hero-campus.jpg";
+import heroPoster from "../../../public/hero-poster.jpg";
 import HeroVideo from "./HeroVideo";
 
 export default function Hero() {
   const t = useTranslations("Hero");
 
+  // 모바일: 캠퍼스 사진 / 데스크탑(≥640px, 영상 재생 구간): 영상 첫 프레임.
+  // 영상이 동일 프레임 위로 이어 재생되므로 사진→영상 전환이 보이지 않는다.
+  // (<picture> 분기라 preload 링크는 못 쓰지만 최상단 SSR 마크업이라 발견 지연 없음)
+  const common = {
+    alt: "시드니와 호주 대학 캠퍼스 전경",
+    fill: true,
+    sizes: "100vw",
+  } as const;
+  const {
+    props: { srcSet: posterSrcSet },
+  } = getImageProps({ ...common, src: heroPoster });
+  const { props: imgProps } = getImageProps({
+    ...common,
+    src: heroCampus,
+    placeholder: "blur",
+  });
+
   return (
     <section className="relative min-h-[85svh] overflow-hidden">
-      {/* LCP 히어로 — next/image fill 로 리사이즈+webp 최적화. preload 로 head 선로딩(Next 16: priority deprecated). */}
-      <Image
-        src={heroCampus}
-        alt="호주 대학교 캠퍼스에서 대화하는 학생들"
-        fill
-        sizes="100vw"
-        placeholder="blur"
-        preload
-        className="object-cover"
-      />
+      <picture>
+        <source media="(min-width: 640px)" srcSet={posterSrcSet} />
+        {/* eslint-disable-next-line @next/next/no-img-element -- 아트 디렉션은 getImageProps+<picture> 공식 패턴 */}
+        <img {...imgProps} className="object-cover" />
+      </picture>
       {/* 배경 영상(데스크탑 전용) — 파일 없으면 위 이미지 유지. 제작: scripts/build-hero-video.sh */}
       <HeroVideo src="/videos/hero.mp4" />
-      {/* 시네마틱 오버레이 — 하단 다크(가독성) + 상단 골드 글로우(프리미엄).
-          배경 영상이 눌리지 않도록 정지 이미지 시절(0.92/0.5/0.28)보다 옅게 유지 */}
+      {/* 시네마틱 오버레이 — 상단 골드 글로우(프리미엄) + 중앙 텍스트 존 국소 음영 + 하단 다크.
+          배경 영상이 눌리지 않게 전역은 옅게(정지 이미지 시절 0.92/0.5/0.28 → 0.66/0.2/0.08),
+          가독성은 텍스트 뒤 라디얼 음영이 담당 */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 55% 45% at 18% 12%, rgba(201,150,42,0.20) 0%, transparent 55%), linear-gradient(to top, rgba(5,13,26,0.78) 0%, rgba(10,22,40,0.3) 45%, rgba(10,22,40,0.15) 100%)",
+            "radial-gradient(ellipse 55% 45% at 18% 12%, rgba(201,150,42,0.20) 0%, transparent 55%), radial-gradient(ellipse 62% 52% at 50% 52%, rgba(10,22,40,0.32) 0%, transparent 68%), linear-gradient(to top, rgba(5,13,26,0.66) 0%, rgba(10,22,40,0.2) 45%, rgba(10,22,40,0.08) 100%)",
         }}
       />
 
