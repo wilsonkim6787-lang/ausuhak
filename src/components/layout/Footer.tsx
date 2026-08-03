@@ -52,6 +52,9 @@ export default function Footer() {
               <li className="whitespace-pre-line text-cream-200">
                 <span aria-hidden>{"\u{23F0}"}</span> {t("hoursValue")}
               </li>
+              <li className="text-cream-200">
+                <span aria-hidden>{"\u{1F4CD}"}</span> {t("addressValue")}
+              </li>
             </ul>
           </div>
 
