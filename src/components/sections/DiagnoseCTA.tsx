@@ -77,7 +77,7 @@ export default function DiagnoseCTA() {
         {/* 입학 캘린더 — 사실 기반 긴급성(손실 회피) */}
         <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-gold-600/20 bg-gold-100/40 p-5 sm:p-6">
           <p className="text-center text-sm font-bold text-navy-900 sm:text-base">
-            ⏰ 호주 입학은 <span className="text-gold-700">2월 · 7월</span>, 1년에 두 번뿐입니다
+            ⏰ 호주 대학 입학은 보통 <span className="text-gold-700">2월 · 7월</span>, 1년에 두 번입니다
           </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="rounded-xl border border-cream-300 bg-white px-4 py-3 text-center">
@@ -152,6 +152,9 @@ export default function DiagnoseCTA() {
               >
                 카카오 상담하기 <span aria-hidden>→</span>
               </a>
+              <p className="mt-3 text-xs text-ink-500">
+                문의·예약은 무료 · 1:1 상담 3만원부터 · <strong className="text-ink-700">수속 계약 시 전액 차감</strong>
+              </p>
             </div>
           </div>
         ) : (
@@ -189,7 +192,8 @@ export default function DiagnoseCTA() {
                 {t("ctaPrimary")} <span aria-hidden>→</span>
               </a>
               <p className="mt-3 text-xs text-ink-500">
-                학생·학부모 모두 부담 없이 물어보세요 · Wilson이 직접 답변합니다
+                문의·예약은 무료, Wilson이 직접 답변합니다 · 1:1 상담(3만원~)은{" "}
+                <strong className="text-ink-700">수속 계약 시 전액 차감</strong>
               </p>
             </div>
           </>
