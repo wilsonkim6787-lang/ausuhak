@@ -49,6 +49,7 @@ export default function Header() {
     { key: "diagnose", label: t("menuDiagnose"), href: "/#diagnose" },
     { key: "story", label: t("menuStory"), href: "/#story" },
     { key: "medical", label: t("menuMedical"), href: "/medical" },
+    { key: "news", label: t("menuNews"), href: "/news" },
     { key: "faq", label: t("menuFaq"), href: "/faq" },
   ];
 

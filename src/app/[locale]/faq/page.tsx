@@ -7,7 +7,7 @@ import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import RelatedSitesSection from "@/components/faq/RelatedSitesSection";
-import { FAQ_CATEGORIES, getTotalCount } from "@/data/faqs";
+import { FAQ_CATEGORIES, FAQ_LAST_UPDATED, getTotalCount } from "@/data/faqs";
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
@@ -47,6 +47,9 @@ export default async function FaqPage({
               </p>
               <p className="mt-3 text-sm font-semibold text-gold-400">
                 {t("totalLabel").replace("{n}", String(total))}
+              </p>
+              <p className="mt-1.5 text-xs text-cream-200/70">
+                {t("updatedLabel").replace("{date}", FAQ_LAST_UPDATED)}
               </p>
             </div>
           </section>
