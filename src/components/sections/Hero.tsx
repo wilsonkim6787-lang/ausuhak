@@ -20,12 +20,13 @@ export default function Hero() {
       />
       {/* 배경 영상(데스크탑 전용) — 파일 없으면 위 이미지 유지. 제작: scripts/build-hero-video.sh */}
       <HeroVideo src="/videos/hero.mp4" />
-      {/* 시네마틱 오버레이 — 하단 다크(가독성) + 상단 골드 글로우(프리미엄) */}
+      {/* 시네마틱 오버레이 — 하단 다크(가독성) + 상단 골드 글로우(프리미엄).
+          배경 영상이 눌리지 않도록 정지 이미지 시절(0.92/0.5/0.28)보다 옅게 유지 */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 55% 45% at 18% 12%, rgba(201,150,42,0.20) 0%, transparent 55%), linear-gradient(to top, rgba(5,13,26,0.92) 0%, rgba(10,22,40,0.5) 42%, rgba(10,22,40,0.28) 100%)",
+            "radial-gradient(ellipse 55% 45% at 18% 12%, rgba(201,150,42,0.20) 0%, transparent 55%), linear-gradient(to top, rgba(5,13,26,0.78) 0%, rgba(10,22,40,0.3) 45%, rgba(10,22,40,0.15) 100%)",
         }}
       />
 
