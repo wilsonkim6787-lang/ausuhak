@@ -9,6 +9,7 @@
 # 하는 일:
 #   - 클립들을 1초 크로스페이드로 이어붙인 뒤, 영상 끝을 시작 지점으로
 #     한 번 더 크로스페이드해 하드컷 없는 완전 루프를 만든다
+#   - 우하단 Flow(✦) 워터마크를 타원 마스크 removelogo 보간으로 제거
 #   - 24fps 통일, 소스 해상도 유지(폭 1920px 초과 시에만 축소), 오디오 제거
 #   - H.264 압축(기본 CRF 30, `CRF=32 ./scripts/…` 로 조정), faststart
 #   - 목표 용량 ~3-5MB
@@ -18,6 +19,9 @@ SRC_DIR="${1:?사용법: build-hero-video.sh <클립폴더>}"
 OUT="public/videos/hero.mp4"
 FADE=1 # 크로스페이드 길이(초)
 CRF="${CRF:-30}"
+# Flow 720p 클립의 ✦ 워터마크 중심·반경(소스 픽셀 기준, 실측값).
+# 1080p 소스면 1.5배로 조정, 워터마크 없는 소스는 WM_CX="" 로 끄기
+WM_CX="${WM_CX-1168}"; WM_CY="${WM_CY-598}"; WM_RX="${WM_RX-48}"; WM_RY="${WM_RY-42}"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
@@ -28,11 +32,19 @@ echo "클립 ${N}개: ${CLIPS[*]}"
 
 mkdir -p public/videos
 
-# 1) 클립 정규화(24fps·최대 1920px 폭) 후 크로스페이드 체인 → 고화질 중간 파일
+# 1) 클립 정규화(워터마크 제거·24fps·최대 1920px 폭) 후 크로스페이드 체인 → 고화질 중간 파일
 INPUTS=(); for c in "${CLIPS[@]}"; do INPUTS+=(-i "$c"); done
+DL=""
+if [ -n "$WM_CX" ]; then
+  SRC_WH=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=x "${CLIPS[0]}")
+  ffmpeg -y -v error -f lavfi -i "color=black:s=${SRC_WH}:d=1" -frames:v 1 \
+    -vf "format=gray,geq=lum='lt(pow((X-${WM_CX})/${WM_RX},2)+pow((Y-${WM_CY})/${WM_RY},2),1)*255'" \
+    "$TMP/wmask.png"
+  DL="removelogo=$TMP/wmask.png,"
+fi
 FILTER=""
 for i in $(seq 0 $((N - 1))); do
-  FILTER+="[${i}:v]fps=24,scale='min(1920,iw)':-2:flags=lanczos,settb=AVTB[p${i}];"
+  FILTER+="[${i}:v]${DL}fps=24,scale='min(1920,iw)':-2:flags=lanczos,settb=AVTB[p${i}];"
 done
 TOTAL=0; PREV="[p0]"
 for i in $(seq 1 $((N - 1))); do
