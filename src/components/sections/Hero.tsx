@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import heroCampus from "../../../public/hero-campus.jpg";
+import HeroVideo from "./HeroVideo";
 
 export default function Hero() {
   const t = useTranslations("Hero");
@@ -17,6 +18,8 @@ export default function Hero() {
         preload
         className="object-cover"
       />
+      {/* 배경 영상(데스크탑 전용) — 파일 없으면 위 이미지 유지. 제작: scripts/build-hero-video.sh */}
+      <HeroVideo src="/videos/hero.mp4" />
       {/* 시네마틱 오버레이 — 하단 다크(가독성) + 상단 골드 글로우(프리미엄) */}
       <div
         className="absolute inset-0"
