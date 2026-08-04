@@ -3030,7 +3030,7 @@
       "category": "시급",
       "name": "🔴 최저시급 (전국 National Minimum Wage)",
       "url": "https://www.fairwork.gov.au/pay-and-wages/minimum-wages",
-      "description": "AUD $24.95/시간 (2024.7~ 적용 중)",
+      "description": "AUD $26.44/시간 (2026.7~ 적용 중)",
       "display_order": 57
     },
     {
@@ -3084,7 +3084,7 @@
       "category": "시급",
       "name": "Casual 가산 (캐주얼 +25%)",
       "url": "https://www.fairwork.gov.au/pay-and-wages/minimum-wages/casual-employees",
-      "description": "최저시급 $24.95 × 1.25 = 약 $31.19/시간",
+      "description": "최저시급 $26.44 × 1.25 = 약 $33.05/시간",
       "display_order": 63
     },
     {
