@@ -910,7 +910,7 @@ INSERT INTO site_settings (key, value, value_en, category) VALUES
   ('address',          '[입력 필요]',         '[Enter]', 'contact'),
   ('phone',            '[입력 필요]',         '[Enter]', 'contact'),
   ('email',            '[입력 필요]',         '[Enter]', 'contact'),
-  ('email_partnership', NULL,                'partnership@ausuhak.com', 'contact'),
+  ('email_partnership', NULL,                'wilsonkim6787@gmail.com', 'contact'),
   ('kakao_channel_url', 'https://pf.kakao.com/_GadTX', NULL, 'kakao'),
   ('business_hours',   '평일 10:00 ~ 18:00 (KST)', 'Mon-Fri 10:00-18:00 KST', 'business'),
   ('holidays',         '주말 / 공휴일 휴무',   'Closed weekends & public holidays', 'business'),

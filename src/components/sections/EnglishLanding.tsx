@@ -4,7 +4,7 @@
 
 import Link from "next/link";
 
-const PARTNERSHIP_EMAIL = "partnership@ausuhak.com";
+const PARTNERSHIP_EMAIL = "wilsonkim6787@gmail.com";
 const KAKAO_CHANNEL = "https://pf.kakao.com/_GadTX";
 
 export default function EnglishLanding() {
