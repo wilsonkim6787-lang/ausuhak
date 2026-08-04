@@ -19,8 +19,11 @@ const data = raw as FaqData;
 
 export const FAQ_CATEGORIES: FaqCategory[] = data.categories;
 
-/** 비자·수수료 수치를 마지막으로 검증한 날짜 — 이민성 변경 반영 시 갱신 */
-export const FAQ_LAST_UPDATED = "2026.08.03";
+/** 페이지에 표시하는 정보 기준일 — 배포(빌드) 시점의 한국 날짜로 자동 갱신 */
+const kstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
+export const FAQ_LAST_UPDATED = `${kstNow.getUTCFullYear()}.${String(
+  kstNow.getUTCMonth() + 1,
+).padStart(2, "0")}.${String(kstNow.getUTCDate()).padStart(2, "0")}`;
 
 export function getCategoryPreview(limit = 5): { icon: string; name: string; items: FaqItem[] }[] {
   return FAQ_CATEGORIES.map((c) => ({
