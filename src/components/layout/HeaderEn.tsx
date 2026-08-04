@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react";
 // - 로고 + 언어 토글 (KO) + Brochure CTA + Contact CTA
 export default function HeaderEn() {
   const [open, setOpen] = useState(false);
-  const partnershipEmail = "mailto:partnership@ausuhak.com";
+  const partnershipEmail = "mailto:wilsonkim6787@gmail.com";
 
   const menuItems = [
     { label: "About Wilson", href: "#about-wilson" },

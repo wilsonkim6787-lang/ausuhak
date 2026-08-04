@@ -920,7 +920,7 @@
 │   영문 주소    [Seoul, South Korea]              │
 │  전화          [입력 필요]                        │
 │  이메일        [입력 필요]                        │
-│  업무 이메일   [partnership@ausuhak.com]         │
+│  업무 이메일   [wilsonkim6787@gmail.com]         │
 │                                                  │
 │  💬 카카오                                        │
 │  ─────────────────────────────                    │
