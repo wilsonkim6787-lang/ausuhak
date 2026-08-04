@@ -9372,7 +9372,7 @@ UPDATE internal_faqs SET
    - 호주 내 거주
    
 3. 영어 점수 ⚠️ **2024.3 인상**
-   - IELTS 6.5 (각 5.5) 또는 동등 점수 (이전 6.0에서 인상)
+   - IELTS 6.5 (각 5.5) 또는 동등 점수
    - 일부 직군 IELTS 7.0+ 권장 (PR 점수)
    
 4. 만 35세 이하 (2024.7부터 강화)
@@ -9392,7 +9392,7 @@ UPDATE internal_faqs SET
 | Spouse | 추가 약 2,300 AUD |
 | 자녀 | 추가 약 1,150 AUD |
 
-⚠️ **2026년 3월 1일부터 신청비 두 배 인상** — 정확한 금액은 신청 시점 Department of Home Affairs 확인 필수
+⚠️ 신청비는 변동될 수 있으니 신청 시점에 Department of Home Affairs에서 최신 금액 확인 필수
 
 ## ⏱️ 처리 기간
 
@@ -9443,7 +9443,7 @@ UPDATE internal_faqs SET
 3. 학사·석사 By Coursework 모두 2년으로 단축 (이전 학사 4년 가능)
 4. Post-Study Work Stream 폐지 → Post-Higher Education으로 통합
 5. Post-Vocational Stream도 변경
-6. 영어 IELTS 6.5로 인상 (이전 6.0) — 2024.3
+6. 영어 IELTS 6.5 (2024.3~)
 7. 신청비 두 배 인상: 2,300 → 4,600 AUD — 2026.3.1
 ```
 
