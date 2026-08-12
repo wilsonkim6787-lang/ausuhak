@@ -22,16 +22,16 @@ export default function NoticePopup({
 
   useEffect(() => {
     const key = `ausuhak_notice_dismissed_v${version}`;
+    let dismissed = false;
     try {
-      if (!localStorage.getItem(key)) {
-        // 페이지 마운트 직후 짧은 지연 (메인 콘텐츠 먼저 보이게)
-        const t = setTimeout(() => setOpen(true), 600);
-        return () => clearTimeout(t);
-      }
+      dismissed = localStorage.getItem(key) !== null;
     } catch {
-      // localStorage 불가 환경 — 그냥 표시
-      setOpen(true);
+      // localStorage 불가 환경 — dismiss 추적 불가, 그냥 표시
     }
+    if (dismissed) return;
+    // 페이지 마운트 직후 짧은 지연 (메인 콘텐츠 먼저 보이게)
+    const t = setTimeout(() => setOpen(true), 600);
+    return () => clearTimeout(t);
   }, [version]);
 
   function dismiss() {

@@ -20,6 +20,11 @@ type PermRow = { user_id: string; permission_key: string; value: boolean; revoke
 type AssignmentRow = { staff_id: string | null; student_id: string; released_at: string | null };
 type ActivityRow = { user_id: string | null; created_at: string };
 
+// 최근 활동 집계 기준 시각 — 서버 컴포넌트 요청 시점 기준 (stats/page.tsx와 동일 패턴)
+function daysAgo(n: number): Date {
+  return new Date(Date.now() - n * 24 * 3600 * 1000);
+}
+
 export default async function AdminStaffPage({
   params,
 }: {
@@ -46,7 +51,7 @@ export default async function AdminStaffPage({
     supabase
       .from("activity_logs")
       .select("user_id, created_at")
-      .gte("created_at", new Date(Date.now() - 30 * 24 * 3600 * 1000).toISOString())
+      .gte("created_at", daysAgo(30).toISOString())
       .limit(5000),
   ]);
 

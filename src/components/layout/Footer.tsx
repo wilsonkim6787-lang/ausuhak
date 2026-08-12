@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
@@ -69,11 +70,12 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="mt-4 inline-flex rounded-xl bg-cream-100 px-4 py-3 shadow-sm ring-1 ring-cream-300/30 transition hover:shadow-md"
             >
-              <img
+              <Image
                 src="/ec-logo.png"
                 alt="Education Center — 출국 전 영어 준비 학원·화상영어 학습 센터"
+                width={286}
+                height={73}
                 className="h-9 w-auto"
-                loading="lazy"
               />
             </a>
             <p className="mt-3 text-sm leading-relaxed text-cream-200">

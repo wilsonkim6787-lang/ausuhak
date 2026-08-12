@@ -1,7 +1,7 @@
 // 매칭 엔진 5단계 (PART J / PART F-3)
 // 단계 1 의대 분기 → 2 교육→경로 → 3 차단룰 → 4 Wilson Alert → 5 카드 7장 조립
 
-import { schools, blockingRules, wilsonAlerts, faqs, schoolsByName } from "@/data";
+import { schools, blockingRules, wilsonAlerts, faqs } from "@/data";
 import { isSchoolMajorExcluded, getSchoolRegionsOverride } from "@/data/overrides";
 import type { School, FaqEntry } from "@/data";
 import type {
@@ -20,12 +20,6 @@ function ageRange(age: number | undefined): AgeRange | null {
   return "40+";
 }
 
-function ieltsNumber(v: unknown): number | null {
-  if (v == null) return null;
-  const s = String(v).match(/(\d+\.\d+|\d+)/);
-  return s ? parseFloat(s[1]) : null;
-}
-
 function englishToIelts(level: DiagnoseInput["english_level"]): number {
   switch (level) {
     case "없음": return 0;
@@ -35,15 +29,6 @@ function englishToIelts(level: DiagnoseInput["english_level"]): number {
     case "6.5": return 6.5;
     case "7.0+": return 7.0;
   }
-}
-
-function regionToCity(r: DiagnoseInput["preferred_region"]): string | null {
-  const map: Record<string, string> = {
-    "시드니": "Sydney", "멜번": "Melbourne", "브리즈번": "Brisbane",
-    "골드코스트": "Gold Coast", "퍼스": "Perth", "애들레이드": "Adelaide",
-    "호바트": "Hobart", "캔버라": "Canberra",
-  };
-  return map[r] ?? null;
 }
 
 // 지역별 캠퍼스 매칭 패턴 (PART J / Wilson 검수)

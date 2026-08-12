@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/Button";
+import { buttonStyles } from "@/components/ui/Button";
 import { upsertGalleryAction, deleteGalleryAction } from "./actions";
 import { SaveButton, DeleteButton } from "./GalleryFormButtons";
 
@@ -53,9 +54,9 @@ export default async function AdminGalleryPage({
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-navy-900">갤러리 관리</h1>
         {!showForm && (
-          <a href="/admin/gallery?new=1">
-            <Button>+ 사진 추가</Button>
-          </a>
+          <Link href="/admin/gallery?new=1" className={buttonStyles()}>
+            + 사진 추가
+          </Link>
         )}
       </div>
 
@@ -130,9 +131,9 @@ export default async function AdminGalleryPage({
 
           <div className="flex gap-3">
             <SaveButton />
-            <a href="/admin/gallery">
-              <Button type="button">취소</Button>
-            </a>
+            <Link href="/admin/gallery" className={buttonStyles()}>
+              취소
+            </Link>
           </div>
         </form>
       )}
@@ -163,12 +164,12 @@ export default async function AdminGalleryPage({
                   순서 {item.display_order}
                 </p>
                 <div className="mt-2 flex gap-2">
-                  <a
+                  <Link
                     href={`/admin/gallery?edit=${item.id}`}
                     className="text-xs font-semibold text-gold-600 hover:text-gold-500"
                   >
                     수정
-                  </a>
+                  </Link>
                   <form action={deleteGalleryAction}>
                     <input type="hidden" name="id" value={item.id} />
                     <DeleteButton />

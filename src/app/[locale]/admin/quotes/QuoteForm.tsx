@@ -222,10 +222,11 @@ export default function QuoteForm({
     : 0;
 
   // ─── 카카오 텍스트 (학생 view 톤 / INTERNAL 메모 제외) ───
+  const selectedStudentName = selectedStudent?.name ?? null;
   const kakaoText = useMemo(() => {
     const L: string[] = [];
     L.push("【호주 유학 예상 견적서】");
-    if (selectedStudent?.name) L.push(`${selectedStudent.name} 님`);
+    if (selectedStudentName) L.push(`${selectedStudentName} 님`);
     L.push(`기준일 ${fxDate} · 1 AUD ≈ ${fx.toLocaleString("ko-KR")}원 · 견적 유효 7일`);
     L.push("");
     if (totals.length > 0) {
@@ -267,7 +268,7 @@ export default function QuoteForm({
     L.push("자세한 상담은 카카오톡으로 이어서 도와드리겠습니다.");
     return L.join("\n");
   }, [
-    selectedStudent?.name, fxDate, fx, totals, living, livingYearly,
+    selectedStudentName, fxDate, fx, totals, living, livingYearly,
     oshc, accom, accomYearly, visa, settle, pickup, airfare, consult,
     processing, note,
   ]);
@@ -664,13 +665,11 @@ function StudentCombobox({
   onChange: (id: string) => void;
 }) {
   const selected = students.find((s) => s.id === studentId);
-  const [query, setQuery] = useState(selected?.name ?? "");
+  // draft = 사용자가 입력 중인 검색어. null 이면 선택된 학생 이름을 그대로 표시 (state 동기화 effect 불필요).
+  const [draft, setDraft] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (selected) setQuery(selected.name);
-  }, [selected]);
+  const query = draft ?? selected?.name ?? "";
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -699,7 +698,7 @@ function StudentCombobox({
         type="text"
         value={query}
         onChange={(e) => {
-          setQuery(e.target.value);
+          setDraft(e.target.value);
           setOpen(true);
         }}
         onFocus={() => setOpen(true)}
@@ -723,7 +722,7 @@ function StudentCombobox({
                   type="button"
                   onClick={() => {
                     onChange(s.id);
-                    setQuery(s.name);
+                    setDraft(null);
                     setOpen(false);
                   }}
                   className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-cream-100 ${
