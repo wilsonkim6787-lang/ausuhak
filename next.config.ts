@@ -26,9 +26,10 @@ const nextConfig: NextConfig = {
   // next-intl의 middleware/proxy가 routing을 책임지므로 typed routes 없이 동작 OK.
   typedRoutes: false,
   // 서버 액션 본문 크기 — admin documents 5MB 파일 업로드 (Migration 024)
+  // + offers 일괄 등록(13장 ≈ 4.5MB 합산 multipart) 여유분 → 10mb
   experimental: {
     serverActions: {
-      bodySizeLimit: "5mb",
+      bodySizeLimit: "10mb",
     },
   },
 };

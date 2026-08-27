@@ -27,6 +27,12 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // next 파라미터 (비밀번호 재설정 등) — 같은 origin 경로만 허용
+  const nextParam = searchParams.get("next");
+  if (nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//")) {
+    return NextResponse.redirect(`${origin}${nextParam}`);
+  }
+
   // 014/015 trigger 가 auth.users → public.users 자동 mirror.
   // OAuth 첫 가입자도 trigger 로 row 생성됨.
   const { data: profile } = await supabase

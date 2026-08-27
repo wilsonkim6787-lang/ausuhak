@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
+import offersSeed from "@/data/offers-seed-2026-08.json";
 
 const OFFER_MAX_BYTES = 5 * 1024 * 1024;
 const OFFER_ALLOWED_MIME = new Set([
@@ -121,6 +122,87 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
 
   revalidatePath("/admin/offers");
   revalidatePath("/", "layout"); // 메인 OfferShowcase 갱신
+  redirect("/admin/offers?ok=1");
+}
+
+// 시드 일괄 등록 — 2026-08 배치 13건 (src/data/offers-seed-2026-08.json).
+// 선택한 이미지들을 파일명으로 시드 메타와 매칭 → storage 업로드 + published 등록.
+// 재실행 안전: 같은 image_path 는 row 갱신 (중복 생성 없음).
+export async function bulkSeedOffersAction(formData: FormData): Promise<void> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") redirect(errParam("권한 없음"));
+
+  const files = formData
+    .getAll("files")
+    .filter((f): f is File => f instanceof File && f.size > 0);
+  if (files.length === 0) redirect(errParam("시드 이미지 파일을 선택하세요"));
+
+  const seedByFile = new Map(offersSeed.map((s) => [s.file, s]));
+  const supabase = await createClient();
+
+  const unmatched: string[] = [];
+  const failed: string[] = [];
+  let done = 0;
+
+  for (const file of files) {
+    const seed = seedByFile.get(file.name);
+    if (!seed) {
+      unmatched.push(file.name);
+      continue;
+    }
+    if (file.size > OFFER_MAX_BYTES) {
+      failed.push(`${file.name} (5MB 초과)`);
+      continue;
+    }
+    if (!OFFER_ALLOWED_MIME.has(file.type)) {
+      failed.push(`${file.name} (JPG·PNG·PDF 아님)`);
+      continue;
+    }
+
+    const buffer = await file.arrayBuffer();
+    const { error: uploadError } = await supabase.storage
+      .from(OFFER_BUCKET)
+      .upload(seed.file, buffer, { contentType: file.type, upsert: true });
+    if (uploadError) {
+      failed.push(`${file.name} (업로드: ${uploadError.message})`);
+      continue;
+    }
+
+    const payload = {
+      school: seed.school,
+      program: seed.program,
+      year: seed.year,
+      student_alias: seed.student_alias,
+      image_path: seed.file,
+      story: seed.story,
+      display_order: seed.display_order,
+      status: "published",
+    };
+    const { data: existing } = await supabase
+      .from("offers")
+      .select("id")
+      .eq("image_path", seed.file)
+      .maybeSingle();
+    const res = existing
+      ? await supabase.from("offers").update(payload).eq("id", existing.id)
+      : await supabase.from("offers").insert(payload);
+    if (res.error) {
+      failed.push(`${file.name} (DB: ${res.error.message})`);
+      continue;
+    }
+    done += 1;
+  }
+
+  revalidatePath("/admin/offers");
+  revalidatePath("/", "layout"); // 메인 OfferShowcase 갱신
+
+  if (unmatched.length > 0 || failed.length > 0) {
+    const parts: string[] = [];
+    if (done > 0) parts.push(`${done}건 등록됨`);
+    if (unmatched.length > 0) parts.push(`시드 목록에 없는 파일: ${unmatched.join(", ")}`);
+    if (failed.length > 0) parts.push(`실패: ${failed.join(", ")}`);
+    redirect(errParam(parts.join(" / ")));
+  }
   redirect("/admin/offers?ok=1");
 }
 

@@ -7,10 +7,13 @@ import LoginForm from "./LoginForm";
 
 export default async function LoginPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { locale } = await params;
+  const sp = await searchParams;
   setRequestLocale(locale);
 
   // 이미 로그인된 super_admin은 /admin으로 / 그 외는 메인으로
@@ -39,6 +42,13 @@ export default async function LoginPage({
             <p className="mt-2 text-sm text-ink-500">
               학생·직원·관리자 통합 로그인.
             </p>
+
+            {/* OAuth 콜백 실패 등 쿼리 에러 표시 (예: provider 미활성화) */}
+            {sp.error && (
+              <p className="mt-4 rounded-lg bg-error/10 px-3 py-2 text-xs text-error">
+                ⚠️ {sp.error}
+              </p>
+            )}
 
             <div className="mt-6">
               <LoginForm />
