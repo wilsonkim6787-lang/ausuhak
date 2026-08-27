@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import OAuthButtons from "@/components/auth/OAuthButtons";
 import { loginAction, type LoginState } from "./actions";
@@ -41,6 +42,12 @@ export default function LoginForm() {
           className="rounded-lg border border-cream-300 bg-cream-100 px-4 py-3 text-sm text-navy-900 outline-none focus:border-gold-500"
           placeholder="••••••••"
         />
+        <Link
+          href="/reset-password"
+          className="self-end text-[11px] text-ink-500 underline hover:text-navy-700"
+        >
+          비밀번호를 잊으셨나요?
+        </Link>
       </label>
 
       {state.error && (
