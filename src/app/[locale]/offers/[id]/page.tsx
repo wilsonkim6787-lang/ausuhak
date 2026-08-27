@@ -4,7 +4,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { setRequestLocale } from "next-intl/server";
 import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
@@ -12,6 +11,7 @@ import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import OfferViewTracker from "@/components/analytics/OfferViewTracker";
 import { createPublicClient } from "@/lib/supabase/public";
+import { renderMarkdown } from "@/lib/markdown";
 import { KAKAO_URL } from "@/lib/constants";
 
 // 정적 캐시 + 5분 재생성 (관리자 저장 시 revalidatePath 로 즉시 갱신)
@@ -29,8 +29,6 @@ type Offer = {
   story: string | null;
   status: string;
 };
-
-marked.setOptions({ gfm: true, breaks: false });
 
 export default async function OfferDetailPage({
   params,
@@ -76,7 +74,7 @@ export default async function OfferDetailPage({
     !!path && path.toLowerCase().endsWith(".pdf");
   const imageUrl = o.image_path ? bucketUrl(o.image_path) : null;
   const mainIsPdf = isPdf(o.image_path);
-  const storyHtml = o.story ? await marked.parse(o.story) : "";
+  const storyHtml = o.story ? renderMarkdown(o.story) : "";
 
   return (
     <>
