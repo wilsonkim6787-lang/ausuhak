@@ -49,6 +49,24 @@ export default function Footer() {
                   카카오 채널로 1:1 상담
                 </a>
               </li>
+              <li>
+                <a
+                  href="tel:010-9848-7789"
+                  className="inline-flex items-center gap-2 text-cream-200 transition hover:text-gold-400"
+                >
+                  <span aria-hidden>{"\u{1F4DE}"}</span> 010-9848-7789
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://blog.naver.com/momstudy100"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-cream-200 transition hover:text-gold-400"
+                >
+                  <span aria-hidden>{"\u{1F4D7}"}</span> 네이버 블로그
+                </a>
+              </li>
               <li className="whitespace-pre-line text-cream-200">
                 <span aria-hidden>{"\u{23F0}"}</span> {t("hoursValue")}
               </li>
