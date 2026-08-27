@@ -10,6 +10,7 @@ export type DashboardCounts = {
   newKakaoToday: number;       // 신규 학생 카톡 (오늘)
   wilsonAlerts: number;         // Wilson 점검 필요 (케어 wilson 히트 학생 distinct)
   leadsUncontacted: number;     // 'lead' 상태 2일+ 방치 (팔로업 필요)
+  unreadStudentMessages: number; // 학생이 보낸 미읽음 메시지 (마이페이지 소통)
   deadlineD1: number;           // Critical Deadline D-1
   stuckStage14d: number;        // Stage 정체 14일+
 
@@ -80,6 +81,7 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
   const [
     newKakaoToday,
     leadsUncontacted,
+    unreadStudentMessages,
     deadlineD1,
     stuckStage14d,
     consultationsToday,
@@ -104,6 +106,13 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
         .select("id", { count: "exact", head: true })
         .eq("lead_status", "lead")
         .lt("created_at", isoTwoDaysAgo),
+    ),
+    cnt(
+      supabase
+        .from("student_messages")
+        .select("id", { count: "exact", head: true })
+        .eq("sender_role", "student")
+        .is("read_at", null),
     ),
     cnt(
       supabase
@@ -190,6 +199,7 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
     newKakaoToday,
     wilsonAlerts,
     leadsUncontacted,
+    unreadStudentMessages,
     deadlineD1,
     stuckStage14d,
     consultationsToday,

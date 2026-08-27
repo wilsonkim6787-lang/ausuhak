@@ -51,6 +51,14 @@ export default async function AdminHomePage({
       alert: true,
     },
     {
+      icon: "💬",
+      label: "학생 새 메시지",
+      sentence: "학생이 마이페이지에서 보낸 답장 대기 메시지가 있어요",
+      count: counts.unreadStudentMessages,
+      href: "/admin/students",
+      alert: true,
+    },
+    {
       icon: "⏰",
       label: "내일 마감",
       sentence: "내일이 마감인 중요한 일정이 있어요",

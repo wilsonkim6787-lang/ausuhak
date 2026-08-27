@@ -102,9 +102,9 @@ export default async function StudentsPage({
   const { data, error } = await query;
   const students = (data ?? []) as StudentRow[];
 
-  // 마지막 메모 1줄 + 다음 deadline 1개 fetch
+  // 마지막 메모 1줄 + 다음 deadline 1개 + 미읽음 메시지 fetch
   const studentIds = students.map((s) => s.id);
-  const [notesRes, deadlinesRes] = await Promise.all([
+  const [notesRes, deadlinesRes, unreadMsgRes] = await Promise.all([
     studentIds.length === 0
       ? { data: [] as { student_id: string; content: string; created_at: string }[] }
       : supabase
@@ -123,7 +123,22 @@ export default async function StudentsPage({
           .neq("status", "completed")
           .gte("deadline_date", new Date().toISOString().slice(0, 10))
           .order("deadline_date", { ascending: true }),
+    studentIds.length === 0
+      ? { data: [] as { student_id: string }[] }
+      : supabase
+          .from("student_messages")
+          .select("student_id")
+          .in("student_id", studentIds)
+          .eq("sender_role", "student")
+          .is("read_at", null)
+          .limit(2000),
   ]);
+
+  // 학생별 미읽음 메시지 수 (046 미적용 시 data null → 전부 0)
+  const unreadByStudent = new Map<string, number>();
+  for (const m of (unreadMsgRes.data ?? []) as { student_id: string }[]) {
+    unreadByStudent.set(m.student_id, (unreadByStudent.get(m.student_id) ?? 0) + 1);
+  }
 
   const noteByStudent = new Map<string, string>();
   for (const n of notesRes.data ?? []) {
@@ -318,6 +333,7 @@ export default async function StudentsPage({
                 student={s}
                 lastNote={noteByStudent.get(s.id) ?? null}
                 nextDeadline={deadlineByStudent.get(s.id) ?? null}
+                unreadMessages={unreadByStudent.get(s.id) ?? 0}
               />
             </li>
           ))}
@@ -349,10 +365,12 @@ function StudentRowCard({
   student: s,
   lastNote,
   nextDeadline,
+  unreadMessages = 0,
 }: {
   student: StudentRow;
   lastNote: string | null;
   nextDeadline: { type: string; date: string } | null;
+  unreadMessages?: number;
 }) {
   const summary = [s.age_range, s.education, s.major, s.preferred_region]
     .filter(Boolean)
@@ -384,6 +402,11 @@ function StudentRowCard({
             {hasAlerts && (
               <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[10px] font-semibold text-gold-600">
                 🚨 Alert {s.wilson_alerts!.length}
+              </span>
+            )}
+            {unreadMessages > 0 && (
+              <span className="rounded-full bg-error px-2 py-0.5 text-[10px] font-bold text-white">
+                💬 새 메시지 {unreadMessages}
               </span>
             )}
           </div>

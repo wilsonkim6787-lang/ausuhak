@@ -19,7 +19,7 @@ export default async function StudentDetailLayout({
   const { id } = await params;
   const supabase = await createClient();
 
-  const [studentRes, assignRes] = await Promise.all([
+  const [studentRes, assignRes, unreadRes] = await Promise.all([
     supabase
       .from("students")
       .select(
@@ -35,7 +35,14 @@ export default async function StudentDetailLayout({
       .eq("role", "primary")
       .limit(1)
       .maybeSingle(),
+    supabase
+      .from("student_messages")
+      .select("id", { count: "exact", head: true })
+      .eq("student_id", id)
+      .eq("sender_role", "student")
+      .is("read_at", null),
   ]);
+  const unreadMessages = unreadRes.count ?? 0;
 
   const { data, error } = studentRes;
   if (error || !data) notFound();
@@ -111,8 +118,8 @@ export default async function StudentDetailLayout({
         )}
       </header>
 
-      {/* 3탭 */}
-      <StudentTabNav studentId={id} />
+      {/* 4탭 (진행/서류/메시지/메모) */}
+      <StudentTabNav studentId={id} unreadMessages={unreadMessages} />
 
       {/* 보조 링크 (3탭 외 화면) */}
       <div className="flex flex-wrap gap-3 text-xs text-ink-500">

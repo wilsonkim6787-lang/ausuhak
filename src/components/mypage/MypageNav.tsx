@@ -12,7 +12,7 @@ const ITEMS = [
   { href: "/mypage/documents", label: "서류", icon: "📁" },
   { href: "/mypage/payments", label: "결제 내역", icon: "💳" },
   { href: "/mypage/self-guide", label: "셀프 가이드", icon: "📚" },
-  { href: "/mypage/notifications", label: "알림", icon: "🔔" },
+  { href: "/mypage/notifications", label: "메시지", icon: "💬" },
 ];
 
 export default function MypageNav({ userName }: { userName: string }) {

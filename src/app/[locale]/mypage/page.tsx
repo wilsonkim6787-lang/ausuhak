@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireStudent } from "@/lib/auth/requireStudent";
 import { createAdminClient } from "@/lib/supabase/admin";
 import PhaseBar from "@/components/mypage/PhaseBar";
@@ -44,6 +45,7 @@ export default async function MypageHome() {
   let docRows: DocRow[] = [];
   let deadlines: DeadlineRow[] = [];
 
+  let unreadMessages = 0;
   if (student.id) {
     const admin = createAdminClient();
     const [subsRes, docsRes, deadlinesRes] = await Promise.all([
@@ -66,6 +68,15 @@ export default async function MypageHome() {
     substepRows = (subsRes.data ?? []) as SubstepRow[];
     docRows = (docsRes.data ?? []) as DocRow[];
     deadlines = (deadlinesRes.data ?? []) as DeadlineRow[];
+
+    // 담당팀이 보낸 미읽음 메시지 (046 미적용 등 실패 시 0으로 무시)
+    const { count } = await admin
+      .from("student_messages")
+      .select("id", { count: "exact", head: true })
+      .eq("student_id", student.id)
+      .eq("sender_role", "staff")
+      .is("read_at", null);
+    unreadMessages = count ?? 0;
   }
 
   const statusMap = buildStatusMap(substepRows, student.current_stage);
@@ -113,6 +124,21 @@ export default async function MypageHome() {
           </>
         )}
       </section>
+
+      {/* 1.5 새 메시지 배너 */}
+      {unreadMessages > 0 && (
+        <Link
+          href="/mypage/notifications"
+          className="flex items-center justify-between gap-3 rounded-2xl border border-gold-600/50 bg-gold-100/60 px-4 py-3.5 shadow-sm transition hover:bg-gold-100"
+        >
+          <span className="text-sm font-bold text-navy-900">
+            💬 담당팀의 새 메시지 {unreadMessages}건이 도착했어요
+          </span>
+          <span aria-hidden className="text-sm font-bold text-gold-600">
+            확인하기 →
+          </span>
+        </Link>
+      )}
 
       {/* 2. PHASE BAR */}
       <section className="rounded-2xl border border-cream-300 bg-white p-5 shadow-sm sm:p-6">
