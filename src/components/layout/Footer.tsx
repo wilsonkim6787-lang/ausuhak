@@ -58,6 +58,14 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <Link
+                  href="/consult"
+                  className="inline-flex items-center gap-2 text-cream-200 transition hover:text-gold-400"
+                >
+                  <span aria-hidden>{"\u{1F4E5}"}</span> 무료 상담 신청
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://blog.naver.com/momstudy100"
                   target="_blank"
