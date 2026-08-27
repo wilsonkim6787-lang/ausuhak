@@ -4,13 +4,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { setRequestLocale } from "next-intl/server";
 import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import { createPublicClient } from "@/lib/supabase/public";
+import { renderMarkdown } from "@/lib/markdown";
 import { KAKAO_URL } from "@/lib/constants";
 
 // 정적 캐시 + 5분 재생성 (관리자 저장 시 revalidatePath 로 즉시 갱신)
@@ -23,8 +23,6 @@ import {
 
 
 type NewsPost = NewsListRow & { body: string };
-
-marked.setOptions({ gfm: true, breaks: false });
 
 export async function generateMetadata({
   params,
@@ -82,7 +80,7 @@ export default async function NewsDetailPage({
   if (!currentRes.data) notFound();
   const post = currentRes.data as NewsPost;
   const recent = (recentRes.data ?? []) as NewsListRow[];
-  const bodyHtml = post.body ? await marked.parse(post.body) : "";
+  const bodyHtml = post.body ? renderMarkdown(post.body) : "";
 
   return (
     <>
