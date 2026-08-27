@@ -40,7 +40,7 @@ export default async function Home({
   const { data: noticeRows } = await supabase
     .from("site_settings")
     .select("key, value")
-    .in("key", ["notice_active", "notice_title", "notice_body", "notice_version"]);
+    .in("key", ["notice_active", "notice_title", "notice_body", "notice_version", "notice_slug"]);
   const noticeMap = new Map(
     (noticeRows ?? []).map((r) => [r.key as string, r.value as string | null]),
   );
@@ -48,6 +48,7 @@ export default async function Home({
   const noticeTitle = noticeMap.get("notice_title") ?? "";
   const noticeBody = noticeMap.get("notice_body") ?? "";
   const noticeVersion = parseInt(noticeMap.get("notice_version") ?? "1", 10) || 1;
+  const noticeSlug = noticeMap.get("notice_slug") ?? null;
 
   const { data: galleryRows } = await supabase
     .from("gallery")
@@ -77,7 +78,12 @@ export default async function Home({
       <Footer />
       <StickyKakao />
       {noticeActive && noticeBody && (
-        <NoticePopup title={noticeTitle} body={noticeBody} version={noticeVersion} />
+        <NoticePopup
+          title={noticeTitle}
+          body={noticeBody}
+          version={noticeVersion}
+          link={noticeSlug ? `/news/${noticeSlug}` : null}
+        />
       )}
     </>
   );

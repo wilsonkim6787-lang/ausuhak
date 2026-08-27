@@ -13,10 +13,12 @@ export default function NoticePopup({
   title,
   body,
   version,
+  link = null,
 }: {
   title: string;
   body: string;
   version: number;
+  link?: string | null; // 공지 글 상세 경로 (/news/slug) — 있으면 '자세히 보기' 노출
 }) {
   const [open, setOpen] = useState(false);
 
@@ -77,15 +79,25 @@ export default function NoticePopup({
         </div>
 
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-          <a
-            href={KAKAO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-kakao-source="notice_popup"
-            className="flex-1 rounded-full bg-gold-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-gold-500"
-          >
-            💬 카카오 상담하기
-          </a>
+          {link ? (
+            <a
+              href={link}
+              onClick={dismiss}
+              className="flex-1 rounded-full bg-gold-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-gold-500"
+            >
+              📄 자세히 보기
+            </a>
+          ) : (
+            <a
+              href={KAKAO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-kakao-source="notice_popup"
+              className="flex-1 rounded-full bg-gold-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-gold-500"
+            >
+              💬 카카오 상담하기
+            </a>
+          )}
           <button
             type="button"
             onClick={dismiss}
