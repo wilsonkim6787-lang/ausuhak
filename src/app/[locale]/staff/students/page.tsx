@@ -53,6 +53,23 @@ export default async function StaffStudentsPage() {
   }
 
   const rows = (data ?? []) as unknown as Row[];
+
+  // 담당 학생별 미읽음 메시지 (학생 발신)
+  const ids = rows.map((r) => r.students?.id).filter(Boolean) as string[];
+  const unreadByStudent = new Map<string, number>();
+  if (ids.length > 0) {
+    const { data: unread } = await supabase
+      .from("student_messages")
+      .select("student_id")
+      .in("student_id", ids)
+      .eq("sender_role", "student")
+      .is("read_at", null)
+      .limit(1000);
+    for (const m of (unread ?? []) as { student_id: string }[]) {
+      unreadByStudent.set(m.student_id, (unreadByStudent.get(m.student_id) ?? 0) + 1);
+    }
+  }
+
   const groups: Record<string, Row[]> = {
     primary: rows.filter((r) => r.role === "primary"),
     shared: rows.filter((r) => r.role === "shared"),
@@ -92,7 +109,12 @@ export default async function StaffStudentsPage() {
               <ul className="space-y-2">
                 {list.map((r, i) => r.students && (
                   <li key={r.students.id}>
-                    <StudentCard student={r.students} role={role} idx={i} />
+                    <StudentCard
+                      student={r.students}
+                      role={role}
+                      idx={i}
+                      unreadMessages={unreadByStudent.get(r.students.id) ?? 0}
+                    />
                   </li>
                 ))}
               </ul>
@@ -108,10 +130,12 @@ function StudentCard({
   student,
   role,
   idx,
+  unreadMessages = 0,
 }: {
   student: NonNullable<Row["students"]>;
   role: "primary" | "shared" | "observer";
   idx: number;
+  unreadMessages?: number;
 }) {
   const alerts = student.wilson_alerts ?? [];
   return (
@@ -133,6 +157,11 @@ function StudentCard({
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-1.5">
+            {unreadMessages > 0 && (
+              <span className="rounded-full bg-error px-2 py-0.5 text-[10px] font-bold text-white">
+                💬 새 메시지 {unreadMessages}
+              </span>
+            )}
             {student.is_medical && (
               <span className="rounded-full bg-error/15 px-2 py-0.5 text-[10px] font-semibold text-error">
                 🩺 의대

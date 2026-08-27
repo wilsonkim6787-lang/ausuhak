@@ -7,6 +7,9 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth/requireStaff";
 import StudentAvatar from "@/components/admin/StudentAvatar";
+import StudentMessagesSection, {
+  type StaffMessageRow,
+} from "@/components/staff/StudentMessagesSection";
 import {
   PHASES,
   buildStatusMap,
@@ -105,6 +108,24 @@ export default async function StaffStudentDetailPage({
 
   const statusMap = buildStatusMap((subsRes.data ?? []) as SubstepRow[], s.current_stage);
   const curIdx = currentPhaseIndex(statusMap);
+
+  // 학생 메시지 스레드 (RLS student_messages_staff_all) + 학생 발신 읽음 처리
+  const { data: msgData, error: msgErr } = await supabase
+    .from("student_messages")
+    .select("id, sender_role, body, read_at, created_at")
+    .eq("student_id", id)
+    .order("created_at", { ascending: true })
+    .limit(300);
+  const messages = (msgData ?? []) as StaffMessageRow[];
+  const messagesError = msgErr?.message ?? null;
+  if (!msgErr && messages.some((m) => m.sender_role === "student" && !m.read_at)) {
+    await supabase
+      .from("student_messages")
+      .update({ read_at: new Date().toISOString() })
+      .eq("student_id", id)
+      .eq("sender_role", "student")
+      .is("read_at", null);
+  }
 
   // 서류 → sub-step 별 태그 묶기
   const docsBySubstep: Record<string, DocTag[]> = {};
@@ -275,8 +296,16 @@ export default async function StaffStudentDetailPage({
         )}
       </section>
 
+      {/* 학생 메시지 — 직원도 응대 가능 (보기 전용 예외) */}
+      <StudentMessagesSection
+        studentId={id}
+        messages={messages}
+        loadError={messagesError}
+      />
+
       <p className="text-center text-[11px] text-ink-500">
-        ⚠️ 직원 페이지는 보기 전용입니다. 진행 단계·서류 변경은 Wilson 또는 위임 권한이 있는 admin 화면에서.
+        ⚠️ 직원 페이지는 보기 전용입니다 (메시지 응대 제외). 진행 단계·서류 변경은 Wilson 또는 위임
+        권한이 있는 admin 화면에서.
       </p>
     </div>
   );
