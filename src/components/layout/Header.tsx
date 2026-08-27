@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { logoutAction } from "@/app/[locale]/login/actions";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 // role → 로그인 후 "내 페이지" 목적지
 function dashHref(role: string): string {

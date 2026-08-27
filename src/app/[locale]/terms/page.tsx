@@ -7,8 +7,8 @@ import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 const EFFECTIVE_DATE = "2026-05-16";
 
 export default async function TermsPage({

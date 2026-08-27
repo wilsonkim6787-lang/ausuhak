@@ -4,8 +4,8 @@
 // 카카오 채널 = pf.kakao.com/_GadTX (의대 패키지 결제 안내 종착지).
 
 import { useEffect } from "react";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 type Props = {
   open: boolean;

@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default function StickyKakao() {
   return (

@@ -3,6 +3,7 @@ import { requireStudent } from "@/lib/auth/requireStudent";
 import { createAdminClient } from "@/lib/supabase/admin";
 import PhaseBar from "@/components/mypage/PhaseBar";
 import PhaseAccordion, { type DocItem } from "@/components/mypage/PhaseAccordion";
+import { KAKAO_URL } from "@/lib/constants";
 import {
   buildStatusMap,
   currentSubstep,
@@ -11,7 +12,6 @@ import {
   ALL_SUBSTEPS,
 } from "@/lib/progress";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 type SubstepRow = { substep_key: string; status: string };
 type DocRow = {

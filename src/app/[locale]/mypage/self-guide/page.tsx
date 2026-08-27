@@ -1,3 +1,4 @@
+import { KAKAO_URL } from "@/lib/constants";
 // PART F-5 셀프 가이드 4영역 (학생 자율 학습)
 // 학생 절대 X (내부 매뉴얼·notes·internal_faqs)는 포함 안 함.
 
@@ -55,7 +56,6 @@ const SECTIONS: Section[] = [
   },
 ];
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default function MypageSelfGuidePage() {
   return (

@@ -11,13 +11,13 @@ import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import { createClient } from "@/lib/supabase/server";
+import { KAKAO_URL } from "@/lib/constants";
 import {
   formatNewsDate,
   newsCategoryLabel,
   type NewsListRow,
 } from "../constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 type NewsPost = NewsListRow & { body: string };
 

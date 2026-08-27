@@ -11,8 +11,8 @@ import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import OfferViewTracker from "@/components/analytics/OfferViewTracker";
 import { createClient } from "@/lib/supabase/server";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 type Offer = {
   id: string;

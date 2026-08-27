@@ -4,8 +4,8 @@
 import { requireStudent } from "@/lib/auth/requireStudent";
 import { createAdminClient } from "@/lib/supabase/admin";
 import SendBox from "./SendBox";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 type MessageRow = {
   id: string;
