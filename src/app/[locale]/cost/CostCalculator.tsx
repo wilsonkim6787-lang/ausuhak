@@ -4,6 +4,7 @@
 // 수치는 2026년 일반적 범위의 추정치. 정확한 견적은 상담으로 유도.
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { track } from "@vercel/analytics";
 
 const KAKAO_URL = "https://pf.kakao.com/_GadTX";
@@ -151,6 +152,13 @@ export default function CostCalculator() {
             📞 010-9848-7789
           </a>
         </div>
+        <p className="mt-3 text-center text-xs text-ink-500">
+          지금 통화가 어려우면{" "}
+          <Link href="/consult?from=cost" className="font-semibold text-gold-600 underline">
+            상담 신청만 남기기
+          </Link>{" "}
+          — 24시간 내 연락드립니다.
+        </p>
       </div>
     </div>
   );
