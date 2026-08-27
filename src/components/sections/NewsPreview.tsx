@@ -2,7 +2,7 @@
 // 글이 하나도 없으면 섹션 자체를 렌더하지 않는다 (콘텐츠 쌓이기 전 빈 박스 방지).
 
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import {
   formatNewsDate,
   newsCategoryLabel,
@@ -10,7 +10,7 @@ import {
 } from "@/app/[locale]/news/constants";
 
 export default async function NewsPreview() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("blogs")
     .select("id, slug, title, excerpt, category, published_at")

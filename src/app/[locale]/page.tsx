@@ -12,7 +12,10 @@ import MedicalCTA from "@/components/sections/MedicalCTA";
 import NewsPreview from "@/components/sections/NewsPreview";
 import FAQPreview from "@/components/sections/FAQPreview";
 import EnglishLanding from "@/components/sections/EnglishLanding";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
+
+// 정적 캐시 + 5분 재생성 (관리자 저장 시 revalidatePath 로 즉시 갱신)
+export const revalidate = 300;
 
 // PART A A-4: 한국어 = ausuhak.com / 영문 = ausuhak.com/en
 // 한글 = Hero + WilsonStory (Step 1.4 / 추후 카드 결과 등 확장)
@@ -36,7 +39,7 @@ export default async function Home({
   }
 
   // 공지 팝업 fetch (active=true 일 때만 마운트)
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: noticeRows } = await supabase
     .from("site_settings")
     .select("key, value")

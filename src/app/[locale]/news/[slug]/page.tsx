@@ -10,8 +10,11 @@ import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { KAKAO_URL } from "@/lib/constants";
+
+// 정적 캐시 + 5분 재생성 (관리자 저장 시 revalidatePath 로 즉시 갱신)
+export const revalidate = 300;
 import {
   formatNewsDate,
   newsCategoryLabel,
@@ -30,7 +33,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("blogs")
     .select("title, excerpt")
@@ -59,7 +62,7 @@ export default async function NewsDetailPage({
   setRequestLocale(locale);
   const HeaderCmp = locale === "en" ? HeaderEn : Header;
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const [currentRes, recentRes] = await Promise.all([
     supabase
       .from("blogs")

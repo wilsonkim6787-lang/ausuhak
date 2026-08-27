@@ -8,7 +8,7 @@ import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { BLOG_CATEGORIES } from "../admin/blog/constants";
 import {
   formatNewsDate,
@@ -38,7 +38,7 @@ export default async function NewsListPage({
   const activeCat =
     cat && (BLOG_CATEGORIES as readonly string[]).includes(cat) ? cat : null;
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase
     .from("blogs")
     .select("id, slug, title, excerpt, category, published_at")
