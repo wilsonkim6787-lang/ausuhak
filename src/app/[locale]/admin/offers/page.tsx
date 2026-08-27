@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import OfferStoryField from "@/components/admin/OfferStoryField";
-import { upsertOfferAction, deleteOfferAction } from "./actions";
+import { upsertOfferAction, deleteOfferAction, bulkSeedOffersAction } from "./actions";
 
 type Offer = {
   id: string;
@@ -75,6 +75,33 @@ export default async function AdminOffersPage({
       {sp.ok && (
         <p className="rounded-lg bg-success/10 px-3 py-2 text-sm text-success">✅ 저장됨</p>
       )}
+
+      {/* 2026-08 시드 일괄 등록 — 이미지 13장 선택만으로 학교·과정·후기·정렬 자동 매칭 */}
+      <details className="rounded-2xl border border-cream-300 bg-white p-4 shadow-sm">
+        <summary className="cursor-pointer text-sm font-semibold text-navy-900">
+          📦 일괄 등록 — 2026-08 합격 오퍼 13건
+        </summary>
+        <form action={bulkSeedOffersAction} className="mt-3 flex flex-col gap-2">
+          <p className="text-xs leading-relaxed text-ink-500">
+            전달받은 zip의 <code>images/</code> 폴더 안 PNG 13장을 전부 선택하고 등록을 누르세요.
+            파일명 기준으로 학교·과정·후기·노출 순서가 자동 매칭되어 <b>공개(published)</b> 상태로
+            올라갑니다. 다시 실행하면 같은 항목은 갱신되고 중복 생성되지 않습니다.
+          </p>
+          <input
+            type="file"
+            name="files"
+            accept="image/png"
+            multiple
+            required
+            className="rounded-md border border-cream-300 bg-white px-2 py-1 text-xs file:mr-2 file:rounded file:border-0 file:bg-navy-900 file:px-2 file:py-1 file:text-xs file:font-semibold file:text-gold-400"
+          />
+          <div className="flex justify-end">
+            <Button type="submit" size="sm">
+              13건 일괄 등록
+            </Button>
+          </div>
+        </form>
+      </details>
 
       <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
         {/* 리스트 */}
