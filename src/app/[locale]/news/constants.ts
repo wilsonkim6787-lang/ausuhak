@@ -2,6 +2,7 @@
 // DB blogs.category 값(admin/blog/constants.ts BLOG_CATEGORIES)을 공개용 표시명으로 매핑한다.
 
 export const NEWS_CATEGORY_LABELS: Record<string, string> = {
+  공지: "공지",
   합격사례: "합격 소식",
   장학금: "장학금",
   비자: "비자·이민성",
