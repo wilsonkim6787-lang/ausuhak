@@ -6,8 +6,8 @@
 import { requireStudent } from "@/lib/auth/requireStudent";
 import { createAdminClient } from "@/lib/supabase/admin";
 import UploadRow from "./UploadRow";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 const BUCKET = "student-documents";
 
 type DocRow = {

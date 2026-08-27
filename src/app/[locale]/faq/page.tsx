@@ -8,8 +8,8 @@ import StickyKakao from "@/components/layout/StickyKakao";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import RelatedSitesSection from "@/components/faq/RelatedSitesSection";
 import { FAQ_CATEGORIES, FAQ_LAST_UPDATED, getTotalCount } from "@/data/faqs";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 // FAQ 구조화 데이터 (Google FAQ 리치 결과) — 카테고리별 상위 4개, 총 32개 제한.
 // 365개 전부 넣으면 페이지가 무거워져 대표 질문만 노출.

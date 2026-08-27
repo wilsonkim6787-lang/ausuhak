@@ -18,7 +18,7 @@ export default async function StaffCasesPage() {
       <div className="rounded-2xl border border-cream-300 bg-white p-6 text-sm text-ink-700">
         <p>
           합격증·학생 후기·졸업생 케이스는{" "}
-          <Link href="/offers" className="font-semibold text-gold-600 hover:underline">
+          <Link href="/#offers" className="font-semibold text-gold-600 hover:underline">
             /offers 갤러리
           </Link>
           에 통합되어 있습니다. 각 카드 상세에서 학생 배경·합격 과정·졸업/진로까지 확인하세요.

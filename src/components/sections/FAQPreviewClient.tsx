@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import { searchFaqs, type FaqItem } from "@/data/faqs";
+import { KAKAO_URL } from "@/lib/constants";
 
 interface CategoryPreview {
   icon: string;
@@ -24,7 +25,6 @@ interface Props {
   };
 }
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default function FAQPreviewClient({ categories, labels }: Props) {
   const [active, setActive] = useState(0);

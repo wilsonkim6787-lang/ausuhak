@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { KAKAO_URL } from "@/lib/constants";
 
 // 메인 페이지 공지 팝업.
 // site_settings 의 notice_active=true 일 때 마운트.
 // localStorage 의 ausuhak_notice_dismissed_v{version} 키로 dismiss 추적.
 // version 바뀌면 같은 사용자도 다시 보임.
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default function NoticePopup({
   title,

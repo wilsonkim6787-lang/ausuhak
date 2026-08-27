@@ -5,8 +5,8 @@ import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/Button";
 import { submitConsultAction, type ConsultState } from "./actions";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 const TOPICS = [
   "어학연수",

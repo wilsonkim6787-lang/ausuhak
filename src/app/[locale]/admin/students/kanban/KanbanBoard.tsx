@@ -24,6 +24,7 @@ export type KanbanStudent = {
   next_deadline: { type: string; date: string } | null;
   photo_path: string | null;
   care_hits: KanbanCareHit[];
+  unread_messages: number;
 };
 
 // 메인 active 5컬럼.
@@ -256,6 +257,11 @@ function StudentCard({
           {student.is_medical && (
             <span className="rounded-full bg-error/15 px-1.5 py-0.5 text-[9px] font-semibold text-error">
               🩺
+            </span>
+          )}
+          {student.unread_messages > 0 && (
+            <span className="rounded-full bg-error px-1.5 py-0.5 text-[9px] font-bold text-white">
+              💬 {student.unread_messages}
             </span>
           )}
           {student.alert_count > 0 && (

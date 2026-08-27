@@ -6,8 +6,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 const AUD_KRW = 900; // 참고 환율 (표기용)
 
 const COURSES = [

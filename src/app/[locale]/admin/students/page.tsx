@@ -249,6 +249,7 @@ export default async function StudentsPage({
       next_deadline: dl ?? null,
       photo_path: s.photo_path,
       care_hits: careHitsByStudent.get(s.id) ?? [],
+      unread_messages: unreadByStudent.get(s.id) ?? 0,
     };
   });
 
