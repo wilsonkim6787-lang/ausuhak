@@ -11,7 +11,7 @@ import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import { createPublicClient } from "@/lib/supabase/public";
 import { renderMarkdown } from "@/lib/markdown";
-import { KAKAO_URL } from "@/lib/constants";
+import { KAKAO_URL, PHONE_NUMBER } from "@/lib/constants";
 
 // 정적 캐시 + 5분 재생성 (관리자 저장 시 revalidatePath 로 즉시 갱신)
 export const revalidate = 300;
@@ -120,7 +120,7 @@ export default async function NewsDetailPage({
             />
           )}
 
-          {/* 카카오 CTA */}
+          {/* 상담 유도 CTA — 카카오 / 전화 / 상담 신청 접수함 */}
           <div className="mt-10 rounded-2xl border border-cream-300 bg-white p-6 text-center shadow-sm">
             <p className="font-display text-lg font-bold text-navy-900 sm:text-xl">
               이 소식, 내 케이스에는 어떤 의미일까?
@@ -129,15 +129,29 @@ export default async function NewsDetailPage({
               비자·학교·장학금 변경이 본인 계획에 미치는 영향은 케이스마다 다릅니다.
               Wilson이 직접 확인해 드립니다.
             </p>
-            <a
-              href={KAKAO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-kakao-source={`news_detail_${post.id}`}
-              className="mt-5 inline-flex rounded-full bg-gold-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-gold-500"
-            >
-              💬 카카오로 1:1 상담
-            </a>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
+              <a
+                href={KAKAO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-kakao-source={`news_detail_${post.id}`}
+                className="inline-flex rounded-full bg-gold-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-gold-500"
+              >
+                💬 카카오로 1:1 상담
+              </a>
+              <a
+                href={`tel:${PHONE_NUMBER}`}
+                className="inline-flex rounded-full border border-cream-300 bg-white px-6 py-3 text-sm font-semibold text-navy-900 transition hover:border-gold-600 hover:text-gold-600"
+              >
+                📞 {PHONE_NUMBER}
+              </a>
+              <Link
+                href="/consult"
+                className="inline-flex rounded-full border border-cream-300 bg-white px-6 py-3 text-sm font-semibold text-navy-900 transition hover:border-gold-600 hover:text-gold-600"
+              >
+                📥 상담 신청 남기기
+              </Link>
+            </div>
           </div>
 
           {/* 다른 최신 소식 */}
