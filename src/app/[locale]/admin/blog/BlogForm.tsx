@@ -149,7 +149,7 @@ export default function BlogForm({
           </div>
           {blog && (
             <p className="mt-3 text-[11px] text-ink-500">
-              조회수 {blog.view_count} · 최근 수정 {new Date(blog.updated_at).toLocaleString("ko-KR")}
+              조회수 {blog.view_count} · 최근 수정 {new Date(blog.updated_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}
             </p>
           )}
         </section>

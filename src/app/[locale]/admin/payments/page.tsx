@@ -22,6 +22,14 @@ const TYPE_LABEL: Record<string, string> = {
   full_consulting: "풀 컨설팅",
 };
 
+// KST(UTC+9) 기준 이번 달 1일 00:00 을 UTC 인스턴트로.
+function monthStartKST(): Date {
+  const kstNow = new Date(Date.now() + 9 * 3600 * 1000);
+  return new Date(
+    Date.UTC(kstNow.getUTCFullYear(), kstNow.getUTCMonth(), 1) - 9 * 3600 * 1000,
+  );
+}
+
 export default async function AdminPaymentsListPage({
   params,
   searchParams,
@@ -64,15 +72,39 @@ export default async function AdminPaymentsListPage({
     );
   }
 
-  // 이번 달 통계
-  const now = new Date();
-  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-  const monthRows = rows.filter((p) => new Date(p.created_at) >= monthStart);
-  const sumConfirmed = monthRows
-    .filter((p) => p.status === "confirmed")
-    .reduce((acc, p) => acc + (p.amount_krw ?? 0), 0);
-  const pendingCount = rows.filter((p) => p.status === "pending").length;
-  const refundedCount = monthRows.filter((p) => p.status === "refunded").length;
+  // 요약 카드는 목록 필터(status/이름검색)와 무관하게 항상 전체 기준으로 집계.
+  // (과거엔 필터된 rows 로 계산해, "환불" 칩을 누르면 확정 수익이 ₩0으로 보이는 등
+  //  라벨과 값이 어긋났음.)
+  const monthStartIso = monthStartKST().toISOString();
+  const [confirmedMonthRes, pendingAllRes, refundedMonthRes, registeredMonthRes] =
+    await Promise.all([
+      supabase
+        .from("payments")
+        .select("amount_krw")
+        .eq("status", "confirmed")
+        .gte("created_at", monthStartIso)
+        .limit(5000),
+      supabase
+        .from("payments")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "pending"),
+      supabase
+        .from("payments")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "refunded")
+        .gte("created_at", monthStartIso),
+      supabase
+        .from("payments")
+        .select("id", { count: "exact", head: true })
+        .gte("created_at", monthStartIso),
+    ]);
+  const sumConfirmed = ((confirmedMonthRes.data ?? []) as { amount_krw: number | null }[]).reduce(
+    (acc, p) => acc + (p.amount_krw ?? 0),
+    0,
+  );
+  const pendingCount = pendingAllRes.count ?? 0;
+  const refundedCount = refundedMonthRes.count ?? 0;
+  const registeredCount = registeredMonthRes.count ?? 0;
 
   return (
     <div className="flex flex-col gap-6">
@@ -93,7 +125,7 @@ export default async function AdminPaymentsListPage({
         <Stat label="이번 달 확정 수익" value={`₩${sumConfirmed.toLocaleString("ko-KR")}`} />
         <Stat label="대기 중 (전체)" value={pendingCount.toString()} highlight={pendingCount > 0} />
         <Stat label="이번 달 환불" value={refundedCount.toString()} />
-        <Stat label="이번 달 총 등록" value={monthRows.length.toString()} />
+        <Stat label="이번 달 총 등록" value={registeredCount.toString()} />
       </section>
 
       {/* 검색 + 필터 */}
@@ -148,7 +180,7 @@ export default async function AdminPaymentsListPage({
               </span>
               <StatusBadge status={p.status} />
               <span className="w-full text-[11px] text-ink-500 sm:w-auto">
-                {new Date(p.created_at).toLocaleDateString("ko-KR")}
+                {new Date(p.created_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}
               </span>
             </li>
           ))}

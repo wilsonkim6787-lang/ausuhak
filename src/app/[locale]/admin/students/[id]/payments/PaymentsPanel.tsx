@@ -179,7 +179,7 @@ function PaymentRowItem({
           </span>
         )}
         <span className="ml-auto text-xs text-ink-500">
-          {new Date(payment.created_at).toLocaleDateString("ko-KR")}
+          {new Date(payment.created_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}
         </span>
       </div>
 
@@ -205,7 +205,7 @@ function PaymentRowItem({
 
       {isConfirmed && payment.confirmed_at && (
         <p className="mt-2 text-xs text-success">
-          ✓ 입금 확인: {new Date(payment.confirmed_at).toLocaleString("ko-KR")}
+          ✓ 입금 확인: {new Date(payment.confirmed_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}
         </p>
       )}
 

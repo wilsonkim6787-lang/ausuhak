@@ -31,13 +31,15 @@ export default async function StudentMessagesPage({
   const sp = await searchParams;
   const supabase = await createClient();
 
+  // 최신 300개를 가져온 뒤(오래된 순 limit 이면 스레드가 길 때 최신 메시지가 잘려
+  // 안 보였음) 화면 표시용으로 다시 오래된→최신 순으로 뒤집는다.
   const { data, error } = await supabase
     .from("student_messages")
     .select("id, sender_role, sender_id, body, read_at, created_at")
     .eq("student_id", id)
-    .order("created_at", { ascending: true })
+    .order("created_at", { ascending: false })
     .limit(300);
-  const messages = (data ?? []) as MessageRow[];
+  const messages = ((data ?? []) as MessageRow[]).slice().reverse();
 
   // 학생 발신 미읽음 → 읽음 처리
   if (!error && messages.some((m) => m.sender_role === "student" && !m.read_at)) {

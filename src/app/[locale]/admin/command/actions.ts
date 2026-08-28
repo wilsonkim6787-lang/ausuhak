@@ -168,6 +168,13 @@ export async function applyTextCommand(
   _prev: CommandState,
   formData: FormData,
 ): Promise<CommandState> {
+  // 인증 게이트 먼저 — service-role 조회/파싱 피드백(학생 이름 노출) 전에 차단.
+  // 서버 액션은 누구나 POST 할 수 있으므로 여기서 직원/관리자만 통과시킴.
+  const caller = await getCurrentUser();
+  if (!caller || (caller.role !== "super_admin" && caller.role !== "staff")) {
+    return { error: "권한이 없습니다." };
+  }
+
   const text = String(formData.get("command") ?? "");
   const admin = createAdminClient();
 

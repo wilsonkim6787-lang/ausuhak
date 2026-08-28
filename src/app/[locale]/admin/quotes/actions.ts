@@ -158,16 +158,20 @@ function parseQuotePayload(formData: FormData): ParsedQuote {
   const processing_fee_reason = (String(formData.get("processing_fee_reason") ?? "").trim()) || null;
   const exchange_rate_date = (String(formData.get("exchange_rate_date") ?? "").trim()) || null;
 
-  // 022: 첫 학교 기준 1년 추정 총액 (참고용 / 학생 PDF는 학교별로 따로 표시)
-  //  - 학비 = Wilson 입력 total (장학금·프로모션 차감)
-  //  - 기타 항목 = 1년 기준 (생활비×12, OSHC×1, 숙소×52, visa/정착/픽업 1회)
+  // 022: 1년 추정 총액 — 폼(QuoteForm) 표시값과 반드시 일치해야 함.
+  //  - 학비 = 전 학교의 실제 학비(장학금·프로모션 차감) 합산 (단계 쌓기: 어학→컬리지→대학)
+  //  - 공통 항목 = 1년 기준 1회 (생활비×12, OSHC×1, 숙소×52, visa/정착/픽업 1회)
   //  - duration_text는 표시용 (계산 X)
-  const first = selected_schools[0];
-  const tuitionActual    = first.tuition_aud - first.scholarship_aud - first.promotion_aud;
+  //  ※ 과거엔 첫 학교만 저장해 폼 표시/카톡 발송액과 저장액이 달랐음 → 합산으로 수정.
+  const tuitionActualSum = selected_schools.reduce(
+    (sum, s) => sum + (s.tuition_aud - s.scholarship_aud - s.promotion_aud),
+    0,
+  );
   const livingYearly     = livingMonthly * 12;
   const accomYearly      = accommodation_aud * 52;
   const oneTimeAud       = items.visa_500_aud + items.settlement_aud + pickup_aud;
-  const schoolTotalAud   = tuitionActual + livingYearly + items.oshc_per_year_aud + accomYearly + oneTimeAud;
+  const commonYearlyAud  = livingYearly + items.oshc_per_year_aud + accomYearly + oneTimeAud;
+  const schoolTotalAud   = tuitionActualSum + commonYearlyAud;
   const krwAdditions     = airfare_krw + items.consultation_fee_krw + processing_fee_krw;
   const total_krw        = Math.round(schoolTotalAud * fx + krwAdditions);
   const total_aud        = Math.round(schoolTotalAud);

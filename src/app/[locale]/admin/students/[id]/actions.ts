@@ -81,7 +81,15 @@ export async function updateStudentBasicAction(
   const hasNewPhoto = photoFile && photoFile.size > 0;
 
   let nextPhotoPath: string | null | undefined = undefined; // undefined = 변경 없음
+  // 기존 파일은 "새 업로드 + DB 저장"이 모두 성공한 뒤에만 지운다 (댕글링/원본 유실 방지).
+  let oldPhotoToRemove: string | null = null;
   if (deletePhoto || hasNewPhoto) {
+    // 1) 새 사진 검증을 가장 먼저 — 실패 시 기존 파일은 손도 대지 않고 종료.
+    if (hasNewPhoto) {
+      if (photoFile.size > PHOTO_MAX_BYTES) return { error: "사진 2MB 초과" };
+      if (!PHOTO_ALLOWED_MIME.has(photoFile.type)) return { error: "JPG·PNG·WebP 만 허용" };
+    }
+
     const { data: existing } = await supabase
       .from("students")
       .select("photo_path")
@@ -89,13 +97,8 @@ export async function updateStudentBasicAction(
       .single();
     const existingPath = (existing as { photo_path?: string | null } | null)?.photo_path ?? null;
 
-    if (existingPath && (deletePhoto || hasNewPhoto)) {
-      await supabase.storage.from(PHOTO_BUCKET).remove([existingPath]);
-    }
-
     if (hasNewPhoto) {
-      if (photoFile.size > PHOTO_MAX_BYTES) return { error: "사진 2MB 초과" };
-      if (!PHOTO_ALLOWED_MIME.has(photoFile.type)) return { error: "JPG·PNG·WebP 만 허용" };
+      // 2) 새 파일 업로드 성공 후에만 경로 반영. 기존 파일 삭제는 DB 저장 뒤로 미룸.
       const path = `${id}/${Date.now()}.${photoExt(photoFile.name)}`;
       const buffer = await photoFile.arrayBuffer();
       const { error: uploadError } = await supabase.storage
@@ -103,8 +106,10 @@ export async function updateStudentBasicAction(
         .upload(path, buffer, { contentType: photoFile.type, upsert: false });
       if (uploadError) return { error: `사진 업로드 실패: ${uploadError.message}` };
       nextPhotoPath = path;
+      if (existingPath && existingPath !== path) oldPhotoToRemove = existingPath;
     } else if (deletePhoto) {
       nextPhotoPath = null;
+      oldPhotoToRemove = existingPath;
     }
   }
 
@@ -115,6 +120,11 @@ export async function updateStudentBasicAction(
 
   const { error } = await supabase.from("students").update(finalPayload).eq("id", id);
   if (error) return { error: `저장 실패: ${error.message}` };
+
+  // DB 저장까지 성공 → 이제서야 옛 사진 파일 정리 (실패해도 본 로직엔 영향 없음).
+  if (oldPhotoToRemove) {
+    await supabase.storage.from(PHOTO_BUCKET).remove([oldPhotoToRemove]);
+  }
 
   await logActivity({
     action_type: "update_student",
@@ -357,11 +367,8 @@ export async function uploadDocumentAction(formData: FormData): Promise<void> {
     if (file.size > DOC_MAX_BYTES) return; // 5MB 초과 → silent reject
     if (!DOC_ALLOWED_MIME.has(file.type)) return; // 허용 mime 외 → silent reject
 
-    // 기존 파일 정리
-    if (existingStoragePath) {
-      await supabase.storage.from(DOC_BUCKET).remove([existingStoragePath]);
-    }
-
+    // 새 파일 먼저 업로드 — 성공 후 DB 반영, 옛 파일은 맨 마지막에 정리
+    // (업로드 실패 시 기존 파일/row 가 그대로 살아있게 하여 원본 유실 방지).
     const path = `${studentId}/${docType}-${Date.now()}.${extOf(file.name)}`;
     const buffer = await file.arrayBuffer();
     const { error: uploadError } = await supabase.storage
@@ -401,6 +408,11 @@ export async function uploadDocumentAction(formData: FormData): Promise<void> {
       checked_by: status === "verified" || status === "received" ? user.id : null,
       note,
     });
+  }
+
+  // 새 파일이 정상 반영된 뒤에만 옛 파일 정리 (댕글링 방지).
+  if (hasFile && existingStoragePath && existingStoragePath !== newStoragePath) {
+    await supabase.storage.from(DOC_BUCKET).remove([existingStoragePath]);
   }
 
   revalidatePath(`/admin/students/${studentId}/documents`);

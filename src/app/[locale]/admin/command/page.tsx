@@ -94,7 +94,7 @@ export default async function AdminCommandPage({
                         {n.stage_key?.startsWith("care:") ? "🩺 자동 케어" : n.stage_key}
                       </span>
                       <span className="ml-auto text-[11px] text-ink-500">
-                        {new Date(n.created_at).toLocaleString("ko-KR")}
+                        {new Date(n.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}
                       </span>
                     </div>
                     <p className="whitespace-pre-line rounded-lg bg-cream-100/60 px-3 py-2 text-sm text-navy-800">

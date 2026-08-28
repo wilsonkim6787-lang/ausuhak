@@ -34,9 +34,13 @@ const LEAD_LABEL: Record<string, string> = {
   pr:        "PR",
 };
 
-function monthStart(): Date {
-  const d = new Date();
-  return new Date(d.getFullYear(), d.getMonth(), 1);
+// KST(UTC+9) 기준 이번 달 1일 00:00 을 UTC 인스턴트로. (서버 UTC 시간대에서 "이번 달"이
+// 매월 1일 09시 KST에 넘어가던 문제 방지 — created_at 은 UTC 타임스탬프라 Date 비교로 OK.)
+function monthStartKST(): Date {
+  const kstNow = new Date(Date.now() + 9 * 3600 * 1000);
+  return new Date(
+    Date.UTC(kstNow.getUTCFullYear(), kstNow.getUTCMonth(), 1) - 9 * 3600 * 1000,
+  );
 }
 
 function daysAgo(n: number): Date {
@@ -52,24 +56,34 @@ export default async function AdminStatsPage({
   setRequestLocale(locale);
 
   const supabase = await createClient();
-  const month = monthStart();
+  const month = monthStartKST();
 
-  const [studentsRes, paymentsRes, quotesRes] = await Promise.all([
-    supabase
-      .from("students")
-      .select("current_stage, lead_status, is_medical, created_at")
-      .limit(5000),
-    supabase
-      .from("payments")
-      .select("amount_krw, status, created_at")
-      .gte("created_at", daysAgo(90).toISOString())
-      .limit(5000),
-    supabase
-      .from("quotes")
-      .select("status, total_krw, created_at")
-      .gte("created_at", daysAgo(90).toISOString())
-      .limit(5000),
-  ]);
+  const [studentsRes, paymentsRes, quotesRes, pendingAllRes, draftAllRes] =
+    await Promise.all([
+      supabase
+        .from("students")
+        .select("current_stage, lead_status, is_medical, created_at")
+        .limit(5000),
+      supabase
+        .from("payments")
+        .select("amount_krw, status, created_at")
+        .gte("created_at", daysAgo(90).toISOString())
+        .limit(5000),
+      supabase
+        .from("quotes")
+        .select("status, total_krw, created_at")
+        .gte("created_at", daysAgo(90).toISOString())
+        .limit(5000),
+      // "(전체)" 라벨용 — 90일 창에 상관없이 전체 대기/미발송 카운트
+      supabase
+        .from("payments")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "pending"),
+      supabase
+        .from("quotes")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "draft"),
+    ]);
 
   const students = (studentsRes.data ?? []) as StudentStat[];
   const payments = (paymentsRes.data ?? []) as PaymentStat[];
@@ -96,12 +110,12 @@ export default async function AdminStatsPage({
   const revenueMonth = paysMonth
     .filter((p) => p.status === "confirmed")
     .reduce((a, p) => a + (p.amount_krw ?? 0), 0);
-  const paysPending = payments.filter((p) => p.status === "pending").length;
+  const paysPending = pendingAllRes.count ?? 0; // 전체 대기 (90일 창 무관)
   const paysRefundedMonth = paysMonth.filter((p) => p.status === "refunded").length;
 
   // ─── 견적 통계 (이번 달) ─────────────────────────
   const quotesMonth = quotes.filter((q) => new Date(q.created_at) >= month);
-  const quotesDraft = quotes.filter((q) => q.status === "draft").length;
+  const quotesDraft = draftAllRes.count ?? 0; // 전체 draft (90일 창 무관)
 
   return (
     <div className="flex flex-col gap-8">
@@ -205,13 +219,15 @@ export default async function AdminStatsPage({
           <Stat label="draft (대기 / 전체)" value={quotesDraft.toString()} highlight={quotesDraft > 0} />
           <Stat
             label="이번 달 평균 견적"
-            value={
-              quotesMonth.length === 0
+            value={(() => {
+              // total_krw 가 있는 견적만으로 평균 (null 견적을 0으로 넣어 평균이 깎이던 문제 방지)
+              const withTotal = quotesMonth.filter((q) => q.total_krw != null);
+              return withTotal.length === 0
                 ? "—"
                 : `₩${Math.round(
-                    quotesMonth.reduce((a, q) => a + (q.total_krw ?? 0), 0) / quotesMonth.length,
-                  ).toLocaleString("ko-KR")}`
-            }
+                    withTotal.reduce((a, q) => a + (q.total_krw ?? 0), 0) / withTotal.length,
+                  ).toLocaleString("ko-KR")}`;
+            })()}
           />
         </div>
       </section>

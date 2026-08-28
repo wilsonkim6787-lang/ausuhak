@@ -68,9 +68,12 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
   const isoWeekStart = weekStart.toISOString();
   const iso14dAgo = fourteenDaysAgo.toISOString();
 
-  // 날짜 컬럼 (critical_deadlines.deadline_date = DATE)용
-  const isoDateOnly = (d: Date): string => d.toISOString().slice(0, 10);
-  const tomorrowDate = isoDateOnly(tomorrowStart);
+  // 날짜 컬럼 (critical_deadlines.deadline_date = DATE)용 — KST 달력일로 변환.
+  // (tomorrowStart 는 "KST 내일 자정"의 UTC 인스턴트라, 그냥 slice 하면 UTC 날짜가
+  //  나와 KST 오늘이 찍히는 버그가 있었음 → +9h 후 slice.)
+  const kstDateOnly = (d: Date): string =>
+    new Date(d.getTime() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  const tomorrowDate = kstDateOnly(tomorrowStart);
 
   // count-only 쿼리 헬퍼
   const cnt = (

@@ -197,8 +197,8 @@ export default function BasicInfoForm({ student }: { student: Student }) {
             <SideRow k="진단 결과 UUID" v={student.diagnose_uuid} />
             <SideRow k="익명 ID" v={student.anonymous_id} />
             <SideRow k="파트너 추천" v={student.partner_ref} />
-            <SideRow k="등록일" v={new Date(student.created_at).toLocaleString("ko-KR")} />
-            <SideRow k="최근 수정" v={new Date(student.updated_at).toLocaleString("ko-KR")} />
+            <SideRow k="등록일" v={new Date(student.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} />
+            <SideRow k="최근 수정" v={new Date(student.updated_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} />
           </dl>
         </section>
       </aside>

@@ -98,16 +98,20 @@ export async function confirmPaymentAction(
     .single();
   if (stErr || !student) return { error: `학생 조회 실패: ${stErr?.message}` };
 
-  // 1) payments confirmed
-  const { error: upErr } = await supabase
+  // 1) payments confirmed — pending 건만 (환불/취소된 건이 되살아나지 않도록 가드).
+  const { data: confirmed, error: upErr } = await supabase
     .from("payments")
     .update({
       status: "confirmed",
       confirmed_by: user.id,
       confirmed_at: new Date().toISOString(),
     })
-    .eq("id", paymentId);
+    .eq("id", paymentId)
+    .eq("status", "pending")
+    .select("id")
+    .maybeSingle();
   if (upErr) return { error: `확정 실패: ${upErr.message}` };
+  if (!confirmed) return { error: "확정 대기(pending) 상태의 결제만 확정할 수 있습니다." };
 
   // 2) 학생 stage ≥ 2
   if ((student.current_stage ?? 1) < 2) {
@@ -203,11 +207,31 @@ export async function refundPaymentAction(
   const studentId = String(formData.get("student_id") ?? "");
   if (!paymentId || !studentId) return { error: "필수 ID 누락." };
 
+  const supabase = await createClient();
+
+  // 대상 결제 조회 — 금액 상한 검증 + 상태 가드 (이미 환불된 건 재환불 방지)
+  const { data: payment, error: pErr } = await supabase
+    .from("payments")
+    .select("amount_krw, status")
+    .eq("id", paymentId)
+    .single();
+  if (pErr || !payment) return { error: `결제 조회 실패: ${pErr?.message ?? "없음"}` };
+  if (payment.status === "refunded") {
+    return { error: "이미 환불 처리된 결제입니다." };
+  }
+
   const refundRaw = nullify(formData.get("refund_amount"));
   const refundAmount = refundRaw ? parseInt(refundRaw, 10) : null;
+  if (refundAmount != null) {
+    if (isNaN(refundAmount) || refundAmount < 0) {
+      return { error: "환불 금액이 올바르지 않습니다." };
+    }
+    if (payment.amount_krw != null && refundAmount > payment.amount_krw) {
+      return { error: `환불 금액이 결제 금액(${payment.amount_krw.toLocaleString("ko-KR")}원)을 초과할 수 없습니다.` };
+    }
+  }
   const reason = nullify(formData.get("refund_reason"));
 
-  const supabase = await createClient();
   const { error } = await supabase
     .from("payments")
     .update({
@@ -215,7 +239,8 @@ export async function refundPaymentAction(
       refund_amount: refundAmount,
       refund_reason: reason,
     })
-    .eq("id", paymentId);
+    .eq("id", paymentId)
+    .neq("status", "refunded");
   if (error) return { error: `환불 처리 실패: ${error.message}` };
 
   await logActivity({
