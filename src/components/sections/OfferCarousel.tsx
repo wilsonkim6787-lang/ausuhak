@@ -21,6 +21,17 @@ export type OfferItem = {
 
 const ROTATE_MS = 5000;
 
+// Fisher-Yates — 접속(마운트)마다 카드 순서 재셔플.
+// 페이지가 캐시돼도 브라우저에서 다시 섞이므로 방문마다 순서가 달라진다.
+function shuffleItems(arr: OfferItem[]): OfferItem[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export default function OfferCarousel({
   items,
   placeholderLabel,
@@ -28,18 +39,26 @@ export default function OfferCarousel({
   items: OfferItem[];
   placeholderLabel: string;
 }) {
+  // 서버 HTML 과 첫 클라이언트 렌더는 동일(순서 그대로) → 하이드레이션 안전.
+  // 마운트 직후 셔플 적용.
+  const [order, setOrder] = useState<OfferItem[] | null>(null);
+  useEffect(() => {
+    setOrder(shuffleItems(items));
+  }, [items]);
+  const display = order ?? items;
+
   const groups: OfferItem[][] = [];
-  for (let i = 0; i < items.length; i += 3) {
-    const group = items.slice(i, i + 3);
+  for (let i = 0; i < display.length; i += 3) {
+    const group = display.slice(i, i + 3);
     let fill = 0;
-    while (group.length < 3 && items.length >= 3) {
-      group.push(items[fill % items.length]);
+    while (group.length < 3 && display.length >= 3) {
+      group.push(display[fill % display.length]);
       fill++;
     }
     groups.push(group);
   }
   const groupCount = Math.max(groups.length, 1);
-  const [page, setPage] = useState(() => Math.floor(Math.random() * groupCount));
+  const [page, setPage] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -94,7 +113,7 @@ export default function OfferCarousel({
             ))}
           </ul>
           <ul className="flex snap-x snap-mandatory gap-5 px-4 sm:hidden">
-            {items.map((o, i) => (
+            {display.map((o, i) => (
               <CardLi key={`m-${o.id ?? i}`} o={o} placeholderLabel={placeholderLabel} />
             ))}
           </ul>
