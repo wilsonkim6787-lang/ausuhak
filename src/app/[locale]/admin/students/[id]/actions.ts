@@ -286,10 +286,28 @@ export async function updateApplicationStatusAction(formData: FormData): Promise
   if (!appId || !status) return;
 
   const supabase = await createClient();
-  const payload: Record<string, string> = { status };
+
+  // 날짜 필드 정합성 유지: 현재 값을 보고 전환에 맞춰 갱신.
+  const { data: cur } = await supabase
+    .from("school_applications")
+    .select("applied_at, offer_received_at")
+    .eq("id", appId)
+    .single();
+
+  const payload: Record<string, string | null> = { status };
   if (status === "offer_received") {
-    payload.offer_received_at = new Date().toISOString();
+    // 최초 오퍼 시각 유지 (재저장 시 덮어쓰지 않음).
+    payload.offer_received_at =
+      (cur?.offer_received_at as string | null) ?? new Date().toISOString();
+  } else {
+    // 오퍼 상태를 벗어나면(거절·철회 등) 오퍼일 제거 → ⭐ Offer 칩이 남지 않도록.
+    payload.offer_received_at = null;
   }
+  // applied 로 넘어가는데 지원일이 비어 있으면 지금으로 기록.
+  if (status === "applied" && !cur?.applied_at) {
+    payload.applied_at = new Date().toISOString();
+  }
+
   await supabase.from("school_applications").update(payload).eq("id", appId);
 
   revalidatePath(`/admin/students/${studentId}/applications`);

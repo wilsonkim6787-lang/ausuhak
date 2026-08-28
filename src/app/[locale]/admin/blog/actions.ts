@@ -139,9 +139,9 @@ function stripMarkdown(md: string): string {
 
 export async function setMainNoticeAction(formData: FormData): Promise<void> {
   const user = await getCurrentUser();
-  if (!user || user.role !== "super_admin") redirect("/admin/blog?nerr=권한 없음");
+  if (!user || user.role !== "super_admin") redirect("/admin/blog?nerr=" + encodeURIComponent("권한 없음"));
   const id = String(formData.get("id") ?? "");
-  if (!id) redirect("/admin/blog?nerr=id 누락");
+  if (!id) redirect("/admin/blog?nerr=" + encodeURIComponent("id 누락"));
 
   const supabase = await createClient();
   const { data: post, error: postErr } = await supabase
@@ -149,7 +149,7 @@ export async function setMainNoticeAction(formData: FormData): Promise<void> {
     .select("id, slug, title, excerpt, body, status")
     .eq("id", id)
     .single();
-  if (postErr || !post) redirect("/admin/blog?nerr=글을 찾을 수 없음");
+  if (postErr || !post) redirect("/admin/blog?nerr=" + encodeURIComponent("글을 찾을 수 없음"));
   if (post.status !== "published") {
     redirect("/admin/blog?nerr=" + encodeURIComponent("발행(published) 상태의 글만 메인 공지로 올릴 수 있습니다"));
   }
@@ -183,7 +183,7 @@ export async function setMainNoticeAction(formData: FormData): Promise<void> {
 
 export async function clearMainNoticeAction(): Promise<void> {
   const user = await getCurrentUser();
-  if (!user || user.role !== "super_admin") redirect("/admin/blog?nerr=권한 없음");
+  if (!user || user.role !== "super_admin") redirect("/admin/blog?nerr=" + encodeURIComponent("권한 없음"));
 
   const supabase = await createClient();
   const { error } = await supabase
