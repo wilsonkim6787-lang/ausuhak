@@ -13,11 +13,13 @@ if (!url || !key) {
   process.exit(0);
 }
 
-// match 규칙: schoolAny(하나라도 포함, 소문자) / schoolNot(포함 시 제외) / year / aliasPrefix
+// match 규칙: schoolAny(하나라도 포함, 소문자 — 한/영 표기 모두 등록) /
+// schoolNot(문자열 또는 배열, 포함 시 제외) / year / aliasPrefix
 function matches(row, m) {
   const school = (row.school ?? "").toLowerCase();
   if (!m.schoolAny.some((s) => school.includes(s))) return false;
-  if (m.schoolNot && school.includes(m.schoolNot)) return false;
+  const nots = Array.isArray(m.schoolNot) ? m.schoolNot : m.schoolNot ? [m.schoolNot] : [];
+  if (nots.some((s) => school.includes(s))) return false;
   if (m.year != null && row.year !== m.year) return false;
   if (m.aliasPrefix && !(row.student_alias ?? "").startsWith(m.aliasPrefix)) return false;
   return true;
