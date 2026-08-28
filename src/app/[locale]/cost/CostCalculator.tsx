@@ -129,7 +129,7 @@ export default function CostCalculator() {
         </dl>
 
         <p className="mt-4 rounded-lg bg-cream-100 px-3 py-2.5 text-xs leading-relaxed text-ink-700">
-          ⚠️ 학교·과정·환율에 따라 실제 비용은 달라집니다. 학생비자는 주 24시간(방학 무제한)
+          ⚠️ 학교·과정·환율에 따라 실제 비용은 달라집니다. 학생비자는 학기 중 2주 48시간(방학 무제한)
           아르바이트가 가능해 생활비 상당 부분을 현지에서 충당하는 경우가 많습니다.
           장학금·프로모션 반영한 정확한 견적은 무료 상담으로 확인하세요.
         </p>
