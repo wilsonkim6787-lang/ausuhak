@@ -23,11 +23,13 @@ export async function saveNoticeAction(
   const version = bump ? versionRaw + 1 : versionRaw;
 
   const supabase = await createClient();
+  // is_public: true 필수 — 홈페이지는 anon(비로그인) 클라이언트로 읽고,
+  // RLS(settings_public_select)가 is_public=true 행만 허용. false면 공지가 방문자에게 안 보임.
   const rows = [
-    { key: "notice_active", value: active ? "true" : "false", category: "notice", is_public: false },
-    { key: "notice_title",  value: title || null,             category: "notice", is_public: false },
-    { key: "notice_body",   value: body || null,              category: "notice", is_public: false },
-    { key: "notice_version", value: String(version),          category: "notice", is_public: false },
+    { key: "notice_active", value: active ? "true" : "false", category: "notice", is_public: true },
+    { key: "notice_title",  value: title || null,             category: "notice", is_public: true },
+    { key: "notice_body",   value: body || null,              category: "notice", is_public: true },
+    { key: "notice_version", value: String(version),          category: "notice", is_public: true },
   ];
   const { error } = await supabase
     .from("site_settings")

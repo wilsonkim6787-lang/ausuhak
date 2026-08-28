@@ -53,7 +53,7 @@ export default function Sidebar({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed left-4 top-4 z-30 rounded-full bg-navy-900 p-2 text-white shadow-md hover:bg-navy-800 md:hidden"
+        className="fixed left-4 top-4 z-30 rounded-full bg-navy-900 p-2 text-white shadow-md hover:bg-navy-800 md:hidden print:hidden"
         aria-label="메뉴 열기"
       >
         <Menu className="size-5" />
@@ -61,7 +61,7 @@ export default function Sidebar({
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-cream-300 bg-white transition-transform md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-cream-300 bg-white transition-transform md:translate-x-0 print:hidden ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -139,7 +139,7 @@ export default function Sidebar({
       {/* Mobile backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-30 bg-black/40 md:hidden"
+          className="fixed inset-0 z-30 bg-black/40 md:hidden print:hidden"
           onClick={() => setOpen(false)}
         />
       )}

@@ -30,13 +30,17 @@ export default async function AdminLayout({
   return (
     <div className="flex min-h-screen bg-cream-100">
       <Sidebar userName={user.name} userEmail={user.email} />
-      <div className="ml-0 flex flex-1 flex-col md:ml-64">
+      {/* 인쇄 시(견적서 PDF 저장) 사이드바가 숨겨지므로 좌측 여백도 제거 (print:ml-0) */}
+      <div className="ml-0 flex flex-1 flex-col md:ml-64 print:ml-0">
         <main className="flex-1">
           <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
             {children}
           </div>
         </main>
-        <Footer />
+        {/* 견적서 PDF 인쇄물에 사이트 푸터가 딸려 나오지 않도록 숨김 */}
+        <div className="print:hidden">
+          <Footer />
+        </div>
       </div>
     </div>
   );

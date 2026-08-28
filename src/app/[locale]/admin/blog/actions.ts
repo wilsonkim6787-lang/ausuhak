@@ -163,12 +163,12 @@ export async function setMainNoticeAction(formData: FormData): Promise<void> {
 
   const summary = stripMarkdown(post.excerpt || post.body || "").slice(0, 220);
   const rows = [
-    { key: "notice_active",  value: "true",           category: "notice", is_public: false },
-    { key: "notice_title",   value: post.title,       category: "notice", is_public: false },
-    { key: "notice_body",    value: summary || null,  category: "notice", is_public: false },
-    { key: "notice_version", value: String(version),  category: "notice", is_public: false },
-    { key: "notice_slug",    value: post.slug,        category: "notice", is_public: false },
-    { key: "notice_blog_id", value: post.id,          category: "notice", is_public: false },
+    { key: "notice_active",  value: "true",           category: "notice", is_public: true },
+    { key: "notice_title",   value: post.title,       category: "notice", is_public: true },
+    { key: "notice_body",    value: summary || null,  category: "notice", is_public: true },
+    { key: "notice_version", value: String(version),  category: "notice", is_public: true },
+    { key: "notice_slug",    value: post.slug,        category: "notice", is_public: true },
+    { key: "notice_blog_id", value: post.id,          category: "notice", is_public: true },
   ];
   const { error } = await supabase
     .from("site_settings")
@@ -190,8 +190,8 @@ export async function clearMainNoticeAction(): Promise<void> {
     .from("site_settings")
     .upsert(
       [
-        { key: "notice_active",  value: "false", category: "notice", is_public: false },
-        { key: "notice_blog_id", value: null,    category: "notice", is_public: false },
+        { key: "notice_active",  value: "false", category: "notice", is_public: true },
+        { key: "notice_blog_id", value: null,    category: "notice", is_public: true },
       ],
       { onConflict: "key" },
     );

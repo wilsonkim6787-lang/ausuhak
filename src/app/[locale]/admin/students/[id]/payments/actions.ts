@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentUser } from "@/lib/auth/getUser";
 import { logActivity } from "@/lib/audit/log";
+import { likeEscape } from "@/lib/utils/likeEscape";
 
 export type PaymentActionState = {
   ok?: boolean;
@@ -126,11 +127,20 @@ export async function confirmPaymentAction(
     const admin = createAdminClient();
 
     // 중복 이메일 체크: 이미 auth.users에 있으면 그 id로 링크만 (case-insensitive)
-    const { data: existingByEmail } = await admin
+    // likeEscape 필수 — email 의 '_'/'%' 가 와일드카드로 작동하면 엉뚱한(심지어
+    // 공격자) 계정이 매칭돼 students.user_id 가 그 계정에 연결됨 (마이페이지 전체 노출).
+    const { data: existingByEmail, error: lookupErr } = await admin
       .from("users")
       .select("id")
-      .ilike("email", student.email)
+      .ilike("email", likeEscape(student.email))
       .maybeSingle();
+    if (lookupErr) {
+      // 2건 이상 매칭 등 — 신규 계정 생성으로 새지 않도록 중단.
+      return {
+        ok: true,
+        error: `결제는 확정되었으나 계정 조회 실패(${lookupErr.message}). 학생 계정 연결은 수동으로 확인해주세요.`,
+      };
+    }
 
     let authId: string | null = existingByEmail?.id ?? null;
 
