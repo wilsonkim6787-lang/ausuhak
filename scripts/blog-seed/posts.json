@@ -1,5 +1,69 @@
 [
   {
+    "slug": "guide-01-school-choice",
+    "file": "guide-01-school-choice.md",
+    "title": "실패하지 않는 호주유학 ① 학교 선택 — 이름값보다 먼저 볼 4가지",
+    "category": "노하우",
+    "published_at": "2026-05-18T10:00:00+09:00",
+    "excerpt": "호주 유학이 어긋나는 지점은 대부분 첫 단추, 학교 선택입니다. 전공·루트·총비용·비자 처리 속도까지 이름값보다 먼저 봐야 할 4가지와, 학비가 싸다는 이유만으로 고르면 안 되는 이유를 정리했습니다. [실패하지 않는 호주유학 시리즈 1/8]"
+  },
+  {
+    "slug": "guide-02-english-score",
+    "file": "guide-02-english-score.md",
+    "title": "실패하지 않는 호주유학 ② 영어점수 — IELTS·PTE 목표 정하는 법",
+    "category": "노하우",
+    "published_at": "2026-05-21T14:20:00+09:00",
+    "excerpt": "점수부터 만들고 유학을 알아보는 건 순서가 거꾸로입니다. 과정별 요구 점수, IELTS vs PTE 선택 기준, 그리고 점수가 부족할 때 조건부 오퍼·영어 패키지로 가는 길까지 — 영어 준비의 정석 순서입니다. [시리즈 2/8]"
+  },
+  {
+    "slug": "guide-03-offer-letter",
+    "file": "guide-03-offer-letter.md",
+    "title": "실패하지 않는 호주유학 ③ 오퍼 레터 — 조건부·무조건부 읽는 법",
+    "category": "노하우",
+    "published_at": "2026-05-25T11:10:00+09:00",
+    "excerpt": "조건부 오퍼는 아직 합격이 아닙니다. Conditional/Unconditional의 차이, 오퍼에서 확인할 5가지, 수락 후 CoE 발급과 비자 신청으로 이어지는 순서까지 — 오퍼를 계약서처럼 읽는 법을 정리했습니다. [시리즈 3/8]"
+  },
+  {
+    "slug": "guide-04-tuition-scholarship",
+    "file": "guide-04-tuition-scholarship.md",
+    "title": "실패하지 않는 호주유학 ④ 학비·장학금 — 예산 설계와 아끼는 법",
+    "category": "노하우",
+    "published_at": "2026-05-28T15:35:00+09:00",
+    "excerpt": "유학 실패의 절반은 예산 계획 실패입니다. 학비·생활비·비자 비용의 전체 구조, 자동 심사·신청형·경쟁형 장학금 3가지 유형, 그리고 4년간 수천만 원을 아끼는 학교 조합 전략을 정리했습니다. [시리즈 4/8]"
+  },
+  {
+    "slug": "guide-05-student-visa",
+    "file": "guide-05-student-visa.md",
+    "title": "실패하지 않는 호주유학 ⑤ 학생비자 — 서류·재정·타이밍",
+    "category": "노하우",
+    "published_at": "2026-06-01T09:50:00+09:00",
+    "excerpt": "CoE·재정증명·GS 답변·OSHC까지 학생비자 준비물과, 학교에 따라 심사 속도가 달라지는 MD115 시대의 신청 타이밍, 그리고 갑작스러운 입금·복붙 GS 같은 흔한 실수를 정리했습니다. [시리즈 5/8]"
+  },
+  {
+    "slug": "guide-06-accommodation",
+    "file": "guide-06-accommodation.md",
+    "title": "실패하지 않는 호주유학 ⑥ 숙소 — 첫 숙소는 이 순서로",
+    "category": "노하우",
+    "published_at": "2026-06-04T13:15:00+09:00",
+    "excerpt": "한국에서 장기 숙소를 확정하지 마세요. 첫 4~8주 홈스테이 → 현지에서 직접 보고 쉐어 구하기가 정석 순서입니다. 선입금 사기 피하는 법과 Bond 정부 등록까지, 숙소에서 실패하지 않는 법. [시리즈 6/8]"
+  },
+  {
+    "slug": "guide-07-departure",
+    "file": "guide-07-departure.md",
+    "title": "실패하지 않는 호주유학 ⑦ 출국 준비 — 서류·돈·통신 최종 점검",
+    "category": "노하우",
+    "published_at": "2026-06-08T10:40:00+09:00",
+    "excerpt": "비자 승인서·CoE·국제운전면허증부터 초기 정착금 계산, eSIM 사전 개통, 호주 검역 주의사항까지 — 출국 2~4주 전부터 순서대로 진행하는 최종 체크리스트입니다. [시리즈 7/8]"
+  },
+  {
+    "slug": "guide-08-settling-in",
+    "file": "guide-08-settling-in.md",
+    "title": "실패하지 않는 호주유학 ⑧ 현지 생활 — 정착 첫 한 달 플랜",
+    "category": "노하우",
+    "published_at": "2026-06-11T16:00:00+09:00",
+    "excerpt": "1주차 기반 만들기(계좌·TFN·주소 통보), 2~3주차 생활 루틴과 다음 숙소 탐색, 3~4주차 알바 시작까지 — 도착 후 첫 한 달을 주차별로 정리한 정착 플랜입니다. [시리즈 완결 8/8]"
+  },
+  {
     "slug": "first-week-checklist-2026",
     "file": "first-week-checklist-2026.md",
     "title": "[호주생활] 호주 도착 첫 주 체크리스트 — SIM·은행·TFN·교통카드·USI",
@@ -56,6 +120,14 @@
     "excerpt": "2026년 7월 1일부터 호주 국가 최저임금이 시급 $26.44(주 $1,004.90)로 6% 올랐습니다. 캐주얼은 25% 로딩 포함 $33.05부터 — 유학생·워홀러도 똑같이 적용되며, 이보다 낮은 시급은 법 위반 소지가 있습니다."
   },
   {
+    "slug": "ged-to-australian-university-2027",
+    "file": "ged-to-australian-university-2027.md",
+    "title": "검정고시로 호주 대학 갈 수 있을까? 2027 대학별 진학 루트 총정리",
+    "category": "노하우",
+    "published_at": "2026-07-06T10:25:00+09:00",
+    "excerpt": "갈 수 있습니다 — 명문대까지. 검정고시생의 3가지 루트(파운데이션 → 1학년, Diploma → 2학년 편입, 직입학)를 비교하고, 내신 없이 시드니대·UNSW급 대학의 문이 열리는 구조와 준비 순서를 정리했습니다."
+  },
+  {
     "slug": "wsu-international-scholarships-2027",
     "file": "wsu-international-scholarships-2027.md",
     "title": "[웨스턴시드니대] 2027 국제학생 장학금 — 매년 AUD 5,000~10,000 다년 지급",
@@ -70,6 +142,14 @@
     "category": "비자",
     "published_at": "2026-07-11T15:20:00+09:00",
     "excerpt": "학생비자(500) 아르바이트는 학기 중 2주(Fortnight) 최대 48시간, 공식 방학엔 무제한입니다. 과정 시작 전엔 일할 수 없고 연구 석사·박사는 예외 — 일 시작 전 VEVO에서 내 비자 조건을 확인하는 법까지 정리했습니다."
+  },
+  {
+    "slug": "low-english-pathway-university",
+    "file": "low-english-pathway-university.md",
+    "title": "영어점수가 부족해도 호주 대학에 합격할 수 있을까?",
+    "category": "노하우",
+    "published_at": "2026-07-13T14:45:00+09:00",
+    "excerpt": "가능합니다 — 순서가 다를 뿐입니다. 조건부 오퍼로 자리를 먼저 확보하고, 시험 없이 진학하는 영어 패키지(ELICOS/EAP)로 잇는 구조를 설명합니다. 어학 주수 산정과 면허 전공(간호 7.0)의 함정까지."
   },
   {
     "slug": "student-visa-500-md115-priority-2026",
@@ -94,6 +174,14 @@
     "category": "비자",
     "published_at": "2026-07-20T10:30:00+09:00",
     "excerpt": "학생비자 재정증명은 본인 생활비 AUD 29,710에 12개월 학비와 왕복 여행비를 더해 계산합니다. 배우자·자녀 동반 시 추가 금액, 부모님 연소득(단독 87,856·가족 102,500)으로 증명하는 방법과 필요한 공식 서류까지 정리했습니다."
+  },
+  {
+    "slug": "diploma-vs-foundation-transfer",
+    "file": "diploma-vs-foundation-transfer.md",
+    "title": "호주 대학 Diploma로 2학년 편입 — 파운데이션과 뭐가 다를까?",
+    "category": "노하우",
+    "published_at": "2026-07-22T11:15:00+09:00",
+    "excerpt": "Diploma를 마치면 대학 2학년으로 편입해 총기간 1년과 학비를 아낄 수 있습니다. 파운데이션과의 차이를 표로 비교하고, 전공에 따라 답이 달라지는 이유(간호·의대는 파운데이션)와 학점 인정 확인 포인트를 정리했습니다."
   },
   {
     "slug": "monash-awards-2027",
@@ -126,6 +214,14 @@
     "category": "생활",
     "published_at": "2026-08-02T16:05:00+09:00",
     "excerpt": "한국에서 미리 송금하면 집을 잡아준다는 말, 시세보다 싼 매물, 해외에 있다는 집주인 — 유학생 렌트 사기의 전형적인 패턴과 예방 수칙 6가지, 이미 송금했을 때의 대처까지 정리했습니다."
+  },
+  {
+    "slug": "student-visa-course-change-warning",
+    "file": "student-visa-course-change-warning.md",
+    "title": "호주 학생비자, 학교만 바꾸면 되는 게 아닙니다 — 과정 변경 주의점",
+    "category": "노하우",
+    "published_at": "2026-08-04T09:45:00+09:00",
+    "excerpt": "낮은 단계(AQF) 과정으로 바꾸면 같은 학교여도 새 학생비자가 필요하고, 주과정 6개월 내 학교 이동은 Release가 필요합니다. 어학원→VET→대학 이동이 비자 심사에서 어떻게 보이는지, 원칙 중심으로 정리했습니다."
   },
   {
     "slug": "uq-international-scholarships-2027",
@@ -214,6 +310,14 @@
     "category": "장학금",
     "published_at": "2026-08-24T10:10:00+09:00",
     "excerpt": "Go8 UNSW의 2027 Term 1 장학금을 한국 학생 기준으로 정리했습니다. 자동 심사 AUD 10,000부터 매년 20,000, 최우수 학비 100%(Scientia, 마감 2026.10.30)까지 — 단 학비 20% International Student Award는 한국 국적이 대상이 아닙니다."
+  },
+  {
+    "slug": "nursing-pharmacy-medicine-roadmap",
+    "file": "nursing-pharmacy-medicine-roadmap.md",
+    "title": "호주 간호·약대·의대 유학 — 고등학생 때부터 이렇게 준비하세요",
+    "category": "노하우",
+    "published_at": "2026-08-25T13:30:00+09:00",
+    "excerpt": "간호는 입학 영어와 별개로 RN 등록에 IELTS 전 영역 7.0이 필요하고, 약대는 인턴 1년, 의대는 UCAT·학사 후 MD까지 — 세 전공의 전체 과정과 고1부터 시기별 준비 체크포인트를 정리한 전문 로드맵입니다."
   },
   {
     "slug": "whv-417-processing-delays-2026-08",
