@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import { FAQ_CATEGORIES, getTotalCount as getPublicFaqTotal } from "@/data/faqs";
 import MarkdownPreviewToggle from "@/components/admin/MarkdownPreviewToggle";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 import {
   upsertStaffManualAction,
   deleteStaffManualAction,
@@ -610,12 +611,12 @@ function StaffManualForm({
       {!isNew && row && (
         <form action={deleteStaffManualAction} className="flex justify-end">
           <input type="hidden" name="id" value={String(row.id ?? "")} />
-          <button
-            type="submit"
+          <ConfirmSubmitButton
+            message="이 매뉴얼을 삭제할까요? 되돌릴 수 없습니다."
             className="text-[11px] text-error hover:underline"
           >
             🗑️ 이 매뉴얼 삭제
-          </button>
+          </ConfirmSubmitButton>
         </form>
       )}
     </div>

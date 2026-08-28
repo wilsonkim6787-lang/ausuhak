@@ -147,7 +147,8 @@ export default async function StudentsPage({
       .select("student_id")
       .gte("consultation_date", kst.startIso)
       .lt("consultation_date", kst.endIso)
-      .neq("type", "kakao_30min");
+      // 대시보드 카운트와 동일 기준: 카톡 30분 제외, type 미상(null)은 포함.
+      .or("type.is.null,type.neq.kakao_30min");
     const ids = [...new Set((csRows ?? []).map((r) => r.student_id as string))];
     query = query.in("id", ids.length ? ids : [NO_MATCH_ID]);
   }
@@ -375,7 +376,12 @@ export default async function StudentsPage({
         students.length === 0 ? (
           <EmptyState />
         ) : (
-          <KanbanBoard students={kanbanStudents} />
+          // key: 필터/검색이 바뀌면 보드를 리마운트해 새 목록을 반영
+          // (내부 optimistic 상태가 이전 필터 결과를 붙들고 있지 않도록).
+          <KanbanBoard
+            key={`${sp.q ?? ""}|${sp.stage ?? ""}|${sp.lead_status ?? ""}|${sp.is_medical ?? ""}|${sp.filter ?? ""}`}
+            students={kanbanStudents}
+          />
         )
       ) : students.length === 0 ? (
         <EmptyState />

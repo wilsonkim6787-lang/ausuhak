@@ -90,6 +90,9 @@ export default function ProgressControl({
                         <input type="hidden" name="student_id" value={studentId} />
                         <input type="hidden" name="substep_key" value={sub.key} />
                         <select
+                          // key: 파생 상태가 바뀌면 select 를 리마운트해 새 값 반영
+                          // (한 substep 변경이 이웃 substep 의 파생 상태를 바꿔도 표시가 갱신되도록).
+                          key={statusMap[sub.key] ?? "pending"}
                           name="status"
                           defaultValue={statusMap[sub.key] ?? "pending"}
                           onChange={(e) => e.currentTarget.form?.requestSubmit()}

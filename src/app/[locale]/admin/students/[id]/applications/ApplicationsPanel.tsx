@@ -207,6 +207,10 @@ export default function ApplicationsPanel({
                     <input type="hidden" name="student_id" value={studentId} />
                     <button
                       type="submit"
+                      onClick={(e) => {
+                        if (!confirm("이 지원 기록을 삭제할까요? 되돌릴 수 없습니다."))
+                          e.preventDefault();
+                      }}
                       className="text-[11px] text-ink-500 underline hover:text-error"
                       aria-label="지원 삭제"
                     >

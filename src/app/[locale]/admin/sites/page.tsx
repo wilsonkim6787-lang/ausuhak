@@ -11,6 +11,7 @@ import {
   upsertMonitoringSiteAction,
   deleteMonitoringSiteAction,
 } from "./actions";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 type Site = {
   id: string;
@@ -479,9 +480,12 @@ function SiteForm({
           className="flex justify-end pt-2 border-t border-cream-200"
         >
           <input type="hidden" name="id" value={editing.id} />
-          <button type="submit" className="text-[11px] text-error hover:underline">
+          <ConfirmSubmitButton
+            message="이 사이트를 삭제할까요? 되돌릴 수 없습니다."
+            className="text-[11px] text-error hover:underline"
+          >
             🗑️ 이 사이트 삭제
-          </button>
+          </ConfirmSubmitButton>
         </form>
       )}
     </div>

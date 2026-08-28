@@ -7,6 +7,7 @@ import {
   saveConsultMemoAction,
   deleteConsultAction,
 } from "./actions";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 type ConsultRow = {
   id: string;
@@ -204,7 +205,12 @@ export default async function AdminConsultsPage({
 
               <form action={deleteConsultAction}>
                 <input type="hidden" name="id" value={r.id} />
-                <button className="text-[11px] text-error hover:underline">🗑️</button>
+                <ConfirmSubmitButton
+                  message="이 상담 신청을 삭제할까요? 되돌릴 수 없습니다."
+                  className="text-[11px] text-error hover:underline"
+                >
+                  🗑️
+                </ConfirmSubmitButton>
               </form>
             </div>
           </li>

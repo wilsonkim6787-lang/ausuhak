@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import OfferStoryField from "@/components/admin/OfferStoryField";
 import { upsertOfferAction, deleteOfferAction, bulkSeedOffersAction } from "./actions";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 type Offer = {
   id: string;
@@ -349,12 +350,12 @@ function OfferForm({
       {!isNew && editing && (
         <form action={deleteOfferAction} className="flex justify-end pt-2 border-t border-cream-200">
           <input type="hidden" name="id" value={editing.id} />
-          <button
-            type="submit"
+          <ConfirmSubmitButton
+            message="이 합격증을 삭제할까요? 이미지 파일과 데이터가 영구 삭제됩니다."
             className="text-[11px] text-error hover:underline"
           >
             🗑️ 이 합격증 삭제 (이미지+row)
-          </button>
+          </ConfirmSubmitButton>
         </form>
       )}
     </div>

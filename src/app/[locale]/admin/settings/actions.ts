@@ -95,18 +95,19 @@ export async function saveSettingsAction(
   const supabase = await createClient();
   const nowIso = new Date().toISOString();
 
-  // site_settings 병렬 UPDATE
+  // site_settings 병렬 UPDATE.
+  // 제출된 필드만 갱신 — en 입력이 없는(한국어 전용) 필드 저장 시 value_en 을
+  // null 로 덮어써 seed 영문값이 지워지던 문제 방지. (undefined=미제출 / null=명시적 비움)
   const settingPromises = Array.from(settingUpdates.entries()).map(
-    ([k, { value, value_en }]) =>
-      supabase
-        .from("site_settings")
-        .update({
-          value: value ?? null,
-          value_en: value_en ?? null,
-          updated_by: user.id,
-          updated_at: nowIso,
-        })
-        .eq("key", k),
+    ([k, { value, value_en }]) => {
+      const payload: Record<string, string | null> = {
+        updated_by: user.id,
+        updated_at: nowIso,
+      };
+      if (value !== undefined) payload.value = value;
+      if (value_en !== undefined) payload.value_en = value_en;
+      return supabase.from("site_settings").update(payload).eq("key", k);
+    },
   );
 
   // branches 병렬 UPDATE (허용 컬럼만 화이트리스트)

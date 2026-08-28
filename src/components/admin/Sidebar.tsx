@@ -43,8 +43,11 @@ export default function Sidebar({
   const [open, setOpen] = useState(false);
 
   const isActive = (href: string) => {
-    if (href === "/admin") return pathname === "/admin" || pathname === "/ko/admin";
-    return pathname.startsWith(href) || pathname.startsWith(`/ko${href}`);
+    // locale prefix(/ko·/en) 제거 후 정확 매칭 — /en 에서도 활성표시되고,
+    // /admin/students 가 /admin/students-xxx 처럼 과매칭되지 않도록 경계까지 확인.
+    const p = pathname.replace(/^\/(?:ko|en)(?=\/|$)/, "");
+    if (href === "/admin") return p === "/admin";
+    return p === href || p.startsWith(`${href}/`);
   };
 
   return (
