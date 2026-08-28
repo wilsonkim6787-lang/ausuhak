@@ -28,6 +28,16 @@ type Offer = {
 
 marked.setOptions({ gfm: true, breaks: false });
 
+// Fisher-Yates — "다른 합격 케이스"를 접속(요청)마다 랜덤 샘플링.
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export default async function OfferDetailPage({
   params,
 }: {
@@ -49,15 +59,12 @@ export default async function OfferDetailPage({
       .from("offers")
       .select("id, school, program, year, student_alias, image_path")
       .eq("status", "published")
-      .neq("id", id)
-      .order("display_order")
-      .order("year", { ascending: false })
-      .limit(8),
+      .neq("id", id),
   ]);
 
   if (currentRes.error || !currentRes.data) notFound();
   const o = currentRes.data as Offer;
-  const others = (othersRes.data ?? []) as Array<{
+  const others = shuffle(othersRes.data ?? []).slice(0, 8) as Array<{
     id: string;
     school: string;
     program: string | null;
