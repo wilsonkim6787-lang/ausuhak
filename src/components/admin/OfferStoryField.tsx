@@ -3,12 +3,10 @@
 // /admin/offers 후기(story) 작성용 — textarea + 실시간 markdown 미리보기.
 // 깜깜이 작성·저장→publish→상세페이지 열기 왕복 제거 (P4 콘텐츠 파이프라인).
 // 미리보기 렌더는 공개 상세페이지(src/app/[locale]/offers/[id]/page.tsx)와 픽셀 일치를 위해
-// 같은 marked 옵션 + .offer-story CSS 를 미러. 상세페이지 스타일 변경 시 아래 STORY_CSS 도 함께 갱신.
+// 같은 renderMarkdown + .offer-story CSS 를 미러. 상세페이지 스타일 변경 시 아래 STORY_CSS 도 함께 갱신.
 
 import { useState } from "react";
-import { marked } from "marked";
-
-marked.setOptions({ gfm: true, breaks: false });
+import { renderMarkdown } from "@/lib/markdown";
 
 const PLACEHOLDER =
   "## 학생 배경\n- 검정고시 / 19세 / IELTS 6.5\n\n## 지원 과정\n1. Wilson 1:1 상담 (2024.04)\n2. Foundation 6개월 ...\n\n## Wilson 노하우\n- ...";
@@ -58,8 +56,7 @@ const STORY_CSS = `
 export default function OfferStoryField({ defaultValue }: { defaultValue: string }) {
   const [value, setValue] = useState(defaultValue);
   const trimmed = value.trim();
-  // 기본 옵션(async 미사용)에서 marked.parse 는 동기 string 반환.
-  const html = trimmed ? (marked.parse(trimmed) as string) : "";
+  const html = trimmed ? renderMarkdown(trimmed) : "";
 
   // 비파괴: 비어있으면 채우고, 내용 있으면 뒤에 덧붙임 (덮어쓰기 사고 방지).
   const insertTemplate = () =>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { requireStudent } from "@/lib/auth/requireStudent";
+import { KAKAO_URL } from "@/lib/constants";
 
 type QuoteRow = {
   id: string;
@@ -12,7 +13,6 @@ type QuoteRow = {
   created_at: string;
 };
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 function fmtKRW(n: number | null) {
   if (n == null) return null;
@@ -106,14 +106,20 @@ export default async function MypageQuotePage() {
                 )}
                 <span
                   className={`ml-auto rounded-full px-2 py-0.5 text-[11px] font-bold ${
-                    q.status === "confirmed"
+                    q.status === "accepted"
                       ? "bg-success/15 text-success"
                       : q.status === "sent"
                       ? "bg-gold-100 text-gold-600"
                       : "bg-cream-300 text-ink-700"
                   }`}
                 >
-                  {q.status ?? "draft"}
+                  {q.status === "accepted"
+                    ? "확정"
+                    : q.status === "sent"
+                      ? "발송됨"
+                      : q.status === "expired"
+                        ? "만료"
+                        : "작성 중"}
                 </span>
               </div>
 

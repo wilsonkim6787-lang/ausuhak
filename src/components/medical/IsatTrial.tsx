@@ -7,8 +7,8 @@ import { useState } from "react";
 import type { IsatQuestion } from "@/data/medical";
 import { ISAT_FREE_MAX_ID } from "@/data/medical";
 import KakaoGateModal from "./KakaoGateModal";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default function IsatTrial({ questions }: { questions: IsatQuestion[] }) {
   const [idx, setIdx] = useState(0);

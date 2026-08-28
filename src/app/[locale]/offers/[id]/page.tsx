@@ -2,17 +2,21 @@
 // 익명 접근 가능 (RLS: published 만 SELECT).
 
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { setRequestLocale } from "next-intl/server";
 import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import OfferViewTracker from "@/components/analytics/OfferViewTracker";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
+import { renderMarkdown } from "@/lib/markdown";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
+// 정적 캐시 + 5분 재생성 (관리자 저장 시 revalidatePath 로 즉시 갱신)
+export const revalidate = 300;
+
 
 type Offer = {
   id: string;
@@ -26,9 +30,7 @@ type Offer = {
   status: string;
 };
 
-marked.setOptions({ gfm: true, breaks: false });
-
-// Fisher-Yates — "다른 합격 케이스"를 접속(요청)마다 랜덤 샘플링.
+// Fisher-Yates — "다른 합격 케이스"를 재생성(요청)마다 랜덤 샘플링.
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -37,7 +39,6 @@ function shuffle<T>(arr: T[]): T[] {
   }
   return a;
 }
-
 export default async function OfferDetailPage({
   params,
 }: {
@@ -47,7 +48,7 @@ export default async function OfferDetailPage({
   setRequestLocale(locale);
   const HeaderCmp = locale === "en" ? HeaderEn : Header;
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const [currentRes, othersRes] = await Promise.all([
     supabase
       .from("offers")
@@ -79,7 +80,7 @@ export default async function OfferDetailPage({
     !!path && path.toLowerCase().endsWith(".pdf");
   const imageUrl = o.image_path ? bucketUrl(o.image_path) : null;
   const mainIsPdf = isPdf(o.image_path);
-  const storyHtml = o.story ? await marked.parse(o.story) : "";
+  const storyHtml = o.story ? renderMarkdown(o.story) : "";
 
   return (
     <>
@@ -116,11 +117,13 @@ export default async function OfferDetailPage({
           {/* 합격증 이미지 또는 PDF */}
           {imageUrl && !mainIsPdf && (
             <figure className="mt-6 overflow-hidden rounded-2xl border border-cream-300 bg-white p-3 shadow-sm">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={imageUrl}
                 alt={`${o.school} 합격증`}
-                className="mx-auto max-h-[600px] w-auto"
+                width={800}
+                height={1000}
+                sizes="(max-width: 768px) 92vw, 700px"
+                className="mx-auto h-auto max-h-[600px] w-auto"
               />
             </figure>
           )}
@@ -214,12 +217,12 @@ export default async function OfferDetailPage({
                     >
                       <div className="relative aspect-[4/5] bg-cream-200">
                         {other.image_path && !otherIsPdf ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
+                          <Image
                             src={bucketUrl(other.image_path)}
                             alt={other.school}
-                            loading="lazy"
-                            className="h-full w-full object-cover transition group-hover:scale-105"
+                            fill
+                            sizes="(max-width: 640px) 45vw, 220px"
+                            className="object-cover transition group-hover:scale-105"
                           />
                         ) : other.image_path && otherIsPdf ? (
                           <object

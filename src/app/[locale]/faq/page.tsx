@@ -8,8 +8,31 @@ import StickyKakao from "@/components/layout/StickyKakao";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import RelatedSitesSection from "@/components/faq/RelatedSitesSection";
 import { FAQ_CATEGORIES, FAQ_LAST_UPDATED, getTotalCount } from "@/data/faqs";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
+
+// FAQ 구조화 데이터 (Google FAQ 리치 결과) — 카테고리별 상위 4개, 총 32개 제한.
+// 365개 전부 넣으면 페이지가 무거워져 대표 질문만 노출.
+function buildFaqJsonLd() {
+  const strip = (md: string) =>
+    md
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+      .replace(/[#*_`>~]/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 300);
+  const items = FAQ_CATEGORIES.flatMap((c) => c.items.slice(0, 4)).slice(0, 32);
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: { "@type": "Answer", text: strip(it.a) },
+    })),
+  };
+}
 
 export default async function FaqPage({
   params,
@@ -29,6 +52,10 @@ export default async function FaqPage({
   if (cat === undefined) {
     return (
       <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqJsonLd()) }}
+        />
         <HeaderCmp />
         <main className="flex-1 pb-20 sm:pb-0">
           <section className="bg-navy-900 py-14 text-cream-100 sm:py-20">

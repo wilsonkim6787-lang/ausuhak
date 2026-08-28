@@ -7,8 +7,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import { MEDICAL_ROUTES, MEDICAL_SCHOOLS, type MedicalRouteKey } from "@/lib/medical/routes";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 const HERO_STATS = [
   { value: "21", label: "호주 의대" },

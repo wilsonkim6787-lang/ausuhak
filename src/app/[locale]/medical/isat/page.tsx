@@ -8,8 +8,8 @@ import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import IsatTrial from "@/components/medical/IsatTrial";
 import { getIsatFreeTrial, ISAT_CATEGORY_COUNTS } from "@/data/medical";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default async function MedicalIsatPage({
   params,

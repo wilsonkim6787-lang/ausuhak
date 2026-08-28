@@ -10,8 +10,8 @@ import {
   Card7Next,
 } from "@/components/diagnose/Cards";
 import { matchDiagnose, type DiagnoseInput } from "@/lib/matching";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 // 학생 본인의 6변수로 카드 7장을 재실행해서 보여줌.
 // 룰이 갱신되면 항상 최신 결과 = JSONB 캐시보다 정확.

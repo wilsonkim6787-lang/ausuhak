@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { marked } from "marked";
-
-marked.setOptions({ gfm: true, breaks: false });
+import { renderMarkdown } from "@/lib/markdown";
 
 export default function MarkdownPreviewToggle({
   name,
@@ -22,7 +20,7 @@ export default function MarkdownPreviewToggle({
   const [mode, setMode] = useState<"edit" | "preview">("edit");
 
   const html = useMemo(() => {
-    return mode === "preview" ? (marked.parse(body) as string) : "";
+    return mode === "preview" ? renderMarkdown(body) : "";
   }, [body, mode]);
 
   const wordCount = body.trim().length;

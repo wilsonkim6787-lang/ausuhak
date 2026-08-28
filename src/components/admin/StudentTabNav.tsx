@@ -4,14 +4,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils/cn";
 
-// BLOCK 4 — 학생 상세 = 3탭 (진행 / 서류 / 메모).
+// BLOCK 4 — 학생 상세 = 4탭 (진행 / 서류 / 메시지 / 메모).
 const TABS: { href: string; label: string }[] = [
   { href: "", label: "진행" },
   { href: "/documents", label: "서류" },
+  { href: "/messages", label: "메시지" },
   { href: "/notes", label: "메모" },
 ];
 
-export default function StudentTabNav({ studentId }: { studentId: string }) {
+export default function StudentTabNav({
+  studentId,
+  unreadMessages = 0,
+}: {
+  studentId: string;
+  unreadMessages?: number;
+}) {
   const pathname = usePathname();
   const base = `/admin/students/${studentId}`;
   const baseKo = `/ko${base}`;
@@ -40,6 +47,11 @@ export default function StudentTabNav({ studentId }: { studentId: string }) {
                 )}
               >
                 {t.label}
+                {t.href === "/messages" && unreadMessages > 0 && (
+                  <span className="ml-1.5 inline-flex min-w-[18px] items-center justify-center rounded-full bg-error px-1 text-[10px] font-bold text-white">
+                    {unreadMessages}
+                  </span>
+                )}
               </Link>
             </li>
           );

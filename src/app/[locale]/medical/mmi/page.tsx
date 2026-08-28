@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
 import MmiTrial from "@/components/medical/MmiTrial";
+import { KAKAO_URL } from "@/lib/constants";
 import {
   getMmiFreeStation,
   MMI_CATEGORY_COUNTS,
@@ -14,7 +15,6 @@ import {
   MMI_STATIONS,
 } from "@/data/medical";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default async function MedicalMmiPage({
   params,

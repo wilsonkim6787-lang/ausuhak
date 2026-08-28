@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { KAKAO_URL } from "@/lib/constants";
 
 // 메인 페이지 공지 팝업.
 // site_settings 의 notice_active=true 일 때 마운트.
 // localStorage 의 ausuhak_notice_dismissed_v{version} 키로 dismiss 추적.
 // version 바뀌면 같은 사용자도 다시 보임.
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default function NoticePopup({
   title,
   body,
   version,
+  link = null,
 }: {
   title: string;
   body: string;
   version: number;
+  link?: string | null; // 공지 글 상세 경로 (/news/slug) — 있으면 '자세히 보기' 노출
 }) {
   const [open, setOpen] = useState(false);
 
@@ -77,15 +79,25 @@ export default function NoticePopup({
         </div>
 
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-          <a
-            href={KAKAO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-kakao-source="notice_popup"
-            className="flex-1 rounded-full bg-gold-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-gold-500"
-          >
-            💬 카카오 상담하기
-          </a>
+          {link ? (
+            <a
+              href={link}
+              onClick={dismiss}
+              className="flex-1 rounded-full bg-gold-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-gold-500"
+            >
+              📄 자세히 보기
+            </a>
+          ) : (
+            <a
+              href={KAKAO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-kakao-source="notice_popup"
+              className="flex-1 rounded-full bg-gold-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-gold-500"
+            >
+              💬 카카오 상담하기
+            </a>
+          )}
           <button
             type="button"
             onClick={dismiss}

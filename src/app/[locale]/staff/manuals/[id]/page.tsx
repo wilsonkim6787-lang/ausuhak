@@ -3,9 +3,9 @@
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { requireStaff } from "@/lib/auth/requireStaff";
 import { createClient } from "@/lib/supabase/server";
+import { renderMarkdown } from "@/lib/markdown";
 
 type Manual = {
   id: string;
@@ -15,11 +15,6 @@ type Manual = {
   content: string;
   updated_at: string;
 };
-
-marked.setOptions({
-  gfm: true,
-  breaks: false,
-});
 
 function formatUpdatedAt(iso: string): string {
   const d = new Date(iso);
@@ -48,7 +43,7 @@ export default async function StaffManualDetailPage({
 
   if (error || !data) notFound();
   const m = data as Manual;
-  const html = await marked.parse(m.content);
+  const html = renderMarkdown(m.content);
 
   const backHref = m.category
     ? `/staff/manuals?cat=${encodeURIComponent(m.category)}`

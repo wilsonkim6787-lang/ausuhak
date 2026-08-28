@@ -8,7 +8,7 @@ import Header from "@/components/layout/Header";
 import HeaderEn from "@/components/layout/HeaderEn";
 import Footer from "@/components/layout/Footer";
 import StickyKakao from "@/components/layout/StickyKakao";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { BLOG_CATEGORIES } from "../admin/blog/constants";
 import {
   formatNewsDate,
@@ -38,16 +38,20 @@ export default async function NewsListPage({
   const activeCat =
     cat && (BLOG_CATEGORIES as readonly string[]).includes(cat) ? cat : null;
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase
     .from("blogs")
     .select("id, slug, title, excerpt, category, published_at")
     .eq("status", "published")
     .order("published_at", { ascending: false })
-    .limit(60);
+    .limit(100);
   if (activeCat) query = query.eq("category", activeCat);
   const { data } = await query;
-  const posts = (data ?? []) as NewsListRow[];
+  // 전체 보기에선 공지가 맨 위 (그 안에서는 최신순 유지)
+  const rows = (data ?? []) as NewsListRow[];
+  const posts = activeCat
+    ? rows
+    : [...rows.filter((p) => p.category === "공지"), ...rows.filter((p) => p.category !== "공지")];
 
   return (
     <>
@@ -72,81 +76,133 @@ export default async function NewsListPage({
         </section>
 
         <section className="bg-cream-100">
-          <div className="container mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-            {/* 카테고리 필터 */}
-            <div className="flex flex-wrap gap-2">
-              <Link
-                href="/news"
-                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition sm:text-sm ${
-                  activeCat === null
-                    ? "bg-navy-900 text-cream-100"
-                    : "border border-cream-300 bg-white text-navy-700 hover:border-gold-600 hover:text-gold-600"
-                }`}
-              >
-                전체
-              </Link>
+          <div className="container mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
+            {/* 모바일: 가로 스크롤 분류 칩 */}
+            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden">
+              <CatChip href="/news" active={activeCat === null} label="전체" />
               {BLOG_CATEGORIES.map((c) => (
-                <Link
+                <CatChip
                   key={c}
                   href={`/news?cat=${encodeURIComponent(c)}`}
-                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition sm:text-sm ${
-                    activeCat === c
-                      ? "bg-navy-900 text-cream-100"
-                      : "border border-cream-300 bg-white text-navy-700 hover:border-gold-600 hover:text-gold-600"
-                  }`}
-                >
-                  {newsCategoryLabel(c)}
-                </Link>
+                  active={activeCat === c}
+                  label={newsCategoryLabel(c)}
+                />
               ))}
             </div>
 
-            {/* 글 목록 */}
-            {posts.length === 0 ? (
-              <p className="mt-14 text-center text-sm text-ink-500">
-                {activeCat
-                  ? `'${newsCategoryLabel(activeCat)}' 소식이 아직 없습니다.`
-                  : "등록된 소식이 아직 없습니다. 곧 첫 소식으로 찾아뵙겠습니다."}
-              </p>
-            ) : (
-              <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-                {posts.map((p) => (
-                  <li key={p.id}>
-                    <Link
-                      href={`/news/${p.slug}`}
-                      className="group flex h-full flex-col rounded-2xl border border-cream-300 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-gold-600 hover:shadow-lg"
-                    >
-                      <div className="flex items-center gap-2 text-[11px] font-bold">
-                        <span className="rounded-full bg-gold-100 px-2.5 py-0.5 tracking-wide text-gold-600">
-                          {newsCategoryLabel(p.category)}
-                        </span>
-                        <span className="font-mono font-medium text-ink-500">
-                          {formatNewsDate(p.published_at)}
-                        </span>
-                      </div>
-                      <p className="mt-3 font-display text-lg font-bold leading-snug text-navy-900 group-hover:text-gold-600 sm:text-xl">
-                        {p.title}
-                      </p>
-                      {p.excerpt && (
-                        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-700">
-                          {p.excerpt}
-                        </p>
-                      )}
-                      <span
-                        aria-hidden
-                        className="mt-auto pt-4 text-sm font-semibold text-gold-600 transition group-hover:translate-x-1"
-                      >
-                        자세히 보기 →
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="mt-4 grid gap-6 lg:mt-0 lg:grid-cols-[210px_1fr]">
+              {/* 데스크톱: 분류 사이드바 */}
+              <aside className="hidden lg:block">
+                <nav className="sticky top-24 rounded-2xl border border-cream-300 bg-white p-3 shadow-sm">
+                  <p className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-ink-500">
+                    분류
+                  </p>
+                  <ul className="flex flex-col gap-0.5">
+                    <SideCat href="/news" active={activeCat === null} label="전체" />
+                    {BLOG_CATEGORIES.map((c) => (
+                      <SideCat
+                        key={c}
+                        href={`/news?cat=${encodeURIComponent(c)}`}
+                        active={activeCat === c}
+                        label={newsCategoryLabel(c)}
+                      />
+                    ))}
+                  </ul>
+                </nav>
+              </aside>
+
+              {/* 게시판 목록 */}
+              <div className="rounded-2xl border border-cream-300 bg-white shadow-sm">
+                <div className="flex items-center justify-between border-b border-cream-200 px-5 py-3.5">
+                  <p className="text-sm font-bold text-navy-900">
+                    {activeCat ? newsCategoryLabel(activeCat) : "전체"}
+                    <span className="ml-2 font-mono text-xs font-medium text-ink-500">
+                      {posts.length}건
+                    </span>
+                  </p>
+                </div>
+
+                {posts.length === 0 ? (
+                  <p className="px-5 py-16 text-center text-sm text-ink-500">
+                    {activeCat
+                      ? `'${newsCategoryLabel(activeCat)}' 소식이 아직 없습니다.`
+                      : "등록된 소식이 아직 없습니다. 곧 첫 소식으로 찾아뵙겠습니다."}
+                  </p>
+                ) : (
+                  <ul>
+                    {posts.map((p) => {
+                      const isNotice = p.category === "공지";
+                      return (
+                        <li key={p.id} className="border-b border-cream-200 last:border-b-0">
+                          <Link
+                            href={`/news/${p.slug}`}
+                            className={`group flex items-center gap-3 px-5 py-3.5 transition hover:bg-cream-100/60 ${
+                              isNotice && !activeCat ? "bg-gold-100/40" : ""
+                            }`}
+                          >
+                            <span
+                              className={`w-[74px] shrink-0 rounded-full px-2 py-0.5 text-center text-[11px] font-bold ${
+                                isNotice
+                                  ? "bg-gold-600 text-white"
+                                  : "bg-cream-200 text-navy-700"
+                              }`}
+                            >
+                              {newsCategoryLabel(p.category)}
+                            </span>
+                            <span className="min-w-0 flex-1 truncate text-sm font-semibold text-navy-900 group-hover:text-gold-600 sm:text-[15px]">
+                              {isNotice && <span aria-hidden className="mr-1">📢</span>}
+                              {p.title}
+                            </span>
+                            <span className="shrink-0 font-mono text-[11px] text-ink-500 sm:text-xs">
+                              {formatNewsDate(p.published_at)}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+            </div>
           </div>
         </section>
       </main>
       <Footer />
       <StickyKakao />
     </>
+  );
+}
+
+// 모바일 가로 스크롤 분류 칩
+function CatChip({ href, active, label }: { href: string; active: boolean; label: string }) {
+  return (
+    <Link
+      href={href}
+      className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
+        active
+          ? "bg-navy-900 text-cream-100"
+          : "border border-cream-300 bg-white text-navy-700"
+      }`}
+    >
+      {label}
+    </Link>
+  );
+}
+
+// 데스크톱 사이드바 분류 항목
+function SideCat({ href, active, label }: { href: string; active: boolean; label: string }) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className={`block rounded-lg px-3 py-2 text-sm transition ${
+          active
+            ? "bg-navy-900 font-bold text-cream-100"
+            : "font-medium text-navy-700 hover:bg-cream-100 hover:text-gold-600"
+        }`}
+      >
+        {label}
+      </Link>
+    </li>
   );
 }

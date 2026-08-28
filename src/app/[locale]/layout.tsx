@@ -69,5 +69,34 @@ export default async function LocaleLayout({
   }
 
   setRequestLocale(locale); // SSG 활성화
-  return <NextIntlClientProvider>{children}</NextIntlClientProvider>;
+
+  // Organization JSON-LD — 검색엔진에 회사 실체(전화·주소·공식 채널) 전달
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: "ausuhak.com (호주유학)",
+    url: "https://www.ausuhak.com",
+    telephone: "+82-10-9848-7789",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "테헤란로6길 26, 3층 318호",
+      addressLocality: "강남구",
+      addressRegion: "서울특별시",
+      addressCountry: "KR",
+    },
+    sameAs: [
+      "https://blog.naver.com/momstudy100",
+      "https://pf.kakao.com/_GadTX",
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      />
+      <NextIntlClientProvider>{children}</NextIntlClientProvider>
+    </>
+  );
 }

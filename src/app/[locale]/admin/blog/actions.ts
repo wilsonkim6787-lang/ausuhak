@@ -121,3 +121,84 @@ export async function deleteBlogAction(formData: FormData): Promise<void> {
   redirect("/admin/blog");
 }
 
+
+// ── 메인 공지 버튼 ─────────────────────────────────────────
+// 글 하나를 메인 페이지 공지 팝업으로 올린다 (한 번에 하나).
+// 스키마 변경 없이 site_settings notice_* 키를 글 내용으로 자동 채움:
+//   notice_blog_id / notice_slug 로 현재 공지 글 추적, version +1 로 재노출.
+
+function stripMarkdown(md: string): string {
+  return md
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")      // 이미지
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")   // 링크 → 텍스트
+    .replace(/^#{1,6}\s+/gm, "")               // 헤딩
+    .replace(/[*_`>~]/g, "")                   // 강조·코드·인용
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+}
+
+export async function setMainNoticeAction(formData: FormData): Promise<void> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") redirect("/admin/blog?nerr=권한 없음");
+  const id = String(formData.get("id") ?? "");
+  if (!id) redirect("/admin/blog?nerr=id 누락");
+
+  const supabase = await createClient();
+  const { data: post, error: postErr } = await supabase
+    .from("blogs")
+    .select("id, slug, title, excerpt, body, status")
+    .eq("id", id)
+    .single();
+  if (postErr || !post) redirect("/admin/blog?nerr=글을 찾을 수 없음");
+  if (post.status !== "published") {
+    redirect("/admin/blog?nerr=" + encodeURIComponent("발행(published) 상태의 글만 메인 공지로 올릴 수 있습니다"));
+  }
+
+  const { data: verRow } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "notice_version")
+    .maybeSingle();
+  const version = (parseInt(verRow?.value ?? "1", 10) || 1) + 1;
+
+  const summary = stripMarkdown(post.excerpt || post.body || "").slice(0, 220);
+  const rows = [
+    { key: "notice_active",  value: "true",           category: "notice", is_public: false },
+    { key: "notice_title",   value: post.title,       category: "notice", is_public: false },
+    { key: "notice_body",    value: summary || null,  category: "notice", is_public: false },
+    { key: "notice_version", value: String(version),  category: "notice", is_public: false },
+    { key: "notice_slug",    value: post.slug,        category: "notice", is_public: false },
+    { key: "notice_blog_id", value: post.id,          category: "notice", is_public: false },
+  ];
+  const { error } = await supabase
+    .from("site_settings")
+    .upsert(rows, { onConflict: "key" });
+  if (error) redirect("/admin/blog?nerr=" + encodeURIComponent(`저장 실패: ${error.message}`));
+
+  revalidatePath("/admin/blog");
+  revalidatePath("/admin/settings");
+  revalidatePath("/", "layout"); // 메인 팝업 즉시 갱신
+  redirect("/admin/blog?nok=" + encodeURIComponent("메인 공지로 올렸습니다"));
+}
+
+export async function clearMainNoticeAction(): Promise<void> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") redirect("/admin/blog?nerr=권한 없음");
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("site_settings")
+    .upsert(
+      [
+        { key: "notice_active",  value: "false", category: "notice", is_public: false },
+        { key: "notice_blog_id", value: null,    category: "notice", is_public: false },
+      ],
+      { onConflict: "key" },
+    );
+  if (error) redirect("/admin/blog?nerr=" + encodeURIComponent(`해제 실패: ${error.message}`));
+
+  revalidatePath("/admin/blog");
+  revalidatePath("/admin/settings");
+  revalidatePath("/", "layout");
+  redirect("/admin/blog?nok=" + encodeURIComponent("메인 공지를 내렸습니다"));
+}

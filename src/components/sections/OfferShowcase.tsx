@@ -4,7 +4,7 @@
 // PART 0-1: 카톡 URL = pf.kakao.com/_GadTX 만.
 
 import { getTranslations } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import OfferCarousel from "./OfferCarousel";
 
 type OfferRow = {
@@ -38,7 +38,7 @@ export default async function OfferShowcase() {
   const t = await getTranslations("OfferShowcase");
 
   // published 만 조회 (RLS 가 익명 SELECT 허용).
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("offers")
     .select("id, school, program, year, student_alias, image_path, story")

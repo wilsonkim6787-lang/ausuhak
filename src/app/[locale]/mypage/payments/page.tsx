@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireStudent } from "@/lib/auth/requireStudent";
+import { KAKAO_URL } from "@/lib/constants";
 
 type PaymentRow = {
   id: string;
@@ -18,7 +19,6 @@ const TYPE_LABEL: Record<string, string> = {
   full_consulting: "풀 컨설팅",
 };
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 
 export default async function MypagePaymentsPage() {
   const { student } = await requireStudent();

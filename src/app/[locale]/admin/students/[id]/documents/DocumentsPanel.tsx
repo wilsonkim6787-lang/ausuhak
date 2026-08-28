@@ -60,9 +60,10 @@ const UPLOAD_TYPES: Record<Group, { key: string; label: string }[]> = {
 const STATUSES: [string, string][] = [
   ["requested", "요청됨"],
   ["pending", "대기"],
+  ["submitted", "제출됨 (학생 업로드)"],
   ["received", "받음"],
-  ["verified", "확인"],
-  ["rejected", "반려"],
+  ["verified", "✅ 승인"],
+  ["rejected", "⚠️ 보완 필요"],
 ];
 
 const ACCEPT_MIME =
@@ -138,7 +139,11 @@ function DocGroup({
             return (
               <li
                 key={d.id}
-                className="flex flex-wrap items-center gap-2 rounded-xl border border-cream-300 bg-cream-100/40 px-3 py-2.5 text-sm"
+                className={`flex flex-wrap items-center gap-2 rounded-xl border px-3 py-2.5 text-sm ${
+                  d.status === "submitted"
+                    ? "border-gold-600/50 bg-gold-100/40"
+                    : "border-cream-300 bg-cream-100/40"
+                }`}
               >
                 <span
                   className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${
@@ -152,8 +157,8 @@ function DocGroup({
                   {d.original_filename ?? (hasFile ? "파일" : "—")}
                 </span>
 
-                {/* 상태 (파일 변경 없이 상태만 저장) */}
-                <form action={uploadDocumentAction}>
+                {/* 상태 + 메모 (파일 변경 없이 저장 — 메모는 학생 화면 '보완 요청' 사유로 표시) */}
+                <form action={uploadDocumentAction} className="flex items-center gap-1">
                   <input type="hidden" name="student_id" value={studentId} />
                   <input type="hidden" name="doc_type" value={d.doc_type} />
                   <input type="hidden" name="doc_id" value={d.id} />
@@ -168,7 +173,13 @@ function DocGroup({
                       </option>
                     ))}
                   </select>
-                  <button type="submit" className="ml-1 text-[11px] font-semibold text-navy-700 hover:text-gold-600">
+                  <input
+                    name="note"
+                    defaultValue={d.note ?? ""}
+                    placeholder="메모·보완 사유 (학생에게 표시)"
+                    className="w-40 rounded-md border border-cream-300 bg-white px-1.5 py-1 text-[11px]"
+                  />
+                  <button type="submit" className="text-[11px] font-semibold text-navy-700 hover:text-gold-600">
                     저장
                   </button>
                 </form>

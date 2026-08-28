@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import type { MmiStation } from "@/data/medical";
 import { MMI_FREE_STATION_ID } from "@/data/medical";
 import KakaoGateModal from "./KakaoGateModal";
+import { KAKAO_URL } from "@/lib/constants";
 
-const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 const PREP_SECONDS = 60;
 
 type Phase = "intro" | "prep" | "answer" | "review";

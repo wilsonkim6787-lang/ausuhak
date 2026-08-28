@@ -5,6 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { track } from "@vercel/analytics";
 
 export type OfferItem = {
@@ -144,12 +145,12 @@ function CardLi({ o, placeholderLabel }: { o: OfferItem; placeholderLabel: strin
     <div className="group h-full overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-sm">
       <div className="relative aspect-[4/5] border-b border-cream-300">
         {o.image_url && !o.is_pdf ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={o.image_url}
             alt={`${o.school} 합격증`}
-            className="h-full w-full object-cover object-top"
-            loading="lazy"
+            fill
+            sizes="(max-width: 640px) 78vw, (max-width: 1024px) 45vw, 300px"
+            className="object-cover object-top"
           />
         ) : o.image_url && o.is_pdf ? (
           <>
