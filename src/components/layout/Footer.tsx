@@ -99,7 +99,7 @@ export default async function Footer() {
                   href="/consult"
                   className="text-cream-200 transition hover:text-gold-400"
                 >
-                  <IconRow icon={"\u{1F4E5}"}>무료 상담 신청</IconRow>
+                  <IconRow icon={"\u{1F4E5}"}>무엇이든 물어보세요</IconRow>
                 </Link>
               </li>
             </ul>

@@ -149,7 +149,7 @@ export default async function NewsDetailPage({
                 href="/consult"
                 className="inline-flex rounded-full border border-cream-300 bg-white px-6 py-3 text-sm font-semibold text-navy-900 transition hover:border-gold-600 hover:text-gold-600"
               >
-                📥 상담 신청 남기기
+                📥 무엇이든 물어보세요
               </Link>
             </div>
           </div>

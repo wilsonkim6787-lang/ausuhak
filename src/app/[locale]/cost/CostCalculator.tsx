@@ -155,7 +155,7 @@ export default function CostCalculator() {
         <p className="mt-3 text-center text-xs text-ink-500">
           지금 통화가 어려우면{" "}
           <Link href="/consult?from=cost" className="font-semibold text-gold-600 underline">
-            상담 신청만 남기기
+            질문만 남기기
           </Link>{" "}
           — 24시간 내 연락드립니다.
         </p>
