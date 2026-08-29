@@ -50,6 +50,11 @@ export async function generateMetadata({
       type: "website",
     },
     robots: { index: true, follow: true },
+    // 검색엔진 소유 확인 (네이버 서치어드바이저 + 구글 서치콘솔)
+    verification: {
+      google: "lOWexAVfPmVKDE9bXW8l_F4zdDBtMkZRbOKhL0cdeac",
+      other: { "naver-site-verification": "2eefafa6dec7d17d8c30b7c6ecf51bb82729c263" },
+    },
   };
 }
 
