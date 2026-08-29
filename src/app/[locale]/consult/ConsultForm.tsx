@@ -28,7 +28,7 @@ export default function ConsultForm({ source = "web" }: { source?: string }) {
       <div className="rounded-2xl border border-cream-300 bg-white p-8 text-center shadow-sm">
         <p className="text-4xl">✅</p>
         <p className="mt-3 font-display text-xl font-bold text-navy-900">
-          상담 신청이 접수되었습니다
+          질문이 접수되었습니다
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink-700">
           영업일 기준 24시간 안에 남겨주신 연락처로 연락드립니다.
@@ -111,12 +111,12 @@ export default function ConsultForm({ source = "web" }: { source?: string }) {
       </label>
 
       <label className="flex flex-col gap-1.5">
-        <span className="text-sm font-bold text-navy-900">문의 내용 (선택)</span>
+        <span className="text-sm font-bold text-navy-900">궁금한 내용 (선택)</span>
         <textarea
           name="message"
           rows={4}
           maxLength={1000}
-          placeholder="나이·학력·영어 수준·희망 시기 등을 적어주시면 더 정확한 안내가 가능합니다."
+          placeholder="예) 고2 내신 5등급인데 간호학과 갈 수 있나요? — 짧게 적어주셔도 됩니다. 나이·학력·희망 시기를 함께 적으면 더 정확한 답변이 가능합니다."
           className="rounded-lg border border-cream-300 bg-cream-100 px-3 py-2.5 text-sm outline-none focus:border-gold-500"
         />
       </label>
@@ -136,7 +136,7 @@ export default function ConsultForm({ source = "web" }: { source?: string }) {
       )}
 
       <Button type="submit" disabled={pending} size="lg">
-        {pending ? "접수 중…" : "무료 상담 신청하기"}
+        {pending ? "접수 중…" : "질문 보내기"}
       </Button>
     </form>
   );

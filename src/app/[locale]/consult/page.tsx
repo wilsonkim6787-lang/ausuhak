@@ -9,9 +9,9 @@ import StickyKakao from "@/components/layout/StickyKakao";
 import ConsultForm from "./ConsultForm";
 
 export const metadata: Metadata = {
-  title: "무료 상담 신청 | ausuhak.com",
+  title: "무엇이든 물어보세요 | ausuhak.com",
   description:
-    "호주 유학 무료 상담 신청 — 이름과 연락처만 남기면 24시간 안에 연락드립니다. 어학연수부터 대학·의대까지.",
+    "호주 유학, 궁금한 것 무엇이든 물어보세요 — 이름과 연락처만 남기면 영업일 24시간 안에 답변드립니다. 어학연수부터 대학·의대까지.",
 };
 
 export default async function ConsultPage({
@@ -39,10 +39,11 @@ export default async function ConsultPage({
               <span aria-hidden>←</span> 메인으로
             </Link>
             <h1 className="mt-4 font-display text-3xl font-bold leading-tight sm:text-5xl">
-              무료 상담 신청
+              무엇이든 물어보세요
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-cream-200 sm:text-lg">
-              이름과 연락처만 남겨주세요. 영업일 기준 24시간 안에 연락드립니다.
+              학교·비용·비자·영어… 짧은 질문도 환영합니다. 이름과 연락처만 남기면
+              영업일 기준 24시간 안에 답변드립니다. 물론 무료입니다.
             </p>
           </div>
         </section>
