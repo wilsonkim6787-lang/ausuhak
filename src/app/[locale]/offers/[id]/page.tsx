@@ -89,7 +89,7 @@ export default async function OfferDetailPage({
       <main className="flex-1 bg-cream-100 pb-20 sm:pb-0">
         <section className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
           <Link
-            href="/#offers"
+            href="/offers"
             className="text-xs font-semibold text-navy-700 hover:text-gold-600"
           >
             ← 합격증 갤러리
@@ -200,7 +200,7 @@ export default async function OfferDetailPage({
                   다른 합격 케이스
                 </h2>
                 <Link
-                  href="/#offers"
+                  href="/offers"
                   className="text-xs font-semibold text-gold-600 hover:underline"
                 >
                   전체 보기 →

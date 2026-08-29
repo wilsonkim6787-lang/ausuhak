@@ -3,6 +3,7 @@
 // 데이터 없을 때 placeholder 3장 (사회적 증거 빈 페이지 회피).
 // PART 0-1: 카톡 URL = pf.kakao.com/_GadTX 만.
 
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createPublicClient } from "@/lib/supabase/public";
 import OfferCarousel from "./OfferCarousel";
@@ -88,6 +89,16 @@ export default async function OfferShowcase() {
         {/* PC = 3개씩 자동 회전 (5초) / 모바일 = 가로 swipe */}
         <div className="mt-12">
           <OfferCarousel items={items} placeholderLabel={t("placeholderLabel")} />
+          {!useFallback && (
+            <p className="mt-4 text-right">
+              <Link
+                href="/offers"
+                className="text-sm font-semibold text-gold-600 transition hover:text-gold-500"
+              >
+                합격증 전체 보기 ({items.length}) →
+              </Link>
+            </p>
+          )}
         </div>
 
         {/* 모바일 스와이프 힌트 (2장 이상일 때만) */}
