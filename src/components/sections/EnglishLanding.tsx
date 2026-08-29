@@ -12,6 +12,7 @@ export default function EnglishLanding() {
     <main className="flex-1">
       <HeroEn />
       <AboutWilsonEn />
+      <TrackRecordEn />
       <KoreanMarketEn />
       <PartnershipEn />
       <BrochureEn />
@@ -71,9 +72,17 @@ function HeroEn() {
           </div>
 
           <div className="hidden lg:col-span-2 lg:block">
-            <div className="aspect-[3/4] w-full rounded-2xl border border-cream-300 bg-cream-200/60 shadow-md" />
-            <p className="mt-2 text-center text-[11px] text-ink-300">
-              (Hero image placeholder — Australian campus / Wilson photo)
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero-poster.jpg"
+              alt="Australian university campus"
+              className="aspect-[3/4] w-full rounded-2xl border border-cream-300 object-cover shadow-md"
+            />
+            <p className="mt-2 text-center text-[11px] text-ink-500">
+              Verified offer letters &amp; student stories:{" "}
+              <a href="/offers" className="font-semibold text-gold-600 hover:underline">
+                ausuhak.com/offers →
+              </a>
             </p>
           </div>
         </div>
@@ -143,6 +152,71 @@ function AboutWilsonEn() {
                 completed their programs.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────
+// Section 2.5: Track Record — 실제 진행 실적 (redacted offers 공개 갤러리와 동일 근거)
+// ─────────────────────────────────────────────────
+function TrackRecordEn() {
+  const universities = [
+    "University of Sydney — Pharmacy (Hons)/M.Pharm Prac · Commerce · BSc (Advanced) · GD Sustainability",
+    "Monash University — Medical Science + Doctor of Medicine package · M. Advanced Civil (Water) Eng",
+    "Griffith University — Doctor of Medicine package · Nursing · Int'l Tourism & Hotel Mgmt",
+    "University of Newcastle — Juris Doctor · Physiotherapy (Hons) · Nursing · Medicine Foundation (Kaplan CIE)",
+    "Western Sydney · UniSA · Macquarie (Actuarial) · UTS (IT) · QUT (Nursing package)",
+  ];
+  const pathways = [
+    "UNSW College · Taylors College (USYD Foundation) · UTS College · Griffith College · La Trobe College",
+    "TAFE NSW (Nursing) · William Angliss (Culinary/Hospitality) · BMIHMS (Hotel Mgmt)",
+    "Victorian Government Schools (secondary) · ELICOS (ILSC · BROWNS · Navitas)",
+    "Post-study outcomes: TRA skills assessment (485) · permanent residency cases",
+  ];
+  return (
+    <section id="track-record" className="border-b border-cream-300">
+      <div className="container mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
+        <p className="text-xs font-semibold uppercase tracking-wider text-gold-600">Track Record</p>
+        <h2 className="mt-3 font-display text-3xl font-bold text-navy-900 sm:text-4xl">
+          Recent placements, 2017 – 2026
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-700 sm:text-base">
+          A selection of offers and completions secured for Korean students. Redacted offer
+          letters with student stories are published at{" "}
+          <a href="/offers" className="font-semibold text-gold-600 hover:underline">
+            ausuhak.com/offers
+          </a>
+          .
+        </p>
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          <div className="rounded-2xl border border-cream-300 bg-white p-6">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-navy-900">
+              Universities — direct &amp; graduate entry
+            </h3>
+            <ul className="mt-3 flex flex-col gap-1.5 text-sm text-ink-700">
+              {universities.map((u) => (
+                <li key={u} className="flex items-start gap-2">
+                  <span className="mt-1 text-gold-600">✓</span>
+                  <span>{u}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-cream-300 bg-white p-6">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-navy-900">
+              Pathways · Colleges · Schools · ELICOS
+            </h3>
+            <ul className="mt-3 flex flex-col gap-1.5 text-sm text-ink-700">
+              {pathways.map((u) => (
+                <li key={u} className="flex items-start gap-2">
+                  <span className="mt-1 text-navy-800">✓</span>
+                  <span>{u}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
@@ -334,8 +408,8 @@ function BrochureEn() {
           Download the Partnership Brochure
         </h2>
         <p className="mt-3 max-w-2xl text-base text-ink-700">
-          20-page PDF (English) with Wilson&apos;s full profile, partnership terms, and sample case
-          studies for institutional decision-makers.
+          Company profile (English, PDF) with Wilson&apos;s credentials, recent placements, and
+          partnership terms for institutional decision-makers — sent within 24 hours.
         </p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
@@ -416,6 +490,13 @@ function ContactEn() {
               </a>
               <p className="mt-1 text-[11px] text-cream-200">
                 (Korean instant messenger — most accessible for Wilson)
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-cream-100/15 bg-cream-100/5 p-4">
+              <p className="text-xs uppercase tracking-wider text-gold-400">📍 Seoul Office</p>
+              <p className="mt-1 text-sm text-cream-100">
+                Rm 318, 3F, 26 Teheran-ro 6-gil, Gangnam-gu, Seoul, Republic of Korea
               </p>
             </div>
           </div>
