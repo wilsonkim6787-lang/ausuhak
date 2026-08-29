@@ -6,6 +6,29 @@ import { getPublicContact } from "@/lib/settings/publicContact";
 // 값이 비어 있으면(미입력) 기존 i18n/기본값으로 폴백.
 // PART N-11: 자매학교 EC 어학원·화상영어 = 푸터 로고만 (카드/FAQ X)
 // PART 0-1: Wilson 개인 카톡 ID 노출 X / 채널 URL만
+// 레이아웃: 브랜드 | 상담(행동) | 안내(정보) | 자매 서비스 4열 — 아이콘 고정폭 정렬.
+
+function IconRow({
+  icon,
+  children,
+  multiline = false,
+}: {
+  icon: string;
+  children: React.ReactNode;
+  multiline?: boolean;
+}) {
+  return (
+    <span className={`flex gap-2 ${multiline ? "items-start" : "items-center"}`}>
+      <span
+        aria-hidden
+        className={`w-5 shrink-0 text-center text-sm opacity-70 ${multiline ? "leading-6" : "leading-none"}`}
+      >
+        {icon}
+      </span>
+      <span className="min-w-0">{children}</span>
+    </span>
+  );
+}
 
 const DEFAULT_PHONE = "010-9848-7789";
 const DEFAULT_KAKAO_URL = "https://pf.kakao.com/_GadTX";
@@ -28,13 +51,13 @@ export default async function Footer() {
   return (
     <footer className="mt-auto bg-navy-900 pb-20 text-cream-100 sm:pb-0">
       <div className="container mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr] lg:gap-8">
           {/* Column 1: 브랜드 */}
           <div>
             <p className="font-display text-2xl font-bold tracking-wide text-cream-100">
-              ausuhak.com (호주유학)
+              ausuhak.com <span className="whitespace-nowrap">(호주유학)</span>
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-cream-200">
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-cream-200">
               {t("tagline")}
             </p>
 
@@ -47,60 +70,71 @@ export default async function Footer() {
             </div>
           </div>
 
-          {/* Column 2: 연락 */}
+          {/* Column 2: 상담 (행동) */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("contactEyebrow")}
             </p>
+            <a
+              href={kakaoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-kakao-source="footer"
+              className="mt-4 inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-[#FEE500] px-4 py-2 text-sm font-semibold text-[#3C1E1E] transition hover:scale-[1.02]"
+            >
+              <span aria-hidden>{"\u{1F4AC}"}</span>
+              카카오 1:1 상담
+            </a>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <a
-                  href={kakaoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-kakao-source="footer"
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#FEE500] px-4 py-2 text-sm font-semibold text-[#3C1E1E] transition hover:scale-[1.02]"
-                >
-                  <span aria-hidden>{"\u{1F4AC}"}</span>
-                  카카오 채널로 1:1 상담
-                </a>
-              </li>
-              <li>
-                <a
                   href={`tel:${phoneTel}`}
-                  className="inline-flex items-center gap-2 text-cream-200 transition hover:text-gold-400"
+                  className="text-cream-200 transition hover:text-gold-400"
                 >
-                  <span aria-hidden>{"\u{1F4DE}"}</span> {phone}
+                  <IconRow icon={"\u{1F4DE}"}>{phone}</IconRow>
                 </a>
               </li>
               <li>
                 <Link
                   href="/consult"
-                  className="inline-flex items-center gap-2 text-cream-200 transition hover:text-gold-400"
+                  className="text-cream-200 transition hover:text-gold-400"
                 >
-                  <span aria-hidden>{"\u{1F4E5}"}</span> 무료 상담 신청
+                  <IconRow icon={"\u{1F4E5}"}>무료 상담 신청</IconRow>
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* Column 3: 안내 (정보) */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
+              안내
+            </p>
+            <ul className="mt-4 space-y-2.5 break-keep text-sm text-cream-200">
               <li>
                 <a
                   href="https://blog.naver.com/momstudy100"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-cream-200 transition hover:text-gold-400"
+                  className="transition hover:text-gold-400"
                 >
-                  <span aria-hidden>{"\u{1F4D7}"}</span> 네이버 블로그
+                  <IconRow icon={"\u{1F4D7}"}>네이버 블로그</IconRow>
                 </a>
               </li>
-              <li className="whitespace-pre-line text-cream-200">
-                <span aria-hidden>{"\u{23F0}"}</span> {hoursText}
+              <li>
+                <IconRow icon={"\u{23F0}"} multiline>
+                  <span className="whitespace-pre-line leading-6">{hoursText}</span>
+                </IconRow>
               </li>
-              <li className="text-cream-200">
-                <span aria-hidden>{"\u{1F4CD}"}</span> {addressText}
+              <li>
+                <IconRow icon={"\u{1F4CD}"} multiline>
+                  <span className="leading-6">{addressText}</span>
+                </IconRow>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: 자매 서비스 — EC 로고 */}
+          {/* Column 4: 자매 서비스 — EC 로고 */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("sisterEyebrow")}
@@ -109,16 +143,16 @@ export default async function Footer() {
               href="https://educennow.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex rounded-xl bg-cream-100 px-4 py-3 shadow-sm ring-1 ring-cream-300/30 transition hover:shadow-md"
+              className="mt-4 inline-flex rounded-lg bg-white/95 px-3 py-2 ring-1 ring-white/15 transition hover:ring-gold-500/60"
             >
               <img
                 src="/ec-logo.png"
                 alt="Education Center — 출국 전 영어 준비 학원·화상영어 학습 센터"
-                className="h-9 w-auto"
+                className="h-7 w-auto"
                 loading="lazy"
               />
             </a>
-            <p className="mt-3 text-sm leading-relaxed text-cream-200">
+            <p className="mt-3 max-w-[240px] break-keep text-[13px] leading-relaxed text-cream-200/90">
               {t("sisterBody")}
             </p>
           </div>
