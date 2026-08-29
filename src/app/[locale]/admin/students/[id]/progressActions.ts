@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { canEditStudent } from "@/lib/auth/canEditStudent";
 import { logActivity } from "@/lib/audit/log";
@@ -74,12 +75,13 @@ export async function updateSubstepStatusAction(formData: FormData): Promise<voi
   const currentStage = student?.current_stage ?? 1;
   const statusMap = buildStatusMap(rows ?? [], currentStage);
   const nextStage = deriveCurrentStage(statusMap);
-  if (nextStage !== currentStage) {
-    await admin
-      .from("students")
-      .update({ current_stage: nextStage, updated_at: new Date().toISOString() })
-      .eq("id", studentId);
-  }
+  // stage 가 안 변해도(같은 stage 내 sub-step 이동) updated_at 은 항상 갱신 —
+  // 안 하면 케어룰(inactive_5d/stage_stuck_14d)·대시보드 "단계 정체"·목록 정렬이
+  // 실제로 진행 중인 학생을 방치된 것으로 오탐한다.
+  await admin
+    .from("students")
+    .update({ current_stage: nextStage, updated_at: new Date().toISOString() })
+    .eq("id", studentId);
 
   await logActivity({
     action_type: "update_substep",
@@ -100,11 +102,18 @@ export async function uploadSubstepDocAction(formData: FormData): Promise<void> 
   if (!studentId || !VALID_SUBSTEP_KEYS.has(substepKey)) return;
   if (!isStaffDocType(docType)) return; // staff 제공 서류만 이 액션으로
   if (!file || file.size === 0) return;
-  if (file.size > DOC_MAX_BYTES) return;
-  if (!DOC_ALLOWED_MIME.has(file.type)) return;
 
   const { ok, user } = await canEditStudent(studentId);
   if (!ok || !user) return;
+
+  // 실패를 조용히 삼키지 않기 — 상세 페이지 ?err= 배너로 표시.
+  // docx 는 브라우저에 따라 application/octet-stream 으로 올라와 mime 만 보면 거부됨 → 확장자 폴백.
+  const fail = (msg: string): never =>
+    redirect(`/admin/students/${studentId}?err=${encodeURIComponent(msg)}`);
+  if (file.size > DOC_MAX_BYTES) fail("5MB 를 초과하는 파일입니다");
+  if (!DOC_ALLOWED_MIME.has(file.type) && !["pdf", "jpg", "jpeg", "png", "docx"].includes(extOf(file.name))) {
+    fail("PDF·JPG·PNG·DOCX 만 업로드할 수 있습니다");
+  }
 
   const admin = createAdminClient();
 
@@ -124,7 +133,7 @@ export async function uploadSubstepDocAction(formData: FormData): Promise<void> 
   const { error: uploadError } = await admin.storage
     .from(DOC_BUCKET)
     .upload(path, buffer, { contentType: file.type, upsert: false });
-  if (uploadError) return;
+  if (uploadError) fail(`업로드 실패: ${uploadError.message}`);
 
   const payload = {
     student_id: studentId,

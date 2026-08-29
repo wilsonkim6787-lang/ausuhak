@@ -73,6 +73,9 @@ export default function NoticePanel({
             <input
               type="number"
               name="version"
+              // key 로 리마운트 — 저장 후 서버가 올린 버전이 화면에 반영되게
+              // (uncontrolled defaultValue 는 재렌더로 갱신되지 않아 +1이 계속 같은 값이었음)
+              key={defaults.version}
               defaultValue={String(defaults.version)}
               min={1}
               className="rounded-lg border border-cream-300 bg-cream-100 px-3 py-2 text-sm outline-none focus:border-gold-500"

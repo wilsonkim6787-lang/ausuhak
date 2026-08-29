@@ -13,6 +13,15 @@ type Initial = {
   view?: string;
 };
 
+// 대시보드 단축 필터 사람용 라벨
+const FILTER_LABELS: Record<string, string> = {
+  alerts: "Wilson 알림",
+  stuck_14d: "단계 정체 14일+",
+  new_today: "오늘 신규",
+  deadline_d1: "내일 마감",
+  consult_today: "오늘 영상 상담",
+};
+
 const LEAD_STATUSES = [
   ["all", "전체"],
   ["lead", "Lead"],
@@ -124,7 +133,12 @@ export default function StudentFilters({ initial }: { initial: Initial }) {
                 setStage("all");
                 setLeadStatus("all");
                 setIsMedical("all");
-                router.push("/admin/students");
+                // 칸반에서 초기화해도 리스트로 튕기지 않게 view 유지 (apply 와 동일 규칙)
+                router.push(
+                  initial.view === "kanban"
+                    ? "/admin/students?view=kanban"
+                    : "/admin/students",
+                );
               }}
             >
               초기화
@@ -134,7 +148,10 @@ export default function StudentFilters({ initial }: { initial: Initial }) {
 
         {initial.filter && (
           <p className="text-xs text-gold-600">
-            대시보드 단축 필터 적용 중: <code className="rounded bg-cream-200 px-1.5">{initial.filter}</code>
+            대시보드 단축 필터 적용 중:{" "}
+            <code className="rounded bg-cream-200 px-1.5">
+              {FILTER_LABELS[initial.filter] ?? initial.filter}
+            </code>
           </p>
         )}
       </form>

@@ -33,6 +33,7 @@ const ACTION_GROUPS: Record<string, string[]> = {
   견적: ["create_quote", "update_quote"],
   학생: ["update_student", "advance_stage", "update_substep", "update_lead_status", "view_student"],
   서류: ["upload_document", "verify_document"],
+  직원: ["update_staff"],
 };
 
 // action_type → 한글 라벨 (영문 코드 대신 표시 / 원본 코드는 title 속성에 유지)
@@ -50,6 +51,7 @@ const ACTION_LABELS: Record<string, string> = {
   create_quote: "견적 생성",
   update_quote: "견적 수정",
   update_student: "학생 정보 수정",
+  update_staff: "직원 권한·등급 변경",
   advance_stage: "Stage 변경",
   update_substep: "진행 단계 변경",
   update_lead_status: "Lead 변경",
@@ -147,14 +149,16 @@ export default async function AdminActivityPage({
       </section>
 
       {/* 필터 */}
+      {/* 필터 — action 만 바꾸고 user/since 필터는 유지 */}
       <nav className="flex flex-wrap gap-2 text-xs">
-        <FilterChip current={sp.action} value={undefined} label="전체" />
+        <FilterChip current={sp.action} value={undefined} sp={sp} label="전체" />
         {Object.entries(ACTION_GROUPS).flatMap(([group, actions]) =>
           actions.map((a) => (
             <FilterChip
               key={a}
               current={sp.action}
               value={a}
+              sp={sp}
               label={`${group}: ${labelOf(a)}`}
             />
           )),
@@ -215,13 +219,20 @@ function Stat({
 function FilterChip({
   current,
   value,
+  sp,
   label,
 }: {
   current: string | undefined;
   value: string | undefined;
+  sp: SP; // user/since 유지 (직원 상세 → ?user= 링크로 진입한 문맥 보존)
   label: string;
 }) {
-  const href = value ? `/admin/activity?action=${value}` : "/admin/activity";
+  const params = new URLSearchParams();
+  if (value) params.set("action", value);
+  if (sp.user) params.set("user", sp.user);
+  if (sp.since) params.set("since", sp.since);
+  const qs = params.toString();
+  const href = qs ? `/admin/activity?${qs}` : "/admin/activity";
   const active = (current ?? undefined) === value;
   return (
     <Link

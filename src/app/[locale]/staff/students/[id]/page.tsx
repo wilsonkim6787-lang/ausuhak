@@ -6,6 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth/requireStaff";
+import { fmtDate } from "@/lib/utils/dates";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 import StudentMessagesSection, {
   type StaffMessageRow,
@@ -208,7 +209,7 @@ export default async function StaffStudentDetailPage({
           <Field label="진입 경로" value={s.source ?? "-"} />
           <Field
             label="등록일"
-            value={new Date(s.created_at).toLocaleDateString("ko-KR")}
+            value={fmtDate(s.created_at)}
           />
         </dl>
       </section>

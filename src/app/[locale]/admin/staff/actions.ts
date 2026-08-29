@@ -100,7 +100,7 @@ export async function createStaffAction(
   }
 
   await logActivity({
-    action_type: "update_student",
+    action_type: "update_staff",
     target_table: "users",
     target_id: userId,
     details: { action: "staff_created_or_promoted", email, is_new_account: isNewAccount },
@@ -147,7 +147,7 @@ export async function applyStaffGradeAction(
   if (error) return { error: `등급 적용 실패: ${error.message}` };
 
   await logActivity({
-    action_type: "update_student",
+    action_type: "update_staff",
     target_table: "staff_permissions",
     target_id: staffId,
     details: { action: "grade_applied", grade: grade.key, label: grade.label },
@@ -170,12 +170,8 @@ export async function updateStaffPermissionsAction(
   const staffId = String(formData.get("staff_id") ?? "");
   if (!staffId) return { error: "staff_id 누락" };
 
-  const VALID_KEYS = [
-    "view_all_students", "edit_student_info", "check_documents", "upload_offer",
-    "confirm_payment", "write_shared_memo", "view_manuals", "edit_manuals",
-    "view_internal_faqs", "edit_internal_faqs", "write_blog", "publish_blog",
-    "send_kakao_alert", "create_quote", "view_stats", "manage_other_staff_permissions",
-  ] as const;
+  // 권한 키 정본은 lib/staff/grades.ts — 사본을 두면 두 목록이 어긋난다
+  const VALID_KEYS = ALL_PERM_KEYS;
 
   const supabase = await createClient();
   const now = new Date().toISOString();
@@ -198,7 +194,7 @@ export async function updateStaffPermissionsAction(
   if (error) return { error: `저장 실패: ${error.message}` };
 
   await logActivity({
-    action_type: "update_student", // 신규 action_type 추가 없이 재사용
+    action_type: "update_staff",
     target_table: "staff_permissions",
     target_id: staffId,
     details: {

@@ -31,6 +31,8 @@ export default async function AdminFaqsPage({
     cat?: string;
     q?: string;
     new?: string;
+    err?: string;
+    ok?: string;
   }>;
 }) {
   const sp = await searchParams;
@@ -70,6 +72,14 @@ export default async function AdminFaqsPage({
           </Link>
         ))}
       </nav>
+
+      {/* actions.ts 가 ?err/?ok 로 결과를 넘기는데 표시가 없어 실패가 조용히 사라졌음 */}
+      {sp.err && (
+        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">⚠️ {sp.err}</p>
+      )}
+      {sp.ok && (
+        <p className="rounded-lg bg-success/10 px-3 py-2 text-sm text-success">✅ 저장되었습니다</p>
+      )}
 
       {tab === "internal" && <InternalSection sp={sp} />}
       {tab === "public" && <PublicSection />}

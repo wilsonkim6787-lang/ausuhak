@@ -20,10 +20,13 @@ type DocRow = {
 
 export default async function StudentBasicPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ err?: string }>;
 }) {
   const { id } = await params;
+  const sp = await searchParams;
 
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -65,6 +68,9 @@ export default async function StudentBasicPage({
 
   return (
     <div className="flex flex-col gap-6">
+      {sp.err && (
+        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">⚠️ {sp.err}</p>
+      )}
       <ProgressControl studentId={data.id} statusMap={statusMap} docsBySubstep={docsBySubstep} />
 
       <details className="rounded-2xl border border-cream-300 bg-white shadow-sm">

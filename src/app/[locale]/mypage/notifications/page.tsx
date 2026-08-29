@@ -5,6 +5,7 @@ import { requireStudent } from "@/lib/auth/requireStudent";
 import { createAdminClient } from "@/lib/supabase/admin";
 import SendBox from "./SendBox";
 import { KAKAO_URL } from "@/lib/constants";
+import { fmtMdHm } from "@/lib/utils/dates";
 
 
 type MessageRow = {
@@ -14,12 +15,8 @@ type MessageRow = {
   created_at: string;
 };
 
-function fmtTime(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getMonth() + 1}.${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(
-    d.getMinutes(),
-  ).padStart(2, "0")}`;
-}
+// 서버(UTC)에서 로컬 시간으로 그리면 9시간 어긋남 → KST 고정 헬퍼 사용
+const fmtTime = fmtMdHm;
 
 export default async function MypageMessagesPage() {
   const { student } = await requireStudent();

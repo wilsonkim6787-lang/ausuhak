@@ -289,3 +289,35 @@ export async function updateQuoteAction(
   revalidatePath("/admin/quotes");
   return { ok: true };
 }
+
+// 견적 상태 변경 (draft → sent → accepted / expired).
+// 목록의 상태 필터 칩이 실제로 쓰이려면 상태를 바꿀 수단이 필요.
+const VALID_QUOTE_STATUS = ["draft", "sent", "accepted", "expired"] as const;
+
+export async function updateQuoteStatusAction(formData: FormData): Promise<void> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") return;
+
+  const quoteId = String(formData.get("quote_id") ?? "");
+  const status = String(formData.get("status") ?? "");
+  if (!quoteId || !(VALID_QUOTE_STATUS as readonly string[]).includes(status)) return;
+
+  const supabase = await createClient();
+  const patch: Record<string, string> = {
+    status,
+    updated_at: new Date().toISOString(),
+  };
+  if (status === "sent") patch.sent_at = new Date().toISOString();
+  const { error } = await supabase.from("quotes").update(patch).eq("id", quoteId);
+  if (error) return;
+
+  await logActivity({
+    action_type: "update_quote",
+    target_table: "quotes",
+    target_id: quoteId,
+    details: { status },
+  });
+
+  revalidatePath(`/admin/quotes/${quoteId}`);
+  revalidatePath("/admin/quotes");
+}
