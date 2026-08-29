@@ -92,8 +92,16 @@ async function applyStageToStudent(
     .single();
   if (!student) return { error: "학생을 찾을 수 없습니다." };
 
+  // 단계 정의가 깨져 있으면(오타 substep) 아무것도 안 바뀐 채
+  // "반영 완료" + 카톡 대기가 생기던 버그 → 명시적 에러로 중단.
+  if (action.target_substep && !VALID_SUBSTEP_KEYS.has(action.target_substep)) {
+    return {
+      error: `단계 정의 오류: '${action.target_substep}' 는 유효한 sub-step 이 아닙니다 (stage_actions 데이터 확인 필요).`,
+    };
+  }
+
   // 1) 선택 단계 + 그 앞 단계 전부 done → current_stage 재산출
-  if (action.target_substep && VALID_SUBSTEP_KEYS.has(action.target_substep)) {
+  if (action.target_substep) {
     const targetIdx = ALL_SUBSTEPS.findIndex((s) => s.key === action.target_substep);
     const nowIso = new Date().toISOString();
     const toMark = ALL_SUBSTEPS.slice(0, targetIdx + 1).map((s) => ({
@@ -114,12 +122,11 @@ async function applyStageToStudent(
       .eq("student_id", studentId);
     const statusMap = buildStatusMap(rows ?? [], student.current_stage ?? 1);
     const nextStage = deriveCurrentStage(statusMap);
-    if (nextStage !== student.current_stage) {
-      await admin
-        .from("students")
-        .update({ current_stage: nextStage, updated_at: nowIso })
-        .eq("id", studentId);
-    }
+    // stage 가 안 변해도 updated_at 갱신 — 케어룰·정렬 오탐 방지 (progressActions 와 동일)
+    await admin
+      .from("students")
+      .update({ current_stage: nextStage, updated_at: nowIso })
+      .eq("id", studentId);
   }
 
   // 2) required_documents → status "requested"(요청됨)

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { requireStudent } from "@/lib/auth/requireStudent";
 import { KAKAO_URL } from "@/lib/constants";
+import { fmtDate } from "@/lib/utils/dates";
 
 type QuoteRow = {
   id: string;
@@ -77,7 +78,7 @@ export default async function MypageQuotePage() {
                   {q.quote_type === "enrollment" ? "유학 등록 견적" : "컨설팅 견적"}
                 </p>
                 <p className="text-xs text-ink-500">
-                  {new Date(q.created_at).toLocaleDateString("ko-KR")}
+                  {fmtDate(q.created_at)}
                 </p>
               </div>
 

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import StudentAvatar from "@/components/admin/StudentAvatar";
+import { daysUntilKST, dDayLabel } from "@/lib/utils/dates";
 import { updateLeadStatusAction } from "./actions";
 
 export type KanbanCareHit = {
@@ -51,18 +52,22 @@ const DEADLINE_LABEL: Record<string, string> = {
   departure:        "출국",
 };
 
-function daysUntil(iso: string): number {
-  const target = new Date(iso);
-  const now = new Date();
-  return Math.ceil((target.getTime() - now.getTime()) / (24 * 3600 * 1000));
-}
-
 export default function KanbanBoard({ students }: { students: KanbanStudent[] }) {
   const [local, setLocal] = useState(students);
+  const [prevStudents, setPrevStudents] = useState(students);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [overCol, setOverCol] = useState<string | null>(null);
   const [showCompleted, setShowCompleted] = useState(false);
   const [, startTransition] = useTransition();
+
+  // 서버가 revalidate 로 새 데이터를 내려주면 보드에 반영.
+  // (useState 초기값만 쓰면 드롭 이후 다른 변경·뱃지가 영영 갱신 안 됨 —
+  //  key 리마운트는 필터 변경에만 걸리고 같은 필터의 재검증엔 안 걸린다)
+  // effect 대신 렌더 중 조정 — react.dev "adjusting state when a prop changes" 패턴.
+  if (prevStudents !== students) {
+    setPrevStudents(students);
+    setLocal(students);
+  }
 
   const byStatus = (status: string) => local.filter((s) => s.lead_status === status);
   const completedStudents = local.filter((s) => COMPLETED_KEYS.includes(s.lead_status));
@@ -235,7 +240,7 @@ function StudentCard({
   dragging: boolean;
 }) {
   const dl = student.next_deadline;
-  const dlDays = dl ? daysUntil(dl.date) : null;
+  const dlDays = dl ? daysUntilKST(dl.date) : null;
   const dlLabel = dl ? DEADLINE_LABEL[dl.type] ?? dl.type : null;
 
   return (
@@ -297,7 +302,7 @@ function StudentCard({
             }`}
           >
             ⏰ {dlLabel} · {dl.date}
-            {dlDays != null && ` (D-${dlDays})`}
+            {dlDays != null && ` (${dDayLabel(dlDays)})`}
           </p>
         )}
         {student.care_hits.length > 0 && (

@@ -58,11 +58,14 @@ export default function MarkdownPreviewToggle({
         </span>
       </div>
 
-      {/* textarea = 항상 마운트 (form 제출 보장), preview 모드일 땐 hidden */}
+      {/* textarea = 항상 마운트 (form 제출 보장), preview 모드일 땐 hidden.
+          required 검증 실패 시엔 편집 모드로 복귀 — hidden 상태의 required 필드는
+          "not focusable" 에러로 제출이 조용히 막힘 */}
       <textarea
         name={name}
         value={body}
         onChange={(e) => setBody(e.target.value)}
+        onInvalid={() => setMode("edit")}
         rows={rows}
         required={required}
         placeholder={placeholder}

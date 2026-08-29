@@ -30,6 +30,10 @@ export async function saveNoticeAction(
     { key: "notice_title",  value: title || null,             category: "notice", is_public: true },
     { key: "notice_body",   value: body || null,              category: "notice", is_public: true },
     { key: "notice_version", value: String(version),          category: "notice", is_public: true },
+    // 직접 입력으로 저장하면 이전에 걸어둔 블로그 연결을 해제 —
+    // 안 지우면 setMainNoticeAction 이 남긴 notice_slug 가 살아남아 팝업이 옛 글로 링크됨
+    { key: "notice_slug",    value: null, category: "notice", is_public: true },
+    { key: "notice_blog_id", value: null, category: "notice", is_public: true },
   ];
   const { error } = await supabase
     .from("site_settings")

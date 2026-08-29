@@ -132,7 +132,8 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
         .from("students")
         .select("id", { count: "exact", head: true })
         .lt("updated_at", iso14dAgo)
-        .not("lead_status", "in", "(pr,lead)"),
+        // NULL lead_status 는 SQL NOT IN 에서 빠짐 → 케어 엔진(JS !==)과 동일하게 포함
+        .or("lead_status.is.null,lead_status.not.in.(pr,lead)"),
     ),
     cnt(
       supabase

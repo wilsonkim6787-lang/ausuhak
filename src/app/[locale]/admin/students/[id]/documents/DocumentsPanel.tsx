@@ -204,10 +204,10 @@ function DocGroup({
                   <input type="hidden" name="doc_id" value={d.id} />
                   <input type="hidden" name="student_id" value={studentId} />
                   <ConfirmSubmitButton
-                    message="이 서류 파일을 삭제할까요? 되돌릴 수 없습니다."
+                    message="이 서류 파일을 삭제할까요? 되돌릴 수 없습니다. (체크 항목은 남고 상태는 대기로 초기화됩니다)"
                     className="text-[11px] text-error hover:underline"
                   >
-                    삭제
+                    파일 삭제
                   </ConfirmSubmitButton>
                 </form>
               </li>

@@ -2,7 +2,9 @@
 // 열람 시 학생 발신 메시지를 읽음 처리.
 
 import { createClient } from "@/lib/supabase/server";
+import { fmtMdHm } from "@/lib/utils/dates";
 import { sendAdminMessageAction } from "./actions";
+import MarkReadOnMount from "./MarkReadOnMount";
 
 type MessageRow = {
   id: string;
@@ -13,12 +15,9 @@ type MessageRow = {
   created_at: string;
 };
 
-function fmtTime(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getMonth() + 1}.${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(
-    d.getMinutes(),
-  ).padStart(2, "0")}`;
-}
+// created_at 은 timezone 없는 TIMESTAMP(migration 046) — 서버 로컬로 파싱하면 시각이
+// 어긋나므로 UTC 파싱 + KST 표기 헬퍼 사용
+const fmtTime = fmtMdHm;
 
 export default async function StudentMessagesPage({
   params,
@@ -41,18 +40,15 @@ export default async function StudentMessagesPage({
     .limit(300);
   const messages = ((data ?? []) as MessageRow[]).slice().reverse();
 
-  // 학생 발신 미읽음 → 읽음 처리
-  if (!error && messages.some((m) => m.sender_role === "student" && !m.read_at)) {
-    await supabase
-      .from("student_messages")
-      .update({ read_at: new Date().toISOString() })
-      .eq("student_id", id)
-      .eq("sender_role", "student")
-      .is("read_at", null);
-  }
+  // 학생 발신 미읽음 여부 — 읽음 처리는 MarkReadOnMount(서버 액션 + revalidate)가 수행.
+  // 렌더 중 직접 UPDATE 하면 revalidate 가 없어 탭·목록·대시보드 안읽음 뱃지가
+  // 새로고침 전까지 그대로 남았다.
+  const hasUnread =
+    !error && messages.some((m) => m.sender_role === "student" && !m.read_at);
 
   return (
     <div className="flex flex-col gap-4">
+      {hasUnread && <MarkReadOnMount studentId={id} />}
       {error && (
         <div className="rounded-lg bg-error/10 p-4 text-sm text-error">
           <p className="font-semibold">메시지함 조회 실패</p>

@@ -23,6 +23,7 @@ export type ActionType =
   | "create_quote"
   | "update_quote"
   | "update_student"
+  | "update_staff" // 직원 등급·권한 변경 (학생 수정과 구분)
   | "advance_stage"
   | "update_substep"
   | "update_lead_status"

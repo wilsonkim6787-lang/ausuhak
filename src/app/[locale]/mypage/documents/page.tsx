@@ -7,6 +7,7 @@ import { requireStudent } from "@/lib/auth/requireStudent";
 import { createAdminClient } from "@/lib/supabase/admin";
 import UploadRow from "./UploadRow";
 import { KAKAO_URL } from "@/lib/constants";
+import { fmtYmd } from "@/lib/utils/dates";
 
 const BUCKET = "student-documents";
 
@@ -64,12 +65,8 @@ const STATUS_UI: Record<UiStatus, { label: string; chip: string; dot: string }> 
   fix: { label: "보완 필요", chip: "bg-error/15 text-error", dot: "bg-error text-white" },
 };
 
-function fmtDate(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(
-    d.getDate(),
-  ).padStart(2, "0")}`;
-}
+// 서버(UTC)에서 로컬 시간으로 그리면 KST 새벽에 날짜가 하루 밀림 → KST 고정 헬퍼
+const fmtDate = fmtYmd;
 
 export default async function MypageDocumentsPage() {
   const { student } = await requireStudent();

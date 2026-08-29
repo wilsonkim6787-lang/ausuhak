@@ -129,9 +129,9 @@ export function evaluateCareRules(
       hits.push(makeHit("inactive_5d", s, sinceUpdated));
     }
 
-    // 2. 마이페이지 1주+ 미접속
+    // 2. 마이페이지 1주+ 미접속 (진행 중 학생만 — lead/pr 은 자동 카톡 대상 아님)
     const sinceLogin = daysAgo(s.users?.last_login_at, now);
-    if (s.user_id && sinceLogin != null && sinceLogin >= 7) {
+    if (inActiveLifecycle && s.user_id && sinceLogin != null && sinceLogin >= 7) {
       hits.push(makeHit("mypage_7d", s, sinceLogin));
     }
 
@@ -148,6 +148,7 @@ export function evaluateCareRules(
 
     // 4. 결제 후 5일+ 1:1 상담 X (current_stage = 2 / 그대로 멈춤)
     if (
+      inActiveLifecycle &&
       s.current_stage === 2 &&
       sinceUpdated != null &&
       sinceUpdated >= 5
@@ -155,9 +156,15 @@ export function evaluateCareRules(
       hits.push(makeHit("payment_no_consult_5d", s, sinceUpdated));
     }
 
-    // 5. 비자 신청 후 30일+
+    // 5. 비자 신청 후 30일+ — 아직 비자 단계(≤10)인 학생만.
+    // (승인 후 출국·PR 학생에게 "비자 심사 4~8주" 카톡이 무한 반복되던 문제)
     const sinceVisa = daysAgo(s.visa_submitted_at, now);
-    if (sinceVisa != null && sinceVisa >= 30) {
+    if (
+      inActiveLifecycle &&
+      s.current_stage <= 10 &&
+      sinceVisa != null &&
+      sinceVisa >= 30
+    ) {
       hits.push(makeHit("visa_pending_30d", s, sinceVisa));
     }
 
@@ -166,8 +173,13 @@ export function evaluateCareRules(
       hits.push(makeHit("stage_stuck_14d", s, sinceUpdated));
     }
 
-    // 7. 호주 도착 후 6개월
-    if (s.current_stage === 12 && sinceUpdated != null && sinceUpdated >= 180) {
+    // 7. 호주 도착 후 6개월 (pr 전환 완료 학생 제외)
+    if (
+      inActiveLifecycle &&
+      s.current_stage === 12 &&
+      sinceUpdated != null &&
+      sinceUpdated >= 180
+    ) {
       hits.push(makeHit("arrival_6m", s, sinceUpdated));
     }
   }

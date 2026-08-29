@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/Button";
+import { buttonStyles } from "@/components/ui/Button";
 import { upsertGalleryAction, deleteGalleryAction } from "./actions";
 import { SaveButton, DeleteButton } from "./GalleryFormButtons";
 
@@ -28,7 +29,7 @@ export default async function AdminGalleryPage({
   const sp = await searchParams;
   const supabase = await createClient();
 
-  const { data: rows } = await supabase
+  const { data: rows, error: listError } = await supabase
     .from("gallery")
     .select("id, image_path, caption, display_order, status, created_at")
     .order("display_order")
@@ -40,11 +41,11 @@ export default async function AdminGalleryPage({
       .from("gallery")
       .select("*")
       .eq("id", sp.edit)
-      .single();
-    editing = data as GalleryRow | null;
+      .maybeSingle();
+    editing = (data as GalleryRow | null) ?? null;
   }
 
-  const showForm = sp.new === "1" || editing;
+  const showForm = sp.new === "1" || editing !== null;
   const items = (rows ?? []) as GalleryRow[];
   const storageBase = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery`;
 
@@ -53,12 +54,23 @@ export default async function AdminGalleryPage({
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-navy-900">갤러리 관리</h1>
         {!showForm && (
-          <a href="/admin/gallery?new=1">
-            <Button>+ 사진 추가</Button>
-          </a>
+          <Link href="/admin/gallery?new=1" className={buttonStyles()}>
+            + 사진 추가
+          </Link>
         )}
       </div>
 
+      {listError && (
+        <div className="rounded-lg bg-error/10 p-4 text-sm text-error">
+          <p className="font-semibold">갤러리 조회 실패</p>
+          <p className="mt-1 font-mono text-xs">{listError.message}</p>
+        </div>
+      )}
+      {sp.edit && !editing && !listError && (
+        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+          해당 사진을 찾을 수 없습니다. (삭제되었거나 잘못된 링크)
+        </p>
+      )}
       {sp.err && (
         <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
           {sp.err}
@@ -130,9 +142,9 @@ export default async function AdminGalleryPage({
 
           <div className="flex gap-3">
             <SaveButton />
-            <a href="/admin/gallery">
-              <Button type="button">취소</Button>
-            </a>
+            <Link href="/admin/gallery" className={buttonStyles()}>
+              취소
+            </Link>
           </div>
         </form>
       )}
@@ -163,12 +175,12 @@ export default async function AdminGalleryPage({
                   순서 {item.display_order}
                 </p>
                 <div className="mt-2 flex gap-2">
-                  <a
+                  <Link
                     href={`/admin/gallery?edit=${item.id}`}
                     className="text-xs font-semibold text-gold-600 hover:text-gold-500"
                   >
                     수정
-                  </a>
+                  </Link>
                   <form action={deleteGalleryAction}>
                     <input type="hidden" name="id" value={item.id} />
                     <DeleteButton />

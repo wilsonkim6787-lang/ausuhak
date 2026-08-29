@@ -6,6 +6,7 @@ import StudentAvatar from "@/components/admin/StudentAvatar";
 import StudentFilters from "./StudentFilters";
 import KanbanBoard, { type KanbanStudent } from "./kanban/KanbanBoard";
 import { likeEscape } from "@/lib/utils/likeEscape";
+import { dDayLabel } from "@/lib/utils/dates";
 import {
   CARE_RULES,
   evaluateCareRules,
@@ -505,7 +506,7 @@ function StudentRowCard({
                 }`}
               >
                 ⏰ {dlLabel} · {nextDeadline.date}
-                {dlDays != null && ` (D-${dlDays})`}
+                {dlDays != null && ` (${dDayLabel(dlDays)})`}
               </p>
             )}
           </div>

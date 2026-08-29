@@ -8,5 +8,6 @@ export default async function StageRedirect({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  redirect(`/admin/students/${id}#stage`);
+  // #stage 앵커는 대상 페이지에 없어 무의미 → 상세 페이지로만 이동
+  redirect(`/admin/students/${id}`);
 }

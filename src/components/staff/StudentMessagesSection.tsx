@@ -2,6 +2,7 @@
 // 열람 시 학생 발신 미읽음을 읽음 처리 (호출측 서버 페이지에서 수행).
 
 import { sendStaffMessageAction } from "@/app/[locale]/staff/students/[id]/messagesActions";
+import { fmtMdHm } from "@/lib/utils/dates";
 
 export type StaffMessageRow = {
   id: string;
@@ -11,12 +12,8 @@ export type StaffMessageRow = {
   created_at: string;
 };
 
-function fmtTime(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getMonth() + 1}.${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(
-    d.getMinutes(),
-  ).padStart(2, "0")}`;
-}
+// 서버(UTC)에서 로컬 시간으로 그리면 9시간 어긋남 → KST 고정 헬퍼 사용
+const fmtTime = fmtMdHm;
 
 export default function StudentMessagesSection({
   studentId,

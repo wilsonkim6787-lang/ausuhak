@@ -141,7 +141,7 @@ export default function SettingsForm({
           🏬 지사 정보 (최대 3개)
         </h2>
         <p className="mt-1 text-xs text-ink-500">
-          비어 있는 지사는 푸터/Contact에 표시되지 않습니다. 지사명(한) 비우면 비활성.
+          지사명(한) 비우면 비활성. (푸터/Contact 노출 연동은 준비 중)
         </p>
 
         <div className="mt-5 flex flex-col gap-6">
@@ -224,7 +224,7 @@ export default function SettingsForm({
           )}
           {state.ok && !pending && (
             <span className="rounded-lg bg-success/10 px-2.5 py-1 text-success">
-              ✓ 저장됨 (사이트 즉시 반영)
+              ✓ 저장됨
             </span>
           )}
           {!state.error && !state.ok && (

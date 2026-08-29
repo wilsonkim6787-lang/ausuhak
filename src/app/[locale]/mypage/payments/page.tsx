@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireStudent } from "@/lib/auth/requireStudent";
 import { KAKAO_URL } from "@/lib/constants";
+import { fmtDate } from "@/lib/utils/dates";
 
 type PaymentRow = {
   id: string;
@@ -87,13 +88,13 @@ export default async function MypagePaymentsPage() {
                   </span>
                 )}
                 <span className="ml-auto text-xs text-ink-500">
-                  {new Date(p.created_at).toLocaleDateString("ko-KR")}
+                  {fmtDate(p.created_at)}
                 </span>
               </div>
 
               {p.status === "confirmed" && p.confirmed_at && (
                 <p className="mt-2 text-xs text-success">
-                  ✓ 입금 확인: {new Date(p.confirmed_at).toLocaleDateString("ko-KR")}
+                  ✓ 입금 확인: {fmtDate(p.confirmed_at)}
                 </p>
               )}
 

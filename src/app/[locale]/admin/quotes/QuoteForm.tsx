@@ -124,10 +124,11 @@ export default function QuoteForm({
   );
 
   const selectedStudent = students.find((s) => s.id === studentId);
-  const inferredRegion =
-    defaults?.items.region ??
-    selectedStudent?.preferred_region ??
-    "시드니";
+  // "추천받기" 등 LIVING_DEFAULTS 에 없는 값이면 시드니로 —
+  // controlled select 가 매칭 option 없이 비어 region=null 로 저장되는 것 방지
+  const rawRegion =
+    defaults?.items.region ?? selectedStudent?.preferred_region ?? "시드니";
+  const inferredRegion = LIVING_DEFAULTS[rawRegion] != null ? rawRegion : "시드니";
 
   // 동적 단계 쌓기 — defaults 가 있으면 그대로 / 없으면 빈 배열로 시작
   const startSchools: SelectedSchool[] =
@@ -222,10 +223,12 @@ export default function QuoteForm({
     : 0;
 
   // ─── 카카오 텍스트 (학생 view 톤 / INTERNAL 메모 제외) ───
+  // 문자열로 미리 뽑는다 — 옵셔널 체이닝 의존성은 컴파일러가 메모를 보존하지 못함
+  const selectedStudentName = selectedStudent?.name ?? "";
   const kakaoText = useMemo(() => {
     const L: string[] = [];
     L.push("【호주 유학 예상 견적서】");
-    if (selectedStudent?.name) L.push(`${selectedStudent.name} 님`);
+    if (selectedStudentName) L.push(`${selectedStudentName} 님`);
     L.push(`기준일 ${fxDate} · 1 AUD ≈ ${fx.toLocaleString("ko-KR")}원 · 견적 유효 7일`);
     L.push("");
     if (totals.length > 0) {
@@ -267,7 +270,7 @@ export default function QuoteForm({
     L.push("자세한 상담은 카카오톡으로 이어서 도와드리겠습니다.");
     return L.join("\n");
   }, [
-    selectedStudent?.name, fxDate, fx, totals, living, livingYearly,
+    selectedStudentName, fxDate, fx, totals, living, livingYearly,
     oshc, accom, accomYearly, visa, settle, pickup, airfare, consult,
     processing, note,
   ]);
@@ -668,9 +671,12 @@ function StudentCombobox({
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  // 선택 학생이 바뀌면 입력창 표시를 동기화 — effect 대신 렌더 중 조정 패턴
+  const [prevStudentId, setPrevStudentId] = useState(studentId);
+  if (studentId !== prevStudentId) {
+    setPrevStudentId(studentId);
     if (selected) setQuery(selected.name);
-  }, [selected]);
+  }
 
   useEffect(() => {
     function onClick(e: MouseEvent) {

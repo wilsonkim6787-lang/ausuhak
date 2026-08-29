@@ -167,7 +167,7 @@ export default async function StaffDetailPage({
         </h2>
         {assignedRaw.length === 0 ? (
           <p className="mt-3 text-sm text-ink-500">
-            담당 학생이 없습니다. 학생 상세의 "담당 관리" 탭에서 배정 (Phase 2 후속).
+            담당 학생이 없습니다. 학생 상세의 &ldquo;담당 관리&rdquo; 탭에서 배정 (Phase 2 후속).
           </p>
         ) : (
           <ul className="mt-4 flex flex-col gap-2">
