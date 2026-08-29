@@ -46,51 +46,45 @@ const lines = [];
 try {
   const sb = createClient(url, key);
 
-  // 일회성: 후기(메모) 없는 19장은 공개하지 않기로 함 — 이미 published 로
-  // 들어갔다면 draft 로 내린다. site_settings 가드로 한 번만 실행되므로
-  // 이후 관리자가 admin 에서 공개로 바꾸면 그대로 유지된다.
-  const DEMOTE_KEY = "seed_demote_v1";
-  const DEMOTE_FILES = [
-    "m01_UNSW-College_KIM.jpg","m02_LaTrobe-College_KIM.jpg","m03_QUT-Nursing-PKG_SEO.jpg",
-    "m04_ILSC-Sydney_SONG.jpg","m05_Griffith-Nursing_OH.jpg","m06_Griffith-Medicine.jpg",
-    "m07_UNSW-College_JEONG.jpg","m09_USyd-Commerce_PARK.jpg","m11_UNSW-College_SONG.jpg",
-    "m13_Griffith-College_OH.jpg","m15_UniSA-Physio_LEE.jpg","m18_UTS-IT_CHAE.jpg",
-    "m19_UNSW-College_SUNG.jpg","m20_GlenEira-College_KIM.jpg","m24_BROWNS-HSP_KWON.jpg",
-    "m26_Newcastle-Nursing-Award_KIM.jpg","m27_Monash-Medicine-PKG_KIM.jpg",
-    "m28_TRA-PSA-Carpenter_KIM.jpg","m30_USyd-Sustainability_KIM.jpg",
+  // 일회성 완전 삭제 (지시: "똑같은 건 지워버려, 후기 없는 것도 없애버려")
+  // 1) 구 자동분 중복 9종 — 행 + 스토리지 이미지 삭제 (상태 무관)
+  // 2) 후기(story)가 비어 있는 모든 카드 — 행 + 이미지 삭제
+  // 결과: 후기 있는 카드만 남는다. site_settings 가드로 한 번만 실행.
+  const PURGE_KEY = "seed_purge_v1";
+  const OLD_DUP_FILES = [
+    "01_USyd-Sustainability.png", "02_USyd-USPP.png", "03_UNSW-College-Commerce.png",
+    "04_UNSW-College-Medicine.png", "05_QUT-Nursing.png", "06_Griffith-Uni-Nursing.png",
+    "07_LaTrobe-College-Nursing.png", "08_Griffith-College-Pathway.png", "09_Glen-Eira-College.png",
   ];
-  const { data: demoteDone } = await sb
-    .from("site_settings").select("key").eq("key", DEMOTE_KEY).maybeSingle();
-  if (!demoteDone) {
-    const { data: demoted, error: demErr } = await sb
+  const { data: purgeDone } = await sb
+    .from("site_settings").select("key").eq("key", PURGE_KEY).maybeSingle();
+  if (!purgeDone) {
+    const { data: all } = await sb
       .from("offers")
-      .update({ status: "draft" })
-      .in("image_path", DEMOTE_FILES)
-      .eq("status", "published")
-      .select("image_path");
-    if (demErr) {
-      lines.push(`비공개 처리 실패: ${demErr.message}`);
+      .select("id, school, image_path, story");
+    const targets = (all ?? []).filter(
+      (r) =>
+        (r.image_path && OLD_DUP_FILES.includes(r.image_path)) ||
+        !r.story || r.story.trim() === "",
+    );
+    const ids = targets.map((t) => t.id);
+    const files = [...new Set(targets.map((t) => t.image_path).filter(Boolean))];
+    if (ids.length > 0) {
+      const { error: delErr } = await sb.from("offers").delete().in("id", ids);
+      if (delErr) {
+        lines.push(`삭제 실패: ${delErr.message}`);
+      } else {
+        if (files.length > 0) await sb.storage.from("offers").remove(files);
+        lines.push(`완전 삭제: ${ids.length}건 (중복 자동분 + 후기 없는 카드, 이미지 포함)`);
+        for (const t of targets) lines.push(`  삭제: ${t.school} (${t.image_path ?? "-"})`);
+      }
     } else {
-      lines.push(`후기 없는 카드 비공개(draft) 처리: ${(demoted ?? []).length}건`);
-      // 같은 케이스의 어제 자동분(구 시드 중복 9종)도 함께 보관 —
-      // 후기 없는 카드가 자동분으로만 남아 보이는 혼선 방지. 유일본 4장은 유지.
-      const OLD_DUP_FILES = [
-        "01_USyd-Sustainability.png", "02_USyd-USPP.png", "03_UNSW-College-Commerce.png",
-        "04_UNSW-College-Medicine.png", "05_QUT-Nursing.png", "06_Griffith-Uni-Nursing.png",
-        "07_LaTrobe-College-Nursing.png", "08_Griffith-College-Pathway.png", "09_Glen-Eira-College.png",
-      ];
-      const { data: oldArch } = await sb
-        .from("offers")
-        .update({ status: "archived" })
-        .in("image_path", OLD_DUP_FILES)
-        .eq("status", "published")
-        .select("image_path");
-      lines.push(`구 자동분 중복 보관 처리: ${(oldArch ?? []).length}건`);
-      await sb.from("site_settings").upsert(
-        { key: DEMOTE_KEY, value: new Date().toISOString(), value_en: null, category: "internal", is_public: true },
-        { onConflict: "key" },
-      );
+      lines.push("삭제 대상 없음 — 이미 정리됨");
     }
+    await sb.from("site_settings").upsert(
+      { key: PURGE_KEY, value: new Date().toISOString(), value_en: null, category: "internal", is_public: true },
+      { onConflict: "key" },
+    );
   }
   const { data: rows, error } = await sb
     .from("offers")
