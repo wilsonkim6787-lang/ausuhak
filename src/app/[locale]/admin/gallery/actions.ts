@@ -61,17 +61,13 @@ export async function upsertGalleryAction(formData: FormData): Promise<void> {
     if (file.size > MAX_BYTES) redirect(errUrl("5MB 초과"));
     if (!ALLOWED_MIME.has(file.type)) redirect(errUrl("JPG·PNG·WebP만 허용"));
 
+    // 새 파일 업로드 먼저 — 옛 파일은 DB 반영까지 끝난 뒤 제거.
+    // (기존엔 삭제·업로드를 병렬 실행해 업로드 실패 시 옛 사진까지 유실)
     const path = `gallery-${Date.now()}.${extOf(file.name)}`;
     const buffer = await file.arrayBuffer();
-    const [, { error: uploadError }] = await Promise.all([
-      existingPath
-        ? supabase.storage.from(BUCKET).remove([existingPath])
-        : Promise.resolve(),
-      supabase.storage.from(BUCKET).upload(path, buffer, {
-        contentType: file.type,
-        upsert: false,
-      }),
-    ]);
+    const { error: uploadError } = await supabase.storage
+      .from(BUCKET)
+      .upload(path, buffer, { contentType: file.type, upsert: false });
     if (uploadError) redirect(errUrl(`업로드 실패: ${uploadError.message}`));
     imagePath = path;
   }
@@ -89,6 +85,11 @@ export async function upsertGalleryAction(formData: FormData): Promise<void> {
   } else {
     const { error } = await supabase.from("gallery").insert(payload);
     if (error) redirect(errUrl(`저장 실패: ${error.message}`));
+  }
+
+  // 교체 성공 후 옛 파일 정리
+  if (hasFile && existingPath && existingPath !== imagePath) {
+    await supabase.storage.from(BUCKET).remove([existingPath]);
   }
 
   revalidatePath("/admin/gallery");

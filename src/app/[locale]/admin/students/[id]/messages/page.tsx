@@ -2,7 +2,9 @@
 // 열람 시 학생 발신 메시지를 읽음 처리.
 
 import { createClient } from "@/lib/supabase/server";
+import { fmtMdHm } from "@/lib/utils/dates";
 import { sendAdminMessageAction } from "./actions";
+import MarkReadOnMount from "./MarkReadOnMount";
 
 type MessageRow = {
   id: string;
@@ -13,12 +15,8 @@ type MessageRow = {
   created_at: string;
 };
 
-function fmtTime(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getMonth() + 1}.${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(
-    d.getMinutes(),
-  ).padStart(2, "0")}`;
-}
+// 서버(UTC)에서 로컬 시간으로 그리면 9시간 어긋남 → KST 고정 헬퍼 사용
+const fmtTime = fmtMdHm;
 
 export default async function StudentMessagesPage({
   params,
@@ -39,18 +37,13 @@ export default async function StudentMessagesPage({
     .limit(300);
   const messages = (data ?? []) as MessageRow[];
 
-  // 학생 발신 미읽음 → 읽음 처리
-  if (!error && messages.some((m) => m.sender_role === "student" && !m.read_at)) {
-    await supabase
-      .from("student_messages")
-      .update({ read_at: new Date().toISOString() })
-      .eq("student_id", id)
-      .eq("sender_role", "student")
-      .is("read_at", null);
-  }
+  // 학생 발신 미읽음 여부 — 읽음 처리는 MarkReadOnMount(서버 액션)가 수행
+  const hasUnread =
+    !error && messages.some((m) => m.sender_role === "student" && !m.read_at);
 
   return (
     <div className="flex flex-col gap-4">
+      {hasUnread && <MarkReadOnMount studentId={id} />}
       {error && (
         <div className="rounded-lg bg-error/10 p-4 text-sm text-error">
           <p className="font-semibold">메시지함 조회 실패</p>

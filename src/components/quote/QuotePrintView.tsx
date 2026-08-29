@@ -10,6 +10,7 @@ import {
   type QuoteCalcInput,
 } from "@/lib/quote/calc";
 import type { SelectedSchool, QuoteItems } from "@/app/[locale]/admin/quotes/actions";
+import { fmtDate } from "@/lib/utils/dates";
 
 export type QuotePrintData = {
   id: string;
@@ -68,7 +69,7 @@ export default function QuotePrintView({
               {quote.quote_type === "enrollment" ? "수속 견적서" : "상담 견적서"}
             </p>
             <p className="mt-1 text-[11px] text-ink-500">
-              발행일: {new Date(quote.created_at).toLocaleDateString("ko-KR")}
+              발행일: {fmtDate(quote.created_at)}
             </p>
             {quote.exchange_rate_date && (
               <p className="text-[11px] text-ink-500">

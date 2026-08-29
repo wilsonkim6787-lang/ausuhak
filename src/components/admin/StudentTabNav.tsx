@@ -21,11 +21,17 @@ export default function StudentTabNav({
 }) {
   const pathname = usePathname();
   const base = `/admin/students/${studentId}`;
-  const baseKo = `/ko${base}`;
+  // localePrefix "as-needed" — 기본(ko) 경로엔 /ko prefix 가 붙지 않음
 
   const matches = (href: string) => {
-    if (href === "") return pathname === base || pathname === baseKo;
-    return pathname.startsWith(`${base}${href}`) || pathname.startsWith(`${baseKo}${href}`);
+    if (!pathname.startsWith(base)) return false;
+    const sub = pathname.slice(base.length);
+    if (href === "") {
+      // 진행 탭 = 기본. 다른 탭 경로가 아니면(applications/deadlines/payments 등
+      // 진행 화면에서 들어가는 하위 페이지 포함) 활성 유지.
+      return !TABS.some((t) => t.href !== "" && sub.startsWith(t.href));
+    }
+    return sub.startsWith(href);
   };
 
   return (

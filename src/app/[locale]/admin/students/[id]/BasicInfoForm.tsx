@@ -3,6 +3,7 @@
 import { useActionState, useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import StudentAvatar from "@/components/admin/StudentAvatar";
+import { fmtDateTime } from "@/lib/utils/dates";
 import { updateStudentBasicAction, type ActionState } from "./actions";
 
 type Student = {
@@ -197,8 +198,8 @@ export default function BasicInfoForm({ student }: { student: Student }) {
             <SideRow k="진단 결과 UUID" v={student.diagnose_uuid} />
             <SideRow k="익명 ID" v={student.anonymous_id} />
             <SideRow k="파트너 추천" v={student.partner_ref} />
-            <SideRow k="등록일" v={new Date(student.created_at).toLocaleString("ko-KR")} />
-            <SideRow k="최근 수정" v={new Date(student.updated_at).toLocaleString("ko-KR")} />
+            <SideRow k="등록일" v={fmtDateTime(student.created_at)} />
+            <SideRow k="최근 수정" v={fmtDateTime(student.updated_at)} />
           </dl>
         </section>
       </aside>

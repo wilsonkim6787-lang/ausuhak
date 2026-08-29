@@ -162,13 +162,15 @@ export async function setMainNoticeAction(formData: FormData): Promise<void> {
   const version = (parseInt(verRow?.value ?? "1", 10) || 1) + 1;
 
   const summary = stripMarkdown(post.excerpt || post.body || "").slice(0, 220);
+  // is_public: true 필수 — 메인 페이지가 anon 클라이언트로 읽어서
+  // RLS(is_public=true) 조건에 걸리면 팝업이 아예 안 뜸.
   const rows = [
-    { key: "notice_active",  value: "true",           category: "notice", is_public: false },
-    { key: "notice_title",   value: post.title,       category: "notice", is_public: false },
-    { key: "notice_body",    value: summary || null,  category: "notice", is_public: false },
-    { key: "notice_version", value: String(version),  category: "notice", is_public: false },
-    { key: "notice_slug",    value: post.slug,        category: "notice", is_public: false },
-    { key: "notice_blog_id", value: post.id,          category: "notice", is_public: false },
+    { key: "notice_active",  value: "true",           category: "notice", is_public: true },
+    { key: "notice_title",   value: post.title,       category: "notice", is_public: true },
+    { key: "notice_body",    value: summary || null,  category: "notice", is_public: true },
+    { key: "notice_version", value: String(version),  category: "notice", is_public: true },
+    { key: "notice_slug",    value: post.slug,        category: "notice", is_public: true },
+    { key: "notice_blog_id", value: post.id,          category: "notice", is_public: true },
   ];
   const { error } = await supabase
     .from("site_settings")
@@ -190,8 +192,8 @@ export async function clearMainNoticeAction(): Promise<void> {
     .from("site_settings")
     .upsert(
       [
-        { key: "notice_active",  value: "false", category: "notice", is_public: false },
-        { key: "notice_blog_id", value: null,    category: "notice", is_public: false },
+        { key: "notice_active",  value: "false", category: "notice", is_public: true },
+        { key: "notice_blog_id", value: null,    category: "notice", is_public: true },
       ],
       { onConflict: "key" },
     );

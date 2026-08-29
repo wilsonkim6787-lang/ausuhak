@@ -1,6 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 import { loadStudentsForCare } from "@/lib/care/load";
 import { evaluateCareRules } from "@/lib/care/rules";
+import {
+  kstTodayStart,
+  kstTomorrowStartISO,
+  kstTomorrowYmd,
+  kstDaysAgoISO,
+} from "@/lib/utils/dates";
 
 // 아침 대시보드 위젯용 카운트 쿼리 모음 (PART E-2).
 // Phase 1 활성: students / consultations / school_applications / payments / critical_deadlines / quotes.
@@ -29,48 +35,25 @@ export type DashboardCounts = {
   totalStudents: number;
 };
 
-function startOfTodayKST(): Date {
-  // KST(UTC+9) 기준 자정. Vercel/dev 서버 시간대 영향 최소화.
-  const now = new Date();
-  const kstNow = new Date(now.getTime() + 9 * 3600 * 1000);
-  const kstMidnight = new Date(Date.UTC(
-    kstNow.getUTCFullYear(),
-    kstNow.getUTCMonth(),
-    kstNow.getUTCDate(),
-  ));
-  // 다시 UTC로: KST 자정 = UTC 전날 15:00
-  return new Date(kstMidnight.getTime() - 9 * 3600 * 1000);
-}
-
 export async function getDashboardCounts(): Promise<DashboardCounts> {
   const supabase = await createClient();
 
-  const startOfDay = startOfTodayKST();
-  const endOfDay = new Date(startOfDay.getTime() + 24 * 3600 * 1000);
-  const tomorrowStart = endOfDay;
-  const tomorrowEnd = new Date(tomorrowStart.getTime() + 24 * 3600 * 1000);
+  const startOfDay = kstTodayStart();
 
   // 이번 주 월요일 00:00 KST
-  const day = ((startOfDay.getUTCDay() + 9 / 24) | 0) % 7; // 단순화: 그냥 UTC dayOfWeek 사용
   const dayKst = new Date(startOfDay.getTime() + 9 * 3600 * 1000).getUTCDay();
   const daysFromMon = (dayKst + 6) % 7; // 월=0 / 일=6
   const weekStart = new Date(startOfDay.getTime() - daysFromMon * 24 * 3600 * 1000);
-  void day;
-
-  const fourteenDaysAgo = new Date(startOfDay.getTime() - 14 * 24 * 3600 * 1000);
-  const twoDaysAgo = new Date(startOfDay.getTime() - 2 * 24 * 3600 * 1000);
-  const isoTwoDaysAgo = twoDaysAgo.toISOString();
 
   const isoToday = startOfDay.toISOString();
-  const isoEndOfDay = endOfDay.toISOString();
-  const isoTomorrowStart = tomorrowStart.toISOString();
-  const isoTomorrowEnd = tomorrowEnd.toISOString();
+  const isoEndOfDay = kstTomorrowStartISO();
   const isoWeekStart = weekStart.toISOString();
-  const iso14dAgo = fourteenDaysAgo.toISOString();
+  const iso14dAgo = kstDaysAgoISO(14);
+  const isoTwoDaysAgo = kstDaysAgoISO(2);
 
-  // 날짜 컬럼 (critical_deadlines.deadline_date = DATE)용
-  const isoDateOnly = (d: Date): string => d.toISOString().slice(0, 10);
-  const tomorrowDate = isoDateOnly(tomorrowStart);
+  // 날짜 컬럼 (critical_deadlines.deadline_date = DATE)용.
+  // 주의: 기존 toISOString().slice(0,10)은 UTC 날짜라 "내일"이 아니라 "오늘"이 나왔음.
+  const tomorrowDate = kstTomorrowYmd();
 
   // count-only 쿼리 헬퍼
   const cnt = (
@@ -126,7 +109,8 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
         .from("students")
         .select("id", { count: "exact", head: true })
         .lt("updated_at", iso14dAgo)
-        .not("lead_status", "in", "(pr,lead)"),
+        // NULL lead_status 는 SQL NOT IN 에서 빠짐 → 케어 엔진(JS !==)과 동일하게 포함
+        .or("lead_status.is.null,lead_status.not.in.(pr,lead)"),
     ),
     cnt(
       supabase
@@ -134,7 +118,7 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
         .select("id", { count: "exact", head: true })
         .gte("consultation_date", isoToday)
         .lt("consultation_date", isoEndOfDay)
-        .neq("type", "kakao_30min"),
+        .or("type.is.null,type.neq.kakao_30min"),
     ),
     cnt(
       supabase
@@ -181,10 +165,6 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
         .select("id", { count: "exact", head: true }),
     ),
   ]);
-
-  // tomorrow 변수 미사용 경고 방지
-  void isoTomorrowStart;
-  void isoTomorrowEnd;
 
   // 🚨 Wilson 점검 필요 = 케어 엔진 wilson-severity 히트가 있는 학생 (distinct)
   // (죽어 있던 students.wilson_alerts 컬럼 대체 — /admin/care 와 동일 로직)

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
 import { logActivity } from "@/lib/audit/log";
+import { computeQuoteGrandTotal } from "@/lib/quote/calc";
 
 export type QuoteActionState = { ok?: boolean; error?: string; id?: string };
 
@@ -158,19 +159,17 @@ function parseQuotePayload(formData: FormData): ParsedQuote {
   const processing_fee_reason = (String(formData.get("processing_fee_reason") ?? "").trim()) || null;
   const exchange_rate_date = (String(formData.get("exchange_rate_date") ?? "").trim()) || null;
 
-  // 022: 첫 학교 기준 1년 추정 총액 (참고용 / 학생 PDF는 학교별로 따로 표시)
-  //  - 학비 = Wilson 입력 total (장학금·프로모션 차감)
-  //  - 기타 항목 = 1년 기준 (생활비×12, OSHC×1, 숙소×52, visa/정착/픽업 1회)
-  //  - duration_text는 표시용 (계산 X)
-  const first = selected_schools[0];
-  const tuitionActual    = first.tuition_aud - first.scholarship_aud - first.promotion_aud;
-  const livingYearly     = livingMonthly * 12;
-  const accomYearly      = accommodation_aud * 52;
-  const oneTimeAud       = items.visa_500_aud + items.settlement_aud + pickup_aud;
-  const schoolTotalAud   = tuitionActual + livingYearly + items.oshc_per_year_aud + accomYearly + oneTimeAud;
-  const krwAdditions     = airfare_krw + items.consultation_fee_krw + processing_fee_krw;
-  const total_krw        = Math.round(schoolTotalAud * fx + krwAdditions);
-  const total_aud        = Math.round(schoolTotalAud);
+  // 1년 추정 총액 — 폼 상단에 보이는 값과 동일한 공식 (lib/quote/calc.ts 정본).
+  // 다단계 경로면 모든 학교 실학비 합 + 공통 비용 1회 (기존: 첫 학교만 계산해 불일치).
+  const { total_aud, total_krw } = computeQuoteGrandTotal({
+    schools: selected_schools,
+    items,
+    living_cost_aud_monthly: livingMonthly,
+    accommodation_aud,
+    pickup_aud,
+    airfare_krw,
+    processing_fee_krw,
+  });
 
   return {
     student_id, quote_type, selected_schools, items,
@@ -284,4 +283,36 @@ export async function updateQuoteAction(
   revalidatePath(`/admin/quotes/${quoteId}`);
   revalidatePath("/admin/quotes");
   return { ok: true };
+}
+
+// 견적 상태 변경 (draft → sent → accepted / expired).
+// 목록의 상태 필터 칩이 실제로 쓰이려면 상태를 바꿀 수단이 필요.
+const VALID_QUOTE_STATUS = ["draft", "sent", "accepted", "expired"] as const;
+
+export async function updateQuoteStatusAction(formData: FormData): Promise<void> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "super_admin") return;
+
+  const quoteId = String(formData.get("quote_id") ?? "");
+  const status = String(formData.get("status") ?? "");
+  if (!quoteId || !(VALID_QUOTE_STATUS as readonly string[]).includes(status)) return;
+
+  const supabase = await createClient();
+  const patch: Record<string, string> = {
+    status,
+    updated_at: new Date().toISOString(),
+  };
+  if (status === "sent") patch.sent_at = new Date().toISOString();
+  const { error } = await supabase.from("quotes").update(patch).eq("id", quoteId);
+  if (error) return;
+
+  await logActivity({
+    action_type: "update_quote",
+    target_table: "quotes",
+    target_id: quoteId,
+    details: { status },
+  });
+
+  revalidatePath(`/admin/quotes/${quoteId}`);
+  revalidatePath("/admin/quotes");
 }

@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { fmtDateTime } from "@/lib/utils/dates";
 import QuoteForm, { type StudentOption } from "../QuoteForm";
+import { updateQuoteStatusAction } from "../actions";
 import type { SelectedSchool, QuoteItems } from "../actions";
 
 type QuoteFull = {
@@ -85,13 +87,36 @@ export default async function QuoteDetailPage({
           <span className="rounded-full bg-cream-200 px-3 py-1 text-xs font-medium text-navy-700">
             {quote.quote_type === "enrollment" ? "💸 수속" : "📊 상담"}
           </span>
-          <span className="rounded-full bg-cream-200 px-3 py-1 text-xs font-medium text-navy-700">
-            {quote.status ?? "draft"}
-          </span>
+          {/* 상태 변경 — 현재 상태는 강조, 클릭 시 즉시 변경 */}
+          <form action={updateQuoteStatusAction} className="flex items-center gap-1">
+            <input type="hidden" name="quote_id" value={quote.id} />
+            {(
+              [
+                ["draft", "draft"],
+                ["sent", "보냄"],
+                ["accepted", "수락"],
+                ["expired", "만료"],
+              ] as const
+            ).map(([s, label]) => (
+              <button
+                key={s}
+                type="submit"
+                name="status"
+                value={s}
+                className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                  (quote.status ?? "draft") === s
+                    ? "bg-navy-900 text-gold-400"
+                    : "bg-cream-200 text-navy-700 hover:bg-cream-300"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </form>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <p className="text-sm text-ink-500">
-            최근 수정: {new Date(quote.updated_at).toLocaleString("ko-KR")}
+            최근 수정: {fmtDateTime(quote.updated_at)}
           </p>
           <Link
             href={`/admin/quotes/${quote.id}/pdf`}
@@ -105,6 +130,8 @@ export default async function QuoteDetailPage({
 
       <QuoteForm
         mode="edit"
+        // key: 견적 A→B 클라이언트 이동 시 A의 상태가 B에 저장되는 것 방지
+        key={quote.id}
         quoteId={quote.id}
         students={students}
         defaults={{

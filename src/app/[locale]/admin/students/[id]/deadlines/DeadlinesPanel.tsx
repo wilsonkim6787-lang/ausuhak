@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { Button } from "@/components/ui/Button";
+import { daysUntilKST, fmtDate } from "@/lib/utils/dates";
 import {
   addDeadlineAction,
   completeDeadlineAction,
@@ -35,18 +36,10 @@ const TYPE_LABEL: Record<string, string> = Object.fromEntries(TYPES);
 
 const initial: ActionState = {};
 
-// 날짜 계산 (KST 기준 D-N)
-function daysUntil(dateStr: string): number {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const d = new Date(dateStr);
-  d.setHours(0, 0, 0, 0);
-  return Math.round((d.getTime() - today.getTime()) / (24 * 3600 * 1000));
-}
-
 function bucketOf(d: DeadlineRow): "completed" | "past" | "d1" | "d7" | "upcoming" {
   if (d.status === "completed") return "completed";
-  const n = daysUntil(d.deadline_date);
+  // KST 고정 계산 — 목록/칸반과 동일 기준 (환경 로컬 시간대 사용 금지)
+  const n = daysUntilKST(d.deadline_date);
   if (n < 0) return "past";
   if (n <= 1) return "d1";
   if (n <= 7) return "d7";
@@ -158,7 +151,7 @@ function Group({
       </h3>
       <ul className="mt-3 flex flex-col gap-2">
         {rows.map((d) => {
-          const n = daysUntil(d.deadline_date);
+          const n = daysUntilKST(d.deadline_date);
           const dayLabel = n === 0 ? "D-day" : n > 0 ? `D-${n}` : `D+${Math.abs(n)}`;
           return (
             <li key={d.id} className="flex flex-wrap items-baseline justify-between gap-2 rounded-lg bg-white px-3 py-2">
@@ -167,7 +160,7 @@ function Group({
                   {TYPE_LABEL[d.deadline_type] ?? d.deadline_type}
                 </span>
                 <span className="ml-2 text-[11px] text-ink-500">
-                  {new Date(d.deadline_date).toLocaleDateString("ko-KR")}
+                  {fmtDate(d.deadline_date)}
                 </span>
                 <span className="ml-2 rounded bg-navy-900 px-1.5 py-0.5 text-[10px] font-semibold text-white">
                   {dayLabel}

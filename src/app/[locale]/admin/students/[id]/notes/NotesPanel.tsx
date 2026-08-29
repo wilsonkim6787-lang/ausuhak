@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { fmtDateTime } from "@/lib/utils/dates";
 import { addNoteAction, hideNoteAction, type ActionState } from "../actions";
 
 type Note = {
@@ -179,7 +180,7 @@ function NoteItem({
     <li className={`rounded-xl border p-4 ${accentClass}`}>
       <div className="flex items-baseline justify-between gap-3">
         <span className="text-[11px] text-ink-500">
-          {new Date(n.created_at).toLocaleString("ko-KR")}
+          {fmtDateTime(n.created_at)}
         </span>
         <form action={hideNoteAction}>
           <input type="hidden" name="note_id" value={n.id} />

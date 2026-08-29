@@ -203,7 +203,7 @@ function DocGroup({
                   <input type="hidden" name="doc_id" value={d.id} />
                   <input type="hidden" name="student_id" value={studentId} />
                   <button type="submit" className="text-[11px] text-error hover:underline">
-                    삭제
+                    파일 삭제
                   </button>
                 </form>
               </li>

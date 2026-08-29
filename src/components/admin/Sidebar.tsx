@@ -42,9 +42,10 @@ export default function Sidebar({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  // localePrefix "as-needed" — 기본(ko) 경로엔 /ko prefix 가 붙지 않음
   const isActive = (href: string) => {
-    if (href === "/admin") return pathname === "/admin" || pathname === "/ko/admin";
-    return pathname.startsWith(href) || pathname.startsWith(`/ko${href}`);
+    if (href === "/admin") return pathname === "/admin";
+    return pathname.startsWith(href);
   };
 
   return (

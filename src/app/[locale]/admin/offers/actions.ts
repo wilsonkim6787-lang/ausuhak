@@ -86,10 +86,7 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
     if (file.size > OFFER_MAX_BYTES) redirect(errParam("5MB 초과"));
     if (!OFFER_ALLOWED_MIME.has(file.type)) redirect(errParam("JPG·PNG·PDF 만 허용"));
 
-    if (existingPath) {
-      await supabase.storage.from(OFFER_BUCKET).remove([existingPath]);
-    }
-
+    // 새 파일 업로드 먼저 — 옛 파일은 DB 반영 후 제거 (업로드 실패 시 옛 이미지 보존)
     const safeSchool = (school ?? "offer").replace(/[^A-Za-z0-9가-힣]+/g, "-").slice(0, 30);
     const path = `${safeSchool}-${Date.now()}.${extOf(file.name)}`;
     const buffer = await file.arrayBuffer();
@@ -118,6 +115,11 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
   } else {
     const { error } = await supabase.from("offers").insert(payload);
     if (error) redirect(errParam(`저장 실패: ${error.message}`));
+  }
+
+  // 교체 성공 후 옛 파일 정리
+  if (hasFile && existingPath && existingPath !== newImagePath) {
+    await supabase.storage.from(OFFER_BUCKET).remove([existingPath]);
   }
 
   revalidatePath("/admin/offers");

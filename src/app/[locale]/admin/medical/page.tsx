@@ -170,7 +170,7 @@ export default async function AdminMedicalPage({
         </h2>
         {deadlines.length === 0 ? (
           <div className="rounded-2xl border border-cream-300 bg-cream-100/40 p-6 text-center text-sm text-ink-500">
-            진행 중인 의대 deadline 없음. 학생 상세의 "마감일" 탭에서 등록 가능 (deadline_type: isat_test / mmi_interview / gamsat).
+            진행 중인 의대 deadline 없음. 학생 상세의 &ldquo;마감일&rdquo; 탭에서 등록 가능 (deadline_type: isat_test / mmi_interview / gamsat).
           </div>
         ) : (
           <ul className="flex flex-col gap-2">
@@ -236,7 +236,7 @@ export default async function AdminMedicalPage({
               의대 학생이 없습니다
             </p>
             <p className="mt-1 text-sm text-ink-500">
-              학생 상세의 "기본 정보 · Stage" 탭에서 의대 여부 체크 + 진입 경로 선택.
+              학생 상세의 &ldquo;기본 정보 · Stage&rdquo; 탭에서 의대 여부 체크 + 진입 경로 선택.
             </p>
           </div>
         ) : (

@@ -23,11 +23,16 @@ export async function saveNoticeAction(
   const version = bump ? versionRaw + 1 : versionRaw;
 
   const supabase = await createClient();
+  // is_public: true 필수 — 메인 페이지가 anon 클라이언트로 읽는데
+  // RLS(settings_public_select)가 is_public=false 행을 숨겨 팝업이 절대 안 떴음.
+  // notice_slug/blog_id 는 수동 공지에선 비움 — 이전에 올린 글 링크가 남는 것 방지.
   const rows = [
-    { key: "notice_active", value: active ? "true" : "false", category: "notice", is_public: false },
-    { key: "notice_title",  value: title || null,             category: "notice", is_public: false },
-    { key: "notice_body",   value: body || null,              category: "notice", is_public: false },
-    { key: "notice_version", value: String(version),          category: "notice", is_public: false },
+    { key: "notice_active", value: active ? "true" : "false", category: "notice", is_public: true },
+    { key: "notice_title",  value: title || null,             category: "notice", is_public: true },
+    { key: "notice_body",   value: body || null,              category: "notice", is_public: true },
+    { key: "notice_version", value: String(version),          category: "notice", is_public: true },
+    { key: "notice_slug",    value: null,                     category: "notice", is_public: true },
+    { key: "notice_blog_id", value: null,                     category: "notice", is_public: true },
   ];
   const { error } = await supabase
     .from("site_settings")
@@ -93,19 +98,17 @@ export async function saveSettingsAction(
   const supabase = await createClient();
   const nowIso = new Date().toISOString();
 
-  // site_settings 병렬 UPDATE
-  const settingPromises = Array.from(settingUpdates.entries()).map(
-    ([k, { value, value_en }]) =>
-      supabase
-        .from("site_settings")
-        .update({
-          value: value ?? null,
-          value_en: value_en ?? null,
-          updated_by: user.id,
-          updated_at: nowIso,
-        })
-        .eq("key", k),
-  );
+  // site_settings 병렬 UPDATE — 폼에 없던 언어 컬럼은 건드리지 않음
+  // (en 입력이 없는 키에서 value_en:null 을 쓰면 시드된 영어 값이 지워짐)
+  const settingPromises = Array.from(settingUpdates.entries()).map(([k, upd]) => {
+    const payload: Record<string, string | null> = {};
+    if ("value" in upd) payload.value = upd.value ?? null;
+    if ("value_en" in upd) payload.value_en = upd.value_en ?? null;
+    return supabase
+      .from("site_settings")
+      .update({ ...payload, updated_by: user.id, updated_at: nowIso })
+      .eq("key", k);
+  });
 
   // branches 병렬 UPDATE (허용 컬럼만 화이트리스트)
   const ALLOWED_BRANCH_FIELDS = new Set([

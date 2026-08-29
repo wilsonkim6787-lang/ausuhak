@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/getUser";
 import { logActivity } from "@/lib/audit/log";
@@ -129,51 +130,9 @@ export async function updateStudentBasicAction(
   return { ok: true };
 }
 
-// ─── Tab 2: Stage / Lead Status 업데이트 ───────────────────
-export async function updateStudentStageAction(
-  _prev: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  const user = await getCurrentUser();
-  if (!user || user.role !== "super_admin") return { error: "권한이 없습니다." };
-
-  const id = String(formData.get("student_id") ?? "");
-  if (!id) return { error: "student_id 누락." };
-
-  const stageRaw = formData.get("current_stage");
-  const stage = stageRaw ? parseInt(String(stageRaw), 10) : null;
-  if (!stage || stage < 1 || stage > 12) {
-    return { error: "Stage는 1~12 사이여야 합니다." };
-  }
-
-  const leadStatus = nullify(formData.get("lead_status"));
-  const VALID_LEAD = ["lead", "contacted", "pro", "contract", "visa", "onsite", "pr"];
-  if (leadStatus && !VALID_LEAD.includes(leadStatus)) {
-    return { error: "Lead Status 값이 올바르지 않습니다." };
-  }
-
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from("students")
-    .update({
-      current_stage: stage,
-      lead_status: leadStatus,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", id);
-  if (error) return { error: `저장 실패: ${error.message}` };
-
-  await logActivity({
-    action_type: "advance_stage",
-    target_table: "students",
-    target_id: id,
-    details: { new_stage: stage, new_lead_status: leadStatus },
-  });
-
-  revalidatePath(`/admin/students/${id}`);
-  revalidatePath("/admin/students");
-  return { ok: true };
-}
+// (구 updateStudentStageAction 제거 — 어떤 폼도 사용하지 않는 죽은 코드였고,
+//  lead_status 변경의 정본은 progressActions.updateLeadStatusAction /
+//  current_stage 는 sub-step 에서 파생(deriveCurrentStage)됨)
 
 // ─── Tab 3: 메모 추가 (PART 0-4 3중 보안) ───────────────────
 export async function addNoteAction(
@@ -322,11 +281,21 @@ function extOf(filename: string): string {
   return filename.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
+// 브라우저에 따라 docx 등이 application/octet-stream 으로 오므로 확장자도 함께 허용
+const DOC_ALLOWED_EXT = new Set(["pdf", "jpg", "jpeg", "png", "docx"]);
+
+function docErr(studentId: string, msg: string): never {
+  redirect(`/admin/students/${studentId}/documents?err=${encodeURIComponent(msg)}`);
+}
+
 export async function uploadDocumentAction(formData: FormData): Promise<void> {
   const user = await getCurrentUser();
-  if (!user || user.role !== "super_admin") return;
-
   const studentId = String(formData.get("student_id") ?? "");
+  if (!user || user.role !== "super_admin") {
+    if (studentId) docErr(studentId, "권한이 없습니다");
+    return;
+  }
+
   const docType = String(formData.get("doc_type") ?? "");
   const docId = nullify(formData.get("doc_id"));
   const status = nullify(formData.get("status")) ?? "pending";
@@ -336,7 +305,7 @@ export async function uploadDocumentAction(formData: FormData): Promise<void> {
 
   const supabase = await createClient();
 
-  // 기존 row 의 storage_path 조회 (재업로드 시 옛 파일 정리)
+  // 기존 row 의 storage_path 조회 — 옛 파일은 새 업로드 성공 후 정리
   let existingStoragePath: string | null = null;
   if (docId) {
     const { data: existing } = await supabase
@@ -354,12 +323,10 @@ export async function uploadDocumentAction(formData: FormData): Promise<void> {
 
   const hasFile = file && file.size > 0;
   if (hasFile) {
-    if (file.size > DOC_MAX_BYTES) return; // 5MB 초과 → silent reject
-    if (!DOC_ALLOWED_MIME.has(file.type)) return; // 허용 mime 외 → silent reject
-
-    // 기존 파일 정리
-    if (existingStoragePath) {
-      await supabase.storage.from(DOC_BUCKET).remove([existingStoragePath]);
+    // 실패는 조용히 삼키지 않고 ?err= 로 표시 (버튼을 눌렀는데 무반응이던 문제)
+    if (file.size > DOC_MAX_BYTES) docErr(studentId, "5MB 를 초과하는 파일입니다");
+    if (!DOC_ALLOWED_MIME.has(file.type) && !DOC_ALLOWED_EXT.has(extOf(file.name))) {
+      docErr(studentId, "PDF·JPG·PNG·DOCX 만 업로드할 수 있습니다");
     }
 
     const path = `${studentId}/${docType}-${Date.now()}.${extOf(file.name)}`;
@@ -367,7 +334,7 @@ export async function uploadDocumentAction(formData: FormData): Promise<void> {
     const { error: uploadError } = await supabase.storage
       .from(DOC_BUCKET)
       .upload(path, buffer, { contentType: file.type, upsert: false });
-    if (uploadError) return;
+    if (uploadError) docErr(studentId, `업로드 실패: ${uploadError.message}`);
 
     newStoragePath = path;
     newMimeType = file.type;
@@ -387,9 +354,10 @@ export async function uploadDocumentAction(formData: FormData): Promise<void> {
     if (status === "verified" || status === "received") {
       payload.checked_by = user.id;
     }
-    await supabase.from("documents").update(payload).eq("id", docId);
+    const { error } = await supabase.from("documents").update(payload).eq("id", docId);
+    if (error) docErr(studentId, `저장 실패: ${error.message}`);
   } else {
-    await supabase.from("documents").insert({
+    const { error } = await supabase.from("documents").insert({
       student_id: studentId,
       doc_type: docType,
       status,
@@ -401,6 +369,12 @@ export async function uploadDocumentAction(formData: FormData): Promise<void> {
       checked_by: status === "verified" || status === "received" ? user.id : null,
       note,
     });
+    if (error) docErr(studentId, `저장 실패: ${error.message}`);
+  }
+
+  // 교체 성공 후에만 옛 파일 제거 (업로드 실패 시 기존 파일 보존)
+  if (hasFile && existingStoragePath && existingStoragePath !== newStoragePath) {
+    await supabase.storage.from(DOC_BUCKET).remove([existingStoragePath]);
   }
 
   revalidatePath(`/admin/students/${studentId}/documents`);
@@ -446,6 +420,8 @@ export async function deleteDocumentFileAction(formData: FormData): Promise<void
     await supabase.storage.from(DOC_BUCKET).remove([doc.storage_path]);
   }
 
+  // row 는 체크리스트 슬롯으로 유지, 파일 정보만 비우고 상태를 초기화
+  // (기존엔 status 가 verified 등으로 남아 "승인된 빈 서류"가 생겼음)
   await supabase
     .from("documents")
     .update({
@@ -454,6 +430,8 @@ export async function deleteDocumentFileAction(formData: FormData): Promise<void
       size_bytes: null,
       original_filename: null,
       file_url: null,
+      status: "pending",
+      checked_by: null,
     })
     .eq("id", docId);
 

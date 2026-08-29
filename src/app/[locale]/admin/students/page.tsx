@@ -10,16 +10,17 @@ import {
   evaluateCareRules,
   type StudentForCare,
 } from "@/lib/care/rules";
-
-// 헬퍼 분리: react-hooks/purity 규칙은 컴포넌트 본문 안의 Date.now/new Date를 막음.
-function isoDaysAgo(days: number): string {
-  return new Date(Date.now() - days * 24 * 3600 * 1000).toISOString();
-}
-function isoStartOfToday(): string {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d.toISOString();
-}
+// 날짜 경계는 KST 고정 헬퍼 사용 — 대시보드 카운트(getDashboardCounts)와 동일 기준.
+// (서버 로컬 자정 사용 시 Vercel(UTC)에서 대시보드 숫자와 목록이 어긋남)
+import {
+  kstDaysAgoISO,
+  kstTodayStartISO,
+  kstTomorrowStartISO,
+  kstTodayYmd,
+  kstTomorrowYmd,
+  daysUntilKST,
+  dDayLabel,
+} from "@/lib/utils/dates";
 
 type SP = {
   q?: string;
@@ -63,6 +64,34 @@ export default async function StudentsPage({
   const view: "list" | "kanban" = sp.view === "kanban" ? "kanban" : "list";
 
   const supabase = await createClient();
+
+  // 대시보드 단축 필터 중 다른 테이블 기준(내일 마감·오늘 상담)은 학생 id를 먼저 조회
+  let filterIds: string[] | null = null;
+  if (sp.filter === "deadline_d1") {
+    const { data: dl } = await supabase
+      .from("critical_deadlines")
+      .select("student_id")
+      .eq("deadline_date", kstTomorrowYmd())
+      .not("status", "in", "(completed,expired)");
+    filterIds = [
+      ...new Set(
+        (dl ?? []).map((r) => r.student_id as string | null).filter((v): v is string => !!v),
+      ),
+    ];
+  } else if (sp.filter === "consult_today") {
+    const { data: cs } = await supabase
+      .from("consultations")
+      .select("student_id")
+      .gte("consultation_date", kstTodayStartISO())
+      .lt("consultation_date", kstTomorrowStartISO())
+      .or("type.is.null,type.neq.kakao_30min");
+    filterIds = [
+      ...new Set(
+        (cs ?? []).map((r) => r.student_id as string | null).filter((v): v is string => !!v),
+      ),
+    ];
+  }
+
   let query = supabase
     .from("students")
     .select(
@@ -72,7 +101,8 @@ export default async function StudentsPage({
     .limit(view === "kanban" ? 500 : 200);
 
   if (sp.q) {
-    const q = `%${sp.q.replace(/[%_]/g, "")}%`;
+    // %, _ 는 ilike 와일드카드, ",()" 는 PostgREST or() 구문 구분자 → 모두 제거
+    const q = `%${sp.q.replace(/[%_,()]/g, "")}%`;
     query = query.or(
       `name.ilike.${q},kakao_id.ilike.${q},email.ilike.${q},phone.ilike.${q}`,
     );
@@ -93,13 +123,20 @@ export default async function StudentsPage({
     query = query.not("wilson_alerts", "is", null);
   } else if (sp.filter === "stuck_14d") {
     query = query
-      .lt("updated_at", isoDaysAgo(14))
-      .not("lead_status", "in", "(pr,lead)");
+      .lt("updated_at", kstDaysAgoISO(14))
+      // NULL lead_status 포함 — 대시보드 카운트·케어 엔진과 동일 기준
+      .or("lead_status.is.null,lead_status.not.in.(pr,lead)");
   } else if (sp.filter === "new_today") {
-    query = query.gte("created_at", isoStartOfToday());
+    query = query.gte("created_at", kstTodayStartISO());
+  } else if (filterIds) {
+    query = query.in("id", filterIds);
   }
 
-  const { data, error } = await query;
+  // 사전 필터 결과가 0명이면 본 조회 생략 (`in ()` 쿼리 방지)
+  const { data, error } =
+    filterIds && filterIds.length === 0
+      ? { data: [] as StudentRow[], error: null }
+      : await query;
   const students = (data ?? []) as StudentRow[];
 
   // 마지막 메모 1줄 + 다음 deadline 1개 + 미읽음 메시지 fetch
@@ -121,7 +158,7 @@ export default async function StudentsPage({
           .select("student_id, deadline_type, deadline_date")
           .in("student_id", studentIds)
           .neq("status", "completed")
-          .gte("deadline_date", new Date().toISOString().slice(0, 10))
+          .gte("deadline_date", kstTodayYmd())
           .order("deadline_date", { ascending: true }),
     studentIds.length === 0
       ? { data: [] as { student_id: string }[] }
@@ -356,12 +393,6 @@ const DEADLINE_LABEL: Record<string, string> = {
   departure:        "출국",
 };
 
-function daysUntil(iso: string): number {
-  const target = new Date(iso);
-  const now = new Date();
-  return Math.ceil((target.getTime() - now.getTime()) / (24 * 3600 * 1000));
-}
-
 function StudentRowCard({
   student: s,
   lastNote,
@@ -378,7 +409,7 @@ function StudentRowCard({
     .join(" / ");
   const displayName = s.name?.trim() ? s.name : "이름 미입력";
   const hasAlerts = (s.wilson_alerts?.length ?? 0) > 0;
-  const dlDays = nextDeadline ? daysUntil(nextDeadline.date) : null;
+  const dlDays = nextDeadline ? daysUntilKST(nextDeadline.date) : null;
   const dlLabel = nextDeadline
     ? DEADLINE_LABEL[nextDeadline.type] ?? nextDeadline.type
     : null;
@@ -439,7 +470,7 @@ function StudentRowCard({
                 }`}
               >
                 ⏰ {dlLabel} · {nextDeadline.date}
-                {dlDays != null && ` (D-${dlDays})`}
+                {dlDays != null && ` (${dDayLabel(dlDays)})`}
               </p>
             )}
           </div>

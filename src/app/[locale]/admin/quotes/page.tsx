@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { fmtDate } from "@/lib/utils/dates";
 import { buttonStyles } from "@/components/ui/Button";
 
 type SP = { status?: string };
@@ -133,7 +134,7 @@ function QuoteCard({ quote: q }: { quote: QuoteRow }) {
       </div>
       <p className="mt-1.5 text-xs text-ink-500">
         {schoolNames || "학교 없음"} ·{" "}
-        {new Date(q.updated_at).toLocaleDateString("ko-KR")}
+        {fmtDate(q.updated_at)}
       </p>
     </Link>
   );

@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { fmtDate, fmtDateTime } from "@/lib/utils/dates";
 import {
   addPaymentAction,
   confirmPaymentAction,
@@ -179,7 +180,7 @@ function PaymentRowItem({
           </span>
         )}
         <span className="ml-auto text-xs text-ink-500">
-          {new Date(payment.created_at).toLocaleDateString("ko-KR")}
+          {fmtDate(payment.created_at)}
         </span>
       </div>
 
@@ -205,7 +206,7 @@ function PaymentRowItem({
 
       {isConfirmed && payment.confirmed_at && (
         <p className="mt-2 text-xs text-success">
-          ✓ 입금 확인: {new Date(payment.confirmed_at).toLocaleString("ko-KR")}
+          ✓ 입금 확인: {fmtDateTime(payment.confirmed_at)}
         </p>
       )}
 

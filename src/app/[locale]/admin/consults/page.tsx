@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { fmtYmdHm } from "@/lib/utils/dates";
 import {
   updateConsultStatusAction,
   saveConsultMemoAction,
@@ -26,14 +27,8 @@ const STATUS_LABELS: Record<string, string> = {
   closed: "✅ 종료",
 };
 
-function fmtDate(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(
-    d.getDate(),
-  ).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(
-    d.getMinutes(),
-  ).padStart(2, "0")}`;
-}
+// 서버(UTC)에서 로컬 시간으로 그리면 9시간 어긋남 → KST 고정 헬퍼 사용
+const fmtDate = fmtYmdHm;
 
 const isPhone = (c: string) => /^[\d\s\-+()]{9,}$/.test(c.trim());
 

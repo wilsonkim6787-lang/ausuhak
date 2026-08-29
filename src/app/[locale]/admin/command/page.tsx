@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import CommandBar from "./CommandBar";
 import { markNotificationSent } from "./actions";
 import CopyButton from "@/components/admin/CopyButton";
+import { fmtDateTime } from "@/lib/utils/dates";
 
 type NotifRow = {
   id: string;
@@ -94,7 +95,7 @@ export default async function AdminCommandPage({
                         {n.stage_key?.startsWith("care:") ? "🩺 자동 케어" : n.stage_key}
                       </span>
                       <span className="ml-auto text-[11px] text-ink-500">
-                        {new Date(n.created_at).toLocaleString("ko-KR")}
+                        {fmtDateTime(n.created_at)}
                       </span>
                     </div>
                     <p className="whitespace-pre-line rounded-lg bg-cream-100/60 px-3 py-2 text-sm text-navy-800">

@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { fmtDate } from "@/lib/utils/dates";
 import {
   addApplicationAction,
   updateApplicationStatusAction,
@@ -171,10 +172,10 @@ export default function ApplicationsPanel({
                 </div>
 
                 <div className="mt-2 text-[11px] text-ink-500">
-                  {a.applied_at && <>지원: {new Date(a.applied_at).toLocaleDateString("ko-KR")} </>}
+                  {a.applied_at && <>지원: {fmtDate(a.applied_at)} </>}
                   {a.offer_received_at && (
                     <span className="ml-2 rounded bg-gold-100 px-1.5 text-gold-600">
-                      ⭐ Offer: {new Date(a.offer_received_at).toLocaleDateString("ko-KR")}
+                      ⭐ Offer: {fmtDate(a.offer_received_at)}
                     </span>
                   )}
                 </div>

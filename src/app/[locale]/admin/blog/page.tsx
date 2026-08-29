@@ -4,7 +4,9 @@ import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { buttonStyles } from "@/components/ui/Button";
+import { fmtDate } from "@/lib/utils/dates";
 import { setMainNoticeAction, clearMainNoticeAction } from "./actions";
+import { BLOG_CATEGORIES } from "./constants";
 
 type BlogRow = {
   id: string;
@@ -89,10 +91,18 @@ export default async function AdminBlogPage({
       </header>
 
       <nav className="flex flex-wrap gap-2 text-xs">
-        <FilterChip status={undefined} current={sp.status} label="전체" />
-        <FilterChip status="draft" current={sp.status} label="📝 draft" />
-        <FilterChip status="published" current={sp.status} label="✅ published" />
-        <FilterChip status="archived" current={sp.status} label="📦 archived" />
+        <FilterChip status={undefined} category={sp.category} current={sp.status} label="전체" />
+        <FilterChip status="draft" category={sp.category} current={sp.status} label="📝 draft" />
+        <FilterChip status="published" category={sp.category} current={sp.status} label="✅ published" />
+        <FilterChip status="archived" category={sp.category} current={sp.status} label="📦 archived" />
+      </nav>
+
+      {/* 카테고리 필터 — sp.category 는 쿼리에 이미 반영되는데 UI 진입점이 없었음 */}
+      <nav className="flex flex-wrap gap-1.5 text-xs">
+        <CategoryChip category={undefined} currentCategory={sp.category} status={sp.status} />
+        {BLOG_CATEGORIES.map((c) => (
+          <CategoryChip key={c} category={c} currentCategory={sp.category} status={sp.status} />
+        ))}
       </nav>
 
       {sp.nerr && (
@@ -143,8 +153,8 @@ export default async function AdminBlogPage({
                   <p className="text-[10px] text-ink-500">
                     조회 {r.view_count} ·{" "}
                     {r.published_at
-                      ? `발행 ${new Date(r.published_at).toLocaleDateString("ko-KR")}`
-                      : `최근 수정 ${new Date(r.updated_at).toLocaleDateString("ko-KR")}`}
+                      ? `발행 ${fmtDate(r.published_at)}`
+                      : `최근 수정 ${fmtDate(r.updated_at)}`}
                   </p>
                 </Link>
 
@@ -182,20 +192,29 @@ export default async function AdminBlogPage({
   );
 }
 
+function blogListHref(status?: string, category?: string): string {
+  const params = new URLSearchParams();
+  if (status) params.set("status", status);
+  if (category) params.set("category", category);
+  const qs = params.toString();
+  return qs ? `/admin/blog?${qs}` : "/admin/blog";
+}
+
 function FilterChip({
   status,
+  category,
   current,
   label,
 }: {
   status: string | undefined;
+  category: string | undefined; // 상태 칩 클릭 시 카테고리 필터 유지
   current: string | undefined;
   label: string;
 }) {
-  const href = status ? `/admin/blog?status=${status}` : "/admin/blog";
   const active = (current ?? undefined) === status;
   return (
     <Link
-      href={href}
+      href={blogListHref(status, category)}
       className={`rounded-full px-3 py-1 font-medium transition ${
         active
           ? "bg-navy-900 text-white"
@@ -203,6 +222,30 @@ function FilterChip({
       }`}
     >
       {label}
+    </Link>
+  );
+}
+
+function CategoryChip({
+  category,
+  currentCategory,
+  status,
+}: {
+  category: string | undefined;
+  currentCategory: string | undefined;
+  status: string | undefined; // 카테고리 칩 클릭 시 상태 필터 유지
+}) {
+  const active = (currentCategory ?? undefined) === category;
+  return (
+    <Link
+      href={blogListHref(status, category)}
+      className={`rounded-full px-2.5 py-1 transition ${
+        active
+          ? "bg-gold-600 font-semibold text-white"
+          : "border border-cream-300 bg-white text-ink-700 hover:bg-cream-200"
+      }`}
+    >
+      {category ?? "카테고리 전체"}
     </Link>
   );
 }

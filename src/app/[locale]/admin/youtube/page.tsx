@@ -38,7 +38,8 @@ export default async function AdminYoutubePage({
     .from("videos")
     .select("id, youtube_id, youtube_url, title, description, thumbnail_url, category, display_order, status, published_at, created_at")
     .order("display_order")
-    .order("published_at", { ascending: false });
+    // DESC 는 기본 NULLS FIRST — 발행일 없는 draft 가 맨 위로 오지 않게
+    .order("published_at", { ascending: false, nullsFirst: false });
   if (error) {
     return (
       <div className="flex flex-col gap-4">

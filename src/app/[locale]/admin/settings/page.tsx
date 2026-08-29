@@ -55,7 +55,8 @@ export default async function SettingsPage({
           ⚙️ 사이트 설정
         </h1>
         <p className="mt-2 text-sm text-ink-500">
-          회사 정보·지사·카카오·영업 시간·가격·공지. 저장하면 사이트에 즉시 반영됩니다.
+          회사 정보·지사·카카오·영업 시간·가격·공지. 공지는 메인에 즉시 반영,
+          나머지 항목의 사이트 노출 연동은 준비 중입니다.
         </p>
       </header>
 

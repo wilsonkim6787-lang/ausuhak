@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { fmtDate, kstMonthStartISO, parseUtc } from "@/lib/utils/dates";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 
 type SP = { status?: string; q?: string };
@@ -34,19 +35,13 @@ export default async function AdminPaymentsListPage({
   setRequestLocale(locale);
 
   const supabase = await createClient();
-  let query = supabase
+  const { data, error } = await supabase
     .from("payments")
     .select(
       "id, student_id, payment_type, amount_krw, status, confirmed_at, created_at, students(name, photo_path)",
     )
     .order("created_at", { ascending: false })
     .limit(200);
-
-  if (sp.status && ["pending", "confirmed", "refunded", "cancelled"].includes(sp.status)) {
-    query = query.eq("status", sp.status);
-  }
-
-  const { data, error } = await query;
   if (error) {
     return (
       <div className="rounded-lg bg-error/10 p-4 text-sm text-error">
@@ -54,9 +49,13 @@ export default async function AdminPaymentsListPage({
       </div>
     );
   }
-  let rows = (data ?? []) as unknown as PaymentRow[];
+  const allRows = (data ?? []) as unknown as PaymentRow[];
 
-  // 학생 이름 검색 (client filter — 200건 limit 이라 안전)
+  // 목록 표시용 필터 (상태 칩 + 학생 이름 검색) — 통계는 전체 기준 유지
+  let rows = allRows;
+  if (sp.status && ["pending", "confirmed", "refunded", "cancelled"].includes(sp.status)) {
+    rows = rows.filter((p) => p.status === sp.status);
+  }
   if (sp.q) {
     const needle = sp.q.toLowerCase();
     rows = rows.filter((p) =>
@@ -64,14 +63,14 @@ export default async function AdminPaymentsListPage({
     );
   }
 
-  // 이번 달 통계
-  const now = new Date();
-  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-  const monthRows = rows.filter((p) => new Date(p.created_at) >= monthStart);
+  // 이번 달 통계 — KST 월 경계 + 필터와 무관하게 전체(allRows) 기준
+  // (기존엔 상태 칩·검색이 걸리면 "이번 달 확정 수익"이 0으로 보였음)
+  const monthStart = new Date(kstMonthStartISO());
+  const monthRows = allRows.filter((p) => parseUtc(p.created_at) >= monthStart);
   const sumConfirmed = monthRows
     .filter((p) => p.status === "confirmed")
     .reduce((acc, p) => acc + (p.amount_krw ?? 0), 0);
-  const pendingCount = rows.filter((p) => p.status === "pending").length;
+  const pendingCount = allRows.filter((p) => p.status === "pending").length;
   const refundedCount = monthRows.filter((p) => p.status === "refunded").length;
 
   return (
@@ -116,6 +115,7 @@ export default async function AdminPaymentsListPage({
           <FilterChip status="pending" current={sp.status} q={sp.q} label="대기" />
           <FilterChip status="confirmed" current={sp.status} q={sp.q} label="확정" />
           <FilterChip status="refunded" current={sp.status} q={sp.q} label="환불" />
+          <FilterChip status="cancelled" current={sp.status} q={sp.q} label="취소" />
         </nav>
       </div>
 
@@ -148,7 +148,7 @@ export default async function AdminPaymentsListPage({
               </span>
               <StatusBadge status={p.status} />
               <span className="w-full text-[11px] text-ink-500 sm:w-auto">
-                {new Date(p.created_at).toLocaleDateString("ko-KR")}
+                {fmtDate(p.created_at)}
               </span>
             </li>
           ))}

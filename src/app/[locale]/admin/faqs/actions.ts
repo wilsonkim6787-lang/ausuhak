@@ -15,8 +15,10 @@ function nullify(raw: FormDataEntryValue | null): string | null {
   return s === "" ? null : s;
 }
 
-function errParam(tab: string, msg: string): string {
-  return `/admin/faqs?tab=${tab}&err=${encodeURIComponent(msg)}`;
+// editId 유지 — 실패 시 편집 중이던 항목으로 돌아가야 입력 맥락이 안 끊김
+function errParam(tab: string, msg: string, editId?: string | null): string {
+  const edit = editId ? `&edit=${editId}` : "";
+  return `/admin/faqs?tab=${tab}${edit}&err=${encodeURIComponent(msg)}`;
 }
 
 // ─── staff_manuals CRUD ──────────────────────────────────
@@ -30,12 +32,12 @@ export async function upsertStaffManualAction(formData: FormData): Promise<void>
   const category = nullify(formData.get("category"));
   const content = nullify(formData.get("content"));
 
-  if (!title) redirect(errParam("staff", "제목 필수"));
-  if (!content) redirect(errParam("staff", "본문 필수"));
+  if (!title) redirect(errParam("staff", "제목 필수", id));
+  if (!content) redirect(errParam("staff", "본문 필수", id));
 
   const number = numberRaw ? parseInt(numberRaw, 10) : null;
   if (number != null && (isNaN(number) || number < 0)) {
-    redirect(errParam("staff", "번호는 양수여야 합니다"));
+    redirect(errParam("staff", "번호는 양수여야 합니다", id));
   }
 
   const searchText = content!
@@ -50,7 +52,7 @@ export async function upsertStaffManualAction(formData: FormData): Promise<void>
     const payload: Record<string, unknown> = { title, category, content, search_text: searchText };
     if (number != null) payload.number = number;
     const { error } = await supabase.from("staff_manuals").update(payload).eq("id", id);
-    if (error) redirect(errParam("staff", `저장 실패: ${error.message}`));
+    if (error) redirect(errParam("staff", `저장 실패: ${error.message}`, id));
   } else {
     let nextNumber = number;
     if (nextNumber == null) {
@@ -107,7 +109,7 @@ export async function updateInternalFaqAction(formData: FormData): Promise<void>
 
   const supabase = await createClient();
   const { error } = await supabase.from("internal_faqs").update(payload).eq("id", id);
-  if (error) redirect(errParam("internal", `저장 실패: ${error.message}`));
+  if (error) redirect(errParam("internal", `저장 실패: ${error.message}`, id));
 
   revalidatePath("/admin/faqs");
   redirect(`/admin/faqs?tab=internal&edit=${id}&ok=1`);

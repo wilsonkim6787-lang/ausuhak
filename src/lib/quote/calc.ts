@@ -46,6 +46,36 @@ export function computeSchoolTotals(
   };
 }
 
+// 견적 전체 합계 — 폼 상단 표시값과 quotes.total_aud/total_krw 저장값의 단일 정본.
+// 다단계 경로(어학연수→컬리지→대학 등): 각 학교 실학비(장학금·프로모션 차감) 합계
+// + 1년 공통 비용(생활비·OSHC·숙소·1회성) 1회. (기존 저장 로직은 첫 학교만 계산해
+// 폼에 보이는 합계와 저장·목록 금액이 달랐음)
+export function computeQuoteGrandTotal(
+  q: Omit<QuoteCalcInput, "schools"> & {
+    schools: Pick<SelectedSchool, "tuition_aud" | "scholarship_aud" | "promotion_aud">[];
+  },
+): { total_aud: number; total_krw: number } {
+  if (q.schools.length === 0) return { total_aud: 0, total_krw: 0 };
+  const fx = q.items.exchange_rate_krw_per_aud || 920;
+  const livingYearly = q.living_cost_aud_monthly * 12;
+  const accomYearly = q.accommodation_aud * 52;
+  const oneTimeAud =
+    (q.items.visa_500_aud || 0) + (q.items.settlement_aud || 0) + (q.pickup_aud || 0);
+  const commonYearlyAud =
+    livingYearly + (q.items.oshc_per_year_aud || 0) + accomYearly + oneTimeAud;
+  const tuitionSum = q.schools.reduce(
+    (a, s) => a + (s.tuition_aud - s.scholarship_aud - s.promotion_aud),
+    0,
+  );
+  const totalAud = tuitionSum + commonYearlyAud;
+  const krwAdditions =
+    (q.airfare_krw || 0) + (q.items.consultation_fee_krw || 0) + (q.processing_fee_krw || 0);
+  return {
+    total_aud: Math.round(totalAud),
+    total_krw: Math.round(totalAud * fx + krwAdditions),
+  };
+}
+
 export function fmtAud(n: number | null | undefined): string {
   if (n == null) return "-";
   return "A$" + n.toLocaleString("en-AU");

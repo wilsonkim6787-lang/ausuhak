@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { canEditStudent } from "@/lib/auth/canEditStudent";
 import { logActivity } from "@/lib/audit/log";
@@ -74,12 +75,13 @@ export async function updateSubstepStatusAction(formData: FormData): Promise<voi
   const currentStage = student?.current_stage ?? 1;
   const statusMap = buildStatusMap(rows ?? [], currentStage);
   const nextStage = deriveCurrentStage(statusMap);
-  if (nextStage !== currentStage) {
-    await admin
-      .from("students")
-      .update({ current_stage: nextStage, updated_at: new Date().toISOString() })
-      .eq("id", studentId);
-  }
+  // stage 가 안 변해도(같은 stage 내 sub-step 이동) updated_at 은 항상 갱신 —
+  // 안 하면 케어룰(inactive_5d/stage_stuck_14d)·대시보드 "단계 정체"·목록 정렬이
+  // 실제로 진행 중인 학생을 방치된 것으로 오탐한다.
+  await admin
+    .from("students")
+    .update({ current_stage: nextStage, updated_at: new Date().toISOString() })
+    .eq("id", studentId);
 
   await logActivity({
     action_type: "update_substep",
@@ -100,15 +102,22 @@ export async function uploadSubstepDocAction(formData: FormData): Promise<void> 
   if (!studentId || !VALID_SUBSTEP_KEYS.has(substepKey)) return;
   if (!isStaffDocType(docType)) return; // staff 제공 서류만 이 액션으로
   if (!file || file.size === 0) return;
-  if (file.size > DOC_MAX_BYTES) return;
-  if (!DOC_ALLOWED_MIME.has(file.type)) return;
 
   const { ok, user } = await canEditStudent(studentId);
   if (!ok || !user) return;
 
+  // 실패를 조용히 삼키지 않기 — 상세 페이지 ?err= 배너로 표시
+  const fail = (msg: string): never =>
+    redirect(`/admin/students/${studentId}?err=${encodeURIComponent(msg)}`);
+  if (file.size > DOC_MAX_BYTES) fail("5MB 를 초과하는 파일입니다");
+  if (!DOC_ALLOWED_MIME.has(file.type) && !["pdf", "jpg", "jpeg", "png", "docx"].includes(extOf(file.name))) {
+    fail("PDF·JPG·PNG·DOCX 만 업로드할 수 있습니다");
+  }
+
   const admin = createAdminClient();
 
-  // 같은 학생·sub-step·doc_type 기존 row 조회 (교체 시 옛 파일 정리)
+  // 같은 학생·sub-step·doc_type 기존 row 조회 — 옛 파일은 새 업로드가
+  // 성공한 뒤에만 정리 (먼저 지우면 업로드 실패 시 기존 파일까지 유실)
   const { data: existing } = await admin
     .from("documents")
     .select("id, storage_path")
@@ -117,16 +126,12 @@ export async function uploadSubstepDocAction(formData: FormData): Promise<void> 
     .eq("doc_type", docType)
     .maybeSingle();
 
-  if (existing?.storage_path) {
-    await admin.storage.from(DOC_BUCKET).remove([existing.storage_path]);
-  }
-
   const path = `${studentId}/${docType}-${Date.now()}.${extOf(file.name)}`;
   const buffer = await file.arrayBuffer();
   const { error: uploadError } = await admin.storage
     .from(DOC_BUCKET)
     .upload(path, buffer, { contentType: file.type, upsert: false });
-  if (uploadError) return;
+  if (uploadError) fail(`업로드 실패: ${uploadError.message}`);
 
   const payload = {
     student_id: studentId,
@@ -145,6 +150,11 @@ export async function uploadSubstepDocAction(formData: FormData): Promise<void> 
     await admin.from("documents").update(payload).eq("id", existing.id);
   } else {
     await admin.from("documents").insert(payload);
+  }
+
+  // 새 파일·row 반영 완료 후에만 옛 파일 제거
+  if (existing?.storage_path && existing.storage_path !== path) {
+    await admin.storage.from(DOC_BUCKET).remove([existing.storage_path]);
   }
 
   await logActivity({

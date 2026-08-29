@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { kstMonthStartISO, parseUtc } from "@/lib/utils/dates";
 
 type StudentStat = {
   current_stage: number;
@@ -34,9 +35,9 @@ const LEAD_LABEL: Record<string, string> = {
   pr:        "PR",
 };
 
+// 서버(UTC) 로컬이 아닌 KST 기준 월 경계
 function monthStart(): Date {
-  const d = new Date();
-  return new Date(d.getFullYear(), d.getMonth(), 1);
+  return new Date(kstMonthStartISO());
 }
 
 function daysAgo(n: number): Date {
@@ -77,7 +78,7 @@ export default async function AdminStatsPage({
 
   // ─── 학생 통계 ───────────────────────────────────
   const total = students.length;
-  const newThisMonth = students.filter((s) => new Date(s.created_at) >= month).length;
+  const newThisMonth = students.filter((s) => parseUtc(s.created_at) >= month).length;
   const medicalCount = students.filter((s) => s.is_medical).length;
 
   const leadDist = new Map<string, number>();
@@ -92,7 +93,7 @@ export default async function AdminStatsPage({
   }
 
   // ─── 결제 통계 (이번 달) ─────────────────────────
-  const paysMonth = payments.filter((p) => new Date(p.created_at) >= month);
+  const paysMonth = payments.filter((p) => parseUtc(p.created_at) >= month);
   const revenueMonth = paysMonth
     .filter((p) => p.status === "confirmed")
     .reduce((a, p) => a + (p.amount_krw ?? 0), 0);
@@ -100,7 +101,7 @@ export default async function AdminStatsPage({
   const paysRefundedMonth = paysMonth.filter((p) => p.status === "refunded").length;
 
   // ─── 견적 통계 (이번 달) ─────────────────────────
-  const quotesMonth = quotes.filter((q) => new Date(q.created_at) >= month);
+  const quotesMonth = quotes.filter((q) => parseUtc(q.created_at) >= month);
   const quotesDraft = quotes.filter((q) => q.status === "draft").length;
 
   return (
@@ -191,7 +192,7 @@ export default async function AdminStatsPage({
         <h2 className="mb-3 font-display text-base font-bold text-navy-900">💰 결제 (이번 달)</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <Stat label="이번 달 확정 수익" value={`₩${revenueMonth.toLocaleString("ko-KR")}`} />
-          <Stat label="대기 (전체)" value={paysPending.toString()} highlight={paysPending > 0} />
+          <Stat label="대기 (최근 90일)" value={paysPending.toString()} highlight={paysPending > 0} />
           <Stat label="이번 달 환불" value={paysRefundedMonth.toString()} />
           <Stat label="이번 달 등록" value={paysMonth.length.toString()} />
         </div>
@@ -202,7 +203,7 @@ export default async function AdminStatsPage({
         <h2 className="mb-3 font-display text-base font-bold text-navy-900">💵 견적서 (이번 달)</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           <Stat label="이번 달 발급" value={quotesMonth.length.toString()} />
-          <Stat label="draft (대기 / 전체)" value={quotesDraft.toString()} highlight={quotesDraft > 0} />
+          <Stat label="draft (최근 90일)" value={quotesDraft.toString()} highlight={quotesDraft > 0} />
           <Stat
             label="이번 달 평균 견적"
             value={

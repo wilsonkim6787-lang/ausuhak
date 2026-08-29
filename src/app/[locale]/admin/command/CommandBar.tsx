@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { applyTextCommand, applyStageCommand, type CommandState } from "./actions";
 
 // 명령어 한 줄 입력(기본) + 드롭다운(인식 실패 시 fallback).
@@ -20,12 +20,15 @@ export default function CommandBar({
     {} as CommandState,
   );
 
-  const state = textState.ok || textState.error ? textState : pickState;
+  // 마지막에 제출한 폼의 결과만 표시 — 이전엔 명령어 에러가 남아 있으면
+  // 드롭다운 fallback 의 성공 메시지가 영영 안 보였음.
+  const [lastForm, setLastForm] = useState<"text" | "pick">("text");
+  const state = lastForm === "pick" ? pickState : textState;
 
   return (
     <div className="flex flex-col gap-3 rounded-2xl border-l-4 border-gold-500 bg-white p-5 shadow-sm">
       {/* 명령어 한 줄 입력 */}
-      <form action={textAction} className="flex flex-col gap-2">
+      <form action={textAction} onSubmit={() => setLastForm("text")} className="flex flex-col gap-2">
         <label className="text-[11px] font-semibold text-ink-500">명령어</label>
         <div className="flex gap-2">
           <input
@@ -65,7 +68,7 @@ export default function CommandBar({
         <summary className="cursor-pointer px-3 py-2 text-xs font-medium text-ink-500">
           인식이 안 되면 직접 선택 ▾
         </summary>
-        <form action={pickAction} className="flex flex-wrap items-end gap-2 border-t border-cream-200 p-3">
+        <form action={pickAction} onSubmit={() => setLastForm("pick")} className="flex flex-wrap items-end gap-2 border-t border-cream-200 p-3">
           <select
             name="student_id"
             required

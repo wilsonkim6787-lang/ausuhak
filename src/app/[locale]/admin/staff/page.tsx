@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 import CreateStaffForm from "./CreateStaffForm";
 import { detectGrade } from "@/lib/staff/grades";
+import { kstDaysAgoISO } from "@/lib/utils/dates";
 
 type StaffRow = {
   id: string;
@@ -46,7 +47,7 @@ export default async function AdminStaffPage({
     supabase
       .from("activity_logs")
       .select("user_id, created_at")
-      .gte("created_at", new Date(Date.now() - 30 * 24 * 3600 * 1000).toISOString())
+      .gte("created_at", kstDaysAgoISO(30))
       .limit(5000),
   ]);
 
