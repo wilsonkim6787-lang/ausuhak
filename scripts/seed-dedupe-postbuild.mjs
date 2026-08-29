@@ -76,6 +76,42 @@ try {
       lines.push(`중복 보관 처리: ${r.file} ↔ ${twin.school} (${twin.year ?? "-"})`);
     }
   }
+  // 2차: 완전 동일 카드(학교·연도·별칭·과정이 모두 같은 published 행) — 두 번 올라간 실수 정리.
+  // 후기 있는 쪽 > display_order 낮은 쪽을 남기고 나머지를 보관 처리.
+  const { data: rows2 } = await sb
+    .from("offers")
+    .select("id, school, year, student_alias, program, story, display_order, status")
+    .eq("status", "published");
+  const groups = new Map();
+  for (const r of rows2 ?? []) {
+    const k = [
+      (r.school ?? "").trim().toLowerCase(),
+      r.year ?? "",
+      (r.student_alias ?? "").trim(),
+      (r.program ?? "").trim().toLowerCase(),
+    ].join("|");
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(r);
+  }
+  for (const g of groups.values()) {
+    if (g.length < 2) continue;
+    g.sort(
+      (a, b) =>
+        (b.story ? 1 : 0) - (a.story ? 1 : 0) ||
+        (a.display_order ?? 999) - (b.display_order ?? 999),
+    );
+    for (const extra of g.slice(1)) {
+      const { error: e2 } = await sb
+        .from("offers")
+        .update({ status: "archived" })
+        .eq("id", extra.id);
+      if (!e2) {
+        archived++;
+        lines.push(`동일 카드 중복 보관: ${extra.school} (${extra.year ?? "-"} · ${extra.student_alias ?? "-"})`);
+      }
+    }
+  }
+
   lines.unshift(`중복 정리 — 보관 ${archived}건 / 유지 ${kept}건 (${new Date().toISOString()})`);
   console.log(lines.map((l) => `[seed-dedupe] ${l}`).join("\n"));
 
