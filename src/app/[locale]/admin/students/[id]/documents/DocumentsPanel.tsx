@@ -5,6 +5,7 @@
 import { uploadDocumentAction, deleteDocumentFileAction } from "../actions";
 import { isStaffDocType } from "@/lib/progress";
 import DownloadButton from "./DownloadButton";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 export type DocRow = {
   id: string;
@@ -202,9 +203,12 @@ function DocGroup({
                 >
                   <input type="hidden" name="doc_id" value={d.id} />
                   <input type="hidden" name="student_id" value={studentId} />
-                  <button type="submit" className="text-[11px] text-error hover:underline">
+                  <ConfirmSubmitButton
+                    message="이 서류 파일을 삭제할까요? 되돌릴 수 없습니다."
+                    className="text-[11px] text-error hover:underline"
+                  >
                     삭제
-                  </button>
+                  </ConfirmSubmitButton>
                 </form>
               </li>
             );

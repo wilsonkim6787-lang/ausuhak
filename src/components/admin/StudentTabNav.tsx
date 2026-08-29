@@ -21,11 +21,12 @@ export default function StudentTabNav({
 }) {
   const pathname = usePathname();
   const base = `/admin/students/${studentId}`;
-  const baseKo = `/ko${base}`;
 
   const matches = (href: string) => {
-    if (href === "") return pathname === base || pathname === baseKo;
-    return pathname.startsWith(`${base}${href}`) || pathname.startsWith(`${baseKo}${href}`);
+    // locale prefix(/ko·/en) 제거 후 매칭 — /en 에서도 활성표시.
+    const p = pathname.replace(/^\/(?:ko|en)(?=\/|$)/, "");
+    if (href === "") return p === base;
+    return p === `${base}${href}` || p.startsWith(`${base}${href}/`);
   };
 
   return (

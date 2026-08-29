@@ -10,6 +10,7 @@ type Initial = {
   lead_status?: string;
   is_medical?: string;
   filter?: string;
+  view?: string;
 };
 
 const LEAD_STATUSES = [
@@ -44,7 +45,8 @@ export default function StudentFilters({ initial }: { initial: Initial }) {
       params.set("lead_status", merged.lead_status);
     if (merged.is_medical && merged.is_medical !== "all")
       params.set("is_medical", merged.is_medical);
-    // 대시보드 단축 필터는 초기화
+    // 칸반 뷰는 유지 (필터를 걸어도 리스트로 튕기지 않도록). 대시보드 단축 필터는 초기화.
+    if (initial.view === "kanban") params.set("view", "kanban");
     router.push(`/admin/students${params.toString() ? `?${params.toString()}` : ""}`);
   }
 

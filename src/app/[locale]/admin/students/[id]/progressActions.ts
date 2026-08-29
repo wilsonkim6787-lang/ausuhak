@@ -117,10 +117,8 @@ export async function uploadSubstepDocAction(formData: FormData): Promise<void> 
     .eq("doc_type", docType)
     .maybeSingle();
 
-  if (existing?.storage_path) {
-    await admin.storage.from(DOC_BUCKET).remove([existing.storage_path]);
-  }
-
+  // 새 파일 먼저 업로드 — 성공 후 DB 반영, 옛 파일은 맨 마지막에 정리
+  // (업로드 실패 시 기존 파일/row 유지 → 원본 유실 방지).
   const path = `${studentId}/${docType}-${Date.now()}.${extOf(file.name)}`;
   const buffer = await file.arrayBuffer();
   const { error: uploadError } = await admin.storage
@@ -145,6 +143,11 @@ export async function uploadSubstepDocAction(formData: FormData): Promise<void> 
     await admin.from("documents").update(payload).eq("id", existing.id);
   } else {
     await admin.from("documents").insert(payload);
+  }
+
+  // 새 파일이 정상 반영된 뒤에만 옛 파일 정리 (댕글링 방지).
+  if (existing?.storage_path && existing.storage_path !== path) {
+    await admin.storage.from(DOC_BUCKET).remove([existing.storage_path]);
   }
 
   await logActivity({

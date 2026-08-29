@@ -35,13 +35,18 @@ const TYPE_LABEL: Record<string, string> = Object.fromEntries(TYPES);
 
 const initial: ActionState = {};
 
-// 날짜 계산 (KST 기준 D-N)
+// 날짜 계산 (KST 기준 D-N) — 브라우저 시간대와 무관하게 하루 단위로 안정.
+// deadline_date 는 'YYYY-MM-DD'(KST 달력일). 과거엔 브라우저 로컬 자정 기준이라
+// UTC 서쪽 브라우저에서 하루씩 밀렸음.
 function daysUntil(dateStr: string): number {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const d = new Date(dateStr);
-  d.setHours(0, 0, 0, 0);
-  return Math.round((d.getTime() - today.getTime()) / (24 * 3600 * 1000));
+  const target = new Date(`${dateStr}T00:00:00Z`).getTime();
+  const kstNow = new Date(Date.now() + 9 * 3600 * 1000);
+  const kstTodayUtcMidnight = Date.UTC(
+    kstNow.getUTCFullYear(),
+    kstNow.getUTCMonth(),
+    kstNow.getUTCDate(),
+  );
+  return Math.round((target - kstTodayUtcMidnight) / (24 * 3600 * 1000));
 }
 
 function bucketOf(d: DeadlineRow): "completed" | "past" | "d1" | "d7" | "upcoming" {
@@ -167,7 +172,7 @@ function Group({
                   {TYPE_LABEL[d.deadline_type] ?? d.deadline_type}
                 </span>
                 <span className="ml-2 text-[11px] text-ink-500">
-                  {new Date(d.deadline_date).toLocaleDateString("ko-KR")}
+                  {new Date(d.deadline_date).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}
                 </span>
                 <span className="ml-2 rounded bg-navy-900 px-1.5 py-0.5 text-[10px] font-semibold text-white">
                   {dayLabel}
@@ -192,6 +197,10 @@ function Group({
                   <input type="hidden" name="student_id" value={studentId} />
                   <button
                     type="submit"
+                    onClick={(e) => {
+                      if (!confirm("이 마감 일정을 삭제할까요? 되돌릴 수 없습니다."))
+                        e.preventDefault();
+                    }}
                     className="text-[11px] text-ink-500 underline hover:text-error"
                   >
                     삭제

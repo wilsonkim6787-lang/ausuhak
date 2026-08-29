@@ -39,20 +39,23 @@ export async function upsertGalleryAction(formData: FormData): Promise<void> {
     redirect(errUrl("status 값 오류"));
   }
 
-  const displayOrder = orderRaw ? parseInt(orderRaw, 10) : 0;
+  let displayOrder = orderRaw ? parseInt(orderRaw, 10) : 0;
   const supabase = await createClient();
 
   let existingPath: string | null = null;
   if (id) {
     const { data } = await supabase
       .from("gallery")
-      .select("image_path")
+      .select("image_path, display_order")
       .eq("id", id)
       .single();
     existingPath = data?.image_path ?? null;
+    // 편집인데 정렬을 비웠으면 기존 순서 유지 (0으로 튀지 않게).
+    if (!orderRaw && data?.display_order != null) displayOrder = data.display_order;
   }
 
   let imagePath: string | null = existingPath;
+  let oldImageToRemove: string | null = null;
   const hasFile = file && file.size > 0;
 
   if (!id && !hasFile) redirect(errUrl("사진 필수"));
@@ -61,19 +64,15 @@ export async function upsertGalleryAction(formData: FormData): Promise<void> {
     if (file.size > MAX_BYTES) redirect(errUrl("5MB 초과"));
     if (!ALLOWED_MIME.has(file.type)) redirect(errUrl("JPG·PNG·WebP만 허용"));
 
+    // 새 파일 먼저 업로드 — 기존 파일 삭제는 DB 저장 성공 뒤로 미룸 (원본 유실 방지).
     const path = `gallery-${Date.now()}.${extOf(file.name)}`;
     const buffer = await file.arrayBuffer();
-    const [, { error: uploadError }] = await Promise.all([
-      existingPath
-        ? supabase.storage.from(BUCKET).remove([existingPath])
-        : Promise.resolve(),
-      supabase.storage.from(BUCKET).upload(path, buffer, {
-        contentType: file.type,
-        upsert: false,
-      }),
-    ]);
+    const { error: uploadError } = await supabase.storage
+      .from(BUCKET)
+      .upload(path, buffer, { contentType: file.type, upsert: false });
     if (uploadError) redirect(errUrl(`업로드 실패: ${uploadError.message}`));
     imagePath = path;
+    if (existingPath && existingPath !== path) oldImageToRemove = existingPath;
   }
 
   const payload = {
@@ -89,6 +88,11 @@ export async function upsertGalleryAction(formData: FormData): Promise<void> {
   } else {
     const { error } = await supabase.from("gallery").insert(payload);
     if (error) redirect(errUrl(`저장 실패: ${error.message}`));
+  }
+
+  // DB 저장 성공 후에만 옛 이미지 정리 (댕글링 방지).
+  if (oldImageToRemove) {
+    await supabase.storage.from(BUCKET).remove([oldImageToRemove]);
   }
 
   revalidatePath("/admin/gallery");

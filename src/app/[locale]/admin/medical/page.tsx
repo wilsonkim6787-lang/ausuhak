@@ -45,8 +45,21 @@ const DEADLINE_LABEL: Record<string, string> = {
   gamsat:         "GAMSAT",
 };
 
-function daysUntil(iso: string): number {
-  return Math.ceil((new Date(iso).getTime() - Date.now()) / (24 * 3600 * 1000));
+// KST 오늘 날짜(YYYY-MM-DD). 렌더 본문에서 직접 Date.now 를 부르면 purity 린트에 걸려 헬퍼로 분리.
+function kstTodayDateOnly(): string {
+  return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+}
+
+// deadline_date(YYYY-MM-DD, KST 달력일) 기준 D-N. 서버/브라우저 시간대와 무관하게 안정.
+function daysUntil(dateOnly: string): number {
+  const target = new Date(`${dateOnly}T00:00:00Z`).getTime();
+  const kstNow = new Date(Date.now() + 9 * 3600 * 1000);
+  const kstTodayUtcMidnight = Date.UTC(
+    kstNow.getUTCFullYear(),
+    kstNow.getUTCMonth(),
+    kstNow.getUTCDate(),
+  );
+  return Math.round((target - kstTodayUtcMidnight) / (24 * 3600 * 1000));
 }
 
 export default async function AdminMedicalPage({
@@ -93,7 +106,7 @@ export default async function AdminMedicalPage({
           .in("student_id", studentIds)
           .in("deadline_type", MEDICAL_DEADLINE_TYPES)
           .neq("status", "completed")
-          .gte("deadline_date", new Date().toISOString().slice(0, 10))
+          .gte("deadline_date", kstTodayDateOnly())
           .order("deadline_date", { ascending: true });
 
   const deadlines = (deadlinesRes.data ?? []) as Deadline[];

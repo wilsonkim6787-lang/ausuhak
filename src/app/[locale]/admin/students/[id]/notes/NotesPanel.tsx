@@ -179,7 +179,7 @@ function NoteItem({
     <li className={`rounded-xl border p-4 ${accentClass}`}>
       <div className="flex items-baseline justify-between gap-3">
         <span className="text-[11px] text-ink-500">
-          {new Date(n.created_at).toLocaleString("ko-KR")}
+          {new Date(n.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}
         </span>
         <form action={hideNoteAction}>
           <input type="hidden" name="note_id" value={n.id} />

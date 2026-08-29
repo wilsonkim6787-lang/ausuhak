@@ -276,7 +276,7 @@ function LogRowItem({ log, user }: { log: LogRow; user: UserRow | null }) {
           )}
         </div>
         <span className="text-[10px] text-ink-500">
-          {new Date(log.created_at).toLocaleString("ko-KR")}
+          {new Date(log.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}
         </span>
       </div>
       {log.details && Object.keys(log.details).length > 0 && (

@@ -7,6 +7,7 @@ import {
   saveConsultMemoAction,
   deleteConsultAction,
 } from "./actions";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 type ConsultRow = {
   id: string;
@@ -27,12 +28,12 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 function fmtDate(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(
-    d.getDate(),
-  ).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(
-    d.getMinutes(),
-  ).padStart(2, "0")}`;
+  // KST(UTC+9) 벽시계로 표시 — 서버(UTC)에서 getHours()를 쓰면 9시간 어긋남.
+  const d = new Date(new Date(iso).getTime() + 9 * 3600 * 1000);
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${d.getUTCFullYear()}.${p(d.getUTCMonth() + 1)}.${p(d.getUTCDate())} ${p(
+    d.getUTCHours(),
+  )}:${p(d.getUTCMinutes())}`;
 }
 
 const isPhone = (c: string) => /^[\d\s\-+()]{9,}$/.test(c.trim());
@@ -204,7 +205,12 @@ export default async function AdminConsultsPage({
 
               <form action={deleteConsultAction}>
                 <input type="hidden" name="id" value={r.id} />
-                <button className="text-[11px] text-error hover:underline">🗑️</button>
+                <ConfirmSubmitButton
+                  message="이 상담 신청을 삭제할까요? 되돌릴 수 없습니다."
+                  className="text-[11px] text-error hover:underline"
+                >
+                  🗑️
+                </ConfirmSubmitButton>
               </form>
             </div>
           </li>

@@ -6,6 +6,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentUser } from "@/lib/auth/getUser";
 import { logActivity } from "@/lib/audit/log";
 import { ALL_PERM_KEYS, STAFF_GRADES } from "@/lib/staff/grades";
+import { likeEscape } from "@/lib/utils/likeEscape";
 
 export type PermActionState = { ok?: boolean; error?: string };
 export type CreateStaffState = {
@@ -34,11 +35,23 @@ export async function createStaffAction(
   const admin = createAdminClient();
 
   // 1) 이미 public.users 에 같은 이메일이 있는지 (case-insensitive)
-  const { data: existing } = await admin
+  //    likeEscape 필수 — email 의 '_'/'%' 가 와일드카드로 작동해 엉뚱한 계정과
+  //    매칭되면 그 계정을 staff 로 바꿔버림 (권한 오연결).
+  const { data: existing, error: lookupErr } = await admin
     .from("users")
     .select("id, role")
-    .ilike("email", email)
+    .ilike("email", likeEscape(email))
     .maybeSingle();
+  if (lookupErr) {
+    // maybeSingle 은 2건 이상이면 에러 — 신규 생성으로 새지 않도록 여기서 중단.
+    return { error: `계정 조회 실패: ${lookupErr.message}` };
+  }
+
+  // 자가 잠금 방지: 최고 관리자(super_admin) 계정은 staff 로 강등하지 않음.
+  // (유일한 super_admin 이 강등되면 /admin 접근이 막혀 DB 직접 수정 없이 복구 불가)
+  if (existing?.role === "super_admin") {
+    return { error: "이미 최고 관리자(super_admin) 계정입니다. 직원으로 강등할 수 없습니다." };
+  }
 
   let userId: string | null = existing?.id ?? null;
   let isNewAccount = false;

@@ -69,27 +69,29 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
     displayOrder = (maxRow?.display_order ?? 0) + 1;
   }
 
-  // 기존 image_path 조회 (재업로드 시 정리)
+  // 기존 image_path·순서 조회 (재업로드 시 정리 / 편집 시 순서 유지)
   let existingPath: string | null = null;
   if (id) {
     const { data: existing } = await supabase
       .from("offers")
-      .select("image_path")
+      .select("image_path, display_order")
       .eq("id", id)
       .single();
     existingPath = existing?.image_path ?? null;
+    // 편집인데 정렬을 비웠으면 기존 순서 유지 (0으로 떨어져 맨 앞으로 튀지 않게).
+    if (!orderRaw && existing?.display_order != null) {
+      displayOrder = existing.display_order;
+    }
   }
 
   let newImagePath: string | null = existingPath;
+  let oldImageToRemove: string | null = null;
   const hasFile = file && file.size > 0;
   if (hasFile) {
     if (file.size > OFFER_MAX_BYTES) redirect(errParam("5MB 초과"));
     if (!OFFER_ALLOWED_MIME.has(file.type)) redirect(errParam("JPG·PNG·PDF 만 허용"));
 
-    if (existingPath) {
-      await supabase.storage.from(OFFER_BUCKET).remove([existingPath]);
-    }
-
+    // 새 파일 먼저 업로드 — 기존 파일 삭제는 DB 저장 성공 뒤로 미룸 (원본 유실 방지).
     const safeSchool = (school ?? "offer").replace(/[^A-Za-z0-9가-힣]+/g, "-").slice(0, 30);
     const path = `${safeSchool}-${Date.now()}.${extOf(file.name)}`;
     const buffer = await file.arrayBuffer();
@@ -98,6 +100,7 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
       .upload(path, buffer, { contentType: file.type, upsert: false });
     if (uploadError) redirect(errParam(`업로드 실패: ${uploadError.message}`));
     newImagePath = path;
+    if (existingPath && existingPath !== path) oldImageToRemove = existingPath;
   }
 
   const payload = {
@@ -118,6 +121,11 @@ export async function upsertOfferAction(formData: FormData): Promise<void> {
   } else {
     const { error } = await supabase.from("offers").insert(payload);
     if (error) redirect(errParam(`저장 실패: ${error.message}`));
+  }
+
+  // DB 저장 성공 후에만 옛 이미지 정리 (댕글링 방지).
+  if (oldImageToRemove) {
+    await supabase.storage.from(OFFER_BUCKET).remove([oldImageToRemove]);
   }
 
   revalidatePath("/admin/offers");

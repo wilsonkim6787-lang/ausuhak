@@ -5,20 +5,53 @@ import { buttonStyles } from "@/components/ui/Button";
 import StudentAvatar from "@/components/admin/StudentAvatar";
 import StudentFilters from "./StudentFilters";
 import KanbanBoard, { type KanbanStudent } from "./kanban/KanbanBoard";
+import { likeEscape } from "@/lib/utils/likeEscape";
 import {
   CARE_RULES,
   evaluateCareRules,
   type StudentForCare,
 } from "@/lib/care/rules";
 
+// 존재할 수 없는 UUID — 매칭 학생이 0명일 때 .in("id", [])로 인한 모호함 대신
+// 확실히 "0건"을 만들기 위한 센티넬.
+const NO_MATCH_ID = "00000000-0000-0000-0000-000000000000";
+
 // 헬퍼 분리: react-hooks/purity 규칙은 컴포넌트 본문 안의 Date.now/new Date를 막음.
 function isoDaysAgo(days: number): string {
   return new Date(Date.now() - days * 24 * 3600 * 1000).toISOString();
 }
-function isoStartOfToday(): string {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d.toISOString();
+
+// KST(UTC+9) 기준 오늘 경계·날짜. Vercel/dev 서버 시간대(UTC)에 흔들리지 않게 계산.
+function kstToday(): {
+  startIso: string;
+  endIso: string;
+  todayDate: string;
+  tomorrowDate: string;
+} {
+  const kstNow = new Date(Date.now() + 9 * 3600 * 1000);
+  const kstMidnightUtcMs =
+    Date.UTC(kstNow.getUTCFullYear(), kstNow.getUTCMonth(), kstNow.getUTCDate()) -
+    9 * 3600 * 1000;
+  const start = new Date(kstMidnightUtcMs);
+  const end = new Date(kstMidnightUtcMs + 24 * 3600 * 1000);
+  const dateStr = (dt: Date) =>
+    new Date(dt.getTime() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  return {
+    startIso: start.toISOString(),
+    endIso: end.toISOString(),
+    todayDate: dateStr(start),
+    tomorrowDate: dateStr(end),
+  };
+}
+
+// PostgREST .or() 안전 삽입용: LIKE 와일드카드(%,_,\) 이스케이프 + 예약문자(,()") 회피용
+// 이중따옴표 래핑. 이스케이프 없이 넣으면 '_'가 임의 한 글자로 작동하고, 콤마/괄호가
+// or() 논리식을 깨서 검색 전체가 400 에러남.
+function orIlikeContains(value: string): string {
+  const escaped = likeEscape(value.trim()); // 값 내부 %,_,\ → 리터럴
+  const pattern = `%${escaped}%`; // 앞뒤 % = 실제 "포함" 와일드카드
+  const quoted = `"${pattern.replace(/(["\\])/g, "\\$1")}"`; // or() 예약문자 회피
+  return quoted;
 }
 
 type SP = {
@@ -61,6 +94,7 @@ export default async function StudentsPage({
   setRequestLocale(locale);
 
   const view: "list" | "kanban" = sp.view === "kanban" ? "kanban" : "list";
+  const kst = kstToday();
 
   const supabase = await createClient();
   let query = supabase
@@ -71,10 +105,10 @@ export default async function StudentsPage({
     .order("updated_at", { ascending: false })
     .limit(view === "kanban" ? 500 : 200);
 
-  if (sp.q) {
-    const q = `%${sp.q.replace(/[%_]/g, "")}%`;
+  if (sp.q && sp.q.trim()) {
+    const v = orIlikeContains(sp.q);
     query = query.or(
-      `name.ilike.${q},kakao_id.ilike.${q},email.ilike.${q},phone.ilike.${q}`,
+      `name.ilike.${v},kakao_id.ilike.${v},email.ilike.${v},phone.ilike.${v}`,
     );
   }
   if (sp.stage && sp.stage !== "all") {
@@ -96,7 +130,27 @@ export default async function StudentsPage({
       .lt("updated_at", isoDaysAgo(14))
       .not("lead_status", "in", "(pr,lead)");
   } else if (sp.filter === "new_today") {
-    query = query.gte("created_at", isoStartOfToday());
+    query = query.gte("created_at", kst.startIso);
+  } else if (sp.filter === "deadline_d1") {
+    // 대시보드 "내일 마감(D-1)" 타일 → 내일(KST) 마감인 중요 일정이 있는 학생만.
+    const { data: dlRows } = await supabase
+      .from("critical_deadlines")
+      .select("student_id")
+      .eq("deadline_date", kst.tomorrowDate)
+      .not("status", "in", "(completed,expired)");
+    const ids = [...new Set((dlRows ?? []).map((r) => r.student_id as string))];
+    query = query.in("id", ids.length ? ids : [NO_MATCH_ID]);
+  } else if (sp.filter === "consult_today") {
+    // 대시보드 "오늘 영상 상담" 타일 → 오늘(KST) 영상 상담(카톡 30분 제외)이 잡힌 학생만.
+    const { data: csRows } = await supabase
+      .from("consultations")
+      .select("student_id")
+      .gte("consultation_date", kst.startIso)
+      .lt("consultation_date", kst.endIso)
+      // 대시보드 카운트와 동일 기준: 카톡 30분 제외, type 미상(null)은 포함.
+      .or("type.is.null,type.neq.kakao_30min");
+    const ids = [...new Set((csRows ?? []).map((r) => r.student_id as string))];
+    query = query.in("id", ids.length ? ids : [NO_MATCH_ID]);
   }
 
   const { data, error } = await query;
@@ -121,7 +175,7 @@ export default async function StudentsPage({
           .select("student_id, deadline_type, deadline_date")
           .in("student_id", studentIds)
           .neq("status", "completed")
-          .gte("deadline_date", new Date().toISOString().slice(0, 10))
+          .gte("deadline_date", kst.todayDate)
           .order("deadline_date", { ascending: true }),
     studentIds.length === 0
       ? { data: [] as { student_id: string }[] }
@@ -322,7 +376,12 @@ export default async function StudentsPage({
         students.length === 0 ? (
           <EmptyState />
         ) : (
-          <KanbanBoard students={kanbanStudents} />
+          // key: 필터/검색이 바뀌면 보드를 리마운트해 새 목록을 반영
+          // (내부 optimistic 상태가 이전 필터 결과를 붙들고 있지 않도록).
+          <KanbanBoard
+            key={`${sp.q ?? ""}|${sp.stage ?? ""}|${sp.lead_status ?? ""}|${sp.is_medical ?? ""}|${sp.filter ?? ""}`}
+            students={kanbanStudents}
+          />
         )
       ) : students.length === 0 ? (
         <EmptyState />
@@ -356,10 +415,17 @@ const DEADLINE_LABEL: Record<string, string> = {
   departure:        "출국",
 };
 
-function daysUntil(iso: string): number {
-  const target = new Date(iso);
-  const now = new Date();
-  return Math.ceil((target.getTime() - now.getTime()) / (24 * 3600 * 1000));
+// deadline_date(YYYY-MM-DD, KST 달력일)와 KST 오늘 사이의 정수 일수. D-0=오늘, D-1=내일.
+// 서버 시간대(UTC)와 무관하게 하루 단위로 안정.
+function daysUntil(dateOnly: string): number {
+  const target = new Date(`${dateOnly}T00:00:00Z`).getTime();
+  const kstNow = new Date(Date.now() + 9 * 3600 * 1000);
+  const kstTodayUtcMidnight = Date.UTC(
+    kstNow.getUTCFullYear(),
+    kstNow.getUTCMonth(),
+    kstNow.getUTCDate(),
+  );
+  return Math.round((target - kstTodayUtcMidnight) / (24 * 3600 * 1000));
 }
 
 function StudentRowCard({
