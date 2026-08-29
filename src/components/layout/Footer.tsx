@@ -75,17 +75,29 @@ export default async function Footer() {
             <p className="text-xs font-bold uppercase tracking-wider text-gold-500">
               {t("contactEyebrow")}
             </p>
-            <a
-              href={kakaoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-kakao-source="footer"
-              className="mt-4 inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-[#FEE500] px-4 py-2 text-sm font-semibold text-[#3C1E1E] transition hover:scale-[1.02]"
-            >
-              <span aria-hidden>{"\u{1F4AC}"}</span>
-              카카오 1:1 상담
-            </a>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <div className="mt-4 flex w-full max-w-[230px] flex-col gap-2.5">
+              <a
+                href={kakaoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-kakao-source="footer"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-[#FEE500] px-4 py-2.5 text-sm font-bold text-[#3C1E1E] shadow-sm transition hover:scale-[1.02]"
+              >
+                <span aria-hidden>{"\u{1F4AC}"}</span>
+                카카오 1:1 상담
+              </a>
+              <Link
+                href="/consult"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-gold-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-gold-500"
+              >
+                <span aria-hidden>{"\u{1F4E5}"}</span>
+                무엇이든 물어보세요
+              </Link>
+            </div>
+            <p className="mt-2.5 text-[11px] text-cream-200/70">
+              질문은 무료 · 영업일 24시간 내 답변
+            </p>
+            <ul className="mt-3 space-y-2.5 text-sm">
               <li>
                 <a
                   href={`tel:${phoneTel}`}
@@ -93,14 +105,6 @@ export default async function Footer() {
                 >
                   <IconRow icon={"\u{1F4DE}"}>{phone}</IconRow>
                 </a>
-              </li>
-              <li>
-                <Link
-                  href="/consult"
-                  className="text-cream-200 transition hover:text-gold-400"
-                >
-                  <IconRow icon={"\u{1F4E5}"}>무엇이든 물어보세요</IconRow>
-                </Link>
               </li>
             </ul>
           </div>
