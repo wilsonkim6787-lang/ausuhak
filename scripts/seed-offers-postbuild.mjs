@@ -21,6 +21,12 @@ try {
   let inserted = 0;
   let skipped = 0;
   let failed = 0;
+  let healed = 0;
+  const lines = [];
+
+  // 스토리지 현황 — 파일 유실 자가 복구용 (배포 경쟁 등으로 지워진 이미지 재업로드)
+  const { data: objs } = await sb.storage.from("offers").list("", { limit: 500 });
+  const present = new Set((objs ?? []).map((x) => x.name));
 
   for (const o of offers) {
     const { data: exists, error: selErr } = await sb
@@ -34,6 +40,22 @@ try {
       continue;
     }
     if (exists) {
+      if (!present.has(o.file)) {
+        const img = readFileSync(new URL(`images/${o.file}`, seedDir));
+        const contentType = o.file.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg";
+        const { error: healErr } = await sb.storage
+          .from("offers")
+          .upload(o.file, img, { contentType, upsert: true });
+        if (healErr) {
+          failed++;
+          lines.push(`이미지 복구 실패: ${o.file} — ${healErr.message}`);
+        } else {
+          healed++;
+          present.add(o.file);
+          lines.push(`이미지 복구: ${o.file} (${o.school})`);
+          console.log(`[seed-offers] ♻ 이미지 복구: ${o.file}`);
+        }
+      }
       skipped++;
       continue;
     }
@@ -68,7 +90,27 @@ try {
     console.log(`[seed-offers] ✓ 등록: [${o.display_order}] ${o.school} (${o.student_alias})`);
   }
 
-  console.log(`[seed-offers] 완료 — 신규 ${inserted} / 기존 유지 ${skipped} / 실패 ${failed}`);
+  // 감사: 공개 카드 전수 — 이미지 파일이 스토리지에 실제로 있는지 대조
+  const { data: pubRows } = await sb
+    .from("offers")
+    .select("school, image_path, status")
+    .eq("status", "published");
+  let missing = 0;
+  for (const r of pubRows ?? []) {
+    if (r.image_path && !present.has(r.image_path)) {
+      missing++;
+      lines.push(`⚠ 이미지 없음: ${r.school} (${r.image_path})`);
+    }
+  }
+  lines.unshift(
+    `오퍼 시드 — 신규 ${inserted} / 유지 ${skipped} / 이미지 복구 ${healed} / 공개 ${(pubRows ?? []).length}장 중 이미지 미존재 ${missing} (${new Date().toISOString()})`,
+  );
+  await sb.from("site_settings").upsert(
+    { key: "seed_report_offers", value: lines.join("\n"), value_en: null, category: "internal", is_public: true },
+    { onConflict: "key" },
+  );
+
+  console.log(`[seed-offers] 완료 — 신규 ${inserted} / 기존 유지 ${skipped} / 복구 ${healed} / 실패 ${failed}`);
 } catch (e) {
   console.log(`[seed-offers] 예외 → skip: ${e?.message ?? e}`);
 }
