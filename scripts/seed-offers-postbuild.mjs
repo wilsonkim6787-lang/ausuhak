@@ -39,9 +39,10 @@ try {
     }
 
     const img = readFileSync(new URL(`images/${o.file}`, seedDir));
+    const contentType = o.file.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg";
     const { error: upErr } = await sb.storage
       .from("offers")
-      .upload(o.file, img, { contentType: "image/png", upsert: true });
+      .upload(o.file, img, { contentType, upsert: true });
     if (upErr) {
       failed++;
       console.log(`[seed-offers] ✗ 스토리지 실패: ${o.file} — ${upErr.message}`);
