@@ -143,8 +143,8 @@ export default async function AdminBlogPage({
                   <p className="text-[10px] text-ink-500">
                     조회 {r.view_count} ·{" "}
                     {r.published_at
-                      ? `발행 ${new Date(r.published_at).toLocaleDateString("ko-KR")}`
-                      : `최근 수정 ${new Date(r.updated_at).toLocaleDateString("ko-KR")}`}
+                      ? `발행 ${new Date(r.published_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}`
+                      : `최근 수정 ${new Date(r.updated_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}`}
                   </p>
                 </Link>
 

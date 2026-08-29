@@ -133,7 +133,7 @@ function QuoteCard({ quote: q }: { quote: QuoteRow }) {
       </div>
       <p className="mt-1.5 text-xs text-ink-500">
         {schoolNames || "학교 없음"} ·{" "}
-        {new Date(q.updated_at).toLocaleDateString("ko-KR")}
+        {new Date(q.updated_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}
       </p>
     </Link>
   );

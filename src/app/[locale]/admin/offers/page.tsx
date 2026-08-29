@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import OfferStoryField from "@/components/admin/OfferStoryField";
 import { upsertOfferAction, deleteOfferAction, bulkSeedOffersAction } from "./actions";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 
 type Offer = {
   id: string;
@@ -38,6 +39,12 @@ export default async function AdminOffersPage({
   const sp = await searchParams;
   const supabase = await createClient();
 
+  // 배포 시 자동 시드(중복 정리·후기 입력) 최근 실행 리포트
+  const { data: seedReports } = await supabase
+    .from("site_settings")
+    .select("key, value")
+    .in("key", ["seed_report_dedupe", "seed_report_stories"]);
+
   const { data: offers, error } = await supabase
     .from("offers")
     .select("id, school, program, year, student_alias, image_path, note, story, display_order, status, created_at")
@@ -68,6 +75,22 @@ export default async function AdminOffersPage({
           메인 페이지 OfferShowcase 표시. published 만 학생에게 노출. 5MB / JPG·PNG·PDF.
         </p>
       </header>
+
+      {(seedReports?.length ?? 0) > 0 && (
+        <details className="rounded-xl border border-cream-300 bg-cream-100/60 px-4 py-3">
+          <summary className="cursor-pointer text-xs font-bold text-navy-900">
+            🤖 자동 시드 최근 실행 리포트 (중복 정리 · 후기 입력)
+          </summary>
+          {seedReports!.map((r) => (
+            <pre
+              key={r.key}
+              className="mt-2 whitespace-pre-wrap rounded-lg bg-white p-3 text-[11px] leading-relaxed text-ink-700"
+            >
+              {r.value}
+            </pre>
+          ))}
+        </details>
+      )}
 
       {sp.err && (
         <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">⚠️ {sp.err}</p>
@@ -349,12 +372,12 @@ function OfferForm({
       {!isNew && editing && (
         <form action={deleteOfferAction} className="flex justify-end pt-2 border-t border-cream-200">
           <input type="hidden" name="id" value={editing.id} />
-          <button
-            type="submit"
+          <ConfirmSubmitButton
+            message="이 합격증을 삭제할까요? 이미지 파일과 데이터가 영구 삭제됩니다."
             className="text-[11px] text-error hover:underline"
           >
             🗑️ 이 합격증 삭제 (이미지+row)
-          </button>
+          </ConfirmSubmitButton>
         </form>
       )}
     </div>

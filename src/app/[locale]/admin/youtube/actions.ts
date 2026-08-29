@@ -47,6 +47,21 @@ export async function upsertVideoAction(formData: FormData): Promise<void> {
 
   const autoThumbnail = `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
 
+  const supabase = await createClient();
+
+  // 발행일(published_at)은 "최초 발행 시 한 번만" 설정하고 이후엔 유지.
+  // (과거엔 저장할 때마다 now 로 덮어써 공개 목록 정렬이 흔들리고, draft 로 바꾸면
+  //  원래 발행일을 잃었음.)
+  let publishedAt: string | null = status === "published" ? new Date().toISOString() : null;
+  if (id) {
+    const { data: existing } = await supabase
+      .from("videos")
+      .select("published_at")
+      .eq("id", id)
+      .single();
+    if (existing?.published_at) publishedAt = existing.published_at as string;
+  }
+
   const payload = {
     youtube_id: youtubeId,
     youtube_url: youtubeUrl,
@@ -56,10 +71,9 @@ export async function upsertVideoAction(formData: FormData): Promise<void> {
     category,
     status,
     display_order: orderRaw ? parseInt(orderRaw, 10) : 0,
-    published_at: status === "published" ? new Date().toISOString() : null,
+    published_at: publishedAt,
   };
 
-  const supabase = await createClient();
   if (id) {
     const { error } = await supabase.from("videos").update(payload).eq("id", id);
     if (error) redirect(errParam(`저장 실패: ${error.message}`));

@@ -68,15 +68,21 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
   const isoWeekStart = weekStart.toISOString();
   const iso14dAgo = fourteenDaysAgo.toISOString();
 
-  // 날짜 컬럼 (critical_deadlines.deadline_date = DATE)용
-  const isoDateOnly = (d: Date): string => d.toISOString().slice(0, 10);
-  const tomorrowDate = isoDateOnly(tomorrowStart);
+  // 날짜 컬럼 (critical_deadlines.deadline_date = DATE)용 — KST 달력일로 변환.
+  // (tomorrowStart 는 "KST 내일 자정"의 UTC 인스턴트라, 그냥 slice 하면 UTC 날짜가
+  //  나와 KST 오늘이 찍히는 버그가 있었음 → +9h 후 slice.)
+  const kstDateOnly = (d: Date): string =>
+    new Date(d.getTime() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  const tomorrowDate = kstDateOnly(tomorrowStart);
 
-  // count-only 쿼리 헬퍼
+  // count-only 쿼리 헬퍼 — 실패는 0으로 처리하되 로그로 남겨 "조용한 0"을 방지.
   const cnt = (
     p: PromiseLike<{ count: number | null; error: unknown }>,
   ): Promise<number> =>
-    Promise.resolve(p).then((r) => r.count ?? 0);
+    Promise.resolve(p).then((r) => {
+      if (r.error) console.error("[dashboard-counts] query failed:", r.error);
+      return r.count ?? 0;
+    });
 
   const [
     newKakaoToday,
@@ -134,7 +140,8 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
         .select("id", { count: "exact", head: true })
         .gte("consultation_date", isoToday)
         .lt("consultation_date", isoEndOfDay)
-        .neq("type", "kakao_30min"),
+        // 카톡 30분은 제외하되 type 미상(null)은 놓치지 않도록 포함.
+        .or("type.is.null,type.neq.kakao_30min"),
     ),
     cnt(
       supabase
@@ -156,17 +163,18 @@ export async function getDashboardCounts(): Promise<DashboardCounts> {
         .gte("consultation_date", isoWeekStart),
     ),
     cnt(
+      // "이번 주 결제 확정" = 이번 주에 확정된 건 (등록일이 아니라 확정일 기준).
       supabase
         .from("payments")
         .select("id", { count: "exact", head: true })
         .eq("status", "confirmed")
-        .gte("created_at", isoWeekStart),
+        .gte("confirmed_at", isoWeekStart),
     ),
     cnt(
+      // "이번 주 학교 지원" = 이번 주에 지원한 건 (이후 오퍼/합격으로 넘어갔어도 카운트).
       supabase
         .from("school_applications")
         .select("id", { count: "exact", head: true })
-        .eq("status", "applied")
         .gte("applied_at", isoWeekStart),
     ),
     cnt(

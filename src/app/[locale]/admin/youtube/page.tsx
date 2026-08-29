@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import { upsertVideoAction, deleteVideoAction } from "./actions";
+import ConfirmSubmitButton from "@/components/admin/ConfirmSubmitButton";
 import { VIDEO_CATEGORIES } from "./constants";
 
 type Video = {
@@ -265,9 +266,12 @@ function VideoForm({ editing }: { editing: Video | null }) {
       {!isNew && editing && (
         <form action={deleteVideoAction} className="flex justify-end border-t border-cream-200 pt-2">
           <input type="hidden" name="id" value={editing.id} />
-          <button type="submit" className="text-[11px] text-error hover:underline">
+          <ConfirmSubmitButton
+            message="이 영상을 삭제할까요? 되돌릴 수 없습니다."
+            className="text-[11px] text-error hover:underline"
+          >
             🗑️ 이 영상 삭제
-          </button>
+          </ConfirmSubmitButton>
         </form>
       )}
     </div>

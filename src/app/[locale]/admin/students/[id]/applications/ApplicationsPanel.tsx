@@ -171,10 +171,10 @@ export default function ApplicationsPanel({
                 </div>
 
                 <div className="mt-2 text-[11px] text-ink-500">
-                  {a.applied_at && <>지원: {new Date(a.applied_at).toLocaleDateString("ko-KR")} </>}
+                  {a.applied_at && <>지원: {new Date(a.applied_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })} </>}
                   {a.offer_received_at && (
                     <span className="ml-2 rounded bg-gold-100 px-1.5 text-gold-600">
-                      ⭐ Offer: {new Date(a.offer_received_at).toLocaleDateString("ko-KR")}
+                      ⭐ Offer: {new Date(a.offer_received_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}
                     </span>
                   )}
                 </div>
@@ -207,6 +207,10 @@ export default function ApplicationsPanel({
                     <input type="hidden" name="student_id" value={studentId} />
                     <button
                       type="submit"
+                      onClick={(e) => {
+                        if (!confirm("이 지원 기록을 삭제할까요? 되돌릴 수 없습니다."))
+                          e.preventDefault();
+                      }}
                       className="text-[11px] text-ink-500 underline hover:text-error"
                       aria-label="지원 삭제"
                     >

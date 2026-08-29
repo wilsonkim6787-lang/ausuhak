@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
+import { getPublicContact } from "@/lib/settings/publicContact";
 
-// PART F-2 / PART E-16 site_settings 동적 로드 (Phase 1.7에서 DB 연결)
+// PART F-2 / PART E-16 site_settings 동적 로드 — 어드민 "사이트 설정" 저장분을 반영.
+// 값이 비어 있으면(미입력) 기존 i18n/기본값으로 폴백.
 // PART N-11: 자매학교 EC 어학원·화상영어 = 푸터 로고만 (카드/FAQ X)
 // PART 0-1: Wilson 개인 카톡 ID 노출 X / 채널 URL만
 // 레이아웃: 브랜드 | 상담(행동) | 안내(정보) | 자매 서비스 4열 — 아이콘 고정폭 정렬.
@@ -28,9 +30,23 @@ function IconRow({
   );
 }
 
-export default function Footer() {
-  const t = useTranslations("Footer");
-  const kakaoUrl = "https://pf.kakao.com/_GadTX";
+const DEFAULT_PHONE = "010-9848-7789";
+const DEFAULT_KAKAO_URL = "https://pf.kakao.com/_GadTX";
+
+export default async function Footer() {
+  const t = await getTranslations("Footer");
+  const locale = await getLocale();
+  const contact = await getPublicContact(locale);
+
+  const kakaoUrl = contact.kakaoUrl ?? DEFAULT_KAKAO_URL;
+  const phone = contact.phone ?? DEFAULT_PHONE;
+  const phoneTel = phone.replace(/[^\d+]/g, "");
+  const hoursText = contact.businessHours
+    ? contact.holidays
+      ? `${contact.businessHours}\n${contact.holidays}`
+      : contact.businessHours
+    : t("hoursValue");
+  const addressText = contact.address ?? t("addressValue");
 
   return (
     <footer className="mt-auto bg-navy-900 pb-20 text-cream-100 sm:pb-0">
@@ -72,10 +88,10 @@ export default function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <a
-                  href="tel:010-9848-7789"
+                  href={`tel:${phoneTel}`}
                   className="text-cream-200 transition hover:text-gold-400"
                 >
-                  <IconRow icon={"\u{1F4DE}"}>010-9848-7789</IconRow>
+                  <IconRow icon={"\u{1F4DE}"}>{phone}</IconRow>
                 </a>
               </li>
               <li>
@@ -107,12 +123,12 @@ export default function Footer() {
               </li>
               <li>
                 <IconRow icon={"\u{23F0}"} multiline>
-                  <span className="whitespace-pre-line leading-6">{t("hoursValue")}</span>
+                  <span className="whitespace-pre-line leading-6">{hoursText}</span>
                 </IconRow>
               </li>
               <li>
                 <IconRow icon={"\u{1F4CD}"} multiline>
-                  <span className="leading-6">{t("addressValue")}</span>
+                  <span className="leading-6">{addressText}</span>
                 </IconRow>
               </li>
             </ul>

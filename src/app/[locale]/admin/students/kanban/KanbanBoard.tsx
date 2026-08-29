@@ -94,16 +94,24 @@ export default function KanbanBoard({ students }: { students: KanbanStudent[] })
       p.map((s) => (s.id === id ? { ...s, lead_status: newStatus } : s)),
     );
 
+    const rollback = () =>
+      setLocal((p) =>
+        p.map((s) =>
+          s.id === id ? { ...s, lead_status: prevStudent.lead_status } : s,
+        ),
+      );
+
     startTransition(async () => {
-      const res = await updateLeadStatusAction(id, newStatus);
-      if (res.error) {
-        // rollback
-        setLocal((p) =>
-          p.map((s) =>
-            s.id === id ? { ...s, lead_status: prevStudent.lead_status } : s,
-          ),
-        );
-        alert(`저장 실패: ${res.error}`);
+      try {
+        const res = await updateLeadStatusAction(id, newStatus);
+        if (res.error) {
+          rollback();
+          alert(`저장 실패: ${res.error}`);
+        }
+      } catch (err) {
+        // 네트워크 끊김 등 예외로 promise 가 reject 돼도 UI 를 되돌린다.
+        rollback();
+        alert(`저장 실패: ${err instanceof Error ? err.message : "네트워크 오류"}`);
       }
     });
   }

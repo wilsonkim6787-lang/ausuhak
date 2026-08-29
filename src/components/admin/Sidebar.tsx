@@ -43,8 +43,11 @@ export default function Sidebar({
   const [open, setOpen] = useState(false);
 
   const isActive = (href: string) => {
-    if (href === "/admin") return pathname === "/admin" || pathname === "/ko/admin";
-    return pathname.startsWith(href) || pathname.startsWith(`/ko${href}`);
+    // locale prefix(/ko·/en) 제거 후 정확 매칭 — /en 에서도 활성표시되고,
+    // /admin/students 가 /admin/students-xxx 처럼 과매칭되지 않도록 경계까지 확인.
+    const p = pathname.replace(/^\/(?:ko|en)(?=\/|$)/, "");
+    if (href === "/admin") return p === "/admin";
+    return p === href || p.startsWith(`${href}/`);
   };
 
   return (
@@ -53,7 +56,7 @@ export default function Sidebar({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed left-4 top-4 z-30 rounded-full bg-navy-900 p-2 text-white shadow-md hover:bg-navy-800 md:hidden"
+        className="fixed left-4 top-4 z-30 rounded-full bg-navy-900 p-2 text-white shadow-md hover:bg-navy-800 md:hidden print:hidden"
         aria-label="메뉴 열기"
       >
         <Menu className="size-5" />
@@ -61,7 +64,7 @@ export default function Sidebar({
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-cream-300 bg-white transition-transform md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-cream-300 bg-white transition-transform md:translate-x-0 print:hidden ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -139,7 +142,7 @@ export default function Sidebar({
       {/* Mobile backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-30 bg-black/40 md:hidden"
+          className="fixed inset-0 z-30 bg-black/40 md:hidden print:hidden"
           onClick={() => setOpen(false)}
         />
       )}

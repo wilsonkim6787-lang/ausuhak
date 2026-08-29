@@ -149,7 +149,7 @@ export default function BlogForm({
           </div>
           {blog && (
             <p className="mt-3 text-[11px] text-ink-500">
-              조회수 {blog.view_count} · 최근 수정 {new Date(blog.updated_at).toLocaleString("ko-KR")}
+              조회수 {blog.view_count} · 최근 수정 {new Date(blog.updated_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}
             </p>
           )}
         </section>
@@ -175,7 +175,13 @@ export default function BlogForm({
       {blog && (
         <form action={deleteBlogAction} className="flex justify-end border-t border-cream-200 pt-3">
           <input type="hidden" name="id" value={blog.id} />
-          <button type="submit" className="text-[11px] text-error hover:underline">
+          <button
+            type="submit"
+            onClick={(e) => {
+              if (!confirm("이 글을 삭제할까요? 되돌릴 수 없습니다.")) e.preventDefault();
+            }}
+            className="text-[11px] text-error hover:underline"
+          >
             🗑️ 이 글 삭제
           </button>
         </form>

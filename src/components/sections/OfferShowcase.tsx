@@ -44,7 +44,8 @@ export default async function OfferShowcase() {
     .select("id, school, program, year, student_alias, image_path, story")
     .eq("status", "published");
 
-  const rows = shuffle((data ?? []) as OfferRow[]).slice(0, 12);
+  // 전체 노출 (12장 샘플링 제거) — 순서는 방문마다 셔플, 캐러셀이 3장씩 회전.
+  const rows = shuffle((data ?? []) as OfferRow[]);
   const useFallback = rows.length === 0;
   const items: Array<{
     id?: string;

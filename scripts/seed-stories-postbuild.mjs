@@ -13,11 +13,13 @@ if (!url || !key) {
   process.exit(0);
 }
 
-// match 규칙: schoolAny(하나라도 포함, 소문자) / schoolNot(포함 시 제외) / year / aliasPrefix
+// match 규칙: schoolAny(하나라도 포함, 소문자 — 한/영 표기 모두 등록) /
+// schoolNot(문자열 또는 배열, 포함 시 제외) / year / aliasPrefix
 function matches(row, m) {
   const school = (row.school ?? "").toLowerCase();
   if (!m.schoolAny.some((s) => school.includes(s))) return false;
-  if (m.schoolNot && school.includes(m.schoolNot)) return false;
+  const nots = Array.isArray(m.schoolNot) ? m.schoolNot : m.schoolNot ? [m.schoolNot] : [];
+  if (nots.some((s) => school.includes(s))) return false;
   if (m.year != null && row.year !== m.year) return false;
   if (m.aliasPrefix && !(row.student_alias ?? "").startsWith(m.aliasPrefix)) return false;
   return true;
@@ -38,11 +40,23 @@ try {
   let kept = 0;
   let miss = 0;
   let failed = 0;
+  const lines = [];
 
   for (const s of stories) {
-    const cands = (rows ?? []).filter((r) => matches(r, s.match));
+    let cands = (rows ?? []).filter((r) => matches(r, s.match));
+    // 2차: 연도가 비었거나 다르게 입력된 경우 — 연도 무시 재시도.
+    // 후기 없는 후보가 정확히 1건일 때만 채택 (오매칭 방지).
+    if (cands.length === 0 && s.match.year != null) {
+      const relaxed = (rows ?? []).filter((r) => matches(r, { ...s.match, year: null }));
+      const empty = relaxed.filter((r) => !r.story || r.story.trim() === "");
+      if (empty.length === 1) {
+        cands = empty;
+        lines.push(`[${s.no}] 연도 무시 매칭: ${empty[0].school} (연도 ${empty[0].year ?? "없음"})`);
+      }
+    }
     if (cands.length === 0) {
       miss++;
+      lines.push(`[${s.no}] 대상 없음: ${s.title}`);
       console.log(`[seed-stories] ? 대상 없음: [${s.no}] ${s.title}`);
       continue;
     }
@@ -57,17 +71,26 @@ try {
         .eq("id", row.id);
       if (upErr) {
         failed++;
+        lines.push(`[${s.no}] 입력 실패: ${row.school} — ${upErr.message}`);
         console.log(`[seed-stories] ✗ 입력 실패: [${s.no}] ${row.school} — ${upErr.message}`);
       } else {
         filled++;
         row.story = s.story; // 같은 행 중복 매칭 방지
+        lines.push(`[${s.no}] 입력 완료: ${row.school} (${row.student_alias ?? "-"})`);
         console.log(`[seed-stories] ✓ 입력: [${s.no}] ${row.school} (${row.student_alias ?? "-"})`);
       }
     }
   }
 
+  lines.unshift(
+    `후기 자동 입력 — 입력 ${filled} / 기존 유지 ${kept} / 대상 없음 ${miss} / 실패 ${failed} (${new Date().toISOString()})`,
+  );
   console.log(
     `[seed-stories] 완료 — 입력 ${filled} / 기존 후기 유지 ${kept} / 대상 없음 ${miss} / 실패 ${failed}`,
+  );
+  await sb.from("site_settings").upsert(
+    { key: "seed_report_stories", value: lines.join("\n"), value_en: null, category: "internal", is_public: true },
+    { onConflict: "key" },
   );
 } catch (e) {
   console.log(`[seed-stories] 예외 → skip: ${e?.message ?? e}`);
