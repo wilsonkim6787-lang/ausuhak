@@ -50,6 +50,14 @@ export async function generateMetadata({
       type: "website",
     },
     robots: { index: true, follow: true },
+    // 서치콘솔·서치어드바이저 소유 확인 메타태그 — Vercel 환경변수에 코드만 넣으면 됨
+    // (GOOGLE_SITE_VERIFICATION / NAVER_SITE_VERIFICATION, educennow 와 동일 관례)
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION,
+      other: process.env.NAVER_SITE_VERIFICATION
+        ? { "naver-site-verification": process.env.NAVER_SITE_VERIFICATION }
+        : {},
+    },
   };
 }
 
