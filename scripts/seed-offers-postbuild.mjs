@@ -57,7 +57,7 @@ try {
       image_path: o.file,
       story: o.story,
       display_order: o.display_order,
-      status: "published",
+      status: o.status ?? "published",
     });
     if (insErr) {
       failed++;
