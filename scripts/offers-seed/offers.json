@@ -123,7 +123,8 @@
   "year": 2026,
   "student_alias": "김OO",
   "display_order": 14,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m02_LaTrobe-College_KIM.jpg",
@@ -132,7 +133,8 @@
   "year": 2026,
   "student_alias": "김OO",
   "display_order": 15,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m03_QUT-Nursing-PKG_SEO.jpg",
@@ -141,7 +143,8 @@
   "year": 2026,
   "student_alias": "서OO",
   "display_order": 16,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m04_ILSC-Sydney_SONG.jpg",
@@ -150,7 +153,8 @@
   "year": 2026,
   "student_alias": "송OO",
   "display_order": 17,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m05_Griffith-Nursing_OH.jpg",
@@ -159,7 +163,8 @@
   "year": 2026,
   "student_alias": "오OO",
   "display_order": 18,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m06_Griffith-Medicine.jpg",
@@ -168,7 +173,8 @@
   "year": 2025,
   "student_alias": "의대 합격",
   "display_order": 19,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m07_UNSW-College_JEONG.jpg",
@@ -177,7 +183,8 @@
   "year": 2026,
   "student_alias": "정OO",
   "display_order": 20,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m08_Newcastle-CIE-MedFoundation_KIM.jpg",
@@ -195,7 +202,8 @@
   "year": 2025,
   "student_alias": "박OO",
   "display_order": 22,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m10_UTS-College_BANG.jpg",
@@ -213,7 +221,8 @@
   "year": 2026,
   "student_alias": "송OO",
   "display_order": 24,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m12_USyd-Pharmacy.jpg",
@@ -231,7 +240,8 @@
   "year": 2026,
   "student_alias": "오OO",
   "display_order": 26,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m14_Newcastle-Physio_LEE.jpg",
@@ -249,7 +259,8 @@
   "year": 2023,
   "student_alias": "이OO",
   "display_order": 28,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m16_USyd-BSc-Adv_JEON.jpg",
@@ -276,7 +287,8 @@
   "year": 2026,
   "student_alias": "채OO",
   "display_order": 31,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m19_UNSW-College_SUNG.jpg",
@@ -285,7 +297,8 @@
   "year": 2024,
   "student_alias": "성OO",
   "display_order": 32,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m20_GlenEira-College_KIM.jpg",
@@ -294,7 +307,8 @@
   "year": 2026,
   "student_alias": "김OO",
   "display_order": 33,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m21_BMIHMS-Torrens_KIM.jpg",
@@ -330,7 +344,8 @@
   "year": 2018,
   "student_alias": "권OO",
   "display_order": 37,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m25_Angliss-Cookery_KWON.jpg",
@@ -348,7 +363,8 @@
   "year": 2022,
   "student_alias": "김OO",
   "display_order": 39,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m27_Monash-Medicine-PKG_KIM.jpg",
@@ -357,7 +373,8 @@
   "year": 2022,
   "student_alias": "김OO",
   "display_order": 40,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m28_TRA-PSA-Carpenter_KIM.jpg",
@@ -366,7 +383,8 @@
   "year": 2024,
   "student_alias": "김OO",
   "display_order": 41,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m29_LaTrobe-Nursing_KIM.jpg",
@@ -384,7 +402,8 @@
   "year": 2022,
   "student_alias": "김OO",
   "display_order": 43,
-  "story": null
+  "story": null,
+  "status": "draft"
  },
  {
   "file": "m31_Newcastle-JD_KIM.jpg",
