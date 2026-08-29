@@ -43,7 +43,7 @@ export default async function AdminOffersPage({
   const { data: seedReports } = await supabase
     .from("site_settings")
     .select("key, value")
-    .in("key", ["seed_report_dedupe", "seed_report_stories"]);
+    .in("key", ["seed_report_offers", "seed_report_dedupe", "seed_report_stories"]);
 
   const { data: offers, error } = await supabase
     .from("offers")
