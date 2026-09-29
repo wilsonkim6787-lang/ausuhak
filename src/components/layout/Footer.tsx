@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
 import { getPublicContact } from "@/lib/settings/publicContact";
+import { NAVER_BLOG_URL } from "@/lib/constants";
 
 // PART F-2 / PART E-16 site_settings 동적 로드 — 어드민 "사이트 설정" 저장분을 반영.
 // 값이 비어 있으면(미입력) 기존 i18n/기본값으로 폴백.
@@ -117,7 +118,7 @@ export default async function Footer() {
             <ul className="mt-4 space-y-2.5 break-keep text-sm text-cream-200">
               <li>
                 <a
-                  href="https://blog.naver.com/momstudy100"
+                  href={NAVER_BLOG_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition hover:text-gold-400"

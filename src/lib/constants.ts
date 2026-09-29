@@ -3,4 +3,4 @@
 
 export const KAKAO_URL = "https://pf.kakao.com/_GadTX";
 export const PHONE_NUMBER = "010-9848-7789";
-export const NAVER_BLOG_URL = "https://blog.naver.com/momstudy100";
+export const NAVER_BLOG_URL = "https://blog.naver.com/ausuhak";
