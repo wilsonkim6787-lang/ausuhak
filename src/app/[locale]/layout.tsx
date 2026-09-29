@@ -3,6 +3,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { NAVER_BLOG_URL } from "@/lib/constants";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -90,7 +91,7 @@ export default async function LocaleLayout({
       addressCountry: "KR",
     },
     sameAs: [
-      "https://blog.naver.com/momstudy100",
+      NAVER_BLOG_URL,
       "https://pf.kakao.com/_GadTX",
     ],
   };
