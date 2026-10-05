@@ -65,7 +65,7 @@ export default async function OfferDetailPage({
 
   if (currentRes.error || !currentRes.data) notFound();
   const o = currentRes.data as Offer;
-  const others = shuffle(othersRes.data ?? []).slice(0, 8) as Array<{
+  const others = shuffle((othersRes.data ?? []).filter((r) => !!r.image_path)).slice(0, 8) as Array<{
     id: string;
     school: string;
     program: string | null;

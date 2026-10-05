@@ -49,7 +49,8 @@ export default async function OffersIndexPage({
     .order("display_order")
     .order("year", { ascending: false });
 
-  const offers = (data ?? []) as OfferRow[];
+  // 이미지 있는 실제 합격증만 — 이미지 없는 카드는 샘플처럼 보이므로 공개 목록에서 제외
+  const offers = ((data ?? []) as OfferRow[]).filter((o) => !!o.image_path);
   const bucketUrl = (path: string) =>
     `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${path}`;
   const isPdf = (path: string | null) => !!path && path.toLowerCase().endsWith(".pdf");

@@ -1,6 +1,6 @@
 // 합격증 갤러리 — DB 기반 (offers 테이블 + Supabase Storage).
-// Wilson 이 /admin/offers 에서 업로드 + 관리. published 만 노출.
-// 데이터 없을 때 placeholder 3장 (사회적 증거 빈 페이지 회피).
+// Wilson 이 /admin/offers 에서 업로드 + 관리. published + 이미지 있는 것만 노출.
+// 실제 합격증이 없으면 섹션 자체를 숨긴다 (샘플·임시 카드로 채우지 않음).
 // PART 0-1: 카톡 URL = pf.kakao.com/_GadTX 만.
 
 import Link from "next/link";
@@ -29,49 +29,32 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-const FALLBACK: Pick<OfferRow, "school" | "program" | "year" | "student_alias">[] = [
-  { school: "The University of Sydney", program: "Bachelor of Nursing",   year: 2025, student_alias: "K.J.Y" },
-  { school: "UNSW Sydney",              program: "Bachelor of Commerce",  year: 2025, student_alias: "L.S.H" },
-  { school: "The University of Melbourne", program: "Bachelor of Science", year: 2024, student_alias: "P.M.J" },
-];
-
 export default async function OfferShowcase() {
   const t = await getTranslations("OfferShowcase");
 
   // published 만 조회 (RLS 가 익명 SELECT 허용).
   const supabase = createPublicClient();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("offers")
     .select("id, school, program, year, student_alias, image_path, story")
     .eq("status", "published");
+  if (error) console.error("[OfferShowcase] offers 조회 실패:", error.message);
 
-  // 전체 노출 (12장 샘플링 제거) — 순서는 방문마다 셔플, 캐러셀이 3장씩 회전.
-  const rows = shuffle((data ?? []) as OfferRow[]);
-  const useFallback = rows.length === 0;
-  const items: Array<{
-    id?: string;
-    school: string;
-    program: string | null;
-    year: number | null;
-    student_alias: string | null;
-    image_url: string | null;
-    is_pdf?: boolean;
-    has_story?: boolean;
-  }> = useFallback
-    ? FALLBACK.map((f) => ({ ...f, image_url: null }))
-    : rows.map((r) => ({
-        id: r.id,
-        school: r.school,
-        program: r.program,
-        year: r.year,
-        student_alias: r.student_alias,
-        image_url: r.image_path
-          ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${r.image_path}`
-          : null,
-        is_pdf: r.image_path ? r.image_path.toLowerCase().endsWith(".pdf") : false,
-        // story 텍스트는 클라이언트로 보내지 않고 존재 여부(boolean)만 — 카드 "후기 보기" 신호용
-        has_story: !!r.story,
-      }));
+  // 이미지가 있는 실제 합격증만 — 전체 노출, 순서는 방문마다 셔플, 캐러셀이 3장씩 회전.
+  const rows = shuffle(((data ?? []) as OfferRow[]).filter((r) => !!r.image_path));
+  if (rows.length === 0) return null;
+
+  const items = rows.map((r) => ({
+    id: r.id,
+    school: r.school,
+    program: r.program,
+    year: r.year,
+    student_alias: r.student_alias,
+    image_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/offers/${r.image_path}`,
+    is_pdf: (r.image_path ?? "").toLowerCase().endsWith(".pdf"),
+    // story 텍스트는 클라이언트로 보내지 않고 존재 여부(boolean)만 — 카드 "후기 보기" 신호용
+    has_story: !!r.story,
+  }));
 
   return (
     <section id="offers" className="bg-white">
@@ -89,16 +72,14 @@ export default async function OfferShowcase() {
         {/* PC = 3개씩 자동 회전 (5초) / 모바일 = 가로 swipe */}
         <div className="mt-12">
           <OfferCarousel items={items} placeholderLabel={t("placeholderLabel")} />
-          {!useFallback && (
-            <p className="mt-4 text-right">
-              <Link
-                href="/offers"
-                className="text-sm font-semibold text-gold-600 transition hover:text-gold-500"
-              >
-                합격증 전체 보기 ({items.length}) →
-              </Link>
-            </p>
-          )}
+          <p className="mt-4 text-right">
+            <Link
+              href="/offers"
+              className="text-sm font-semibold text-gold-600 transition hover:text-gold-500"
+            >
+              합격증 전체 보기 ({items.length}) →
+            </Link>
+          </p>
         </div>
 
         {/* 모바일 스와이프 힌트 (2장 이상일 때만) */}
