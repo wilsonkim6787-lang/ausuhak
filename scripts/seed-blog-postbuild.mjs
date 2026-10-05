@@ -22,6 +22,33 @@ const FIXUPS = [
     replace:
       "궁금한 점은 언제든 **호주유학**으로 문의 주세요.\n\n**AUSUHAK 호주유학** · 호주 워킹홀리데이 · 학생비자 · 어학연수 · 대학진학 상담",
   },
+  // 2026.10.2 학생비자 개편 시행 — 발표 시점에 쓴 글 2건에 업데이트 박스·시행 반영.
+  // (각 replace 는 match 문구를 다시 포함하지 않아 멱등)
+  {
+    match: "호주 정부가 9월 17일, 최근 몇 년 사이 가장 큰 폭의 이민 제도 개편을 발표했습니다.",
+    replace:
+      "> ⚠️ **업데이트 (2026.10):** 이 글의 발표 내용이 **10월 2일부로 공식 시행**되었습니다. 확정 시행 내용과 예외·경과 규정은 [10/2 시행 공지](/news/student-visa-reform-in-force-2026-10)에서 확인하세요.\n\n호주 정부가 지난 9월 17일, 최근 몇 년 사이 가장 큰 폭의 이민 제도 개편을 발표했었습니다.",
+  },
+  {
+    match: "## 아직 확정되지 않은 것 — 여기가 중요합니다\n\n- **시행일이 아직 발표되지 않았습니다.** 예외 과정·대상의 전체 목록도 미공개입니다.",
+    replace:
+      "## 시행 여부 — 업데이트됨\n\n- **(업데이트) 가족 동반 제한은 10월 2일부로 시행되었습니다.** 예외·경과 규정 세부는 [시행 공지](/news/student-visa-reform-in-force-2026-10)에서 확인하세요.",
+  },
+  {
+    match: "\"일단 어학연수로 가서, 현지에서 과정을 바꾸지\" — 지금까지 많이 쓰이던 설계입니다.",
+    replace:
+      "> ⚠️ **업데이트 (2026.10):** 이 글 발행 직후 확인된 바로, 관련 규정이 **10월 2일부로 공식 시행**되었습니다(워홀 등 7개 비자의 호주 내 학생비자 신청 금지 포함). 확정 내용은 [10/2 시행 공지](/news/student-visa-reform-in-force-2026-10)를 보세요.\n\n\"일단 어학연수로 가서, 현지에서 과정을 바꾸지\" — 그동안 많이 쓰이던 설계입니다.",
+  },
+  {
+    match: "## 발표된 방향 (아직 시행 전)",
+    replace: "## 발표된 방향 (업데이트: 10월 2일부터 시행)",
+  },
+  {
+    match:
+      "- **시행일·수수료 등 세부는 미발표**입니다. 정부는 이번 개편 전체를 향후 12개월에 걸쳐 순차 시행한다고 밝혔습니다.",
+    replace:
+      "- **(업데이트) 온쇼어 신청 제한 등 핵심 조치는 10월 2일부로 시행되었습니다.** 나머지 항목(워홀 추첨제 등)은 향후 12개월에 걸쳐 순차 시행됩니다.",
+  },
 ];
 
 // 날짜 교정: 최초 일괄 등록 때(2026-08-27~29 UTC) 타임스탬프로 들어간 글만
@@ -102,6 +129,39 @@ try {
   }
 
   console.log(`[seed-blog] 완료 — 신규 ${inserted} / 기존 유지 ${skipped} / 교정 ${fixed} / 실패 ${failed}`);
+
+  // ── 공지 팝업 1회 설정 (2026.10.2 학생비자 개편 시행) ──
+  // guard 키가 생긴 뒤에는 재실행하지 않는다 → 이후 Wilson 이 admin 에서
+  // 팝업을 끄거나 내용을 바꿔도 배포가 덮어쓰지 않음.
+  const NOTICE_GUARD = "notice_seed_visa_reform_202610";
+  const { data: noticeGuard } = await sb
+    .from("site_settings")
+    .select("key")
+    .eq("key", NOTICE_GUARD)
+    .maybeSingle();
+  if (!noticeGuard) {
+    const noticeRows = [
+      { key: "notice_active", value: "true" },
+      { key: "notice_title", value: "학생비자 개편 10/2 시행" },
+      {
+        key: "notice_body",
+        value:
+          "10월 2일부터 워홀·방문비자 등으로는 호주 안에서 학생비자를 신청할 수 없고, 신규 학생비자의 배우자·자녀 동반도 원칙적으로 제한됩니다.\n이미 호주에 가족과 함께 계신 분들은 영향이 없습니다. 바뀐 내용과 지금 해야 할 일을 정리했습니다.",
+      },
+      { key: "notice_version", value: "20261005" },
+      { key: "notice_slug", value: "student-visa-reform-in-force-2026-10" },
+      { key: NOTICE_GUARD, value: new Date().toISOString() },
+    ];
+    let noticeOk = 0;
+    for (const row of noticeRows) {
+      const { error: nErr } = await sb
+        .from("site_settings")
+        .upsert(row, { onConflict: "key" });
+      if (nErr) console.log(`[seed-blog] ✗ 공지 설정 실패: ${row.key} — ${nErr.message}`);
+      else noticeOk++;
+    }
+    console.log(`[seed-blog] 📣 공지 팝업 설정 ${noticeOk}/${noticeRows.length}`);
+  }
 } catch (e) {
   console.log(`[seed-blog] 예외 → skip: ${e?.message ?? e}`);
 }
