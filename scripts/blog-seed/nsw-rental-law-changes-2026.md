@@ -28,7 +28,7 @@ Fixed-term(고정 기간)과 Periodic(기간 미정) 계약 모두 인상 횟수
 - **NSW 안에서 이사**해야 하며
 - 기존 집·새집의 세입자 구성 등 자격 조건을 충족해야 합니다.
 - 이용 시 **수수료 $25**가 있습니다.
-- 현재 **Parramatta·Penrith·Central Coast 지역부터** 단계적으로 시행 중이며 연내 NSW 전역 확대를 목표로 하고 있으니, **본인 지역에서 이용 가능한지 확인**이 필요합니다.
+- 8월에는 Parramatta·Penrith·Central Coast에서 먼저 시작했고, **9월 16일부터 NSW 전 지역에서 이용할 수 있습니다.** 조건과 비용은 [Smart Rental Bonds 정리](/news/nsw-smart-rental-bonds-privacy-law-2026)에서 확인하세요.
 
 ## 계약 전 체크리스트
 
