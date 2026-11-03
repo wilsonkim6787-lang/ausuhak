@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/seed-offers-postbuild.mjs && node scripts/seed-dedupe-postbuild.mjs && node scripts/seed-blog-postbuild.mjs && node scripts/seed-stories-postbuild.mjs",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "views": "python3 tools/build_views.py"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
