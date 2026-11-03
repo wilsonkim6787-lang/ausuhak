@@ -78,12 +78,40 @@ def head_meta(src):
     return (html.unescape(t.group(1).strip()) if t else None, html.unescape(d.group(1)) if d else None)
 
 
+TOPQ = {
+    "검정고시인데 영어가 약해요. 어떻게 시작하나요?": "00-000",
+    "검정고시로 호주 의대에 도전할 수 있나요?": "00-003",
+    "간호학과, 지금 성적으로도 가능한가요?": "03-000",
+    "영어 점수가 없어도 시작할 수 있나요?": "00-021",
+    "예산이 적은데 현실적인 방법이 있나요?": "01-003",
+    "워홀 중인데 학생비자로 바꿀 수 있나요?": "02-048",
+    "한국 대학을 중퇴했는데 다시 시작할 수 있나요?": "00-022",
+    "영주권으로 이어지는 전공은 무엇인가요?": "02-044",
+}
+
+
+def preprocess(board, src):
+    """Board-level fixes applied before conversion (the design files stay untouched)."""
+    if board.endswith("design/project/Main.dc.html"):
+        src = src.replace('<sc-for list="{{topQs}}" as="q" hint-placeholder-count="8">\n<a href="#"',
+                          '<sc-for list="{{topQs}}" as="q" hint-placeholder-count="8">\n<a href="{{q.url}}"')
+        src = src.replace("map((x) => ({ cat: x[0], q: x[1],",
+                          "map((x) => ({ cat: x[0], q: x[1], url: '/faq/' + (" + json.dumps(TOPQ, ensure_ascii=False) + "[x[1]] || ''),")
+    return src
+
+
 def run(board, view, linkmap):
     out = os.path.join(ROOT, "src/views", view + ".tsx")
+    srcp = os.path.join(SP, board)
+    text = preprocess(board, open(srcp, encoding="utf-8").read())
+    tmp = os.path.join(ROOT, "tools/.tmp_" + board.replace("/", "_"))
+    open(tmp, "w", encoding="utf-8").write(text)
+    board_path = tmp
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    subprocess.check_call([sys.executable, os.path.join(ROOT, "tools/dc2tsx.py"), os.path.join(SP, board), out,
+    subprocess.check_call([sys.executable, os.path.join(ROOT, "tools/dc2tsx.py"), board_path, out,
                            os.path.join(ROOT, linkmap), os.path.join(ROOT, "tools/assetmap.json"),
                            os.path.join(ROOT, "tools/textlinks.json")])
+    os.remove(tmp)
 
 
 def patch_main(path):

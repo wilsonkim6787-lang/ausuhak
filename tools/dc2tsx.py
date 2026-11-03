@@ -398,7 +398,8 @@ def main():
     xm = re.search(r"<x-dc>(.*)</x-dc>", src, re.S)
     tpl = xm.group(1).replace("'Pretendard'", "'Pretendard Variable','Pretendard'")
     FORM_SOURCE[0] = inp.split("/")[-2].replace("project", "") + inp.split("/")[-1].replace(".dc.html", "")
-    FORM_SOURCE[0] = ("medical/" if "/med/" in inp else "") + inp.split("/")[-1].replace(".dc.html", "")
+    base = re.sub(r".*[/_]", "", inp).replace(".dc.html", "")
+    FORM_SOURCE[0] = ("medical/" if ("/med/" in inp or "_med_" in inp) else "") + base
     sm = re.search(r'<script type="text/x-dc"[^>]*>(.*?)</script>', src, re.S)
     script = sm.group(1) if sm else "class Component extends DCLogic { renderVals() { return {}; } }"
     script = conv.fix_url(script)
@@ -424,7 +425,7 @@ def main():
     out.append("// @ts-nocheck")
     out.append('"use client";')
     out.append("/* eslint-disable */")
-    out.append("// Generated from %s by tools/dc2tsx.py. Edit the generator input, not this file, for layout changes." % inp.split("/")[-1])
+    out.append("// Generated from %s by tools/dc2tsx.py. Edit the generator input, not this file, for layout changes." % re.sub(r".*[/_]", "", inp))
     out.append('import { Fragment } from "react";')
     out.append('import { DCLogic, css } from "@/lib/dc";')
     if "<ConsultForm" in jsx:

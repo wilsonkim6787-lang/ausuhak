@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
       { source: "/consult", destination: "/#ask", permanent: true },
       { source: "/cost", destination: "/#ask", permanent: true },
       { source: "/staff/:path*", destination: "/", permanent: true },
+      { source: "/reset-password", destination: "/login/reset", permanent: true },
+      { source: "/update-password", destination: "/login/update", permanent: true },
+      { source: "/mypage/:sub(cards|notifications|self-guide|payments|quote|documents)", destination: "/mypage", permanent: false },
       // Bare domain -> www is handled by Vercel domain settings
     ];
   },
