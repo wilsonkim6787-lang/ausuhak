@@ -12,7 +12,7 @@ type PageMeta = {
 // Per-page metadata with canonical URL and share previews.
 export function pageMeta({ title, description, path, image, noindex }: PageMeta): Metadata {
   const url = path === "/" ? SITE.url : SITE.url + path;
-  const images = [image || "/opengraph-image.jpg"];
+  const images = [image || "/og.jpg"];
   return {
     title: { absolute: title },
     description,
@@ -40,7 +40,7 @@ export function organizationJsonLd() {
     alternateName: ["호주유학", "AusUhak", "ausuhak"],
     url: SITE.url,
     logo: SITE.url + "/icon.png",
-    image: SITE.url + "/opengraph-image.jpg",
+    image: SITE.url + "/og.jpg",
     description: SITE.description,
     telephone: SITE.phoneIntl,
     email: SITE.email,

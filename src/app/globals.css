@@ -13,3 +13,4 @@ img, video { max-width: 100%; }
 button, input, select, textarea { font-family: inherit; }
 :focus-visible { outline: 3px solid #8EC5FF; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+input, select, textarea { min-width: 0; }

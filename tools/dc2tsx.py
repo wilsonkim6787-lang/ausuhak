@@ -314,6 +314,9 @@ class Conv:
                     break
         a = self.attrs(node, scope)
         tag = name
+        if lname == "form":
+            tag = "ConsultForm"
+            a.append("source={%s}" % json.dumps(FORM_SOURCE[0]))
         if lname in VOID:
             return "<%s %s />" % (tag, " ".join(a))
         body = "".join(self.children(node, scope, name))
@@ -328,6 +331,7 @@ class Conv:
 
 
 TEXTLINKS = []
+FORM_SOURCE = ["site"]
 
 
 def node_text(node):
@@ -392,7 +396,9 @@ def main():
         TEXTLINKS.extend(json.load(open(sys.argv[5])))
 
     xm = re.search(r"<x-dc>(.*)</x-dc>", src, re.S)
-    tpl = xm.group(1)
+    tpl = xm.group(1).replace("'Pretendard'", "'Pretendard Variable','Pretendard'")
+    FORM_SOURCE[0] = inp.split("/")[-2].replace("project", "") + inp.split("/")[-1].replace(".dc.html", "")
+    FORM_SOURCE[0] = ("medical/" if "/med/" in inp else "") + inp.split("/")[-1].replace(".dc.html", "")
     sm = re.search(r'<script type="text/x-dc"[^>]*>(.*?)</script>', src, re.S)
     script = sm.group(1) if sm else "class Component extends DCLogic { renderVals() { return {}; } }"
     script = conv.fix_url(script)
@@ -421,6 +427,8 @@ def main():
     out.append("// Generated from %s by tools/dc2tsx.py. Edit the generator input, not this file, for layout changes." % inp.split("/")[-1])
     out.append('import { Fragment } from "react";')
     out.append('import { DCLogic, css } from "@/lib/dc";')
+    if "<ConsultForm" in jsx:
+        out.append('import ConsultForm from "@/components/ConsultForm";')
     out.append("")
     out.append(script.strip())
     out.append("")

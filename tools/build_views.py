@@ -86,6 +86,22 @@ def run(board, view, linkmap):
                            os.path.join(ROOT, "tools/textlinks.json")])
 
 
+def patch_main(path):
+    """Make the FAQ search box on the home page a real GET form to /faq."""
+    t = open(path, encoding="utf-8").read()
+    i = t.find('type={"search"}')
+    if i < 0:
+        return
+    start = t.rfind("<label ", 0, i)
+    end = t.find("</label>", i)
+    seg = t[start:end + len("</label>")]
+    seg2 = seg.replace("<label ", '<form action="/faq" method="get" role="search" ', 1)[:-len("</label>")] + "</form>"
+    seg2 = seg2.replace('type={"search"}', 'type={"search"} name="q" aria-label="질문 검색"', 1)
+    seg2 = seg2.replace('<button type={"button"}', '<button type={"submit"}', 1)
+    t = t[:start] + seg2 + t[end + len("</label>"):]
+    open(path, "w", encoding="utf-8").write(t)
+
+
 def write_page(route, view, crumbs, title, desc, client_only):
     d = os.path.join(ROOT, "src/app", route.strip("/")) if route != "/" else os.path.join(ROOT, "src/app")
     os.makedirs(d, exist_ok=True)
@@ -119,6 +135,8 @@ for board, view, route, crumb, t, dsc, co in SITE_PAGES:
     src = open(os.path.join(SP, board), encoding="utf-8").read()
     ht, hd = head_meta(src)
     run(board, view, "tools/links_design.json")
+    if view == "site/Main":
+        patch_main(os.path.join(ROOT, "src/views/site/Main.tsx"))
     crumbs = [{"name": "홈", "path": "/"}] + ([{"name": crumb, "path": route}] if route != "/" else [])
     write_page(route, view, crumbs, t or ht, dsc or hd, co)
     print("ok", route)
