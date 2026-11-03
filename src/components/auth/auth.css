@@ -1,0 +1,35 @@
+.au { min-height: 100vh; display: flex; flex-wrap: wrap; background: #F5F7FA; color: #0F1B2D; font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; letter-spacing: -0.01em; }
+.au-side { flex: 1 1 420px; background: #0F1B2D; color: #FFFFFF; padding: clamp(32px, 6vw, 72px) clamp(20px, 5vw, 64px); display: flex; flex-direction: column; gap: 22px; justify-content: center; }
+.au-brand { font-size: 22px; font-weight: 900; color: #FFFFFF; text-decoration: none; }
+.au-brand span { font-weight: 600; color: #8EC5FF; margin-left: 6px; font-size: 16px; }
+.au-side h1 { margin: 0; font-size: clamp(26px, 3vw, 34px); line-height: 1.35; letter-spacing: -0.03em; text-wrap: balance; }
+.au-side ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 8px; color: #C9D3E0; line-height: 1.6; }
+.au-main { flex: 999 1 520px; min-width: 0; padding: clamp(32px, 6vw, 72px) clamp(16px, 5vw, 64px); display: flex; justify-content: center; align-items: flex-start; }
+.au-card { width: 100%; max-width: 460px; background: #FFFFFF; border: 1px solid #E3E8EF; border-radius: 20px; padding: clamp(22px, 4vw, 36px); display: flex; flex-direction: column; gap: 18px; }
+.au-tabs { display: flex; background: #EEF2F7; border-radius: 12px; padding: 4px; gap: 4px; }
+.au-tabs a { flex: 1; text-align: center; min-height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 9px; font-weight: 800; font-size: 15px; color: #5B6577; text-decoration: none; }
+.au-tabs a[aria-current="page"] { background: #FFFFFF; color: #0F1B2D; box-shadow: 0 1px 3px rgba(15,27,45,0.12); }
+.au-form { display: flex; flex-direction: column; gap: 14px; }
+.au-form h2 { margin: 0; font-size: 24px; letter-spacing: -0.03em; }
+.au-form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; }
+.au-form input[type="text"], .au-form input[type="email"], .au-form input[type="password"], .au-form input[type="tel"], .au-form select { min-height: 48px; border: 1px solid #D5DCE6; border-radius: 10px; padding: 0 14px; font-size: 16px; background: #FFFFFF; color: #0F1B2D; }
+.au-hint { font-size: 13px; font-weight: 500; color: #5B6577; }
+.au-check { flex-direction: row !important; align-items: flex-start; gap: 8px !important; font-weight: 500 !important; line-height: 1.5; }
+.au-check input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
+.au-btn { min-height: 50px; border: 0; border-radius: 12px; background: #0F1B2D; color: #FFFFFF; font-size: 16px; font-weight: 800; cursor: pointer; width: 100%; }
+.au-btn:disabled { opacity: 0.6; cursor: wait; }
+.au-kakao { background: #FEE500; color: #191600; }
+.au-or { display: flex; align-items: center; gap: 10px; color: #8A94A6; font-size: 13px; }
+.au-or::before, .au-or::after { content: ""; flex: 1; height: 1px; background: #E3E8EF; }
+.au-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 14px; }
+.au-row a { color: #0E4C92; }
+.au-roles { display: flex; gap: 8px; }
+.au-roles label { flex: 1; flex-direction: row !important; align-items: center; justify-content: center; min-height: 48px; border: 2px solid #E3E8EF; border-radius: 12px; cursor: pointer; font-size: 15px !important; }
+.au-roles input { position: absolute; opacity: 0; pointer-events: none; }
+.au-roles label:has(input:checked) { border-color: #0F1B2D; background: #0F1B2D; color: #FFFFFF; }
+.au-roles label:has(input:focus-visible) { outline: 3px solid #8EC5FF; outline-offset: 2px; }
+.au-err { margin: 0; padding: 12px 14px; border-radius: 10px; background: #F9E9EC; color: #9B2C3E; font-weight: 700; font-size: 14px; }
+.au-info { margin: 0; padding: 12px 14px; border-radius: 10px; background: #E5F2EE; color: #1F6B5C; font-weight: 700; font-size: 14px; }
+.au-note { margin: 0; color: #5B6577; font-size: 14px; line-height: 1.6; }
+fieldset.au-fs { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+fieldset.au-fs legend { font-size: 14px; font-weight: 700; padding: 0; margin-bottom: 8px; }
