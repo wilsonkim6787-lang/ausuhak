@@ -1,29 +1,35 @@
-import { Playfair_Display } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import AnalyticsTracker from "@/components/analytics/AnalyticsTracker";
+import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
+import { SITE } from "@/lib/site";
+import { jsonLdScript, organizationJsonLd } from "@/lib/seo";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: { default: "호주유학 | AusUhak(호주유학)", template: "%s | AusUhak(호주유학)" },
+  description: SITE.description,
+  applicationName: SITE.name,
+  formatDetection: { telephone: true, email: true, address: false },
+  verification: {
+    // Fill in after registering in Google Search Console / Naver Search Advisor.
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+      ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
+      : undefined,
+  },
+};
 
-// Root layout (Next.js 16 필수 / html + body).
-// 동적 lang 속성은 [locale]/layout.tsx에서 처리할 수 없으므로 default "ko".
-// 영문 페이지 lang="en" 처리는 Step 1.9 영문 사이트 빌드 시 client-side로 보완.
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: "#0F1B2D",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={`${playfair.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+    <html lang="ko">
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd())} />
         {children}
-        <AnalyticsTracker />
         <Analytics />
       </body>
     </html>

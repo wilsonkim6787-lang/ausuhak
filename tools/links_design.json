@@ -1,0 +1,18 @@
+{
+ "Main.dc.html": "/",
+ "Nursing.dc.html": "/nursing",
+ "Pharmacy.dc.html": "/pharmacy",
+ "Business.dc.html": "/business",
+ "IT.dc.html": "/it",
+ "Cookery.dc.html": "/cookery",
+ "EarlyStudy.dc.html": "/early-study",
+ "GeneralEnglish.dc.html": "/general-english",
+ "HiddenMajors.dc.html": "/hidden-majors",
+ "GED.dc.html": "/ged",
+ "Visa.dc.html": "/visa",
+ "Partners.dc.html": "/en",
+ "https://www.ausuhak.com/medical": "/medical",
+ "https://ausuhak.com/medical": "/medical",
+ "https://www.ausuhak.com": "/",
+ "https://ausuhak.com": "/"
+}
