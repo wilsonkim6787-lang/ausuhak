@@ -18,18 +18,22 @@ export async function POST(req: Request) {
   if (b.agreed !== true || Object.keys(clean).length === 0) {
     return NextResponse.json({ ok: false, error: "missing" }, { status: 400 });
   }
-  const name = clean["이름"] || "";
+  const name = Object.entries(clean).find(([k]) => k === "이름" || k.endsWith("이름"))?.[1] || "";
   const contact = Object.entries(clean).find(([k]) => k.startsWith("연락처"))?.[1] || "";
   const sb = adminClient();
   if (!sb) return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
+  const topic = Object.entries(clean).find(([k]) => k.startsWith("관심") || k.includes("전공"))?.[1] || "";
+  const message = Object.entries(clean)
+    .map(([k, v]) => `${k}: ${v}`)
+    .concat(typeof b.page === "string" ? [`페이지: ${b.page.slice(0, 200)}`] : [])
+    .join("\n");
+  // Uses the existing consult_requests table (name, contact, topic, message, source, status).
   const { error } = await sb.from("consult_requests").insert({
-    source: typeof b.source === "string" ? b.source.slice(0, 60) : "site",
-    page: typeof b.page === "string" ? b.page.slice(0, 200) : null,
-    name: name.slice(0, 100) || null,
-    contact: contact.slice(0, 200) || null,
-    fields: clean,
-    agreed_privacy: true,
-    user_agent: req.headers.get("user-agent")?.slice(0, 300) || null,
+    name: name.slice(0, 100) || "(이름 미입력)",
+    contact: contact.slice(0, 200) || "(연락처 미입력)",
+    topic: topic.slice(0, 30) || null,
+    message,
+    source: typeof b.source === "string" ? b.source.slice(0, 30) : "web",
   });
   if (error) return NextResponse.json({ ok: false }, { status: 500 });
   return NextResponse.json({ ok: true });
