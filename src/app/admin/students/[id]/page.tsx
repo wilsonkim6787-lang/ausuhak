@@ -1,3 +1,4 @@
+import StepButton from "@/components/admin/StepButton";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
@@ -21,7 +22,6 @@ import {
   addCase,
   addNote,
   addStep,
-  cycleStep,
   deleteCase,
   deleteNote,
   deleteStep,
@@ -359,34 +359,16 @@ export default async function StudentPage({
                   return (
                     <div key={ph} className="ad-phase">
                       <span className="ad-phase-h" style={{ color, borderColor: color }}>{ph || "단계"}<span>{counted.filter((s) => s.state === "done").length}/{counted.length}</span></span>
-                      {list.map((s) => {
-                        const done = s.state === "done";
-                        const cur = s.state === "doing";
-                        const skip = s.state === "skip";
-                        return (
-                          <form key={s.id} action={cycleStep}>
-                            <input type="hidden" name="id" value={s.id} />
-                            <button
-                              type="submit"
-                              className="ad-step"
-                              title="눌러서 상태 바꾸기"
-                              style={{
-                                borderColor: cur ? "#E8B4BE" : "#E3E8EF",
-                                background: cur ? "#FFF7F8" : done ? "#FFFFFF" : "#F8FAFC",
-                                color: done || cur ? "#0F1B2D" : "#6B7588",
-                                textDecoration: skip ? "line-through" : undefined,
-                              }}
-                            >
-                              <span aria-hidden="true" className="ad-step-dot" style={{ borderColor: done ? color : cur ? "#9B2C3E" : "#C5CDD9", background: done ? color : "transparent" }} />
-                              <span className="ad-step-label">
-                                {s.label}
-                                {s.due_date && !done ? <small style={{ color: s.due_date <= today ? "#9B2C3E" : undefined }}>마감 {shortDate(s.due_date)}</small> : null}
-                              </span>
-                              <span className="ad-step-state" style={{ color: done ? color : cur ? "#9B2C3E" : "#8A94A6" }}>{STEP_STATE[s.state]?.label ?? s.state}</span>
-                            </button>
-                          </form>
-                        );
-                      })}
+                      {list.map((s) => (
+                        <StepButton
+                          key={s.id}
+                          id={s.id}
+                          label={s.label}
+                          state={s.state}
+                          color={color}
+                          due={s.due_date ? { text: shortDate(s.due_date), late: s.due_date <= today } : null}
+                        />
+                      ))}
                     </div>
                   );
                 })}
