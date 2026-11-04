@@ -312,6 +312,12 @@ class Conv:
                     if target.startswith("http"):
                         node["attrs"] += [("target", "_blank"), ("rel", "noopener")]
                     break
+        if lname == "a":
+            href = attrs.get("href") or ""
+            mapped = self.fix_href(href) if href else href
+            if mapped.startswith("/") and href.startswith("http"):  # DROP_BLANK: internalised link
+                node = dict(node)
+                node["attrs"] = [(k, v) for k, v in node["attrs"] if k.lower() not in ("target", "rel")]
         a = self.attrs(node, scope)
         tag = name
         if lname == "form":
