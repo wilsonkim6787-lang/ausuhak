@@ -15,7 +15,7 @@ SP = sys.argv[1]
 
 # (source board, view name, route path, breadcrumb name, title override, description override, client-only)
 SITE_PAGES = [
-    ("design/project/Main.dc.html", "site/Main", "/", "홈", "호주 유학 상담 | 간호·약대·의대 진학 - AusUhak(호주유학)", "검정고시·고졸·대졸 학생과 부모님을 위한 호주 대학 진학 상담입니다. 간호 70명 이상, 약대 38명, 의대 21명 진학, 실제 합격증 45건과 질문 406개를 확인하고 상황을 보내 주세요.", False),
+    ("design/project/Main.dc.html", "site/Main", "/", "홈", "호주 유학 상담 | 간호·약대·의대 진학 - AusUhak(호주유학)", "호주 대학 교직원 출신 Wilson이 20년 동안 650명 이상을 보냈습니다. 시드니대·모나쉬·UNSW 실제 합격증 45건, 간호·약대·의대 진학과 학생비자, 출국 전 대치동 강사 준비까지 한 곳에서 상담합니다.", False),
     ("design/project/ToolPoints.dc.html", "site/ToolPoints", "/tools/points", "영주권 점수 계산기", "호주 영주권 점수 계산기 | 189 기술이민 점수표 - AusUhak(호주유학)", "호주 이민성 독립 기술이민(189) 점수표로 나이, 영어, 학력, 경력, 주정부 지명 점수를 넣어 졸업 후 예상 영주권 점수를 계산해 보세요.", False),
     ("design/project/ToolSchedule.dc.html", "site/ToolSchedule", "/tools/schedule", "입학 일정 계산", "호주 대학 입학 일정 거꾸로 계산 - AusUhak(호주유학)", "원하는 호주 대학 입학 시기를 고르면 영어 시험, 지원, 학생비자까지 오늘부터 해야 할 일을 거꾸로 계산해 드립니다.", False),
     ("design/project/ToolRoute.dc.html", "site/ToolRoute", "/tools/route", "진학 노선도", "호주 진학 노선도 | 검정고시·고졸·대졸 학력별 루트 - AusUhak(호주유학)", "검정고시, 고졸, 대학 재학, 대졸, 직장인, 조기유학까지 지금 학력을 고르면 호주 대학 입학부터 취업까지 가는 길이 단계별로 나옵니다.", False),
