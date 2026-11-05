@@ -10,18 +10,86 @@ import { adminClient } from "@/lib/supabase/admin";
 
 type Attachment = { filename: string; mimeType: string; size: number; attachmentId: string; partId: string };
 
-export function gmailConfigured() {
-  return !!(process.env.GMAIL_CLIENT_ID && process.env.GMAIL_CLIENT_SECRET && process.env.GMAIL_REFRESH_TOKEN);
+export function gmailClientReady() {
+  return !!(process.env.GMAIL_CLIENT_ID && process.env.GMAIL_CLIENT_SECRET);
+}
+
+// Refresh token: env GMAIL_REFRESH_TOKEN, or the one saved by the "Gmail 연결하기" flow.
+async function refreshToken(): Promise<string | null> {
+  if (process.env.GMAIL_REFRESH_TOKEN) return process.env.GMAIL_REFRESH_TOKEN;
+  const admin = adminClient();
+  if (!admin) return null;
+  const { data } = await admin.from("crm_settings").select("value").eq("key", "gmail_refresh_token").maybeSingle();
+  return data?.value ?? null;
+}
+
+export async function gmailConfigured() {
+  return gmailClientReady() && !!(await refreshToken());
+}
+
+export async function gmailAccount(): Promise<string | null> {
+  const admin = adminClient();
+  if (!admin) return null;
+  const { data } = await admin.from("crm_settings").select("value").eq("key", "gmail_account").maybeSingle();
+  return data?.value ?? null;
+}
+
+export function gmailAuthUrl(redirectUri: string, state: string) {
+  const q = new URLSearchParams({
+    client_id: process.env.GMAIL_CLIENT_ID!,
+    redirect_uri: redirectUri,
+    response_type: "code",
+    scope: "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email",
+    access_type: "offline",
+    prompt: "consent",
+    login_hint: "ausuhak.com@gmail.com",
+    state,
+  });
+  return "https://accounts.google.com/o/oauth2/v2/auth?" + q.toString();
+}
+
+// Exchanges the consent code and stores the refresh token (service role).
+export async function saveGmailConsent(code: string, redirectUri: string) {
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      code,
+      client_id: process.env.GMAIL_CLIENT_ID!,
+      client_secret: process.env.GMAIL_CLIENT_SECRET!,
+      redirect_uri: redirectUri,
+      grant_type: "authorization_code",
+    }),
+    cache: "no-store",
+  });
+  if (!res.ok) return { ok: false as const, error: "token_" + res.status };
+  const tok = (await res.json()) as { refresh_token?: string; access_token: string };
+  if (!tok.refresh_token) return { ok: false as const, error: "no_refresh_token" };
+  const who = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/profile", {
+    headers: { Authorization: "Bearer " + tok.access_token },
+    cache: "no-store",
+  });
+  const email = who.ok ? ((await who.json()) as { emailAddress?: string }).emailAddress ?? "" : "";
+  const admin = adminClient();
+  if (!admin) return { ok: false as const, error: "no_db" };
+  const now = new Date().toISOString();
+  await admin.from("crm_settings").upsert([
+    { key: "gmail_refresh_token", value: tok.refresh_token, updated_at: now },
+    { key: "gmail_account", value: email, updated_at: now },
+  ]);
+  return { ok: true as const, email };
 }
 
 async function accessToken(): Promise<string> {
+  const rt = await refreshToken();
+  if (!rt) throw new Error("gmail_not_connected");
   const res = await fetch("https://oauth2.googleapis.com/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       client_id: process.env.GMAIL_CLIENT_ID!,
       client_secret: process.env.GMAIL_CLIENT_SECRET!,
-      refresh_token: process.env.GMAIL_REFRESH_TOKEN!,
+      refresh_token: rt,
       grant_type: "refresh_token",
     }),
     cache: "no-store",
@@ -96,7 +164,7 @@ export function matchStudent(students: StudentKey[], from: string, subject: stri
 }
 
 export async function syncGmail({ days = 14, max = 50 } = {}) {
-  if (!gmailConfigured()) return { ok: false as const, error: "not_configured" };
+  if (!(await gmailConfigured())) return { ok: false as const, error: "not_configured" };
   const admin = adminClient();
   if (!admin) return { ok: false as const, error: "no_db" };
   const token = await accessToken();
@@ -134,7 +202,7 @@ export async function syncGmail({ days = 14, max = 50 } = {}) {
 
 // Copies one attachment into storage and records it as a received document.
 export async function fileEmailAttachment(emailId: string, attachmentIndex: number, studentId: string, label?: string) {
-  if (!gmailConfigured()) return { ok: false as const, error: "not_configured" };
+  if (!(await gmailConfigured())) return { ok: false as const, error: "not_configured" };
   const admin = adminClient();
   if (!admin) return { ok: false as const, error: "no_db" };
   const { data: em } = await admin.from("crm_inbound_emails").select("*").eq("id", emailId).single();

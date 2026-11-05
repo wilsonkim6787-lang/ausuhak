@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
-import { gmailConfigured } from "@/lib/crm/gmail";
+import { gmailAccount, gmailClientReady, gmailConfigured } from "@/lib/crm/gmail";
 import { DOC_TYPES, whenKo } from "@/lib/crm/admin-util";
 import { fileAttachment, setEmailStatus, syncMail } from "@/lib/crm/admin-actions";
 import { ActionForm, Submit } from "@/components/admin/client";
@@ -44,11 +44,13 @@ function kb(n?: number) {
   return n > 1024 * 1024 ? `${(n / 1024 / 1024).toFixed(1)}MB` : `${Math.max(1, Math.round(n / 1024))}KB`;
 }
 
-export default async function MailPage({ searchParams }: { searchParams: Promise<{ show?: string; sync?: string }> }) {
+export default async function MailPage({ searchParams }: { searchParams: Promise<{ show?: string; sync?: string; gmail?: string }> }) {
   const sp = await searchParams;
   const { sb } = await requireAdmin();
   const show = TABS.find(([k]) => k === sp.show)?.[0] ?? "new";
-  const on = gmailConfigured();
+  const on = await gmailConfigured();
+  const account = on ? await gmailAccount() : null;
+  const clientReady = gmailClientReady();
 
   const [mailQ, stuQ, reqQ, countQ] = await Promise.all([
     sb.from("crm_inbound_emails").select("id, from_addr, subject, snippet, received_at, attachments, matched_student_id, match_reason, status").eq("status", show).order("received_at", { ascending: false }).limit(100),
@@ -73,7 +75,7 @@ export default async function MailPage({ searchParams }: { searchParams: Promise
     <>
       <header className="ad-head">
         <div>
-          <span className="ad-sub">{on ? "ausuhak.com@gmail.com 연결됨 · 최근 14일 첨부 메일" : "ausuhak.com@gmail.com"}</span>
+          <span className="ad-sub">{on ? `${account || "ausuhak.com@gmail.com"} 연결됨 · 최근 14일 첨부 메일` : "ausuhak.com@gmail.com"}</span>
           <h1 className="ad-h1">메일로 받은 서류</h1>
         </div>
         <div className="ad-row" style={{ alignItems: "center" }}>
@@ -89,10 +91,19 @@ export default async function MailPage({ searchParams }: { searchParams: Promise
       </header>
 
       {!on ? (
-        <p className="ad-memo" style={{ margin: 0, fontSize: 14, color: "#8A5A1F", fontWeight: 700 }}>
-          Gmail 연결이 아직 설정되지 않아 새 메일을 가져올 수 없습니다. 이미 들어온 메일은 아래에서 처리할 수 있습니다.
-        </p>
+        <div className="ad-memo" style={{ margin: 0, fontSize: 14, color: "#8A5A1F", fontWeight: 700, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between" }}>
+          <span>
+            {clientReady
+              ? "Gmail이 아직 연결되지 않았습니다. 버튼을 누르고 ausuhak.com@gmail.com으로 허용하면 매일 아침 서류 메일을 가져옵니다."
+              : "Gmail 연결 키가 아직 설정되지 않았습니다. 이미 들어온 메일은 아래에서 처리할 수 있습니다."}
+          </span>
+          {clientReady ? (
+            <a href="/api/gmail/connect" className="ad-btn" style={{ textDecoration: "none" }}>Gmail 연결하기</a>
+          ) : null}
+        </div>
       ) : null}
+      {sp.gmail === "ok" ? <p className="ad-msg-ok" role="status">Gmail이 연결되었습니다. 이제 &lsquo;지금 가져오기&rsquo;로 서류 메일을 가져올 수 있습니다.</p> : null}
+      {sp.gmail === "err" ? <p className="ad-msg-err" role="status">Gmail 연결이 완료되지 않았습니다. 다시 눌러 주세요.</p> : null}
       {syncMsg ? <p className={syncMsg.err ? "ad-msg-err" : "ad-msg-ok"} role="status">{syncMsg.text}</p> : null}
 
       <nav aria-label="메일 상태" className="ad-tabs">
