@@ -106,6 +106,7 @@ export function SiteFooter() {
             <span>사업자등록번호 {SITE.bizNo}</span>
             <span>사업장 {SITE.bizAddress}</span>
             <span>전화 {SITE.phone}</span>
+            {SITE.mailOrderNo ? <span>통신판매업 신고 {SITE.mailOrderNo}</span> : null}
             <Link href="/privacy">개인정보처리방침</Link>
             <Link href="/terms">이용약관</Link>
           </div>

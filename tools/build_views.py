@@ -165,12 +165,54 @@ def strip_chrome(src):
     return src
 
 
+def _rep(src, a, b, n=1):
+    assert a in src, (a[:70])
+    return src.replace(a, b, n)
+
+
+def patch_paid(board, src):
+    """Paid exam content: entitlement comes from /api/pay/status, questions from /api/content (see src/lib/medpay.ts)."""
+    src = re.sub(r'<label [^>]*><input type="checkbox" onChange="\{\{toggleAdmin\}\}"[^>]*>검수 모드[^<]*</label>', "", src)
+    status = ("fetch('/api/pay/status').then(function (r) { return r.json(); }).then(function (s) { "
+              "self.setState({ admin: !!s.admin, owned: (s.owned || {})['%s'] || {}, pay: s }); }).catch(function () {});\n    ")
+    if board.endswith("Practice.dc.html"):
+        src = _rep(src, "try { admin = window.localStorage.getItem('bank-admin') === '1'; } catch (e) {}", "")
+        src = _rep(src, "fetch('/_blob/81614ab32359623e7fc904052024d987').then(function (r) { return r.json(); }).then(function (d) { self.setState({ d: d }); })",
+                   (status % "isat") + "fetch('/api/content/isat-bank').then(function (r) { return r.json(); }).then(function (d) { self.setState({ d: d, full: !!d.full }); })")
+        src = _rep(src, "var isFree = function (it) { return S.admin || freeIds[it.id]; };",
+                   "var isFree = function (it) { return S.admin || S.full || freeIds[it.id]; };")
+        src = src.replace(">실전 모의고사는 세트당 30,000원이며, 구독 없이 필요한 세트만 고르면 됩니다.<",
+                          ">실전 모의고사 세트(30,000원)를 하나라도 구매하면 문제은행 전체가 열립니다.<")
+        return src
+    exam = "ucat" if board.endswith("UcatMock.dc.html") else "isat"
+    src = re.sub(r'("MOCK-\d\d": )"/_blob/([0-9a-f]{32})"', r'\1"/api/content/\2"', src)
+    src = _rep(src, "admin: lsGet('bank-admin', 0) === 1 }", "admin: false, owned: {}, pay: null }")
+    src = _rep(src, "  componentDidMount() {\n    var self = this;\n", "  componentDidMount() {\n    var self = this;\n    " + (status % exam))
+    if exam == "isat":
+        src = _rep(src, "var s = sessions[id], open = S.admin || FREE_MOCKS[id],", "var s = sessions[id], open = S.admin || FREE_MOCKS[id] || (S.owned || {})[id],")
+        lock_old, lock_new = "locked: !open,", "locked: !open || (!!FREE_MOCKS[id] && !S.admin && !(S.owned || {})[id]),"
+    else:
+        src = _rep(src, "open = ready && (S.admin || FREE_MOCKS[id]),", "open = ready && (S.admin || FREE_MOCKS[id] || (S.owned || {})[id]),")
+        lock_old, lock_new = "locked: ready && !open,", "locked: ready && (!open || (!!FREE_MOCKS[id] && !S.admin && !(S.owned || {})[id])),"
+    buy = (" buy: function () { if (window.ausuhakBuy) window.ausuhakBuy('%s', id); else location.href = '/medical/services'; },"
+           " buyLabel: S.pay && S.pay.payEnabled ? '30,000원에 전체 풀기' : '세트당 30,000원',") % exam
+    src = _rep(src, lock_old, lock_new + buy)
+    src = _rep(src, "if (FREE_MOCKS[id] && !self.state.admin)", "if (FREE_MOCKS[id] && !self.state.admin && !(self.state.owned || {})[id])")
+    src = _rep(src, "if (FREE_MOCKS[S.mock] && !S.admin)", "if (FREE_MOCKS[S.mock] && !S.admin && !(S.owned || {})[S.mock])")
+    src, n = re.subn(r'<a href="Services\.dc\.html" style="([^"]*)">세트당 30,000원</a>',
+                     r'<button type="button" onClick="{{m.buy}}" style="\1; border: 0; font: inherit; font-weight: 800; cursor: pointer">{{m.buyLabel}}</button>', src)
+    assert n == 1, n
+    return src
+
+
 def preprocess(board, src):
     """Board-level fixes applied before conversion (the design files stay untouched)."""
     if not board.endswith("design/project/Main.dc.html"):
         src = recolor(board, src)
     if uses_shell(board):
         src = strip_chrome(src)
+    if board.endswith(("Mock.dc.html", "UcatMock.dc.html", "Practice.dc.html")):
+        src = patch_paid(board, src)
     if board.startswith("med/"):
         src = src.replace("호주유학 메디컬", "AusUhak 메디컬").replace('href="https://ausuhak.com"', 'href="/"')
         src = re.sub(r'<span style="([^"]*)">(AusUhak 메디컬 · (?:인터뷰 연습실|문제은행))</span>',
@@ -267,6 +309,9 @@ def write_page(route, view, crumbs, title, desc, client_only):
         open(os.path.join(d, "page.tsx"), "w").write("\n".join(lines) + "\n")
         return
     shell = uses_shell(board_of.get(route, ""))
+    paid = route in ("/medical/isat-mock", "/medical/ucat-mock")
+    if paid:
+        lines.insert(2, 'import PayBridge from "@/components/PayBridge";')
     if shell:
         lines.insert(2, 'import { BoardShell } from "@/components/SiteShell";')
     lines.append("export default function Page() {")
@@ -275,6 +320,8 @@ def write_page(route, view, crumbs, title, desc, client_only):
     lines.append("    <BoardShell current=%s>" % json.dumps(route) if shell else ('    <div className="ux-med">' if med else "    <>"))
     if len(crumbs) > 1:
         lines.append('      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd(crumbs))} />')
+    if paid:
+        lines.append("      <PayBridge />")
     if client_only:
         lines.append("      <ClientOnly><%s /></ClientOnly>" % comp)
     else:

@@ -12,6 +12,8 @@ export const SITE = {
   hours: "평일 10:00 ~ 19:00",
   owner: "김구복",
   bizNo: "884-25-02296",
+  // 통신판매업 신고번호: shown in the footer once filled in.
+  mailOrderNo: "",
   bizAddress: "서울 강남구 테헤란로6길 26, 3층 318호",
   officeAddress: {
     street: "역삼로 521 대종빌딩 3층",

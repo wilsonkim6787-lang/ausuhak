@@ -5,6 +5,10 @@ const supabaseHost = supabaseUrl ? new URL(supabaseUrl).hostname : undefined;
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Paid exam questions are read from disk by this route only; they are not in /public.
+  outputFileTracingIncludes: {
+    "/api/content/[key]": ["./private-data/**/*.json"],
+  },
   images: {
     remotePatterns: supabaseHost
       ? [{ protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/**" }]
