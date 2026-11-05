@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: true, email: true, address: false },
   verification: {
     // Fill in after registering in Google Search Console / Naver Search Advisor.
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "lOWexAVfPmVKDE9bXW8l_F4zdDBtMkZRbOKhL0cdeac",
     other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
       ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
       : undefined,
