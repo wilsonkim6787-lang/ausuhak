@@ -14,5 +14,8 @@
  "https://www.ausuhak.com/medical": "/medical",
  "https://ausuhak.com/medical": "/medical",
  "https://www.ausuhak.com": "/",
- "https://ausuhak.com": "/"
+ "https://ausuhak.com": "/",
+ "ToolRoute.dc.html": "/tools/route",
+ "ToolSchedule.dc.html": "/tools/schedule",
+ "ToolPoints.dc.html": "/tools/points"
 }
