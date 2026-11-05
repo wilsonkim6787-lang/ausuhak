@@ -19,7 +19,7 @@ export default function TrackClicks() {
       const el = (e.target as Element | null)?.closest("a, button");
       if (!el) return;
       const href = el.getAttribute("href") || "";
-      const isCta = el.classList.contains("btn") || href === "#ask" || href.includes("pf.kakao.com") || href.startsWith("tel:") || (el.tagName === "BUTTON" && (el as HTMLButtonElement).type === "submit");
+      const isCta = el.classList.contains("btn") || el.classList.contains("tcard") || href.startsWith("/tools/") || href === "#ask" || href.includes("pf.kakao.com") || href.startsWith("tel:") || (el.tagName === "BUTTON" && (el as HTMLButtonElement).type === "submit");
       if (!isCta) return;
       track("click", { label: (el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 60), href, section: sectionOf(el) });
     };
