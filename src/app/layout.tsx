@@ -5,7 +5,7 @@ import TrackClicks from "@/components/TrackClicks";
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 import { SITE } from "@/lib/site";
-import { jsonLdScript, organizationJsonLd } from "@/lib/seo";
+import { jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -29,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd())} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd())} />
         {children}
         <TrackClicks />
         <Analytics />

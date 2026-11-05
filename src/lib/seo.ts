@@ -66,6 +66,20 @@ export function organizationJsonLd() {
   };
 }
 
+// Tells Google the site's name, so results read "AusUhak(호주유학)" instead of the bare domain.
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": SITE.url + "/#website",
+    name: SITE.name,
+    alternateName: ["AusUhak", "호주유학", "ausuhak.com"],
+    url: SITE.url + "/",
+    inLanguage: "ko-KR",
+    publisher: { "@id": SITE.url + "/#org" },
+  };
+}
+
 export function jsonLdScript(data: unknown) {
   return { __html: JSON.stringify(data).replace(/</g, "\\u003c") };
 }
