@@ -94,6 +94,7 @@ export function SiteFooter() {
             </div>
             <div className="ux-dir-col ux-dir-wide">
               <h4>연락</h4>
+              <a href={"tel:" + SITE.phone.replace(/-/g, "")}>{SITE.phone}</a>
               <a href={SITE.kakao} target="_blank" rel="noopener">카카오톡 채널</a>
               <span>{SITE.email}</span>
               <span>{SITE.officeAddress.full} (대치)</span>
@@ -105,7 +106,6 @@ export function SiteFooter() {
             <span>대표 {SITE.owner}</span>
             <span>사업자등록번호 {SITE.bizNo}</span>
             <span>사업장 {SITE.bizAddress}</span>
-            <span>전화 {SITE.phone}</span>
             {SITE.mailOrderNo ? <span>통신판매업 신고 {SITE.mailOrderNo}</span> : null}
             <Link href="/privacy">개인정보처리방침</Link>
             <Link href="/terms">이용약관</Link>
