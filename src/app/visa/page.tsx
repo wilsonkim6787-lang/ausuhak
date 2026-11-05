@@ -3,7 +3,7 @@ import { pageMeta, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import { BoardShell } from "@/components/SiteShell";
 import VisaView from "@/views/site/Visa";
 
-export const metadata = pageMeta({"title": "호주 학생비자 2026년 10월 변경 정리 | 비자 문의 - AusUhak(호주유학)", "description": "2026년 10월 2일부터 호주 학생비자는 대부분 호주 밖에서 신청해야 합니다. 학생비자, 졸업생 비자(485), 부모 보호자 비자(590) 기준을 이민성 공식 자료로 정리했습니다.", "path": "/visa"});
+export const metadata = pageMeta({"title": "호주 비자 문의 학생비자·485·482 취업비자 | AusUhak(호주유학)", "description": "호주 학생비자(500), 졸업생 비자(485), 직장인 취업비자(482), 부모님 방문(600)·보호자(590) 비자 조건과 비용을 이민성 공식 자료로 정리했습니다. 482는 이민 법무사가 직접 상담합니다.", "path": "/visa"});
 
 const crumbs = [{"name": "홈", "path": "/"}, {"name": "비자 문의", "path": "/visa"}];
 
