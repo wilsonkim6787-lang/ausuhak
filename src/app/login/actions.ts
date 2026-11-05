@@ -1,5 +1,5 @@
 "use server";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { adminClient } from "@/lib/supabase/admin";
@@ -17,13 +17,25 @@ async function origin() {
   return `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host") ?? "www.ausuhak.com"}`;
 }
 
+// A page outside MyPage (e.g. the interview lab) can ask to come back after sign-in.
+async function home() {
+  const jar = await cookies();
+  const r = jar.get("ret")?.value ?? "";
+  if (r.startsWith("/medical/") && !r.includes("//")) {
+    jar.delete("ret");
+    return r;
+  }
+  return "/mypage";
+}
+
 async function destFor(userId: string, next: string) {
   const sb = await createClient();
   const { data } = await sb.from("crm_profiles").select("role, family_id").eq("id", userId).maybeSingle();
   if (!data) return "/signup/complete";
   if (data.role === "admin") return next.startsWith("/admin") ? next : "/admin";
   if (!data.family_id) return "/signup/complete";
-  return next.startsWith("/mypage") ? next : "/mypage";
+  if (next.startsWith("/mypage") || next.startsWith("/medical/")) return next;
+  return home();
 }
 
 export async function loginAction(_: FormState, fd: FormData): Promise<FormState> {
@@ -79,7 +91,7 @@ export async function signupAction(_: FormState, fd: FormData): Promise<FormStat
   const r = await attachAccount({ userId: data.user.id, email, role, name, phone, relation, code: code || undefined });
   if (r.error) return { error: r.error };
   if (!data.session) return { info: `${email} 으로 확인 메일을 보냈습니다. 메일의 링크를 누르면 가입이 끝납니다.` };
-  redirect("/mypage");
+  redirect(await home());
 }
 
 export async function completeAction(_: FormState, fd: FormData): Promise<FormState> {
@@ -102,7 +114,7 @@ export async function completeAction(_: FormState, fd: FormData): Promise<FormSt
   if (code && code.length !== 8) return { error: "연결 코드 8자리를 다시 확인해 주세요." };
   const r = await attachAccount({ userId: user.id, email: user.email ?? null, role, name, phone, relation, code: code || undefined });
   if (r.error) return { error: r.error };
-  redirect("/mypage");
+  redirect(await home());
 }
 
 export async function joinFamilyAction(_: FormState, fd: FormData): Promise<FormState> {

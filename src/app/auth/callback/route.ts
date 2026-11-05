@@ -18,6 +18,12 @@ export async function GET(request: NextRequest) {
   if (!p) return NextResponse.redirect(`${origin}/signup/complete`);
   if (p.role === "admin") return NextResponse.redirect(`${origin}/admin`);
   if (!p.family_id) return NextResponse.redirect(`${origin}/signup/complete`);
-  const dest = next && next.startsWith("/mypage") ? next : "/mypage";
+  const ret = request.cookies.get("ret")?.value ?? "";
+  const dest =
+    next && (next.startsWith("/mypage") || next.startsWith("/medical/")) && !next.startsWith("//")
+      ? next
+      : ret.startsWith("/medical/") && !ret.includes("//")
+        ? ret
+        : "/mypage";
   return NextResponse.redirect(`${origin}${dest}`);
 }

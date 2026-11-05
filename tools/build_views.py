@@ -171,6 +171,8 @@ for board, view, route, crumb, t, dsc, co in SITE_PAGES:
 
 for board, view, route, crumb, t, dsc, co in MED_PAGES:
     run(board, view, "tools/links_med.json")
+    if view == "medical/InterviewLab":
+        subprocess.check_call([sys.executable, os.path.join(ROOT, "tools/patch_interview.py"), os.path.join(ROOT, "src/views/medical/InterviewLab.tsx")])
     crumbs = [{"name": "홈", "path": "/"}, {"name": MED, "path": "/medical"}]
     if route != "/medical":
         crumbs.append({"name": crumb, "path": route})
