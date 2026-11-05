@@ -5,7 +5,7 @@ import { FAQS, faqsByCategory, plain } from "@/lib/faq";
 import FaqSearch from "@/components/FaqSearch";
 
 export const metadata = pageMeta({
-  title: "호주유학 자주 묻는 질문 " + FAQS.length + "가지 | AusUhak(호주유학)",
+  title: "호주 유학 자주 묻는 질문 " + FAQS.length + "가지 | AusUhak(호주유학)",
   description:
     "검정고시·고졸·대졸별 호주 대학 진학, 간호·의대·약대 입학 요건, 학생비자와 졸업 후 비자, 학비와 생활비, 호주 생활까지 상담에서 가장 많이 받은 질문에 Wilson이 직접 답했습니다.",
   path: "/faq",
@@ -21,7 +21,7 @@ export default function FaqPage() {
       />
       <div className="ux-wrap">
         <Crumbs items={[{ name: "홈", path: "/" }, { name: "자주 묻는 질문" }]} />
-        <h1 className="ux-h1">호주유학 자주 묻는 질문</h1>
+        <h1 className="ux-h1">호주 유학 자주 묻는 질문</h1>
         <p className="ux-lead">
           상담에서 가장 많이 받은 질문 {FAQS.length}가지에 직접 답했습니다. 내 상황과 조금 다르면 카카오톡으로 물어봐 주세요.
         </p>

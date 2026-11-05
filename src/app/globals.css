@@ -3,14 +3,28 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-  color: #0F1B2D;
-  background: #F5F7FA;
+  color: #1C1F24;
+  background: #F3F3F1;
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
   overflow-wrap: break-word;
 }
 img, video { max-width: 100%; }
 button, input, select, textarea { font-family: inherit; }
-:focus-visible { outline: 3px solid #8EC5FF; outline-offset: 2px; }
+:focus-visible { outline: 2px solid #8E2A3B; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 input, select, textarea { min-width: 0; }
+
+/* One heading face across the site: Noto Serif KR 500, as on the home page. */
+.ux-page-board h1, .ux-page-board h2, .ux-med h1, .ux-med h2, .au-side h1, .au-form h2, .mp-serif {
+  font-family: "Noto Serif KR", serif !important; font-weight: 500 !important; letter-spacing: -0.02em !important; text-wrap: balance;
+}
+.ux-page-board p, .ux-med p { text-wrap: pretty; }
+
+/* Medical centre header on phones: drop the notice strip, keep the menu on one scrollable row. */
+@media (max-width: 639px) {
+  .med-notice { display: none; }
+  .med-nav { order: 3; width: 100%; flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: none; }
+  .med-nav::-webkit-scrollbar { display: none; }
+  .med-acts > a:first-child { display: none !important; }
+}

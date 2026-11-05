@@ -38,7 +38,7 @@ export default function FaqSearch({ items }: { items: Item[] }) {
       <form
         role="search"
         onSubmit={(e) => e.preventDefault()}
-        style={{ display: "flex", gap: 10, background: "#FFFFFF", border: "1px solid #D5DCE6", borderRadius: 999, padding: "6px 8px 6px 20px", maxWidth: 640 }}
+        style={{ display: "flex", gap: 10, background: "#FFFFFF", border: "1px solid #E7E7E4", borderRadius: 999, padding: "6px 8px 6px 20px", maxWidth: 640 }}
       >
         <input
           type="search"
@@ -49,7 +49,7 @@ export default function FaqSearch({ items }: { items: Item[] }) {
           aria-label="질문 검색"
           style={{ flex: 1, border: "none", outline: "none", fontSize: 16, background: "transparent", padding: "10px 0" }}
         />
-        <button type="submit" style={{ background: "#0F1B2D", color: "#FFFFFF", border: "none", borderRadius: 999, padding: "10px 18px", fontWeight: 700, fontSize: 15 }}>
+        <button type="submit" style={{ background: "#1C1F24", color: "#FFFFFF", border: "none", borderRadius: 999, padding: "10px 18px", fontWeight: 700, fontSize: 15 }}>
           검색
         </button>
       </form>
@@ -63,7 +63,7 @@ export default function FaqSearch({ items }: { items: Item[] }) {
           ) : (
             <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
               {results.map(({ it }) => (
-                <li key={it.id} style={{ borderTop: "1px solid #EEF2F7" }}>
+                <li key={it.id} style={{ borderTop: "1px solid #F3F3F1" }}>
                   <Link href={"/faq/" + it.id} style={{ display: "block", padding: "11px 0", textDecoration: "none", fontWeight: 600 }}>
                     {it.q} <span className="ux-muted" style={{ fontWeight: 400, fontSize: 14 }}>· {it.c}</span>
                   </Link>

@@ -93,8 +93,102 @@ TOPQ = {
 }
 
 
+# Old board palettes mapped onto the site palette used by the home page
+# (ink #1C1F24, body #454B55, muted #5C6370, line #E7E7E4, alt ground #F3F3F1, wine #8E2A3B).
+SITE_COLORS = {
+    "#0F1B2D": "#1C1F24", "#0A2540": "#15171B", "#1B2A41": "#2A2E35", "#0E3A6B": "#6E1F2D",
+    "#0E4C92": "#8E2A3B", "#4A5568": "#454B55", "#5B6577": "#5C6370", "#5A6475": "#5C6370",
+    "#33506E": "#454B55", "#AEB6C2": "#A3A6AB", "#9FB0C6": "#A3A6AB", "#C9D3E1": "#C8C9C6",
+    "#C9D3E0": "#C8C9C6", "#8EC5FF": "#F2D9DE", "#C5DAF0": "#E7E7E4", "#E3E8EF": "#E7E7E4",
+    "#F5F7FA": "#F3F3F1", "#EAF2FB": "#F3F3F1", "#EEF2F7": "#F3F3F1", "#E6EEF6": "#ECECE9",
+    "#F0F4F9": "#F3F3F1", "#E7F0FB": "#FBF1F3", "#D5DCE6": "#E7E7E4", "#5B43A0": "#8E2A3B",
+    "#9B2C3E": "#8E2A3B", "#7A1F30": "#6E1F2D", "#1F6B5C": "#1C1F24", "#E4F1EC": "#F3F3F1",
+    "#173F33": "#15171B", "#14231D": "#15171B", "#A3521F": "#8E2A3B", "#8A5A1F": "#454B55",
+    "#FFF6DD": "#FBF1F3", "#8A6A00": "#6E1F2D", "#6B5A1E": "#6E1F2D", "#4A3A00": "#6E1F2D",
+    "#3D4757": "#454B55", "#1F2A3A": "#1C1F24",
+    # medical centre
+    "#0B1F3A": "#1C1F24", "#071629": "#15171B", "#12305A": "#2A2E35", "#1F2A5C": "#2A2E35",
+    "#24346E": "#2A2E35", "#213F6B": "#454B55", "#3A4A8C": "#454B55", "#2B3A4F": "#454B55",
+    "#5B6676": "#5C6370", "#7F8EA0": "#8A8D92", "#1C2430": "#1C1F24", "#C8432F": "#8E2A3B",
+    "#A8331F": "#6E1F2D", "#8A2A1C": "#6E1F2D", "#FBEDEA": "#FBF1F3", "#FFF6F4": "#FBF1F3",
+    "#FF8A73": "#F2D9DE", "#E0A526": "#F2D9DE", "#8A5A00": "#6E1F2D", "#6B4A00": "#6E1F2D",
+    "#B7791F": "#8E2A3B", "#FDF3DC": "#FBF1F3", "#F6EAD0": "#F2D9DE", "#F7F8F6": "#F3F3F1",
+    "#DDE2E0": "#E7E7E4", "#DCE3EA": "#E7E7E4", "#E3E8E5": "#E7E7E4", "#C9D3DE": "#C8C9C6",
+    "#E9EEF5": "#F3F3F1", "#E4EAF1": "#ECECE9", "#ECEEF1": "#ECECE9", "#EEF1EF": "#F3F3F1",
+    "#F2F5F3": "#F3F3F1", "#EEF2EF": "#F3F3F1", "#C5CDD3": "#C8C9C6", "#B8C4D2": "#C8C9C6",
+    "#A9B6C4": "#A3A6AB", "#B9C2C8": "#C8C9C6",
+}
+# Green marks right answers and done states in the exam screens; elsewhere it becomes ink.
+GREENS = {"#0F6E5A": "#1C1F24", "#0A5546": "#15171B", "#E2F0EB": "#F3F3F1", "#9CCFC0": "#C8C9C6",
+          "#DDEFE8": "#F3F3F1", "#CFE6DD": "#E7E7E4"}
+EXAM_BOARDS = ("Mock.dc.html", "UcatMock.dc.html", "Practice.dc.html", "InterviewLab.dc.html")
+RGBA = {"11,31,58": "28,31,36", "15,27,45": "28,31,36", "14,76,146": "142,42,59", "245,247,250": "243,243,241",
+        "10,37,64": "21,23,27", "200,67,47": "142,42,59", "142,197,255": "242,217,222", "7,22,41": "21,23,27"}
+
+
+FLAT = ["linear-gradient(155deg, #0A2540 0%, #0E3A6B 60%, #0E4C92 100%)",
+        "linear-gradient(155deg, #071B33 0%, #0B3360 60%, #0E4C92 100%)",
+        "linear-gradient(120deg, #0F6E5A 0%, #0B1F3A 100%)"]
+
+
+def recolor(board, src):
+    for g in FLAT:  # decorative blue hero gradients become the flat ink ground
+        src = src.replace(g, "#1C1F24")
+    src = src.replace("background: #F2C14E; color: #0F1B2D", "background: #8E2A3B; color: #FFFFFF").replace("#F2C14E", "#F2D9DE")
+    table = dict(SITE_COLORS)
+    if not board.endswith(EXAM_BOARDS):
+        table.update(GREENS)
+    src = re.sub(r"#[0-9A-Fa-f]{6}\b", lambda m: table.get(m.group(0).upper(), m.group(0)), src)
+    def rgba(m):
+        k = re.sub(r"\s", "", m.group(2))
+        return m.group(1) + RGBA.get(k, m.group(2))
+    return re.sub(r"(rgba?\()(\s*\d+\s*,\s*\d+\s*,\s*\d+)", rgba, src)
+
+
+SHELL_BOARDS = ("Nursing", "Pharmacy", "Business", "IT", "Cookery", "EarlyStudy", "GeneralEnglish",
+                "HiddenMajors", "GED", "Visa", "ToolPoints", "ToolSchedule", "ToolRoute")
+
+
+def uses_shell(board):
+    return board.startswith("design/project/") and os.path.basename(board)[:-8] in SHELL_BOARDS
+
+
+def strip_chrome(src):
+    """Drop the board's own header, footer and phone bars; BoardShell supplies the shared ones."""
+    src = re.sub(r"<header\b.*?</header>\s*", "", src, count=1, flags=re.S)
+    i = src.rfind("<footer")
+    if i >= 0:
+        j = src.find("</footer>", i)
+        src = src[:i] + src[j + len("</footer>"):]
+    src = re.sub(r'<a [^>]*class="kakao-float".*?</a>\s*', "", src, flags=re.S)
+    src = re.sub(r'<nav [^>]*class="(?:mobile-dock|bar)".*?</nav>\s*', "", src, flags=re.S)
+    return src
+
+
 def preprocess(board, src):
     """Board-level fixes applied before conversion (the design files stay untouched)."""
+    if not board.endswith("design/project/Main.dc.html"):
+        src = recolor(board, src)
+    if uses_shell(board):
+        src = strip_chrome(src)
+    if board.startswith("med/"):
+        src = src.replace("호주유학 메디컬", "AusUhak 메디컬").replace('href="https://ausuhak.com"', 'href="/"')
+        src = re.sub(r'<span style="([^"]*)">(AusUhak 메디컬 · (?:인터뷰 연습실|문제은행))</span>',
+                     r'<h1 style="\1; margin: 0; font-size: 16px">\2</h1>', src, count=1)
+        src = src.replace(">PREMIUM 체험판<", ">AI 채점 3문제 무료<")
+        src = (src.replace("호주유학 홈", "AusUhak 홈")
+                  .replace("인터뷰는 앱으로 매일 연습합니다", "인터뷰는 이 사이트에서 매일 연습합니다")
+                  .replace("공부는 앱으로, 부족한 과목은 선생님과", "시험 공부는 모의고사로, 부족한 과목은 대치동 강사와")
+                  .replace("공부는 앱으로, 과목은 선생님과", "시험 공부는 모의고사로, 과목은 대치동 강사와"))
+        # class hooks so the phone layout can tighten the medical header (see globals.css)
+        src = src.replace('<div style="background: #1C1F24; color: #E7E7E4; font-size: 14px">', '<div class="med-notice" style="background: #1C1F24; color: #E7E7E4; font-size: 14px">', 1)
+        i = src.find('<nav aria-label="주요 메뉴"')
+        if i >= 0 and "<header" in src[:i]:
+            src = src[:i] + '<nav class="med-nav"' + src[i + 4:]
+            j = src.find("</nav>", i)
+            k = src.find('<div style="display: flex; gap: 6px; align-items: center">', j)
+            if 0 <= k - j < 20:
+                src = src[:k] + '<div class="med-acts"' + src[k + 4:]
     if board.endswith("design/project/Main.dc.html"):
         src = src.replace('<sc-for list="{{topQs}}" as="q" hint-placeholder-count="8">\n<a href="#"',
                           '<sc-for list="{{topQs}}" as="q" hint-placeholder-count="8">\n<a href="{{q.url}}"')
@@ -150,6 +244,8 @@ def write_page(route, view, crumbs, title, desc, client_only):
         lines.append('import ClientOnly from "@/components/ClientOnly";')
     lines.append('import %s from "@/views/%s";' % (comp, view))
     lines.append("")
+    if title:
+        title = title.replace("- 호주유학 Wilson", "- AusUhak(호주유학)")
     lines.append("export const metadata = pageMeta(%s);" % json.dumps(
         {"title": title, "description": desc, "path": route}, ensure_ascii=False))
     lines.append("")
@@ -170,20 +266,26 @@ def write_page(route, view, crumbs, title, desc, client_only):
         lines.append("}")
         open(os.path.join(d, "page.tsx"), "w").write("\n".join(lines) + "\n")
         return
+    shell = uses_shell(board_of.get(route, ""))
+    if shell:
+        lines.insert(2, 'import { BoardShell } from "@/components/SiteShell";')
     lines.append("export default function Page() {")
     lines.append("  return (")
-    lines.append("    <>")
+    med = route.startswith("/medical")
+    lines.append("    <BoardShell current=%s>" % json.dumps(route) if shell else ('    <div className="ux-med">' if med else "    <>"))
     if len(crumbs) > 1:
         lines.append('      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd(crumbs))} />')
     if client_only:
         lines.append("      <ClientOnly><%s /></ClientOnly>" % comp)
     else:
         lines.append("      <%s />" % comp)
-    lines.append("    </>")
+    lines.append("    </BoardShell>" if shell else ("    </div>" if med else "    </>"))
     lines.append("  );")
     lines.append("}")
     open(os.path.join(d, "page.tsx"), "w").write("\n".join(lines) + "\n")
 
+
+board_of = {r: b for b, v, r, *_ in SITE_PAGES}
 
 for board, view, route, crumb, t, dsc, co in SITE_PAGES:
     src = open(os.path.join(SP, board), encoding="utf-8").read()

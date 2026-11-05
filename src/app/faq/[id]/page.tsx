@@ -14,7 +14,7 @@ export const dynamicParams = false;
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const f = getFaq((await params).id);
   if (!f) return {};
-  return pageMeta({ title: f.q + " | 호주유학 FAQ", description: snippet(f.a), path: "/faq/" + f.id });
+  return pageMeta({ title: f.q + " - AusUhak(호주유학)", description: snippet(f.a), path: "/faq/" + f.id });
 }
 
 export default async function FaqDetail({ params }: { params: Promise<{ id: string }> }) {

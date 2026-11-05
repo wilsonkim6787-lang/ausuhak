@@ -6,7 +6,7 @@ import { fmtDate, getPosts } from "@/lib/content";
 export const revalidate = 300;
 
 export const metadata = pageMeta({
-  title: "호주유학 소식 | 학생비자 변경·장학금·입학 일정 - AusUhak(호주유학)",
+  title: "호주 유학 소식 | 학생비자 변경·장학금·입학 일정 - AusUhak(호주유학)",
   description:
     "호주 학생비자 규정 변경, 대학 장학금과 지원 마감, 입학 일정, 호주 생활 정보를 정리해 올립니다. 유학 준비에 꼭 필요한 최신 소식을 확인하세요.",
   path: "/news",
@@ -23,7 +23,7 @@ export default async function NewsPage() {
       />
       <div className="ux-wrap">
         <Crumbs items={[{ name: "홈", path: "/" }, { name: "소식" }]} />
-        <h1 className="ux-h1">호주유학 소식</h1>
+        <h1 className="ux-h1">호주 유학 소식</h1>
         <p className="ux-lead">비자 규정, 장학금 마감, 입학 일정이 바뀌면 바로 정리해 올립니다.</p>
         {cats.length > 1 ? (
           <nav aria-label="소식 분류" className="ux-chips">

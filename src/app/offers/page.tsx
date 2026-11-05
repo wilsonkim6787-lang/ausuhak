@@ -42,11 +42,11 @@ export default async function OffersPage() {
                     style={{ display: "flex", flexDirection: "column", gap: 10, height: "100%", textDecoration: "none", padding: 16 }}
                   >
                     {img && !pdf ? (
-                      <div style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: 12, overflow: "hidden", background: "#EEF2F7" }}>
+                      <div style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: 12, overflow: "hidden", background: "#F3F3F1" }}>
                         <Image src={img} alt={o.school + " 합격증"} fill sizes="(max-width: 700px) 92vw, 340px" style={{ objectFit: "cover", objectPosition: "top" }} />
                       </div>
                     ) : null}
-                    <span style={{ fontSize: 13, fontWeight: 800, color: "#0E4C92" }}>
+                    <span style={{ fontSize: 13, fontWeight: 800, color: "#8E2A3B" }}>
                       {o.year ? o.year + " 합격" : "합격"}
                       {o.student_alias ? " · " + o.student_alias : ""}
                     </span>

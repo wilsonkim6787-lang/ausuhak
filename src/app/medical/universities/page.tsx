@@ -8,9 +8,9 @@ const crumbs = [{"name": "홈", "path": "/"}, {"name": "의대 준비 센터", "
 
 export default function Page() {
   return (
-    <>
+    <div className="ux-med">
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd(crumbs))} />
       <UniversitiesView />
-    </>
+    </div>
   );
 }

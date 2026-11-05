@@ -145,7 +145,7 @@ export function FamilyForm() {
         연결 코드
         <input type="text" name="code" autoComplete="off" placeholder="예: K7P3-M9QX" required style={{ textTransform: "uppercase" }} />
       </label>
-      <p className="au-note" style={{ background: "#F5F7FA", borderRadius: 12, padding: 14 }}>
+      <p className="au-note" style={{ background: "#F3F3F1", borderRadius: 12, padding: 14 }}>
         연결되면 서류, 메시지, 진행 단계를 같이 보고, 각자 자기 이름으로 메시지를 남깁니다.
       </p>
       <Msg s={s} />

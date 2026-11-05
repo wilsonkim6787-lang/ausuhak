@@ -51,9 +51,9 @@ def patch(path):
              "canGrade: S.ai === 'on' && S.login && (S.used || 0) < 3, paywall: S.ai === 'on' && S.login && (S.used || 0) >= 3, needLogin: S.ai === 'on' && !S.login,")
     # template: sign-in prompt next to the AI message
     box = ('{v?.needLogin ? (<><div style={{"background": "#FFF8E8", "border": "1px solid #F0D9A0", "borderRadius": "12px", "padding": "14px 16px", "display": "flex", "flexWrap": "wrap", "gap": "10px", "alignItems": "center", "justifyContent": "space-between"}}>'
-           '<span style={{"fontSize": "15px", "color": "#0B1F3A", "fontWeight": "700"}}>{"회원가입하면 AI 면접관 채점 3문제를 무료로 받을 수 있습니다."}</span>'
+           '<span style={{"fontSize": "15px", "color": "#1C1F24", "fontWeight": "700"}}>{"회원가입하면 AI 면접관 채점 3문제를 무료로 받을 수 있습니다."}</span>'
            '<a href={"/login?next=' + LOGIN_NEXT + '"} onClick={() => { try { document.cookie = "ret=' + LOGIN_NEXT + '; path=/; max-age=1800; samesite=lax"; } catch (e) {} }} '
-           'style={{"display": "inline-flex", "alignItems": "center", "minHeight": "44px", "padding": "0 18px", "borderRadius": "10px", "background": "#0B1F3A", "color": "#FFFFFF", "textDecoration": "none", "fontWeight": "800"}}>{"로그인 · 무료 회원가입"}</a></div></>) : null}{" "}')
+           'style={{"display": "inline-flex", "alignItems": "center", "minHeight": "44px", "padding": "0 18px", "borderRadius": "10px", "background": "#1C1F24", "color": "#FFFFFF", "textDecoration": "none", "fontWeight": "800"}}>{"로그인 · 무료 회원가입"}</a></div></>) : null}{" "}')
     t = sub1(t, r"\{v\?\.aiOff \? \(", box + "{v?.aiOff ? (")
     t = t.replace("AI 채점을 처음 사용할 때 한 번 허용 여부를 묻습니다.", "AI 채점은 회원가입 후 3문제까지 무료입니다.")
     open(path, "w", encoding="utf-8").write(t)
