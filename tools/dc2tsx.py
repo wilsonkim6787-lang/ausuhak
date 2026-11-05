@@ -402,7 +402,7 @@ def main():
         TEXTLINKS.extend(json.load(open(sys.argv[5])))
 
     xm = re.search(r"<x-dc>(.*)</x-dc>", src, re.S)
-    tpl = xm.group(1).replace("'Pretendard'", "'Pretendard Variable','Pretendard'")
+    tpl = xm.group(1).replace("'Pretendard'", "'Pretendard Variable','Pretendard'").replace('ausuhak.com@gmail.com', 'ausuhak@gmail.com')
     FORM_SOURCE[0] = inp.split("/")[-2].replace("project", "") + inp.split("/")[-1].replace(".dc.html", "")
     base = re.sub(r".*[/_]", "", inp).replace(".dc.html", "")
     FORM_SOURCE[0] = ("medical/" if ("/med/" in inp or "_med_" in inp) else "") + base
@@ -413,7 +413,7 @@ def main():
         if k.endswith(".dc.html"):
             script = re.sub(r"(['\"])" + re.escape(k) + r"(#[^'\"]*)?(['\"])",
                             lambda m: m.group(1) + v + (m.group(2) or "") + m.group(3), script)
-    script = script.replace("'Pretendard'", "'Pretendard Variable','Pretendard'")
+    script = script.replace("'Pretendard'", "'Pretendard Variable','Pretendard'").replace('ausuhak.com@gmail.com', 'ausuhak@gmail.com')
 
     tree = build_tree(tpl)
     # helmet -> styles

@@ -166,7 +166,7 @@ export default async function StudentPage({
       const expiry = c.expected_expiry ?? exp?.exp ?? null;
       if (c.oshc_until) legs.push({ n: c.oshc_until && expiry && c.oshc_until < expiry ? "!" : "✓", name: `OSHC ${fmtDateKo(c.oshc_until)}까지`, meta: expiry && c.oshc_until < expiry ? "보험 종료일이 예상 비자 만료일보다 빠릅니다" : "보험 종료일이 비자 만료일 이후인지 접수 전 확인" });
       else legs.push({ n: "!", name: "OSHC 종료일 확인", meta: "보험 종료일이 비자 만료일 이후인지 접수 전 확인" });
-      legs.push({ n: "✉", name: c.form_956a ? "956A · 수신인 AusUhak" : "956A 수신인 지정 전", meta: c.form_956a ? "이민성 서류가 ausuhak.com@gmail.com 으로 옴" : "지정하면 이민성 서류를 제가 바로 받습니다" });
+      legs.push({ n: "✉", name: c.form_956a ? "956A · 수신인 AusUhak" : "956A 수신인 지정 전", meta: c.form_956a ? "이민성 서류가 ausuhak@gmail.com 으로 옴" : "지정하면 이민성 서류를 제가 바로 받습니다" });
       if (c.trn || c.lodged_at || c.granted_at) legs.push({ n: "#", name: [c.trn ? `TRN ${c.trn}` : "", c.lodged_at ? `접수 ${shortDate(c.lodged_at)}` : ""].filter(Boolean).join(" · ") || "접수", meta: c.granted_at ? `승인 ${fmtDateKo(c.granted_at)}` : "심사 중" });
       return legs;
     }

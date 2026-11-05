@@ -1,12 +1,12 @@
 import "server-only";
 import { adminClient } from "@/lib/supabase/admin";
 
-// Pulls emails with attachments from ausuhak.com@gmail.com into crm_inbound_emails
+// Pulls emails with attachments from ausuhak@gmail.com into crm_inbound_emails
 // and files chosen attachments into a student's documents.
 //
 // Needs env: GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN
 // (OAuth client of type "Web" or "Desktop", scope gmail.readonly, refresh token
-// issued for ausuhak.com@gmail.com).
+// issued for ausuhak@gmail.com).
 
 type Attachment = { filename: string; mimeType: string; size: number; attachmentId: string; partId: string };
 
@@ -42,7 +42,7 @@ export function gmailAuthUrl(redirectUri: string, state: string) {
     scope: "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email",
     access_type: "offline",
     prompt: "consent",
-    login_hint: "ausuhak.com@gmail.com",
+    login_hint: "ausuhak@gmail.com",
     state,
   });
   return "https://accounts.google.com/o/oauth2/v2/auth?" + q.toString();

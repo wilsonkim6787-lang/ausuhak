@@ -165,7 +165,7 @@ create table if not exists crm_messages (
 );
 create index if not exists crm_messages_family on crm_messages(family_id, created_at);
 
--- Emails pulled from ausuhak.com@gmail.com that carry documents.
+-- Emails pulled from ausuhak@gmail.com that carry documents.
 create table if not exists crm_inbound_emails (
   id uuid primary key default gen_random_uuid(),
   gmail_id text not null unique,

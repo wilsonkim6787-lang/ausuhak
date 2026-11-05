@@ -7,7 +7,7 @@ export const SITE = {
     "호주 대학 교직원 출신 Wilson이 20년 동안 직접 상담했습니다. 검정고시, 간호, 약대, 의대, 경영 진학 루트와 학생비자 문의까지, 상황을 보내 주시면 가능한 길을 먼저 알려 드립니다.",
   phone: "010-9848-7789",
   phoneIntl: "+82-10-9848-7789",
-  email: "ausuhak.com@gmail.com",
+  email: "ausuhak@gmail.com",
   kakao: "https://pf.kakao.com/_GadTX",
   hours: "평일 10:00 ~ 19:00",
   owner: "김구복",

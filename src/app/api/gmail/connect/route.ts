@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { gmailAuthUrl, gmailClientReady } from "@/lib/crm/gmail";
 
-// Admin-only: sends Wilson to Google to allow read access to ausuhak.com@gmail.com.
+// Admin-only: sends Wilson to Google to allow read access to ausuhak@gmail.com.
 export async function GET(req: NextRequest) {
   const { profile } = await getSession();
   const origin = new URL(req.url).origin;

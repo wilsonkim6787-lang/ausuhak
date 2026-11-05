@@ -75,7 +75,7 @@ export default async function MailPage({ searchParams }: { searchParams: Promise
     <>
       <header className="ad-head">
         <div>
-          <span className="ad-sub">{on ? `${account || "ausuhak.com@gmail.com"} 연결됨 · 최근 14일 첨부 메일` : "ausuhak.com@gmail.com"}</span>
+          <span className="ad-sub">{on ? `${account || "ausuhak@gmail.com"} 연결됨 · 최근 14일 첨부 메일` : "ausuhak@gmail.com"}</span>
           <h1 className="ad-h1">메일로 받은 서류</h1>
         </div>
         <div className="ad-row" style={{ alignItems: "center" }}>
@@ -94,7 +94,7 @@ export default async function MailPage({ searchParams }: { searchParams: Promise
         <div className="ad-memo" style={{ margin: 0, fontSize: 14, color: "#8A5A1F", fontWeight: 700, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between" }}>
           <span>
             {clientReady
-              ? "Gmail이 아직 연결되지 않았습니다. 버튼을 누르고 ausuhak.com@gmail.com으로 허용하면 매일 아침 서류 메일을 가져옵니다."
+              ? "Gmail이 아직 연결되지 않았습니다. 버튼을 누르고 ausuhak@gmail.com으로 허용하면 매일 아침 서류 메일을 가져옵니다."
               : "Gmail 연결 키가 아직 설정되지 않았습니다. 이미 들어온 메일은 아래에서 처리할 수 있습니다."}
           </span>
           {clientReady ? (
@@ -201,7 +201,7 @@ export default async function MailPage({ searchParams }: { searchParams: Promise
       <section className="ad-card" style={{ gap: 8, maxWidth: 860, padding: "20px 24px" }}>
         <h2 className="ad-h2" style={{ fontSize: 18 }}>학생에게 드리는 안내</h2>
         <p style={{ margin: 0, fontSize: 15, lineHeight: 1.75, color: "#4A5568" }}>
-          서류는 마이페이지에 바로 올리셔도 되고, ausuhak.com@gmail.com 으로 보내셔도 됩니다. 메일 제목에 학생 이름을 적어 주시면 더 빨리 확인합니다.
+          서류는 마이페이지에 바로 올리셔도 되고, ausuhak@gmail.com 으로 보내셔도 됩니다. 메일 제목에 학생 이름을 적어 주시면 더 빨리 확인합니다.
         </p>
       </section>
     </>
