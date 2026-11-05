@@ -1,5 +1,4 @@
 {
-  "crons": [
-    { "path": "/api/cron/care", "schedule": "0 0 * * *" }
-  ]
+  "regions": ["icn1"],
+  "crons": [{ "path": "/api/cron/gmail", "schedule": "0 22 * * *" }]
 }

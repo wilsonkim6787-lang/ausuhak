@@ -1,50 +1,41 @@
-import createMiddleware from "next-intl/middleware";
-import { NextRequest, NextResponse } from "next/server";
-import { routing } from "./i18n/routing";
-import { updateSession } from "./lib/supabase/middleware";
+import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
 
-// /admin/* = Wilson (super_admin) 전용. 미들웨어 = 1차 cookie 기반 차단.
-// 실제 role 검증 = /admin/layout.tsx에서 2차 (DB의 users.role).
-// PART C-1 / PART M-5 Layer 2 (API/middleware).
+// Refreshes the Supabase session on signed-in areas and sends signed-out
+// visitors to /login. Role checks happen again in the admin/mypage layouts.
+export async function proxy(request: NextRequest) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  let response = NextResponse.next({ request });
+  if (!url || !key) return response;
 
-const intlMiddleware = createMiddleware(routing);
+  const supabase = createServerClient(url, key, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(toSet) {
+        toSet.forEach(({ name, value }) => request.cookies.set(name, value));
+        response = NextResponse.next({ request });
+        toSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+      },
+    },
+  });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-function isAdminPath(pathname: string): boolean {
-  // /admin, /admin/*, /en/admin, /ko/admin 등 모든 locale 변형 매칭
-  return /^\/(?:en\/|ko\/)?admin(?:\/|$)/.test(pathname);
-}
-
-export default async function middleware(request: NextRequest) {
-  // 1) next-intl 라우팅 먼저 실행 → locale 처리된 응답 생성
-  const intlResponse = intlMiddleware(request);
-
-  // 2) intl 응답 위에 Supabase 세션 refresh (cookie 동기화)
-  const { user } = await updateSession(request, intlResponse);
-
-  // 3) /admin/* 진입 시 로그인 안 됐으면 /login으로
-  if (isAdminPath(request.nextUrl.pathname) && !user) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/login";
-    loginUrl.searchParams.set("from", request.nextUrl.pathname);
-    return NextResponse.redirect(loginUrl);
+  const path = request.nextUrl.pathname;
+  const needsLogin = path.startsWith("/admin") || path.startsWith("/mypage");
+  if (needsLogin && !user) {
+    const to = request.nextUrl.clone();
+    to.pathname = "/login";
+    to.search = "?next=" + encodeURIComponent(path);
+    return NextResponse.redirect(to);
   }
-
-  // 4) 국가 코드 쿠키 — HeroVideo가 클라이언트에서 읽어 한국 IP 모바일에만
-  //    배경 영상을 허용. Vercel 엣지 헤더 기반(로컬 개발 등 헤더 없으면 미설정 → 미재생).
-  const country = request.headers.get("x-vercel-ip-country");
-  if (country) {
-    intlResponse.cookies.set("ip-country", country, {
-      path: "/",
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24,
-    });
-  }
-
-  return intlResponse;
+  return response;
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next|_vercel|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)",
-  ],
+  matcher: ["/admin/:path*", "/mypage/:path*", "/login", "/signup", "/auth/:path*"],
 };

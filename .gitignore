@@ -51,3 +51,5 @@ next-env.d.ts
 # Python (scripts/ 실행 시 자동 생성되는 bytecode 캐시)
 __pycache__/
 *.pyc
+tools/__pycache__/
+tools/.tmp_*

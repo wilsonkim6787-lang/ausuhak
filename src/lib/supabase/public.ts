@@ -1,13 +1,15 @@
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 
-// 공개 데이터 전용 Supabase 클라이언트 (성능 핵심).
-// - 쿠키를 읽지 않음 → 페이지가 정적 렌더링/ISR 가능해져 방문자에게 캐시로 즉시 응답
-// - anon 키 = RLS의 익명 공개 정책만 통과 (published 콘텐츠 등)
-// 로그인 상태가 필요한 화면은 기존 server.ts(createClient)를 그대로 사용.
-export function createPublicClient() {
-  return createSupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    { auth: { persistSession: false, autoRefreshToken: false } },
-  );
+// Anonymous client for published public content (offers, news). No cookies, so
+// pages stay statically cacheable. Returns null when env is not configured
+// (e.g. a local build), and callers render an empty state.
+export function publicClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+}
+
+export function storageUrl(bucket: string, path: string) {
+  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
 }

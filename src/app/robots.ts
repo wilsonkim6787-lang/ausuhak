@@ -1,25 +1,13 @@
-// robots.txt — 관리자·직원·학생 전용 영역 수집 차단 + sitemap 안내.
 import type { MetadataRoute } from "next";
+import { SITE } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
+  // Preview deployments must not be indexed; only production is.
+  const isProd = process.env.VERCEL_ENV ? process.env.VERCEL_ENV === "production" : true;
+  if (!isProd) return { rules: [{ userAgent: "*", disallow: "/" }] };
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: [
-          "/admin",
-          "/staff",
-          "/mypage",
-          "/api/",
-          "/login",
-          "/signup",
-          "/reset-password",
-          "/update-password",
-          "/auth/",
-        ],
-      },
-    ],
-    sitemap: "https://ausuhak.com/sitemap.xml",
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/mypage", "/api/", "/login", "/signup"] }],
+    sitemap: SITE.url + "/sitemap.xml",
+    host: SITE.url,
   };
 }

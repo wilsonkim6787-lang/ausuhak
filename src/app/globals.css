@@ -1,133 +1,30 @@
-/* Pretendard Variable - 한글 메인 폰트 (PART O O-3) - @import는 최상단
-   전체 variable 빌드 사용 (dynamic-subset은 일부 한글 글자 누락 위험) */
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
-@import "tailwindcss";
-
-@theme inline {
-  /* ───────────────────────────────────────
-     Colors - PART O O-2 (Navy + Gold + Cream)
-     ─────────────────────────────────────── */
-  --color-navy-950: #050d1a;
-  --color-navy-900: #0A1628;
-  --color-navy-800: #1A3A6E;
-  --color-navy-700: #2C4F8A;
-  --color-navy-600: #4a6892;
-  --color-navy-500: #5a78a4;
-
-  --color-gold-700: #9D7521;
-  --color-gold-600: #C9962A;
-  --color-gold-500: #E5B445;
-  --color-gold-400: #F5DC8B;
-  --color-gold-300: #F9E6AC;
-  --color-gold-100: #FFF8EB;
-
-  --color-cream-100: #FBF7EE;
-  --color-cream-200: #F5EFD9;
-  --color-cream-300: #E8E0D0;
-
-  --color-ink-900: #1A1A1A;
-  --color-ink-700: #4A4A4A;
-  --color-ink-500: #7A7A7A;
-  --color-ink-400: #9A9A9A;
-  --color-ink-300: #BDBDBD;
-
-  --color-success: #5a8d6e;
-  --color-info: #4a78a4;
-  --color-warning: #C9962A;
-  --color-error: #a4543b;
-
-  --color-background: var(--color-cream-100);
-  --color-foreground: var(--color-ink-900);
-
-  /* ───────────────────────────────────────
-     Typography
-     ─────────────────────────────────────── */
-  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-display: var(--font-playfair), 'Pretendard Variable', Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-
-  /* ───────────────────────────────────────
-     Radius (PART O O-17)
-     ─────────────────────────────────────── */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-pill: 999px;
-
-  /* ───────────────────────────────────────
-     Shadow (PART O O-17)
-     ─────────────────────────────────────── */
-  --shadow-sm: 0 2px 8px rgba(10, 22, 40, 0.06);
-  --shadow-md: 0 4px 16px rgba(10, 22, 40, 0.08);
-  --shadow-lg: 0 8px 24px rgba(10, 22, 40, 0.12);
-
-  /* ───────────────────────────────────────
-     Animation
-     ─────────────────────────────────────── */
-  --transition-fast: 150ms ease-out;
-  --transition-base: 200ms ease-in-out;
-  --transition-slow: 300ms ease-out;
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  color: #1C1F24;
+  background: #F3F3F1;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
+img, video { max-width: 100%; }
+button, input, select, textarea { font-family: inherit; }
+:focus-visible { outline: 2px solid #8E2A3B; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+input, select, textarea { min-width: 0; }
 
-/* ───────────────────────────────────────
-   Reset + Base
-   @layer base 로 감싸야 함 — Tailwind v4 에서 layered utilities (text-white 등) 가
-   unlayered tag selector (a, button) 보다 낮은 우선순위를 가지므로,
-   layered 안으로 넣어야 utilities 가 정상적으로 이긴다.
-   (2026-05-16 Wilson 발견: active 탭 글자가 검정으로 묻히는 버그 = a { color: inherit } 가 text-white 를 이김)
-   ─────────────────────────────────────── */
-@layer base {
-  * {
-    box-sizing: border-box;
-  }
-  html {
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-  }
-  body {
-    background: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.7;
-    letter-spacing: -0.02em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-  button {
-    font: inherit;
-    cursor: pointer;
-  }
-  :focus-visible {
-    outline: 2px solid var(--color-gold-600);
-    outline-offset: 4px;
-    border-radius: 4px;
-  }
+/* One heading face across the site: Noto Serif KR 500, as on the home page. */
+.ux-page-board h1, .ux-page-board h2, .ux-med h1, .ux-med h2, .au-side h1, .au-form h2, .mp-serif {
+  font-family: "Noto Serif KR", serif !important; font-weight: 500 !important; letter-spacing: -0.02em !important; text-wrap: balance;
 }
+.ux-page-board p, .ux-med p { text-wrap: pretty; }
 
-/* Hero 등장 애니메이션 — 로드 시 부드럽게 떠오름 */
-@keyframes heroRise {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Medical centre header on phones: drop the notice strip, keep the menu on one scrollable row. */
+@media (max-width: 639px) {
+  .med-notice { display: none; }
+  .med-nav { order: 3; width: 100%; flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: none; }
+  .med-nav::-webkit-scrollbar { display: none; }
+  .med-acts > a:first-child { display: none !important; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .animate-\[heroRise_0\.7s_ease-out_both\] { animation: none !important; }
-}
-
-/* Quote PDF print stylesheet (Step 2.4) */
-@media print {
-  @page { margin: 12mm; size: A4; }
-  body { background: #fff !important; }
-}
-

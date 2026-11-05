@@ -1,0 +1,109 @@
+/* Site palette — the same tokens as the home page:
+   ink #1C1F24 · body #454B55 · muted #5C6370 · line rgba(28,31,36,.13) · alt ground #F3F3F1 · wine #8E2A3B */
+.ux-page { font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; color: #1C1F24; background: #FFFFFF; line-height: 1.65; font-size: 17px; letter-spacing: -0.2px; min-height: 100vh; display: flex; flex-direction: column; word-break: keep-all; }
+:where(.ux-page) a { color: #1C1F24; }
+:where(.ux-page) a:hover { color: #8E2A3B; }
+.ux-page :focus-visible { outline: 2px solid #8E2A3B; outline-offset: 2px; }
+.ux-wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+/* Header */
+.ux-head { position: sticky; top: 0; z-index: 30; background: #FFFFFF; border-bottom: 1px solid rgba(28,31,36,.13); }
+.ux-head-in { max-width: 1280px; margin: 0 auto; height: 72px; padding: 0 max(24px, env(safe-area-inset-right, 0px)) 0 max(24px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 28px; }
+.ux-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
+.ux-page .ux-logo:hover { color: #1C1F24; }
+.ux-logo-mark { width: 32px; height: 32px; border-radius: 8px; background: #1C1F24; color: #FFFFFF; display: grid; place-items: center; font: 500 16px "Noto Serif KR", serif; }
+.ux-logo-text { font: 500 19px "Noto Serif KR", serif; }
+.ux-logo-sub { font-size: 14px; color: #5C6370; }
+.ux-nav { display: flex; gap: 24px; font-size: 15px; font-weight: 500; }
+.ux-nav a { text-decoration: none; white-space: nowrap; padding: 8px 0; background: linear-gradient(#1C1F24, #1C1F24) no-repeat 0 100% / 0 1px; transition: background-size .2s; }
+.ux-page .ux-nav a:hover { color: #1C1F24; background-size: 100% 1px; }
+.ux-nav a[aria-current="page"] { background-size: 100% 2px; }
+.ux-cta { display: inline-flex; align-items: center; height: 48px; padding: 0 24px; border-radius: 10px; background: #8E2A3B; color: #FFFFFF !important; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap; }
+.ux-cta:hover { background: #74202F; }
+.ux-menu { display: none; position: relative; }
+.ux-menu summary { list-style: none; cursor: pointer; height: 44px; padding: 0 16px; display: flex; align-items: center; border: 1px solid rgba(28,31,36,.25); border-radius: 10px; font-size: 15px; font-weight: 500; }
+.ux-menu summary::-webkit-details-marker { display: none; }
+.ux-menu-sheet { position: fixed; left: 0; right: 0; top: 56px; bottom: 0; background: #FFFFFF; display: flex; flex-direction: column; padding: 8px 24px 24px; overflow-y: auto; }
+.ux-menu-sheet a { min-height: 56px; display: flex; align-items: center; border-bottom: 1px solid rgba(28,31,36,.13); text-decoration: none; font-size: 17px; font-weight: 500; }
+
+/* Content helpers used by the FAQ, news, offers and legal pages */
+.ux-main { flex: 1; padding: 56px 0 96px; }
+.ux-crumbs { font-size: 14px; color: #5C6370; display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.ux-page .ux-crumbs a { color: #5C6370; text-decoration: none; }
+.ux-h1 { font: 500 42px/1.3 "Noto Serif KR", serif; letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: balance; }
+.ux-lead { font-size: 18px; color: #454B55; margin: 0 0 32px; max-width: 40em; text-wrap: pretty; }
+.ux-card { background: #FFFFFF; border: 1px solid rgba(28,31,36,.13); border-radius: 16px; padding: 24px; }
+.ux-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.ux-chip { border: 1px solid rgba(28,31,36,.2); background: #FFFFFF; border-radius: 999px; padding: 8px 16px; font-size: 15px; font-weight: 500; text-decoration: none; }
+.ux-chip[aria-current="true"] { background: #1C1F24; color: #FFFFFF !important; border-color: #1C1F24; }
+.ux-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.ux-muted { color: #5C6370; }
+.ux-tag { display: inline-block; font-size: 13px; font-weight: 500; color: #8E2A3B; background: #FBF1F3; border-radius: 999px; padding: 3px 10px; }
+.ux-prose { font-size: 17px; line-height: 1.85; color: #1C1F24; }
+.ux-prose h2 { font: 500 26px/1.4 "Noto Serif KR", serif; margin: 40px 0 12px; letter-spacing: -0.01em; text-wrap: balance; }
+.ux-prose h3 { font-size: 20px; font-weight: 600; margin: 28px 0 10px; }
+.ux-prose p { margin: 0 0 18px; text-wrap: pretty; }
+.ux-prose ul, .ux-prose ol { padding-left: 1.3em; margin: 0 0 18px; }
+.ux-prose li { margin: 4px 0; }
+.ux-prose blockquote { margin: 0 0 18px; padding: 14px 18px; background: #F3F3F1; border-left: 3px solid #8E2A3B; border-radius: 0 12px 12px 0; }
+.ux-prose blockquote p:last-child { margin: 0; }
+.ux-prose table { border-collapse: collapse; width: 100%; font-size: 15px; display: block; overflow-x: auto; margin: 0 0 18px; }
+.ux-prose th, .ux-prose td { border: 1px solid rgba(28,31,36,.13); padding: 8px 10px; text-align: left; vertical-align: top; }
+.ux-prose th { background: #F3F3F1; }
+.ux-prose a { color: #8E2A3B; }
+.ux-prose img { border-radius: 12px; height: auto; }
+
+/* Buttons */
+.ux-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 24px; border-radius: 10px; font-weight: 500; text-decoration: none; font-size: 16px; white-space: nowrap; border: 1px solid transparent; }
+.ux-btn-p { background: #8E2A3B; color: #FFFFFF !important; }
+.ux-btn-p:hover { background: #74202F; }
+.ux-btn-s { background: #FFFFFF; color: #1C1F24 !important; border-color: rgba(28,31,36,.25); }
+.ux-btn-w { background: transparent; color: #FFFFFF !important; border-color: rgba(255,255,255,.6); }
+.ux-btn-lg { height: 56px; padding: 0 32px; font-size: 17px; }
+.ux-arr { width: 16px; height: 16px; }
+
+/* Ask box */
+.ux-ask { margin-top: 56px; background: #1C1F24; color: #FFFFFF; border-radius: 16px; padding: 40px; display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: center; justify-content: space-between; }
+.ux-ask h2 { margin: 0 0 8px; font: 500 26px/1.4 "Noto Serif KR", serif; text-wrap: balance; }
+.ux-ask p { margin: 0; color: rgba(255,255,255,.78); text-wrap: pretty; }
+.ux-ask-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Footer */
+.ux-foot { background: #1C1F24; color: #FFFFFF; padding: 96px 0 56px; font-size: 15px; }
+.ux-foot-in { max-width: 1280px; display: flex; flex-direction: column; gap: 72px; }
+.ux-close { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px; }
+.ux-close h2 { margin: 0; font: 500 44px/1.3 "Noto Serif KR", serif; letter-spacing: -0.02em; max-width: 14em; text-wrap: balance; }
+.ux-close p { margin: 16px 0 0; color: rgba(255,255,255,.75); font-size: 18px; }
+.ux-dir { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; border-top: 1px solid rgba(255,255,255,.18); padding-top: 40px; }
+.ux-dir-name { grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 8px; }
+.ux-dir-name b { font: 500 26px "Noto Serif KR", serif; }
+.ux-dir-name span { color: rgba(255,255,255,.7); }
+.ux-dir-col { grid-column: span 2; display: flex; flex-direction: column; gap: 10px; }
+.ux-dir-wide { grid-column: span 4; }
+.ux-dir-col h4 { margin: 0 0 4px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.6); }
+.ux-foot a { color: #FFFFFF !important; text-decoration: none; }
+.ux-foot a:hover { text-decoration: underline; }
+.ux-legal { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: rgba(255,255,255,.6); border-top: 1px solid rgba(255,255,255,.18); padding-top: 24px; }
+.ux-legal a { color: rgba(255,255,255,.8) !important; }
+.ux-bar { display: none; }
+
+@media (max-width: 1279px) { .ux-nav { gap: 18px; } }
+@media (max-width: 1023px) {
+  .ux-nav { display: none; }
+  .ux-menu { display: block; }
+  .ux-dir-name, .ux-dir-col, .ux-dir-wide { grid-column: span 6; }
+}
+@media (max-width: 639px) {
+  .ux-head-in { height: 56px; gap: 12px; }
+  .ux-cta, .ux-logo-sub { display: none; }
+  .ux-h1 { font-size: 30px; }
+  .ux-main { padding: 32px 0 64px; }
+  .ux-ask { padding: 28px 24px; }
+  .ux-ask-btns, .ux-ask-btns .ux-btn { width: 100%; }
+  .ux-close h2 { font-size: 30px; }
+  .ux-close .ux-btn { width: 100%; }
+  .ux-dir-name, .ux-dir-col, .ux-dir-wide { grid-column: 1 / -1; }
+  .ux-foot { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+  .ux-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; gap: 8px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: #FFFFFF; border-top: 1px solid rgba(28,31,36,.13); }
+  .ux-bar .ux-btn { flex: 1; }
+}

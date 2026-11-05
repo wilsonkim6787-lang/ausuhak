@@ -1,0 +1,19 @@
+{
+ "Main.dc.html": "/medical",
+ "Universities.dc.html": "/medical/universities",
+ "Admission.dc.html": "/medical/admission",
+ "Calendar.dc.html": "/medical/calendar",
+ "IbSat.dc.html": "/medical/ib-sat",
+ "Interview.dc.html": "/medical/mmi",
+ "InterviewLab.dc.html": "/medical/interview-lab",
+ "Mock.dc.html": "/medical/isat-mock",
+ "Practice.dc.html": "/medical/isat",
+ "Scores.dc.html": "/medical/scores",
+ "Services.dc.html": "/medical/services",
+ "UcatMock.dc.html": "/medical/ucat-mock",
+ "https://www.ausuhak.com/medical": "/medical",
+ "https://ausuhak.com/medical": "/medical",
+ "https://www.ausuhak.com": "/",
+ "https://ausuhak.com": "/",
+ "https://claude.ai/artifact/HAXDZWrvBB9Uaa8pT1ZCKZ": "/medical/interview-lab"
+}
