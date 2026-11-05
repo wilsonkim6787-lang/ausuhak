@@ -2,7 +2,7 @@
 import { pageMeta, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import MainView from "@/views/site/Main";
 
-export const metadata = pageMeta({"title": "호주유학 | 검정고시·간호·약대 진학 루트, Wilson이 직접 상담", "description": "호주 대학 교직원 출신 Wilson이 20년 동안 직접 상담했습니다. 검정고시, 간호, 약대, 경영 진학 루트와 학생비자 문의까지, 상황을 보내 주시면 가능한 길을 먼저 알려 드립니다.", "path": "/"});
+export const metadata = pageMeta({"title": "호주 유학 상담 | 간호·약대·의대 진학 - AusUhak(호주유학)", "description": "검정고시·고졸·대졸 학생과 부모님을 위한 호주 대학 진학 상담입니다. 간호 70명 이상, 약대 38명, 의대 21명 진학, 실제 합격증 45건과 질문 406개를 확인하고 상황을 보내 주세요.", "path": "/"});
 
 const crumbs = [{"name": "홈", "path": "/"}];
 

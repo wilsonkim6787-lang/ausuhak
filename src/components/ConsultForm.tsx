@@ -2,6 +2,7 @@
 import { useState } from "react";
 import type { FormEvent, FormHTMLAttributes } from "react";
 import { SITE } from "@/lib/site";
+import { track } from "@/lib/track";
 
 type Props = FormHTMLAttributes<HTMLFormElement> & { source: string };
 
@@ -24,6 +25,7 @@ export default function ConsultForm({ source, children, style, ...rest }: Props)
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (state === "sending") return;
+    const formEl = e.currentTarget;
     const fields: Record<string, string> = {};
     let agreed = false;
     for (const el of Array.from(e.currentTarget.elements) as HTMLInputElement[]) {
@@ -47,6 +49,7 @@ export default function ConsultForm({ source, children, style, ...rest }: Props)
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ source, page: window.location.pathname, fields, agreed }),
       });
+      if (res.ok) track("form_submit", { label: source, section: (formEl.closest("section[id]") as HTMLElement | null)?.id || "" });
       setState(res.ok ? "done" : "error");
     } catch {
       setState("error");

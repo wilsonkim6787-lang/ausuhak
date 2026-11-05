@@ -23,6 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     { href: "/admin/mail", label: "메일 서류함", count: mail.count ?? 0, alert: true },
     { href: "/admin/consults", label: "상담 신청", count: consults.count ?? 0, alert: true },
     { href: "/admin/minors", label: "미성년 학생" },
+    { href: "/admin/stats", label: "홈페이지 반응" },
   ];
   return (
     <div className="ad">

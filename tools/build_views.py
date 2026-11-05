@@ -15,7 +15,7 @@ SP = sys.argv[1]
 
 # (source board, view name, route path, breadcrumb name, title override, description override, client-only)
 SITE_PAGES = [
-    ("design/project/Main.dc.html", "site/Main", "/", "홈", None, None, False),
+    ("design/project/Main.dc.html", "site/Main", "/", "홈", "호주 유학 상담 | 간호·약대·의대 진학 - AusUhak(호주유학)", "검정고시·고졸·대졸 학생과 부모님을 위한 호주 대학 진학 상담입니다. 간호 70명 이상, 약대 38명, 의대 21명 진학, 실제 합격증 45건과 질문 406개를 확인하고 상황을 보내 주세요.", False),
     ("design/project/Nursing.dc.html", "site/Nursing", "/nursing", "보건·간호", None, None, False),
     ("design/project/Pharmacy.dc.html", "site/Pharmacy", "/pharmacy", "약대", None, None, False),
     ("design/project/Business.dc.html", "site/Business", "/business", "경영·회계", None, None, False),
@@ -130,6 +130,14 @@ def patch_main(path):
     open(path, "w", encoding="utf-8").write(t)
 
 
+def patch_home_fonts(path):
+    """The home board names Google faces; the site loads Pretendard globally and Noto Serif KR via next/font."""
+    t = open(path, encoding="utf-8").read()
+    t = t.replace("'IBM Plex Sans KR'", "'Pretendard Variable','Pretendard'")
+    t = t.replace("var(--font-serif-kr),'Noto Serif KR'", "'Noto Serif KR'")
+    open(path, "w", encoding="utf-8").write(t)
+
+
 def write_page(route, view, crumbs, title, desc, client_only):
     d = os.path.join(ROOT, "src/app", route.strip("/")) if route != "/" else os.path.join(ROOT, "src/app")
     os.makedirs(d, exist_ok=True)
@@ -165,6 +173,7 @@ for board, view, route, crumb, t, dsc, co in SITE_PAGES:
     run(board, view, "tools/links_design.json")
     if view == "site/Main":
         patch_main(os.path.join(ROOT, "src/views/site/Main.tsx"))
+        patch_home_fonts(os.path.join(ROOT, "src/views/site/Main.tsx"))
     crumbs = [{"name": "홈", "path": "/"}] + ([{"name": crumb, "path": route}] if route != "/" else [])
     write_page(route, view, crumbs, t or ht, dsc or hd, co)
     print("ok", route)

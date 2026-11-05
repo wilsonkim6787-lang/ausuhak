@@ -10,6 +10,7 @@
     "views": "python3 tools/build_views.py"
   },
   "dependencies": {
+    "@fontsource/noto-serif-kr": "^5.3.1",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.105.4",
     "@vercel/analytics": "^2.0.1",
