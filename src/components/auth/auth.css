@@ -22,7 +22,7 @@
 .au-or { display: flex; align-items: center; gap: 10px; color: #8A8D92; font-size: 13px; }
 .au-or::before, .au-or::after { content: ""; flex: 1; height: 1px; background: #E7E7E4; }
 .au-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 14px; }
-.au-row a { color: #8E2A3B; }
+.au-row a { color: #8E2A3B; display: inline-flex; align-items: center; min-height: 44px; }
 .au-roles { display: flex; gap: 8px; }
 .au-roles label { flex: 1; flex-direction: row !important; align-items: center; justify-content: center; min-height: 48px; border: 2px solid #E7E7E4; border-radius: 12px; cursor: pointer; font-size: 15px !important; }
 .au-roles input { position: absolute; opacity: 0; pointer-events: none; }

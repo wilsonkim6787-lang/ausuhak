@@ -28,3 +28,11 @@ input, select, textarea { min-width: 0; }
   .med-nav::-webkit-scrollbar { display: none; }
   .med-acts > a:first-child { display: none !important; }
 }
+
+/* Phones: board pages set small labels inline; lift them to a readable size (DESIGN.md: 14px floor, medical charts 12px floor). */
+@media (max-width: 639px) {
+  .ux-page-board [style*="font-size:12px"], .ux-page-board [style*="font-size:13px"] { font-size: 14px !important; }
+  .ux-med [style*="font-size:11px"] { font-size: 12px !important; }
+  .ux-med [style*="font-size:12px"]:not(svg *) { font-size: 13px !important; }
+  .ux-med [style*="font-size:13px"]:not(svg *) { font-size: 14px !important; }
+}
