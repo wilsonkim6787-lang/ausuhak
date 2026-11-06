@@ -33,6 +33,14 @@ export async function proxy(request: NextRequest) {
     to.search = "?next=" + encodeURIComponent(path);
     return NextResponse.redirect(to);
   }
+  // Signed-in visitors who tap 로그인 or 가입하기 go straight to their page.
+  if (user && (path === "/login" || path === "/signup")) {
+    const to = request.nextUrl.clone();
+    const next = request.nextUrl.searchParams.get("next");
+    to.pathname = next && next.startsWith("/") && !next.startsWith("//") ? next : "/mypage";
+    to.search = "";
+    return NextResponse.redirect(to);
+  }
   return response;
 }
 

@@ -99,7 +99,7 @@ SITE_COLORS = {
     "#0F1B2D": "#1C1F24", "#0A2540": "#15171B", "#1B2A41": "#2A2E35", "#0E3A6B": "#6E1F2D",
     "#0E4C92": "#8E2A3B", "#4A5568": "#454B55", "#5B6577": "#5C6370", "#5A6475": "#5C6370",
     "#33506E": "#454B55", "#AEB6C2": "#A3A6AB", "#9FB0C6": "#A3A6AB", "#C9D3E1": "#C8C9C6",
-    "#C9D3E0": "#C8C9C6", "#8EC5FF": "#F2D9DE", "#C5DAF0": "#E7E7E4", "#E3E8EF": "#E7E7E4",
+    "#C9D3E0": "#C8C9C6", "#8EC5FF": "#F2D9DE", "#6FA3DA": "#C98A95", "#C5DAF0": "#E7E7E4", "#E3E8EF": "#E7E7E4",
     "#F5F7FA": "#F3F3F1", "#EAF2FB": "#F3F3F1", "#EEF2F7": "#F3F3F1", "#E6EEF6": "#ECECE9",
     "#F0F4F9": "#F3F3F1", "#E7F0FB": "#FBF1F3", "#D5DCE6": "#E7E7E4", "#5B43A0": "#8E2A3B",
     "#9B2C3E": "#8E2A3B", "#7A1F30": "#6E1F2D", "#1F6B5C": "#1C1F24", "#E4F1EC": "#F3F3F1",
@@ -277,6 +277,44 @@ def patch_home_fonts(path):
     open(path, "w", encoding="utf-8").write(t)
 
 
+def patch_home_images(path):
+    """Home page: WebP photos (phone-sized copy where one exists), lazy loading below the fold,
+    high priority for the first photo, and a <main> landmark around the page sections."""
+    t = open(path, encoding="utf-8").read()
+    home = os.path.join(ROOT, "public/assets/home")
+
+    def webp(m):
+        name = m.group(1)
+        return "/assets/home/%s.webp" % name if os.path.exists(os.path.join(home, name + ".webp")) else m.group(0)
+    t = re.sub(r"/assets/home/([A-Za-z0-9_]+)\.jpg", webp, t)
+
+    def img(m):
+        tag = m.group(0)
+        if "loading=" in tag or "fetchPriority" in tag:
+            return tag
+        sm = re.search(r'src=\{"/assets/home/([A-Za-z0-9_]+)\.webp"\}', tag)
+        extra = ""
+        first = 'className={"layer"}' in tag or 'className={"f1"}' in tag
+        if 'className={"f2"}' in tag or 'className={"f3"}' in tag:
+            return tag[:-3] + ' fetchPriority={"high"} decoding={"async"} />'
+
+        if sm and os.path.exists(os.path.join(home, sm.group(1) + "-800.webp")):
+            n = sm.group(1)
+            sizes = "100vw" if first else "(max-width: 1023px) 100vw, 50vw"
+            extra += ' srcSet={"/assets/home/%s-800.webp 800w, /assets/home/%s.webp 1400w"} sizes={"%s"}' % (n, n, sizes)
+        elif "src={v?.active?.img}" in tag:
+            extra += ' srcSet={`${(v?.active?.img ?? "").replace(".webp", "-800.webp")} 800w, ${v?.active?.img} 1456w`} sizes={"(max-width: 1023px) 100vw, 58vw"}'
+        extra += ' fetchPriority={"high"} decoding={"async"}' if first else ' loading={"lazy"} decoding={"async"}'
+        return tag[:-3] + extra + " />" if tag.endswith(" />") else tag
+    t = re.sub(r"<img [^>]*?/>", img, t)
+    t = t.replace('<img className={"pthumb"} src={m?.img}', '<img className={"pthumb"} src={(m?.img ?? "").replace(".webp", "-t.webp")} width={76} height={76}', 1)
+
+    if "<main" not in t and "</header>" in t and '<footer className={"closing"}>' in t:
+        t = t.replace("</header>", "</header><main>", 1)
+        t = t.replace('<footer className={"closing"}>', '</main><footer className={"closing"}>', 1)
+    open(path, "w", encoding="utf-8").write(t)
+
+
 def write_page(route, view, crumbs, title, desc, client_only):
     d = os.path.join(ROOT, "src/app", route.strip("/")) if route != "/" else os.path.join(ROOT, "src/app")
     os.makedirs(d, exist_ok=True)
@@ -341,6 +379,7 @@ for board, view, route, crumb, t, dsc, co in SITE_PAGES:
     if view == "site/Main":
         patch_main(os.path.join(ROOT, "src/views/site/Main.tsx"))
         patch_home_fonts(os.path.join(ROOT, "src/views/site/Main.tsx"))
+        patch_home_images(os.path.join(ROOT, "src/views/site/Main.tsx"))
     crumbs = [{"name": "홈", "path": "/"}] + ([{"name": crumb, "path": route}] if route != "/" else [])
     write_page(route, view, crumbs, t or ht, dsc or hd, co)
     print("ok", route)

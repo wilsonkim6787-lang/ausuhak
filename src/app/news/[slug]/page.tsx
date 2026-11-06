@@ -34,7 +34,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ slug: s
     headline: p.title,
     description: p.excerpt || undefined,
     datePublished: p.published_at || undefined,
-    author: { "@type": "Person", name: "Wilson Kim (김구복)" },
+    author: { "@type": "Person", name: "Wilson Kim" },
     publisher: { "@id": SITE.url + "/#org" },
     mainEntityOfPage: SITE.url + "/news/" + p.slug,
     inLanguage: "ko-KR",

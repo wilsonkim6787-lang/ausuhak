@@ -40,7 +40,7 @@ export function LoginForm({ next, error }: { next?: string; error?: string }) {
         <label>이메일<input type="email" name="email" autoComplete="email" required /></label>
         <label>비밀번호<input type="password" name="password" autoComplete="current-password" required /></label>
         <Msg s={s} />
-        <button type="submit" className="au-btn" disabled={pending}>{pending ? "확인 중…" : "로그인"}</button>
+        <button type="submit" className="au-btn" disabled={pending}>{pending ? "로그인하는 중…" : "로그인"}</button>
       </form>
       <div className="au-row">
         <Link href="/login/reset">비밀번호를 잊었어요</Link>
