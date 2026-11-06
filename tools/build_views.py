@@ -304,6 +304,7 @@ def patch_home_images(path):
         extra += ' fetchPriority={"high"} decoding={"async"}' if first else ' loading={"lazy"} decoding={"async"}'
         return tag[:-3] + extra + " />" if tag.endswith(" />") else tag
     t = re.sub(r"<img [^>]*?/>", img, t)
+    t = t.replace('<img className={"pthumb"} src={m?.img}', '<img className={"pthumb"} src={(m?.img ?? "").replace(".webp", "-t.webp")} width={76} height={76}', 1)
 
     if "<main" not in t and "</header>" in t and '<footer className={"closing"}>' in t:
         t = t.replace("</header>", "</header><main>", 1)

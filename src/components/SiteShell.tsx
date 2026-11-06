@@ -36,6 +36,8 @@ export function SiteHeader({ current }: { current?: string }) {
             </Link>
           ))}
         </nav>
+        <Link href="/login" className="ux-login">로그인</Link>
+        <Link href="/signup" className="ux-join">가입하기</Link>
         <Link href="/#ask" className="ux-cta">내 상황 보내기</Link>
         <details className="ux-menu">
           <summary aria-label="메뉴 열기">메뉴</summary>
@@ -43,6 +45,7 @@ export function SiteHeader({ current }: { current?: string }) {
             {NAV.map((n) => (
               <Link key={n.href} href={n.href}>{n.label}</Link>
             ))}
+            <Link href="/login">로그인 · 마이페이지</Link>
             <Link href="/#ask">내 상황 보내기</Link>
           </nav>
         </details>

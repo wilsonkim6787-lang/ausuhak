@@ -44,7 +44,7 @@ export function organizationJsonLd() {
     description: SITE.description,
     telephone: SITE.phoneIntl,
     email: SITE.email,
-    founder: { "@type": "Person", name: "Wilson Kim (김구복)" },
+    founder: { "@type": "Person", name: "Wilson Kim" },
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE.officeAddress.street,

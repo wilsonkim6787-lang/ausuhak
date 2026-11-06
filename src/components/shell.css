@@ -20,6 +20,10 @@
 .ux-nav a[aria-current="page"] { background-size: 100% 2px; }
 .ux-cta { display: inline-flex; align-items: center; height: 48px; padding: 0 24px; border-radius: 10px; background: #8E2A3B; color: #FFFFFF !important; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap; }
 .ux-cta:hover { background: #74202F; }
+.ux-login { text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.ux-page .ux-login:hover { color: #8E2A3B; }
+.ux-join { display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 10px; border: 1px solid rgba(28,31,36,.25); text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.ux-page .ux-join:hover { color: #1C1F24; border-color: #1C1F24; }
 .ux-menu { display: none; position: relative; }
 .ux-menu summary { list-style: none; cursor: pointer; height: 44px; padding: 0 16px; display: flex; align-items: center; border: 1px solid rgba(28,31,36,.25); border-radius: 10px; font-size: 15px; font-weight: 500; }
 .ux-menu summary::-webkit-details-marker { display: none; }
@@ -87,7 +91,7 @@
 .ux-legal a { color: rgba(255,255,255,.8) !important; }
 .ux-bar { display: none; }
 
-@media (max-width: 1279px) { .ux-nav { gap: 18px; } }
+@media (max-width: 1279px) { .ux-nav { gap: 18px; } .ux-login { display: none; } }
 @media (max-width: 1023px) {
   .ux-nav { display: none; }
   .ux-menu { display: block; }
@@ -96,6 +100,7 @@
 @media (max-width: 639px) {
   .ux-head-in { height: 56px; gap: 12px; }
   .ux-cta, .ux-logo-sub { display: none; }
+  .ux-join { height: 44px; padding: 0 14px; margin-left: auto; }
   .ux-h1 { font-size: 30px; }
   .ux-main { padding: 32px 0 64px; }
   .ux-ask { padding: 28px 24px; }
