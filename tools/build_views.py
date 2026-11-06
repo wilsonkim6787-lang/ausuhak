@@ -294,7 +294,10 @@ def patch_home_images(path):
             return tag
         sm = re.search(r'src=\{"/assets/home/([A-Za-z0-9_]+)\.webp"\}', tag)
         extra = ""
-        first = 'className={"layer"}' in tag
+        first = 'className={"layer"}' in tag or 'className={"f1"}' in tag
+        if 'className={"f2"}' in tag or 'className={"f3"}' in tag:
+            return tag[:-3] + ' fetchPriority={"high"} decoding={"async"} />'
+
         if sm and os.path.exists(os.path.join(home, sm.group(1) + "-800.webp")):
             n = sm.group(1)
             sizes = "100vw" if first else "(max-width: 1023px) 100vw, 50vw"
