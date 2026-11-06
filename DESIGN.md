@@ -1,0 +1,64 @@
+---
+version: 1
+name: AusUhak(호주유학) 디자인 규칙
+description: 호주 대학 진학·학생비자 상담 사이트. 학생과 학부모가 믿고 문의하도록 사진과 글자 위계로 신뢰를 주고, 색은 잉크(검정에 가까운 회색) 하나와 와인색 강조 하나로만 쓴다.
+references: airbnb(사진 중심·한 가지 강조색·모바일 하단 고정 버튼), notion(차분한 회색 표면·알약형 분류 탭), intercom(흰 바탕 위 얇은 선·그림자 최소·문장형 소제목)
+
+colors:
+  ink: "#1C1F24"          # 제목, 본문, 어두운 띠 배경
+  ink-2: "#2A2E35"        # 어두운 띠 안의 카드
+  body: "#454B55"         # 보조 본문
+  muted: "#5C6370"        # 메타 정보(날짜, 학교 표기)
+  hairline: "rgba(28,31,36,.13)"
+  hairline-strong: "rgba(28,31,36,.25)"
+  canvas: "#FFFFFF"
+  surface: "#F3F3F1"      # 번갈아 쓰는 섹션 배경, 질문 상자
+  accent: "#8E2A3B"       # 와인색. 주 버튼, 링크, 선택된 항목에만
+  accent-hover: "#74202F"
+  accent-deep: "#6E1F2D"  # 연한 강조 위 글자
+  accent-tint: "#F2D9DE"  # 전공 태그 배경
+  on-dark: "#FFFFFF"
+
+typography:
+  body: "Pretendard Variable, Pretendard, Apple SD Gothic Neo, Malgun Gothic, sans-serif"
+  heading: "Noto Serif KR 500, Apple SD Gothic Neo, serif"
+  scale-desktop: { h1: "clamp(40px,4vw,58px)/1.22", h2: "44px/1.3", h3: "20-22px/1.35", lead: "19px/1.75", body: "16px/1.7", meta: "14px" }
+  scale-phone:   { h1: "clamp(30px,8.4vw,38px)/1.25", h2: "28px/1.3", h3: "18-20px/1.4", lead: "16px/1.75", body: "16px/1.7", meta: "14px" }
+
+rounded: { button: 10px, input: 10px, card: 16px, photo: 16px, pill: 999px }
+spacing: { base: 8px, gutter-desktop: 80px, gutter-phone: 20px, section-desktop: "120px 0 96px", section-phone: "56px 0 48px" }
+elevation: { none: "기본", menu: "0 16px 40px rgba(28,31,36,.16)", hover-card: "0 12px 32px rgba(28,31,36,.12)" }
+---
+
+## 원칙
+
+1. 색은 잉크와 와인색 두 가지뿐이다. 와인색은 한 화면에 한두 번, 사람이 눌러야 하는 곳(내 상황 보내기, 링크, 선택된 탭)에만 쓴다. 남색·바다색·초록 같은 다른 색은 쓰지 않는다.
+2. 신뢰는 실제 사진과 실제 합격증으로 만든다. 장식용 그라데이션, 유리 효과, 의미 없는 배지는 넣지 않는다.
+3. 제목은 명조(Noto Serif KR 500), 나머지는 Pretendard. 굵기는 400·500만 쓴다.
+4. 한국어 줄바꿈은 word-break: keep-all. 긴 영문 학교명·과정명은 overflow-wrap: anywhere.
+5. 상자 안에 상자를 겹치지 않는다. 카드는 흰 바탕 + 얇은 선(hairline) 한 겹, 그림자는 메뉴와 마우스를 올린 카드에만.
+
+## 컴포넌트
+
+- 주 버튼: 와인색 바탕, 흰 글자, 높이 48px, 모서리 10px. 문구는 하는 일을 그대로 쓴다("내 상황 보내기").
+- 보조 버튼: 흰 바탕, 잉크 글자, hairline-strong 테두리, 높이 48px.
+- 분류 탭(질문 분류): 알약형, 높이 44px 이상, 선택되면 잉크 바탕·흰 글자.
+- 합격증 카드: 흰 바탕, 모서리 16px, 위쪽에 합격증 사진(글자 읽히게 위쪽 정렬), 아래 전공 태그(accent-tint)·학교·과정·연도.
+- 입력창: 높이 48px 이상, 글자 16px(아이폰 자동 확대 방지), 위에 라벨 14px.
+- 하단 고정 바(휴대폰): 카카오톡 + 내 상황 보내기 두 버튼, 아래 safe-area 여백 포함.
+
+## 휴대폰 규칙 (1023px 이하 메뉴 버튼, 639px 이하 한 줄 배치)
+
+- 첫 화면: 제목 → 설명 → 주 버튼 → 보조 버튼 순서로 사진보다 먼저 보인다. 사진은 숫자 아래 220px.
+- 제목(h1)은 360px 폭에서도 화면 밖으로 나가지 않게 clamp로 줄인다.
+- 본문 16px, 메타·라벨은 14px 아래로 내리지 않는다.
+- 누르는 것은 높이 44px 이상(주 버튼 48px), 체크박스는 라벨 전체를 누를 수 있게.
+- 여러 장 카드(합격증)와 많은 분류(질문)는 옆으로 넘기기. 세로로 길게 쌓지 않는다.
+- 옆 여백 20px, 섹션 위아래 56/48px.
+- 사진은 휴대폰용 작은 WebP를 먼저 받고, 첫 화면 사진만 바로 불러오며 나머지는 화면에 가까워질 때 불러온다.
+
+## 하지 말 것
+
+- 작업 메모 문구("확인 중", "참고: 제3자 자료")를 화면에 남기지 않는다.
+- 협력 유학원 이름을 쓰지 않는다. 비자는 "비자 문의"로 쓰고 "대행"이라 쓰지 않는다.
+- 학생 얼굴·실명, 생성한 사람 사진을 실제 학생 사진처럼 쓰지 않는다.

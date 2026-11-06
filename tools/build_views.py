@@ -277,6 +277,40 @@ def patch_home_fonts(path):
     open(path, "w", encoding="utf-8").write(t)
 
 
+def patch_home_images(path):
+    """Home page: WebP photos (phone-sized copy where one exists), lazy loading below the fold,
+    high priority for the first photo, and a <main> landmark around the page sections."""
+    t = open(path, encoding="utf-8").read()
+    home = os.path.join(ROOT, "public/assets/home")
+
+    def webp(m):
+        name = m.group(1)
+        return "/assets/home/%s.webp" % name if os.path.exists(os.path.join(home, name + ".webp")) else m.group(0)
+    t = re.sub(r"/assets/home/([A-Za-z0-9_]+)\.jpg", webp, t)
+
+    def img(m):
+        tag = m.group(0)
+        if "loading=" in tag or "fetchPriority" in tag:
+            return tag
+        sm = re.search(r'src=\{"/assets/home/([A-Za-z0-9_]+)\.webp"\}', tag)
+        extra = ""
+        first = 'className={"layer"}' in tag
+        if sm and os.path.exists(os.path.join(home, sm.group(1) + "-800.webp")):
+            n = sm.group(1)
+            sizes = "100vw" if first else "(max-width: 1023px) 100vw, 50vw"
+            extra += ' srcSet={"/assets/home/%s-800.webp 800w, /assets/home/%s.webp 1400w"} sizes={"%s"}' % (n, n, sizes)
+        elif "src={v?.active?.img}" in tag:
+            extra += ' srcSet={`${(v?.active?.img ?? "").replace(".webp", "-800.webp")} 800w, ${v?.active?.img} 1456w`} sizes={"(max-width: 1023px) 100vw, 58vw"}'
+        extra += ' fetchPriority={"high"} decoding={"async"}' if first else ' loading={"lazy"} decoding={"async"}'
+        return tag[:-3] + extra + " />" if tag.endswith(" />") else tag
+    t = re.sub(r"<img [^>]*?/>", img, t)
+
+    if "<main" not in t and "</header>" in t and '<footer className={"closing"}>' in t:
+        t = t.replace("</header>", "</header><main>", 1)
+        t = t.replace('<footer className={"closing"}>', '</main><footer className={"closing"}>', 1)
+    open(path, "w", encoding="utf-8").write(t)
+
+
 def write_page(route, view, crumbs, title, desc, client_only):
     d = os.path.join(ROOT, "src/app", route.strip("/")) if route != "/" else os.path.join(ROOT, "src/app")
     os.makedirs(d, exist_ok=True)
@@ -341,6 +375,7 @@ for board, view, route, crumb, t, dsc, co in SITE_PAGES:
     if view == "site/Main":
         patch_main(os.path.join(ROOT, "src/views/site/Main.tsx"))
         patch_home_fonts(os.path.join(ROOT, "src/views/site/Main.tsx"))
+        patch_home_images(os.path.join(ROOT, "src/views/site/Main.tsx"))
     crumbs = [{"name": "홈", "path": "/"}] + ([{"name": crumb, "path": route}] if route != "/" else [])
     write_page(route, view, crumbs, t or ht, dsc or hd, co)
     print("ok", route)
