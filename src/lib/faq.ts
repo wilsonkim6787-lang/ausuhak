@@ -12,6 +12,7 @@ export const FAQ_CATEGORIES: { name: string; slug: string; desc: string }[] = [
   { name: "IT·경영·교육", slug: "it-business", desc: "IT, 경영·회계, 교육 전공" },
   { name: "요리·트레이드", slug: "trade", desc: "요리·호텔·기술직 과정" },
   { name: "비자와 영주권", slug: "visa", desc: "학생비자, 졸업 후 비자, 영주권" },
+  { name: "워킹홀리데이", slug: "working-holiday", desc: "나이·비용·일과 공부, 학생비자로 이어 가기" },
   { name: "학비와 생활비", slug: "costs", desc: "학비, 생활비, 예산 줄이는 법" },
   { name: "호주에서의 일상", slug: "life", desc: "집, 아르바이트, 생활 정보" },
   { name: "가족·특별한 상황", slug: "family", desc: "동반 가족, 나이, 특수한 경우" },
