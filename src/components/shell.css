@@ -113,3 +113,11 @@
   .ux-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; gap: 8px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: #FFFFFF; border-top: 1px solid rgba(28,31,36,.13); }
   .ux-bar .ux-btn { flex: 1; }
 }
+
+/* Phone: footer directory links tall enough to tap */
+@media (max-width: 639px) {
+  .ux-dir-col a { display: flex; align-items: center; min-height: 44px; }
+  .ux-crumbs a { min-height: 44px; }
+  .ux-legal a { display: inline-flex; align-items: center; min-height: 44px; }
+  .ux-logo { min-height: 44px; }
+}
