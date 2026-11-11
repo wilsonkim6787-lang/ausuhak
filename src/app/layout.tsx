@@ -9,6 +9,7 @@ import { jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
+  alternates: { types: { "application/rss+xml": SITE.url + "/rss.xml" } },
   title: { default: "호주유학 | AusUhak(호주유학)", template: "%s | AusUhak(호주유학)" },
   description: SITE.description,
   applicationName: SITE.name,

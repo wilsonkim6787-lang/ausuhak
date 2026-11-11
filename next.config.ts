@@ -14,11 +14,27 @@ const nextConfig: NextConfig = {
       ? [{ protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/**" }]
       : [],
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Permissions-Policy", value: "camera=(), geolocation=(), browsing-topics=()" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       // Old locale-prefixed URLs (next-intl era)
       { source: "/ko", destination: "/", permanent: true },
       { source: "/ko/:path*", destination: "/:path*", permanent: true },
+      // Old English-locale pages that still show up in Google: send each to its current page
+      { source: "/en/faq/:path*", destination: "/faq", permanent: true },
+      { source: "/en/news/:path*", destination: "/news/:path*", permanent: true },
       { source: "/en/:path+", destination: "/en", permanent: true },
       // Retired sections of the old site
       { source: "/consult", destination: "/#ask", permanent: true },

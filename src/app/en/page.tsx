@@ -2,7 +2,7 @@
 import { pageMeta, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import PartnersView from "@/views/site/Partners";
 
-export const metadata = pageMeta({"title": "AusUhak | Australian Education Agent in Seoul, Korea", "description": "AusUhak is a Seoul-based education agency placing Korean students into Australian universities, colleges and English schools. QEAC E240 qualified counsellor, 20 years of experience.", "path": "/en"});
+export const metadata = pageMeta({"title": "AusUhak | Australian Education Agent in Seoul, Korea", "description": "Seoul-based education agency placing Korean students into Australian universities, colleges and English schools. QEAC E240 counsellor with 20 years of experience.", "path": "/en"});
 
 const crumbs = [{"name": "홈", "path": "/"}, {"name": "For Partners", "path": "/en"}];
 

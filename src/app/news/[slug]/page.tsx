@@ -16,7 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const p = await getPost(decodeURIComponent((await params).slug));
   if (!p) return {};
   const m = pageMeta({
-    title: p.title + " - AusUhak(호주유학)",
+    // Search results cut titles near 60 characters: use the part before the dash, without the [분류] tag.
+    title: p.title.replace(/^\[[^\]]*\]\s*/, "").split(" — ")[0] + " - AusUhak(호주유학)",
     description: (p.excerpt || p.title).slice(0, 160),
     path: "/news/" + p.slug,
   });
@@ -34,7 +35,10 @@ export default async function NewsDetail({ params }: { params: Promise<{ slug: s
     headline: p.title,
     description: p.excerpt || undefined,
     datePublished: p.published_at || undefined,
-    author: { "@type": "Person", name: "Wilson Kim" },
+    dateModified: p.published_at || undefined,
+    image: SITE.url + "/og.jpg",
+    articleSection: p.category || undefined,
+    author: { "@type": "Person", "@id": SITE.url + "/#wilson", name: "Wilson Kim", url: SITE.url + "/#wilson" },
     publisher: { "@id": SITE.url + "/#org" },
     mainEntityOfPage: SITE.url + "/news/" + p.slug,
     inLanguage: "ko-KR",

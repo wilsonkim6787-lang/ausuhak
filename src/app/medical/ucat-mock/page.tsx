@@ -4,7 +4,7 @@ import PayBridge from "@/components/PayBridge";
 import ClientOnly from "@/components/ClientOnly";
 import UcatMockView from "@/views/medical/UcatMock";
 
-export const metadata = pageMeta({"title": "UCAT ANZ 실전 모의고사 - AusUhak(호주유학)", "description": "UCAT ANZ와 같은 영역 구성과 시간으로 풀어 보는 실전 모의고사입니다.", "path": "/medical/ucat-mock"});
+export const metadata = pageMeta({"title": "UCAT ANZ 실전 모의고사 | 호주 의대·치대 입학시험 - AusUhak(호주유학)", "description": "UCAT ANZ와 같은 영역 구성과 시간으로 풀어 보는 실전 모의고사입니다. 언어 추론, 의사 결정, 수리 추론, 상황 판단 영역을 시간 안에 풀고 해설로 약한 부분을 확인하세요.", "path": "/medical/ucat-mock"});
 
 const crumbs = [{"name": "홈", "path": "/"}, {"name": "의대 준비 센터", "path": "/medical"}, {"name": "UCAT 모의고사", "path": "/medical/ucat-mock"}];
 
@@ -12,6 +12,7 @@ export default function Page() {
   return (
     <div className="ux-med">
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd(crumbs))} />
+      <h1 style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>UCAT ANZ 실전 모의고사</h1>
       <PayBridge />
       <ClientOnly><UcatMockView /></ClientOnly>
     </div>

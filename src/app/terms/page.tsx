@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "이용약관 - AusUhak(호주유학)",
-  description: "AusUhak(호주유학) 웹사이트와 마이페이지 이용에 관한 약관입니다.",
+  description: "AusUhak(호주유학) 웹사이트, 마이페이지, 유료 모의고사 이용에 관한 약관입니다. 서비스 내용, 회원의 권리와 의무, 환불 기준을 확인하세요.",
   path: "/terms",
 });
 

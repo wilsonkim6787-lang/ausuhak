@@ -3,7 +3,7 @@ import { pageMeta, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import ClientOnly from "@/components/ClientOnly";
 import InterviewLabView from "@/views/medical/InterviewLab";
 
-export const metadata = pageMeta({"title": "MMI 인터뷰 연습실 - AusUhak(호주유학)", "description": "호주 의대 MMI 스테이션 문제를 시간 제한에 맞춰 연습하고 답변을 점검해 보세요.", "path": "/medical/interview-lab"});
+export const metadata = pageMeta({"title": "MMI 인터뷰 연습실 | 호주 의대 면접 스테이션 연습 - AusUhak(호주유학)", "description": "호주 의대 MMI 스테이션 문제를 실제와 같은 시간 제한에 맞춰 연습하고 답변을 점검해 보세요. 윤리·상황 판단·지원 동기 유형을 대학별 형식에 맞춰 준비할 수 있습니다.", "path": "/medical/interview-lab"});
 
 const crumbs = [{"name": "홈", "path": "/"}, {"name": "의대 준비 센터", "path": "/medical"}, {"name": "인터뷰 연습실", "path": "/medical/interview-lab"}];
 
@@ -11,6 +11,7 @@ export default function Page() {
   return (
     <div className="ux-med">
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd(crumbs))} />
+      <h1 style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>MMI 인터뷰 연습실</h1>
       <ClientOnly><InterviewLabView /></ClientOnly>
     </div>
   );

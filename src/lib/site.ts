@@ -21,11 +21,13 @@ export const SITE = {
     region: "서울특별시",
     country: "KR",
     full: "서울 강남구 역삼로 521 대종빌딩 3층",
+    lat: 37.5038,
+    lng: 127.06025,
   },
   // Add when the accounts exist; empty values are skipped everywhere.
   social: {
     instagram: "",
-    naverBlog: "",
+    naverBlog: "https://blog.naver.com/ausuhak",
     youtube: "",
   } as Record<string, string>,
 } as const;
