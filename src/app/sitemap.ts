@@ -41,7 +41,8 @@ const STATIC: [string, number][] = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+  // Date of the last content pass over the fixed pages and FAQ. Update when those change.
+  const now = new Date("2026-11-11T00:00:00+09:00");
   const [offers, posts] = await Promise.all([getOffers(), getPosts()]);
   return [
     ...STATIC.map(([p, priority]) => ({ url: p === "/" ? SITE.url : SITE.url + p, lastModified: now, priority })),

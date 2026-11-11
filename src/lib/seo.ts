@@ -44,7 +44,16 @@ export function organizationJsonLd() {
     description: SITE.description,
     telephone: SITE.phoneIntl,
     email: SITE.email,
-    founder: { "@type": "Person", name: "Wilson Kim" },
+    founder: {
+      "@type": "Person",
+      "@id": SITE.url + "/#wilson",
+      name: "Wilson Kim",
+      jobTitle: "호주 유학 상담 원장",
+      description: "호주 대학 교직원 출신, 20년 경력의 호주 유학 상담가. QEAC(호주 교육 상담사 자격) E240 보유.",
+      knowsAbout: ["호주 대학 진학", "호주 학생비자", "호주 의대 입시", "호주 간호학과", "호주 약대"],
+      hasCredential: { "@type": "EducationalOccupationalCredential", name: "QEAC (Qualified Education Agent Counsellor) E240" },
+      worksFor: { "@id": SITE.url + "/#org" },
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE.officeAddress.street,
@@ -52,6 +61,9 @@ export function organizationJsonLd() {
       addressRegion: SITE.officeAddress.region,
       addressCountry: SITE.officeAddress.country,
     },
+    geo: { "@type": "GeoCoordinates", latitude: SITE.officeAddress.lat, longitude: SITE.officeAddress.lng },
+    hasMap: "https://map.naver.com/p/search/" + encodeURIComponent(SITE.officeAddress.full),
+    priceRange: "상담 무료",
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",

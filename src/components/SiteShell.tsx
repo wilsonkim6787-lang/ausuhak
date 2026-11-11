@@ -74,7 +74,7 @@ export function SiteFooter() {
               <span>호주 대학 진학과 학생비자 상담</span>
             </div>
             <div className="ux-dir-col">
-              <h4>전공</h4>
+              <h3>전공</h3>
               <Link href="/medical">의대 준비 센터</Link>
               <Link href="/pharmacy">약대</Link>
               <Link href="/nursing">간호 · 보건</Link>
@@ -84,7 +84,7 @@ export function SiteFooter() {
               <Link href="/early-study">조기유학</Link>
             </div>
             <div className="ux-dir-col">
-              <h4>자료</h4>
+              <h3>자료</h3>
               <Link href="/faq">자주 묻는 질문</Link>
               <Link href="/offers">합격증</Link>
               <Link href="/news">소식</Link>
@@ -96,7 +96,7 @@ export function SiteFooter() {
               ))}
             </div>
             <div className="ux-dir-col ux-dir-wide">
-              <h4>연락</h4>
+              <h3>연락</h3>
               <a href={"tel:" + SITE.phone.replace(/-/g, "")}>{SITE.phone}</a>
               <a href={SITE.kakao} target="_blank" rel="noopener">카카오톡 채널</a>
               <span>{SITE.email}</span>

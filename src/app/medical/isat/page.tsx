@@ -11,6 +11,7 @@ export default function Page() {
   return (
     <div className="ux-med">
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd(crumbs))} />
+      <h1 style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>ISAT 문제은행</h1>
       <ClientOnly><PracticeView /></ClientOnly>
     </div>
   );

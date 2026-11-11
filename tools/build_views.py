@@ -22,7 +22,7 @@ SITE_PAGES = [
     ("design/project/Nursing.dc.html", "site/Nursing", "/nursing", "보건·간호", None, None, False),
     ("design/project/Pharmacy.dc.html", "site/Pharmacy", "/pharmacy", "약대", None, None, False),
     ("design/project/Business.dc.html", "site/Business", "/business", "경영·회계", None, None, False),
-    ("design/project/IT.dc.html", "site/IT", "/it", "IT", None, None, False),
+    ("design/project/IT.dc.html", "site/IT", "/it", "IT", None, "호주 IT·컴퓨터공학 학사와 비전공자용 석사 진학 루트, 필요한 영어 점수, 졸업 후 일하는 곳과 485 비자까지 학력별로 정리했습니다. 내 학력에 맞는 길은 Wilson이 먼저 알려 드립니다.", False),
     ("design/project/Cookery.dc.html", "site/Cookery", "/cookery", "요리·호텔", None, None, False),
     ("design/project/EarlyStudy.dc.html", "site/EarlyStudy", "/early-study", "조기유학", None, None, False),
     ("design/project/GeneralEnglish.dc.html", "site/GeneralEnglish", "/general-english", "어학연수", None, None, False),
@@ -31,7 +31,7 @@ SITE_PAGES = [
     ("design/project/Visa.dc.html", "site/Visa", "/visa", "비자 문의", None, None, False),
     ("design/project/Partners.dc.html", "site/Partners", "/en", "For Partners",
      "AusUhak | Australian Education Agent in Seoul, Korea",
-     "AusUhak is a Seoul-based education agency placing Korean students into Australian universities, colleges and English schools. QEAC E240 qualified counsellor, 20 years of experience.", False),
+     "Seoul-based education agency placing Korean students into Australian universities, colleges and English schools. QEAC E240 counsellor with 20 years of experience.", False),
 ]
 
 MED = "의대 준비 센터"
@@ -55,8 +55,8 @@ MED_PAGES = [
      "호주 의대 MMI 인터뷰 준비 | 대학별 형식과 기출 주제 - AusUhak(호주유학)",
      "호주 의대·치대 MMI와 패널 인터뷰의 대학별 형식, 자주 나오는 주제, 답변 구조와 연습 방법을 안내합니다.", False),
     ("med/project/InterviewLab.dc.html", "medical/InterviewLab", "/medical/interview-lab", "인터뷰 연습실",
-     "MMI 인터뷰 연습실 - AusUhak(호주유학)",
-     "호주 의대 MMI 스테이션 문제를 시간 제한에 맞춰 연습하고 답변을 점검해 보세요.", True),
+     "MMI 인터뷰 연습실 | 호주 의대 면접 스테이션 연습 - AusUhak(호주유학)",
+     "호주 의대 MMI 스테이션 문제를 실제와 같은 시간 제한에 맞춰 연습하고 답변을 점검해 보세요. 윤리·상황 판단·지원 동기 유형을 대학별 형식에 맞춰 준비할 수 있습니다.", True),
     ("med/project/Mock.dc.html", "medical/Mock", "/medical/isat-mock", "ISAT 모의고사",
      "ISAT 실전 모의고사 | 호주 의대 입학시험 - AusUhak(호주유학)",
      "실제 ISAT과 같은 시간 배분으로 풀어 보는 실전 모의고사입니다. 영역별 점수와 해설을 바로 확인할 수 있습니다.", True),
@@ -70,8 +70,8 @@ MED_PAGES = [
      "호주 의대 입시 컨설팅 서비스 - AusUhak(호주유학)",
      "호주 의대·치대·수의대 지원 전략, 원서 작성, 인터뷰 준비까지 Wilson이 직접 진행하는 서비스와 진행 방식을 안내합니다.", False),
     ("med/project/UcatMock.dc.html", "medical/UcatMock", "/medical/ucat-mock", "UCAT 모의고사",
-     "UCAT ANZ 실전 모의고사 - AusUhak(호주유학)",
-     "UCAT ANZ와 같은 영역 구성과 시간으로 풀어 보는 실전 모의고사입니다.", True),
+     "UCAT ANZ 실전 모의고사 | 호주 의대·치대 입학시험 - AusUhak(호주유학)",
+     "UCAT ANZ와 같은 영역 구성과 시간으로 풀어 보는 실전 모의고사입니다. 언어 추론, 의사 결정, 수리 추론, 상황 판단 영역을 시간 안에 풀고 해설로 약한 부분을 확인하세요.", True),
 ]
 
 
@@ -315,6 +315,55 @@ def patch_home_images(path):
     open(path, "w", encoding="utf-8").write(t)
 
 
+def board_faqs(src):
+    """FAQ pairs shown on a board page, for FAQPage structured data."""
+    m = re.search(r"const DATA = (\{.*?\});\s*$", src, re.S | re.M)
+    if m:
+        try:
+            f = json.loads(m.group(1)).get("faqs")
+            if f:
+                return [[x[0], x[1]] for x in f]
+        except Exception:
+            pass
+    m = re.search(r"const faqDefs = (\[.*?\n\s*\]);", src, re.S)
+    if m:
+        try:
+            return [[x[0], x[1]] for x in json.loads(re.sub(r",\s*\]", "]", m.group(1)))]
+        except Exception:
+            pass
+    return []
+
+
+PAGE_FAQS = {}
+
+def patch_page_images(path):
+    """Detail pages: WebP photos with a phone-sized copy, first photo loaded with priority, the rest lazily."""
+    t = open(path, encoding="utf-8").read()
+    adir = os.path.join(ROOT, "public/assets")
+
+    def webp(m):
+        return "/assets/%s.webp" % m.group(1) if os.path.exists(os.path.join(adir, m.group(1) + ".webp")) else m.group(0)
+    t = re.sub(r"/assets/([a-f0-9]{32})\.jpg", webp, t)
+    seen = [0]
+
+    def img(m):
+        tag = m.group(0)
+        if "loading=" in tag or "fetchPriority" in tag or not tag.endswith(" />"):
+            return tag
+        sm = re.search(r'src=\{"/assets/([a-f0-9]{32})\.webp"\}', tag)
+        extra = ""
+        if sm and os.path.exists(os.path.join(adir, sm.group(1) + "-800.webp")):
+            n = sm.group(1)
+            extra += ' srcSet={"/assets/%s-800.webp 800w, /assets/%s.webp 1400w"} sizes={"(max-width: 1023px) 100vw, 50vw"}' % (n, n)
+            seen[0] += 1
+            extra += ' fetchPriority={"high"} decoding={"async"}' if seen[0] == 1 else ' loading={"lazy"} decoding={"async"}'
+        else:
+            extra += ' loading={"lazy"} decoding={"async"}'
+        return tag[:-3] + extra + " />"
+    t = re.sub(r"<img [^>]*?/>", img, t)
+    open(path, "w", encoding="utf-8").write(t)
+
+
 def write_page(route, view, crumbs, title, desc, client_only):
     d = os.path.join(ROOT, "src/app", route.strip("/")) if route != "/" else os.path.join(ROOT, "src/app")
     os.makedirs(d, exist_ok=True)
@@ -358,6 +407,12 @@ def write_page(route, view, crumbs, title, desc, client_only):
     lines.append("    <BoardShell current=%s>" % json.dumps(route) if shell else ('    <div className="ux-med">' if med else "    <>"))
     if len(crumbs) > 1:
         lines.append('      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd(crumbs))} />')
+    if PAGE_FAQS.get(route):
+        lines.insert(2, 'import { faqJsonLd } from "@/lib/seo";')
+        lines.insert(2, 'import pageFaqs from "@/content/page-faqs.json";')
+        lines.append('      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(faqJsonLd((pageFaqs as Record<string, string[][]>)[%s].map(([q, a]) => ({ q, a }))))} />' % json.dumps(route))
+    if client_only and title:
+        lines.append('      <h1 style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>%s</h1>' % title.split(" | ")[0].split(" - ")[0])
     if paid:
         lines.append("      <PayBridge />")
     if client_only:
@@ -380,7 +435,13 @@ for board, view, route, crumb, t, dsc, co in SITE_PAGES:
         patch_main(os.path.join(ROOT, "src/views/site/Main.tsx"))
         patch_home_fonts(os.path.join(ROOT, "src/views/site/Main.tsx"))
         patch_home_images(os.path.join(ROOT, "src/views/site/Main.tsx"))
+    else:
+        patch_page_images(os.path.join(ROOT, "src/views/%s.tsx" % view))
     crumbs = [{"name": "홈", "path": "/"}] + ([{"name": crumb, "path": route}] if route != "/" else [])
+    if route != "/":
+        fq = board_faqs(src)
+        if fq:
+            PAGE_FAQS[route] = fq
     write_page(route, view, crumbs, t or ht, dsc or hd, co)
     print("ok", route)
 
@@ -393,3 +454,6 @@ for board, view, route, crumb, t, dsc, co in MED_PAGES:
         crumbs.append({"name": crumb, "path": route})
     write_page(route, view, crumbs, t, dsc, co)
     print("ok", route)
+
+json.dump(PAGE_FAQS, open(os.path.join(ROOT, "src/content/page-faqs.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print("page faqs", {k: len(v) for k, v in PAGE_FAQS.items()})
