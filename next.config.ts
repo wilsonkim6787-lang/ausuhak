@@ -32,6 +32,9 @@ const nextConfig: NextConfig = {
       // Old locale-prefixed URLs (next-intl era)
       { source: "/ko", destination: "/", permanent: true },
       { source: "/ko/:path*", destination: "/:path*", permanent: true },
+      // Old English-locale pages that still show up in Google: send each to its current page
+      { source: "/en/faq/:path*", destination: "/faq", permanent: true },
+      { source: "/en/news/:path*", destination: "/news/:path*", permanent: true },
       { source: "/en/:path+", destination: "/en", permanent: true },
       // Retired sections of the old site
       { source: "/consult", destination: "/#ask", permanent: true },
