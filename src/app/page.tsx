@@ -10,7 +10,11 @@ const crumbs = [{"name": "홈", "path": "/"}];
 export const revalidate = 300;
 
 export default async function Page() {
-  const posts = (await getPosts()).slice(0, 3);
+  // Latest post from each of three different categories, so the strip is not all one topic.
+  const all = await getPosts();
+  const posts: typeof all = [];
+  for (const p of all) { if (posts.length < 3 && !posts.some((x) => x.category === p.category)) posts.push(p); }
+  for (const p of all) { if (posts.length < 3 && !posts.includes(p)) posts.push(p); }
   const news = posts.length ? posts.map((p) => ({ href: `/news/${p.slug}`, cat: p.category || "소식", date: fmtDate(p.published_at), title: p.title.replace(/^\[[^\]]*\]\s*/, "").split(" — ")[0], excerpt: p.excerpt || "" })) : undefined;
   return (
     <>
