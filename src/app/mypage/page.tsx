@@ -28,12 +28,15 @@ export default async function MyPage({ searchParams }: { searchParams: Promise<R
   const { sb, user, profile } = await requireFamily();
   const familyId = profile.family_id;
 
-  const [famRes, stuRes, memRes, msgRes] = await Promise.all([
+  const [famRes, stuRes, memRes, msgRes, conRes] = await Promise.all([
     sb.from("crm_families").select("invite_code").eq("id", familyId).maybeSingle(),
     sb.from("crm_students").select("id, name_ko, profile_id, status").eq("family_id", familyId).order("created_at"),
     sb.from("crm_profiles").select("id, name, relation, role").eq("family_id", familyId).order("created_at"),
     sb.from("crm_messages").select("id, author_id, from_admin, body, created_at").eq("family_id", familyId).order("created_at", { ascending: false }).limit(200),
+    // Contracts waiting for consent or already agreed (RLS hides cancelled ones). Empty if the table is not there yet.
+    sb.from("crm_contracts").select("id, student_id, status, total_amount, sent_at, agreed_at").eq("family_id", familyId).order("sent_at", { ascending: false }),
   ]);
+  const contracts = (conRes.data ?? []) as { id: string; student_id: string; status: string; total_amount: number; sent_at: string; agreed_at: string | null }[];
   const students = ((stuRes.data ?? []) as Student[]).filter((s) => s.status !== "cancelled");
   const members = (memRes.data ?? []) as Member[];
   const msgs = ((msgRes.data ?? []) as Msg[]).slice().reverse();
@@ -87,6 +90,15 @@ export default async function MyPage({ searchParams }: { searchParams: Promise<R
     <main className="mp-main">
       {fileMissing ? <p className="mp-notice" role="alert">파일을 열 수 없습니다. 다시 눌러 보시고, 그래도 안 되면 AusUhak 메시지로 알려 주세요.</p> : null}
 
+      {contracts.map((c) => {
+        const who = students.find((s) => s.id === c.student_id)?.name_ko ?? "";
+        return c.status === "sent" ? (
+          <p key={c.id} className="mp-notice" role="status">
+            {who ? `${who} 학생의 ` : ""}유학 수속 계약서가 도착했습니다. <Link href={`/mypage/contract/${c.id}`}>내용을 확인하고 동의하기</Link>
+          </p>
+        ) : null;
+      })}
+
       {students.length > 1 ? (
         <nav className="mp-switch" aria-label="학생 고르기">
           <span className="mp-switch-label">학생</span>
@@ -120,6 +132,21 @@ export default async function MyPage({ searchParams }: { searchParams: Promise<R
         ) : null}
         {cases.length ? <Fees fees={fees} cases={cases} /> : null}
         <Messages msgs={msgs} members={members} />
+        {contracts.some((c) => c.status === "agreed") ? (
+          <section className="mp-card" data-pane="docs" aria-label="계약서">
+            <h2>계약서</h2>
+            {contracts
+              .filter((c) => c.status === "agreed")
+              .map((c) => (
+                <p key={c.id} className="mp-empty">
+                  <Link href={`/mypage/contract/${c.id}`}>
+                    {students.find((s) => s.id === c.student_id)?.name_ko ?? ""} 유학 수속 계약서
+                  </Link>{" "}
+                  · {c.agreed_at ? new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", dateStyle: "long" }).format(new Date(c.agreed_at)) : ""} 동의
+                </p>
+              ))}
+          </section>
+        ) : null}
         <FamilyCode code={inviteCode} members={members} viewerRole={profile.role} />
       </Tabs>
     </main>

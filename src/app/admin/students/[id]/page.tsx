@@ -222,6 +222,7 @@ export default async function StudentPage({
           </div>
         </div>
         <div className="ad-row">
+          <Link href={`/admin/students/${id}/contracts`} className="ad-btn sm ghost" style={{ minHeight: 44 }}>계약서</Link>
           <Link href={`${base}${base.includes("?") ? "&" : "?"}tab=msgs#tabs`} className="ad-btn sm" style={{ minHeight: 44 }}>
             메시지 보내기{unread ? ` · 새 메시지 ${unread}` : ""}
           </Link>
