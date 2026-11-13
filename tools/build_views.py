@@ -286,6 +286,9 @@ def patch_home_images(path):
     def webp(m):
         name = m.group(1)
         return "/assets/home/%s.webp" % name if os.path.exists(os.path.join(home, name + ".webp")) else m.group(0)
+    # Two major cards reuse photos from the GED and English pages; the home page has its own sized copies.
+    t = t.replace("/assets/b92847459c51b93428220d7ae07f2007.jpg", "/assets/home/ged.jpg")
+    t = t.replace("/assets/d0d3c229233fb21948d6809dd07f7142.jpg", "/assets/home/english.jpg")
     t = re.sub(r"/assets/home/([A-Za-z0-9_]+)\.jpg", webp, t)
 
     def img(m):
